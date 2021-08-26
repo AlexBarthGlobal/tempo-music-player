@@ -1,4 +1,4 @@
-npm run build (to build current version)
-npm run server (to start app)
+npm run start for webpack
+npm run server to start server
 
-Frado music player webapp.
+Tempo Music Player Webapp

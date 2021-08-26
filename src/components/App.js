@@ -3,52 +3,25 @@ import {connect} from 'react-redux'
 import Player from './Player'
 import Collections from './Collections'
 import Tempo from './Tempo'
-import LogIn from './LogIn'
-
-// This is how I change tabs: Set the state
-
-// <button onClick={() => this.setState({
-//                          screen: 'Tempo'
-//                      })}></button>
+import Screens from './Screens'
 
 class App extends React.Component {
     constructor() {
         super()
         this.state = {
-        //   screen: 'Collections', manage this in redux
-        //  playIdx: 0
+
         }; 
     };
 
-    // componentDidMount() {
-    //     console.log('mounted')
-    // }
-
     render() {
         console.log(this.props)
-        if (!this.props.user) {
-            return (
-            //    <LogIn /> 
-            <div>Yo</div>
-            )
-        };
-
-        if (this.props.screen === 'Collections') {
-            return (
-                    <Collections />
-            )
-        } else if (this.props.screen === 'Player') {
-            return (
-                    <Player />
-            )
-        } else if (this.props.screen === 'Tempo') {
-            return (
-                    <Tempo />
-            )
-        };       
+        return (
+            <div>
+                <Screens />
+                {/* <Player /> */}
+            </div>
+        );
     };
-
-
 };
 
 const mapStateToProps = (state) => {
@@ -64,3 +37,32 @@ const mapStateToProps = (state) => {
   })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
+
+
+// This is how I change tabs: Set the state
+
+// <button onClick={() => this.setState({
+//                          screen: 'Tempo'
+//                      })}></button>
+
+// sessionStorage.setItem('screen', 'Collections')
+
+// const screens = [<Collections />, <Tempo />, <Player />]
+
+
+        // if (sessionStorage.getItem('screen') === 'Collections') screen = <Collections />
+        // else if (sessionStorage.getItem('screen') === 'Tempo') screen = <Tempo />
+
+        // if (sessionStorage.getItem('screen') === 'Collections' || !this.props.screen) {
+        //     return (
+        //         <Player />
+        //     )
+        // } else if (sessionStorage.getItem('screen') === 'Player') {
+        //     return (
+        //             <Player />
+        //     )
+        // } else if (this.props.screen === 'Tempo') {
+        //     return (
+        //             <Tempo />
+        //     )
+        // };    

@@ -12,3 +12,6 @@ class Collections extends React.Component {
 }
 
 export default Collections
+
+
+{/* <button onClick={() => sessionStorage.setItem('screen', 'Tempo')}>ChangePage</button> */}

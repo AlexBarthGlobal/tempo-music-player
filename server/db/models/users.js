@@ -10,7 +10,15 @@ module.exports = db.define('users', {
           isEmail: true
         }
     },
-    password: {
+    hash: {
         type: Sequelize.STRING,
+    },
+    salt: {
+        type: Sequelize.STRING
+    },
+    userType: {
+        type: Sequelize.ENUM('USER', 'CREATOR', 'ADMIN'),
+        defaultValue: 'USER',
+        allowNull: false
     }
 });

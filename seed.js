@@ -4,7 +4,7 @@ const {Songs} = require('./server/db/index')
 
 const seed = async () => {
     try {   
-        await db.sync({ force: true})
+        await db.sync({force: true})
 
         const aSong = await Songs.create({
             songName: 'Test Song'

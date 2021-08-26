@@ -4,6 +4,7 @@ const secrets = require('../secrets')
 const passport = require('passport')
 const crypto = require('crypto')
 const api = require('./api')
+const auth = require('./api/auth')
 const path = require('path')
 
 const app = express();
@@ -35,7 +36,12 @@ app.use(express.static(path.join(__dirname, '../public')))
 
 require('./config/passport')
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 // ------------------------------------------------------
+
+app.use('/auth', auth)
 
 app.use('/api', api);
 

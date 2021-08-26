@@ -2154,7 +2154,7 @@ var Player = /*#__PURE__*/function (_React$Component) {
         src: tracks[this.state.idx],
         preload: "auto",
         autoPlay: true,
-        onEnded: this.updateIdx,
+        onEnded: this.nextTrack,
         ref: function ref(element) {
           _this2.rap = element;
         }

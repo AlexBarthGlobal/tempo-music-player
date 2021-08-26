@@ -30,7 +30,7 @@ class Player extends React.Component {
     return (
 
       <div>
-        <audio src={tracks[this.state.idx]} preload="auto" autoPlay onEnded={this.updateIdx} ref={(element) => {this.rap = element}}/> 
+        <audio src={tracks[this.state.idx]} preload="auto" autoPlay onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/> 
         <button onClick={() => this.rap.pause()}>Pause</button>
         <button onClick={() => this.rap.play()}>Play</button>
         <button onClick={() => this.nextTrack()}>Next</button>

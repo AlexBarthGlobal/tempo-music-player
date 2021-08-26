@@ -9,7 +9,8 @@
     "start": "npm run build-watch",
     "server": "nodemon ./server/app.js",
     "build-watch": "webpack -w",
-    "build": "webpack"
+    "build": "webpack",
+    "seed": "node seed.js"
   },
   "author": "",
   "license": "ISC",

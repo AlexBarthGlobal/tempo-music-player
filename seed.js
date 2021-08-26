@@ -7,7 +7,7 @@ const seed = async () => {
         await db.sync({ force: true})
 
         const aSong = await Songs.create({
-            songName: 'Test song'
+            songName: 'Test Song'
         })
 
         const anotherSong = await Songs.create({

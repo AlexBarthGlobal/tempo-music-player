@@ -28,13 +28,7 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
-// Middleware to serve static files from Build
-// app.use(express.static(path.join(__dirname, "../public")));
-
-
-// app.use(express.static(path.join(__dirname, "../public")));
-// app.use(express.static("public"));
-
+// Middleware to serve static files
 app.use(express.static(path.join(__dirname, '../public')))
 
 // -------------- Passport Authentication ---------------

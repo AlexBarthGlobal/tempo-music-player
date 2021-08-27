@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Login extends React.Component {
+class Register extends React.Component {
     constructor() {
         super()
         this.state = {
@@ -12,7 +12,7 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                Log in page
+                Register page
             </div>
         )
     };
@@ -21,4 +21,4 @@ class Login extends React.Component {
 
 }
 
-export default Login
+export default Register

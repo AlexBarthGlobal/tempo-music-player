@@ -1,3 +1,5 @@
+//modified routes
+
 const express = require('express')
 const {db} = require('./db');
 const secrets = require('../secrets')
@@ -44,20 +46,21 @@ app.use(passport.session());
 
 // ------------------------------------------------------
 
-app.use(express.static(path.join(__dirname, '../public')))
-
+// app.use(express.static(path.join(__dirname, '../src/components')))
 app.use('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'))
+  res.sendFile(path.join(__dirname, '../src/components/Login.js'))
 })
 
 app.use('/api', isAuthLogin, api);
 app.use('/auth', auth)
 
-app.use('*', isAuthLogin, (req, res) => {
+app.use(isAuthLogin, express.static(path.join(__dirname, '../public')))
+
+app.use('*', isAuth, (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'))
-});
+})
 
-
+//Error handler
 app.use((err, req, res, next) => {
   if (err) {
     console.log(err)

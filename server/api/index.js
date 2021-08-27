@@ -2,7 +2,7 @@ const router = require('express').Router();
 const isAuth = require('./authMiddleware').isAuth;
 const isAdmin = require('./authMiddleware').isAdmin;
 
-router.get('/', isAuth, (req, res, next) => {
+router.get('/', (req, res, next) => {
     res.send('<h1>Hi</h1>')
 })
 

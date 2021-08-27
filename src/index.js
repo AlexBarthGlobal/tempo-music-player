@@ -7,6 +7,8 @@ import {Provider, connect} from 'react-redux'
 import store from './ReduxStore'
 import {render} from 'react-dom'
 import {fetchUser} from './redux/isLogged'
+import Routes from './components/Routes'
+import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 
 
 const Main = class extends React.Component { 
@@ -16,7 +18,7 @@ const Main = class extends React.Component {
 
   render() {
     return (
-      <App />
+      <Routes props={this.props}/>
     )
   }
 }
@@ -31,13 +33,13 @@ const mapDispatchToProps = (dispatch) => ({
   fetchUser: () => dispatch(fetchUser())
 })
 
-const WrappedMain = connect(mapStateToProps, mapDispatchToProps)(Main)
+const WrappedMain = withRouter(connect(mapStateToProps, mapDispatchToProps)(Main))
 
 render(
   <Provider store={store}>
-  <React.StrictMode>
+  <Router>
     <WrappedMain />
-  </React.StrictMode>
+  </Router>
   </Provider>,
   document.getElementById('root')
 );

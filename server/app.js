@@ -60,7 +60,6 @@ app.use('*', isAuthLogin, (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'))
 });
 
-
 app.use((err, req, res, next) => {
   if (err) {
     console.log(err)

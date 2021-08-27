@@ -48,9 +48,9 @@ router.post('/register', (req, res, next) => {
     res.redirect('/');
 })
 
-router.get('/login', (req, res, next) => {
-    res.send('<p>Login<p>')
-})
+// router.get('/login', (req, res, next) => {
+//     res.send('<p>Login<p>')
+// })
 
 router.get('/logout', (req, res, next) => {
     req.logout();

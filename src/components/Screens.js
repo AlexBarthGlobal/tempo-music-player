@@ -19,6 +19,7 @@ class Screens extends React.Component {
 
         return (
             <div>
+                <a href="/auth/logout"><button>Logout</button></a>
                 <button onClick={() => this.setState({screen: 'Collections'})} style={this.state.screen === 'Collections' ? {display: 'none'} : {display: 'inline'}}>Home</button>
                 <button onClick={() => this.setState({screen: 'Tempo'})}>Tempo</button>
                 {screen}

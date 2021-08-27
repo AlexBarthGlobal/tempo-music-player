@@ -1,7 +1,6 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import {Provider, connect} from 'react-redux'
 import store from './ReduxStore'
@@ -13,10 +12,16 @@ import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 
 const Main = class extends React.Component { 
   componentDidMount() {
-    // this.props.fetchUser();
+    this.props.fetchUser();
   }
 
   render() {
+    if (this.props.user.isFetching) {
+      return (
+        //Loading animation while user is fetching when they refresh the page
+        <h1></h1>
+      )
+    }
     return (
       <Routes props={this.props}/>
     )

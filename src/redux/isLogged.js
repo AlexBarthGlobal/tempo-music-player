@@ -45,7 +45,9 @@ export const signUp = credentials => {
 export const login = credentials => {
   return async dispatch => {
     try {
-      const response = await axios.put('/auth/login', credentials)
+      console.log('THESE ARE CREDS', credentials)
+      const response = await axios.post('/auth/login', credentials)
+      console.log('THIS IS RESPONSE', response)
       dispatch(gotMe(response.data))
     } catch (error) {
       console.error(error)

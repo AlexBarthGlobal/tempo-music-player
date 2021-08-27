@@ -4,7 +4,29 @@ const genPassword = require('../lib/passwordUtils').genPassword;
 const connection = require('../db/database');
 const User = require('../db/models/users')
 
-router.post('/login', passport.authenticate('local', {failureRedirect: '/login-failure', successRedirect: 'login-success'}));
+router.get('/me', async (req, res, next) => {
+    try {
+      console.log(req.session)
+      if (!req.session.passport.user) {
+        res.sendStatus(401);
+      } else {
+        const user = await User.findByPk(req.session.passport.user);
+        if (!user) {
+          res.sendStatus(401);
+        } else {
+          res.json(user);
+        }
+      }
+    } catch (error) {
+      next(error);
+    }
+  });
+
+router.post('/login', passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}));
+
+router.get('/', (req, res, next) => {
+    res.redirect('/')
+})
 
 router.post('/register', (req, res, next) => {
     const saltHash = genPassword(req.body.pw);
@@ -13,7 +35,7 @@ router.post('/register', (req, res, next) => {
     const hash = saltHash.hash;
 
     const newUser = new User({
-        username: req.body.uname,
+        email: req.body.uname,
         hash: hash,
         salt: salt
     })
@@ -23,15 +45,16 @@ router.post('/register', (req, res, next) => {
         console.log(user);
     });
 
-    res.redirect('/login');
-})
-
-router.get('/', (req, res, next) => {
-    res.send('<p>Register<p>')
+    res.redirect('/');
 })
 
 router.get('/login', (req, res, next) => {
     res.send('<p>Login<p>')
+})
+
+router.get('/logout', (req, res, next) => {
+    req.logout();
+    res.redirect('/login')
 })
 
 module.exports = router;

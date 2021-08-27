@@ -27,8 +27,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
     console.log('Mapping state')
     return { 
-    //   user: state.user,
-    //   screen: state.screen
+        user: state.userReducer.user
     }
   }
   

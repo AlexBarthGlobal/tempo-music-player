@@ -61,9 +61,10 @@ app.use('*', isAuthLogin, (req, res) => {
 });
 
 app.use((err, req, res, next) => {
+  console.log(req.session)
   if (err) {
     console.log(err)
-    res.send('<h1>There was an error, please try again.</h1>')
+    res.status(401).send('<h1>There was an error, please try again.</h1>')
   }
 });
 

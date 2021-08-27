@@ -44,9 +44,12 @@ app.use(passport.session());
 
 // ------------------------------------------------------
 
-app.use(express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.join(__dirname, '../public'), {
+  index: "false"
+}))
 
 app.use('/login', (req, res) => {
+  if (req.isAuthenticated()) res.redirect('/')
   res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
@@ -66,3 +69,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(process.env.PORT || 8080);
+
+module.exports = {app}

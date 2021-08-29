@@ -2,7 +2,7 @@ const router = require('express').Router();
 const passport = require('passport');
 const genPassword = require('../lib/passwordUtils').genPassword;
 const connection = require('../db/database');
-const User = require('../db/models/users')
+const User = require('../db/models/user')
 
 router.get('/me', async (req, res, next) => {
     try {

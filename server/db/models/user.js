@@ -20,5 +20,13 @@ module.exports = db.define('users', {
         type: Sequelize.ENUM('USER', 'CREATOR', 'ADMIN'),
         defaultValue: 'CREATOR',
         allowNull: false
+    },
+    listened: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        defaultValue:[],
+    },
+    metronomeSound: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: 1
     }
 });

@@ -18,7 +18,7 @@ module.exports = db.define('users', {
     },
     userType: {
         type: Sequelize.ENUM('USER', 'CREATOR', 'ADMIN'),
-        defaultValue: 'USER',
+        defaultValue: 'CREATOR',
         allowNull: false
     }
 });

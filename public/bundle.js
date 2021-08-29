@@ -2446,7 +2446,6 @@ var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_1__.combineReducers)({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "fetchUser": () => (/* binding */ fetchUser),
-/* harmony export */   "signUp": () => (/* binding */ signUp),
 /* harmony export */   "login": () => (/* binding */ login),
 /* harmony export */   "logout": () => (/* binding */ logout),
 /* harmony export */   "default": () => (/* binding */ userReducer)
@@ -2525,8 +2524,18 @@ var fetchUser = function fetchUser() {
       return _ref.apply(this, arguments);
     };
   }();
-};
-var signUp = function signUp(credentials) {
+}; // export const signUp = credentials => {
+//   return async dispatch => {
+//     try {
+//       const response = await axios.post('/auth/signup', credentials)
+//       dispatch(gotMe(response.data))
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   };
+// }
+
+var login = function login(credentials) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
       var response;
@@ -2535,26 +2544,28 @@ var signUp = function signUp(credentials) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/auth/signup', credentials);
+              console.log('THESE ARE CREDS', credentials);
+              _context2.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/auth/login', credentials);
 
-            case 3:
+            case 4:
               response = _context2.sent;
+              console.log('THIS IS RESPONSE', response);
               dispatch(gotMe(response.data));
-              _context2.next = 10;
+              _context2.next = 12;
               break;
 
-            case 7:
-              _context2.prev = 7;
+            case 9:
+              _context2.prev = 9;
               _context2.t0 = _context2["catch"](0);
               console.error(_context2.t0);
 
-            case 10:
+            case 12:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 7]]);
+      }, _callee2, null, [[0, 9]]);
     }));
 
     return function (_x2) {
@@ -2562,75 +2573,37 @@ var signUp = function signUp(credentials) {
     };
   }();
 };
-var login = function login(credentials) {
+var logout = function logout() {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
-      var response;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.prev = 0;
-              console.log('THESE ARE CREDS', credentials);
-              _context3.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/auth/login', credentials);
-
-            case 4:
-              response = _context3.sent;
-              console.log('THIS IS RESPONSE', response);
-              dispatch(gotMe(response.data));
-              _context3.next = 12;
-              break;
-
-            case 9:
-              _context3.prev = 9;
-              _context3.t0 = _context3["catch"](0);
-              console.error(_context3.t0);
-
-            case 12:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[0, 9]]);
-    }));
-
-    return function (_x3) {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-};
-var logout = function logout() {
-  return /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch) {
-      return regeneratorRuntime.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.prev = 0;
-              _context4.next = 3;
+              _context3.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().delete('/auth/logout');
 
             case 3:
               dispatch(gotMe({}));
-              _context4.next = 9;
+              _context3.next = 9;
               break;
 
             case 6:
-              _context4.prev = 6;
-              _context4.t0 = _context4["catch"](0);
-              console.error(_context4.t0);
+              _context3.prev = 6;
+              _context3.t0 = _context3["catch"](0);
+              console.error(_context3.t0);
 
             case 9:
             case "end":
-              return _context4.stop();
+              return _context3.stop();
           }
         }
-      }, _callee4, null, [[0, 6]]);
+      }, _callee3, null, [[0, 6]]);
     }));
 
-    return function (_x4) {
-      return _ref4.apply(this, arguments);
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
     };
   }();
 };

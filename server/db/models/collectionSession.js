@@ -10,7 +10,7 @@ module.exports = db.define('collectionSessions', {
     },
     active: {
         type: Sequelize.BOOLEAN,
-        defaultValue:1,
+        defaultValue: true,
     },
     playIdx: {
         type: Sequelize.SMALLINT,

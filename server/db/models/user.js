@@ -27,6 +27,6 @@ module.exports = db.define('users', {
     },
     metronomeSound: {
         type: Sequelize.BOOLEAN,
-        defaultValue: 1
+        defaultValue: true
     }
 });

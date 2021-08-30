@@ -10,6 +10,11 @@ module.exports = db.define('users', {
           isEmail: true
         }
     },
+    // displayName: {
+    //     type: Sequelize.STRING,
+    //     unique: true,
+    //     allowNull: false,
+    // },
     hash: {
         type: Sequelize.STRING,
     },

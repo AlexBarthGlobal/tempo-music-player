@@ -2,17 +2,18 @@ const db = require('./database');
 const Song = require('./models/song')
 const User = require('./models/user')
 const Collection = require('./models/collection')
-const CollectionSession = require('./models/collectionSession')
+const CollectionSession = require('./models/collectionSession');
 
-User.hasMany(Collection)
-// Collection.belongsToMany(User)
+User.hasMany(CollectionSession);
+CollectionSession.belongsTo(User);
+Collection.hasMany(CollectionSession);
+CollectionSession.belongsTo(Collection);
 
-User.hasMany(CollectionSession) // {through: Collection}
-CollectionSession.belongsTo(User) // {through: Collection}
+User.belongsToMany(Collection, {through: 'userCollection'});
+Collection.belongsToMany(User, {through: 'userCollection'});
 
-Collection.hasMany(Song)
-// Song.belongsToMany(Collection)
-
+// Using userCollection as simply a table that contains all of the relationships between Users and Collections
+// It contains only the PKs of Users and Collections, so it's low memory.
 
 module.exports = {
     db,

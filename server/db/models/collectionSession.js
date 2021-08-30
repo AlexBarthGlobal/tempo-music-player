@@ -18,7 +18,7 @@ module.exports = db.define('collectionSessions', {
     },
     playQueue: {
         type: Sequelize.ARRAY(Sequelize.INTEGER),
-        defaultValue:[]
+        defaultValue:[],
     },
     timeElapsed: {
         type: Sequelize.SMALLINT

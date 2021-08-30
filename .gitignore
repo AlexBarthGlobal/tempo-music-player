@@ -23,3 +23,5 @@ npm-debug.log*
 
 server/config/config.json
 server/config/passport.js
+
+notes

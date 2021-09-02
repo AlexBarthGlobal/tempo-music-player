@@ -6,7 +6,7 @@ const User = require('../db/models/user')
 
 router.get('/me', async (req, res, next) => {
     try {
-      console.log(req.session)
+      // console.log(req.session)
       if (!req.session.passport.user) {
         res.sendStatus(401);
       } else {

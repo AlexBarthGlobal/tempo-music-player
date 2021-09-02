@@ -3,10 +3,11 @@ import React from 'react';
 class Collections extends React.Component {
 
     render() {
-
         return (
             <div>
-                Collections
+                <div className='screenTitle'>
+                    Collections
+                </div>
             </div>
         )
     };

@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+a {
+  display: inherit;
+  text-decoration: none;  
+}
+
+.screenTitle {
+  font-size: 2em;
+  text-align: center;
+}
+
+.topButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.secondButtons {
+  text-align: right;
+}

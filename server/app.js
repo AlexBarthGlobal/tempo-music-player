@@ -16,7 +16,7 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const dbStore = new SequelizeStore({db})
 
-dbStore.sync({force: true}); //dbStore is only the Session table. The sessions on the server reset when the server is restarted if it is {force: true}
+dbStore.sync(); //dbStore is only the Session table. The sessions on the server reset when the server is restarted if it is {force: true}
 
 app.use(session({
   secret: secrets.sessionSecret,

@@ -1914,10 +1914,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _Player__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Player */ "./src/components/Player.js");
-/* harmony import */ var _Collections__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Collections */ "./src/components/Collections.js");
-/* harmony import */ var _Tempo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Tempo */ "./src/components/Tempo.js");
-/* harmony import */ var _Screens__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Screens */ "./src/components/Screens.js");
+/* harmony import */ var _Collections__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Collections */ "./src/components/Collections.js");
+/* harmony import */ var _Tempo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Tempo */ "./src/components/Tempo.js");
+/* harmony import */ var _PlayerScreen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PlayerScreen */ "./src/components/PlayerScreen.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1946,7 +1945,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -1958,15 +1956,53 @@ var App = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, App);
 
     _this = _super.call(this);
-    _this.state = {};
+    _this.state = {
+      screenStr: 'Collections',
+      screen: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null),
+      idx: 0
+    }; // this.nextTrack = this.nextTrack.bind(this);
+    // this.prevTrack = this.prevTrack.bind(this);
+
     return _this;
   }
 
   _createClass(App, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       console.log(this.props);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Screens__WEBPACK_IMPORTED_MODULE_5__.default, null));
+      var homeLogout = this.state.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+        href: "/auth/logout"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Logout")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: function onClick() {
+          return _this2.setState({
+            screen: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null),
+            screenStr: 'Collections'
+          });
+        }
+      }, "Home");
+      var createOrAddToCollection = this.state.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.state.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null;
+      var clearListened = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Clear Listened");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "topButtons"
+      }, homeLogout, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "secondButtons"
+      }, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.screen, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: function onClick() {
+          return _this2.setState({
+            screen: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, null),
+            screenStr: 'Tempo'
+          });
+        }
+      }, "TempoScr"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: function onClick() {
+          return _this2.setState({
+            screen: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_4__.default, null),
+            screenStr: 'PlayerScreen'
+          });
+        }
+      }, "PlayerScr")));
     }
   }]);
 
@@ -1986,27 +2022,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {};
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(App)); // This is how I change tabs: Set the state
-// <button onClick={() => this.setState({
-//                          screen: 'Tempo'
-//                      })}></button>
-// sessionStorage.setItem('screen', 'Collections')
-// const screens = [<Collections />, <Tempo />, <Player />]
-// if (sessionStorage.getItem('screen') === 'Collections') screen = <Collections />
-// else if (sessionStorage.getItem('screen') === 'Tempo') screen = <Tempo />
-// if (sessionStorage.getItem('screen') === 'Collections' || !this.props.screen) {
-//     return (
-//         <Player />
-//     )
-// } else if (sessionStorage.getItem('screen') === 'Player') {
-//     return (
-//             <Player />
-//     )
-// } else if (this.props.screen === 'Tempo') {
-//     return (
-//             <Tempo />
-//     )
-// };
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(App));
 
 /***/ }),
 
@@ -2060,7 +2076,9 @@ var Collections = /*#__PURE__*/function (_React$Component) {
   _createClass(Collections, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Collections");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "screenTitle"
+      }, "Collections"));
     }
   }]);
 
@@ -2108,10 +2126,10 @@ var Login = function Login() {
 
 /***/ }),
 
-/***/ "./src/components/Player.js":
-/*!**********************************!*\
-  !*** ./src/components/Player.js ***!
-  \**********************************/
+/***/ "./src/components/PlayerScreen.js":
+/*!****************************************!*\
+  !*** ./src/components/PlayerScreen.js ***!
+  \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2142,81 +2160,32 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
- // This will be coming from Redux
 
-var tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"];
 
-var Player = /*#__PURE__*/function (_React$Component) {
-  _inherits(Player, _React$Component);
+var PlayerScreen = /*#__PURE__*/function (_React$Component) {
+  _inherits(PlayerScreen, _React$Component);
 
-  var _super = _createSuper(Player);
+  var _super = _createSuper(PlayerScreen);
 
-  function Player() {
-    var _this;
+  function PlayerScreen() {
+    _classCallCheck(this, PlayerScreen);
 
-    _classCallCheck(this, Player);
-
-    _this = _super.call(this);
-    _this.state = {
-      idx: 0
-    };
-    _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this));
-    _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
-    return _this;
+    return _super.apply(this, arguments);
   }
 
-  _createClass(Player, [{
-    key: "nextTrack",
-    value: function nextTrack() {
-      this.setState({
-        idx: this.state.idx + 1
-      });
-    }
-  }, {
-    key: "prevTrack",
-    value: function prevTrack() {
-      this.setState({
-        idx: this.state.idx - 1
-      });
-    }
-  }, {
+  _createClass(PlayerScreen, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
-        src: tracks[this.state.idx],
-        preload: "auto",
-        autoPlay: true,
-        onEnded: this.nextTrack,
-        ref: function ref(element) {
-          _this2.rap = element;
-        }
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: function onClick() {
-          return _this2.rap.pause();
-        }
-      }, "Pause"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: function onClick() {
-          return _this2.rap.play();
-        }
-      }, "Play"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: function onClick() {
-          return _this2.nextTrack();
-        }
-      }, "Next"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: function onClick() {
-          return _this2.prevTrack();
-        }
-      }, "Prev"));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "screenTitle"
+      }, "Player Screen"));
     }
   }]);
 
-  return Player;
+  return PlayerScreen;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Player);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerScreen);
 
 /***/ }),
 
@@ -2253,103 +2222,6 @@ var Routes = function Routes(props) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Routes);
-
-/***/ }),
-
-/***/ "./src/components/Screens.js":
-/*!***********************************!*\
-  !*** ./src/components/Screens.js ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Collections__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Collections */ "./src/components/Collections.js");
-/* harmony import */ var _Tempo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Tempo */ "./src/components/Tempo.js");
-/* harmony import */ var _Player__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Player */ "./src/components/Player.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
- // import {connect} from 'react-redux'
-
-
-
-
-
-var Screens = /*#__PURE__*/function (_React$Component) {
-  _inherits(Screens, _React$Component);
-
-  var _super = _createSuper(Screens);
-
-  function Screens() {
-    var _this;
-
-    _classCallCheck(this, Screens);
-
-    _this = _super.call(this);
-    _this.state = {
-      screen: 'Collections'
-    };
-    return _this;
-  }
-
-  _createClass(Screens, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var screen;
-      if (this.state.screen === 'Collections') screen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_1__.default, null);else if (this.state.screen === 'Tempo') screen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_2__.default, null);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-        href: "/auth/logout"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Logout")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: function onClick() {
-          return _this2.setState({
-            screen: 'Collections'
-          });
-        },
-        style: this.state.screen === 'Collections' ? {
-          display: 'none'
-        } : {
-          display: 'inline'
-        }
-      }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: function onClick() {
-          return _this2.setState({
-            screen: 'Tempo'
-          });
-        }
-      }, "Tempo"), screen, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Player__WEBPACK_IMPORTED_MODULE_3__.default, null));
-    }
-  }]);
-
-  return Screens;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Screens); // export default connect(mapState, mapDispatch)(Checkout)
 
 /***/ }),
 
@@ -2403,7 +2275,9 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
   _createClass(Tempo, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Tempo");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "screenTitle"
+      }, "Tempo Screen"));
     }
   }]);
 
@@ -13367,7 +13241,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;AACpC;;AAEA;EACE;aACW;AACb","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;  \n}\n\n.screenTitle {\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;AACpC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;AACnB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;  \n}\n\n.screenTitle {\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

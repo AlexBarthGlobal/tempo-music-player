@@ -1,19 +1,17 @@
 import React from 'react';
 
-class Tempo extends React.Component {
+class PlayerScreen extends React.Component {
 
     render() {
         return (
             <div>
                 <div className='screenTitle'>
-                    Tempo Screen
+                    Player Screen
                 </div>
             </div>
         )
-    };
-
-
-
+    }
 }
 
-export default Tempo
+
+export default PlayerScreen

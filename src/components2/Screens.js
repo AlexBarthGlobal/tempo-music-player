@@ -2,7 +2,8 @@ import React from 'react';
 // import {connect} from 'react-redux'
 import Collections from './Collections'
 import Tempo from './Tempo'
-import Player from './Player'
+import Player from './AudioPlayer'
+import FooterControls from './FooterControls'
 
 class Screens extends React.Component {
     constructor() {
@@ -13,6 +14,10 @@ class Screens extends React.Component {
     };
 
     render() {
+
+        const footerControls = <FooterControls />
+        if (this.state.screen === 'PlayerScreen') footerControls = null;
+
         let screen;
         if (this.state.screen === 'Collections') screen = <Collections />
         else if (this.state.screen === 'Tempo') screen = <Tempo />
@@ -23,7 +28,8 @@ class Screens extends React.Component {
                 <button onClick={() => this.setState({screen: 'Collections'})} style={this.state.screen === 'Collections' ? {display: 'none'} : {display: 'inline'}}>Home</button>
                 <button onClick={() => this.setState({screen: 'Tempo'})}>Tempo</button>
                 {screen}
-                <Player />
+                {footerControls}
+                <AudioPlayer />
             </div>
         )
     };

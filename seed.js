@@ -1,7 +1,6 @@
 const {db} = require ('./server/db/index')
-const {Songs} = require('./server/db/index')
-const {Users} = require('./server/db/index')
 const axios = require('axios')
+const {Song, User} = require('./server/db/index')
 
 const seed = async () => {
     try {   
@@ -19,13 +18,13 @@ const seed = async () => {
             uname: "alex2@gmail.com"
         })
 
-        const aSong = await Songs.create({
-            songName: 'Test Song'
-        })
+        // const aSong = await Song.create({
+        //     songName: 'Test Song'
+        // })
 
-        const anotherSong = await Songs.create({
-            songName: 'AnotherSong'
-        })
+        // const anotherSong = await Song.create({
+        //     songName: 'AnotherSong'
+        // })
 
     } catch (err) {
         console.log(err)

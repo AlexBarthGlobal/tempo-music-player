@@ -23,7 +23,7 @@ module.exports = db.define('songs', {
     },
     songURL: {
         type: Sequelize.TEXT,
-        allowNull: false,
+        // allowNull: false,
     },
     artURL: {
         type: Sequelize.TEXT,

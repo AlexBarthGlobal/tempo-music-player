@@ -1,5 +1,7 @@
 import React from 'react';
 
+const yo = "Hi"
+
 class Collections extends React.Component {
     render() {
         return (

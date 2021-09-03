@@ -12,13 +12,20 @@ import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 
 
 const Main = class extends React.Component { 
+
   async componentDidMount() {
       await this.props.fetchUser();
       if (this.props.user.id) await this.props.fetchCollectionsAndSessions();
   }
 
   render() {
-    if (this.props.user.isFetching) {
+    const isFetching = () => {
+      if (this.props.user.isFetching) return true;
+      if (this.props.collections && this.props.collections.isFetching) return true;
+      return false;
+    };
+
+    if (isFetching()) {
       return (
         //Loading animation while user is fetching when they refresh the page
         <h1></h1>

@@ -50914,7 +50914,15 @@ var Main = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.props.user.isFetching) {
+      var _this = this;
+
+      var isFetching = function isFetching() {
+        if (_this.props.user.isFetching) return true;
+        if (_this.props.collections && _this.props.collections.isFetching) return true;
+        return false;
+      };
+
+      if (isFetching()) {
         return (
           /*#__PURE__*/
           //Loading animation while user is fetching when they refresh the page

@@ -20,7 +20,7 @@ router.get('/fetchCollectionAndSessions', async (req, res, next) => {
                 }]
             }]
         });
-
+        
         res.json(user);
 
     } catch(err) {

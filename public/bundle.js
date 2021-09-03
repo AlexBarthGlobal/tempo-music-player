@@ -50889,10 +50889,15 @@ var Main = /*#__PURE__*/function (_React$Component) {
                 return this.props.fetchUser();
 
               case 2:
-                _context.next = 4;
+                if (!this.props.user.id) {
+                  _context.next = 5;
+                  break;
+                }
+
+                _context.next = 5;
                 return this.props.fetchCollectionsAndSessions();
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -50909,7 +50914,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.props.user.isFetching || this.props.collections.isFetching) {
+      if (this.props.user.isFetching) {
         return (
           /*#__PURE__*/
           //Loading animation while user is fetching when they refresh the page

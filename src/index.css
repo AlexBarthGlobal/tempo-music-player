@@ -42,3 +42,15 @@ a {
   height: 40px;
   background: rgba(128, 128, 128, 0.473);
 }
+
+.collections {
+  display: flex;
+  justify-content: space-between;
+}
+
+.collectionImage {
+  max-width: 21vw;
+  max-height: 21vh;
+  border-radius: 17px;
+}
+

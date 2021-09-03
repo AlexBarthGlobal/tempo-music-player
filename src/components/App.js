@@ -6,13 +6,13 @@ import PlayerScreen from './PlayerScreen'
 import FooterControls from './FooterControls'
 
 const tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3","https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"]
-// const tracks = []
+
 class App extends React.Component {
     constructor() {
         super()
         this.state = {
-          screenStr: 'Collections',
-          screen: <Collections />,
+          screenStr: 'Collections', //I can do a sessionStorage ternary here to remember the prev page I was on if there was one.
+          screen: <Collections setState={() => this.setState()}/>,
           idx: 0,
           playing: false
         }; 
@@ -79,15 +79,11 @@ class App extends React.Component {
 };
 
 
-
-
-
-
-
 const mapStateToProps = (state) => {
     console.log('Mapping state')
     return { 
-        user: state.userReducer.user
+        user: state.userReducer.user,
+        collections: state.collectionReducer.collections,
     }
   }
   

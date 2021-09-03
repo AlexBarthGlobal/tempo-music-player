@@ -7,10 +7,6 @@ module.exports = db.define('collections', {
         unique: false,
         allowNull: false,
     },
-    collectionSongs: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
-        defaultValue:[],
-    },
     collectionOwner: {
         type: Sequelize.SMALLINT
     },

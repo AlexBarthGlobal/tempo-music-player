@@ -1946,7 +1946,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"]; // const tracks = []
+var tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"];
 
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
@@ -1961,7 +1961,12 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
     _this.state = {
       screenStr: 'Collections',
-      screen: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null),
+      //I can do a sessionStorage ternary here to remember the prev page I was on if there was one.
+      screen: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, {
+        setState: function setState() {
+          return _this.setState();
+        }
+      }),
       idx: 0,
       playing: false
     };
@@ -2062,7 +2067,8 @@ var App = /*#__PURE__*/function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   console.log('Mapping state');
   return {
-    user: state.userReducer.user
+    user: state.userReducer.user,
+    collections: state.collectionReducer.collections
   };
 };
 
@@ -2086,6 +2092,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _SingleCollection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SingleCollection */ "./src/components/SingleCollection.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2110,6 +2118,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var Collections = /*#__PURE__*/function (_React$Component) {
   _inherits(Collections, _React$Component);
 
@@ -2124,19 +2134,44 @@ var Collections = /*#__PURE__*/function (_React$Component) {
   _createClass(Collections, [{
     key: "render",
     value: function render() {
+      var collections = this.props.collections;
+      console.log('props from collections', this.props);
+      var collectionComponents = [];
+
+      for (var key in collections) {
+        var collection = collections[key];
+        if (!collection.collectionName) break;
+        collectionComponents.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
+          collectionName: collection.collectionName,
+          collectionArt: collection.collectionArtUrl,
+          key: key
+        }));
+      }
+
+      ;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle"
-      }, "Collections"));
+      }, "Collections"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "collections"
+      }, collectionComponents));
     }
   }]);
 
   return Collections;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Collections);
-{
-  /* <button onClick={() => sessionStorage.setItem('screen', 'Tempo')}>ChangePage</button> */
-}
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    user: state.userReducer.user,
+    collections: state.collectionReducer.collections
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Collections));
 
 /***/ }),
 
@@ -2349,6 +2384,33 @@ var Routes = function Routes(props) {
 
 /***/ }),
 
+/***/ "./src/components/SingleCollection.js":
+/*!********************************************!*\
+  !*** ./src/components/SingleCollection.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var SingleCollection = function SingleCollection(props) {
+  var collectionName = props.collectionName,
+      collectionArt = props.collectionArt;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "collectionImage",
+    src: collectionArt
+  })), collectionName));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleCollection);
+
+/***/ }),
+
 /***/ "./src/components/Tempo.js":
 /*!*********************************!*\
   !*** ./src/components/Tempo.js ***!
@@ -2412,6 +2474,123 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
+/***/ "./src/redux/collections.js":
+/*!**********************************!*\
+  !*** ./src/redux/collections.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchCollectionsAndSessions": () => (/* binding */ fetchCollectionsAndSessions),
+/* harmony export */   "default": () => (/* binding */ collectionReducer)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
+var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
+
+var setFetchingStatus = function setFetchingStatus(isFetching) {
+  return {
+    type: SET_FETCHING_STATUS,
+    isFetching: isFetching
+  };
+};
+
+var gotCollectionsAndSessions = function gotCollectionsAndSessions(data) {
+  return {
+    type: FETCH_COLLECTIONS_AND_SESSIONS,
+    data: data
+  };
+};
+
+var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
+      var response;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch(setFetchingStatus(true));
+              _context.prev = 1;
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/fetchCollectionAndSessions');
+
+            case 4:
+              response = _context.sent;
+              console.log('Returned from axios', response.data.collections);
+              dispatch(gotCollectionsAndSessions(response.data.collections));
+              _context.next = 12;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              console.error(_context.t0);
+
+            case 12:
+              _context.prev = 12;
+              dispatch(setFetchingStatus(false));
+              return _context.finish(12);
+
+            case 15:
+              ;
+
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 9, 12, 15]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+var initialState = {
+  collections: {
+    isFetching: true
+  }
+};
+function collectionReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case FETCH_COLLECTIONS_AND_SESSIONS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        collections: _objectSpread({}, action.data)
+      });
+
+    case SET_FETCHING_STATUS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        collections: _objectSpread(_objectSpread({}, state.collections), {}, {
+          isFetching: action.isFetching
+        })
+      });
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
 /***/ "./src/redux/index.js":
 /*!****************************!*\
   !*** ./src/redux/index.js ***!
@@ -2423,12 +2602,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _isLogged__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isLogged */ "./src/redux/isLogged.js");
+/* harmony import */ var _collections__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collections */ "./src/redux/collections.js");
 
 
-var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_1__.combineReducers)({
-  userReducer: _isLogged__WEBPACK_IMPORTED_MODULE_0__.default
+
+var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_2__.combineReducers)({
+  userReducer: _isLogged__WEBPACK_IMPORTED_MODULE_0__.default,
+  collectionReducer: _collections__WEBPACK_IMPORTED_MODULE_1__.default
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (appReducer);
 
@@ -13365,7 +13547,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -50642,10 +50824,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ReduxStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ReduxStore */ "./src/ReduxStore.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _redux_isLogged__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./redux/isLogged */ "./src/redux/isLogged.js");
-/* harmony import */ var _components_Routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Routes */ "./src/components/Routes.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _redux_collections__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./redux/collections */ "./src/redux/collections.js");
+/* harmony import */ var _components_Routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Routes */ "./src/components/Routes.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -50678,6 +50865,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Main = /*#__PURE__*/function (_React$Component) {
   _inherits(Main, _React$Component);
 
@@ -50691,13 +50879,37 @@ var Main = /*#__PURE__*/function (_React$Component) {
 
   _createClass(Main, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.fetchUser();
-    }
+    value: function () {
+      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.props.fetchUser();
+
+              case 2:
+                _context.next = 4;
+                return this.props.fetchCollectionsAndSessions();
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
   }, {
     key: "render",
     value: function render() {
-      if (this.props.user.isFetching) {
+      if (this.props.user.isFetching || this.props.collections.isFetching) {
         return (
           /*#__PURE__*/
           //Loading animation while user is fetching when they refresh the page
@@ -50705,7 +50917,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
         );
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Routes__WEBPACK_IMPORTED_MODULE_7__.default, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Routes__WEBPACK_IMPORTED_MODULE_8__.default, {
         props: this.props
       });
     }
@@ -50715,8 +50927,10 @@ var Main = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
+  console.log(state);
   return {
-    user: state.userReducer.user
+    user: state.userReducer.user,
+    collections: state.collectionReducer.collections
   };
 };
 
@@ -50724,14 +50938,17 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchUser: function fetchUser() {
       return dispatch((0,_redux_isLogged__WEBPACK_IMPORTED_MODULE_6__.fetchUser)());
+    },
+    fetchCollectionsAndSessions: function fetchCollectionsAndSessions() {
+      return dispatch((0,_redux_collections__WEBPACK_IMPORTED_MODULE_7__.fetchCollectionsAndSessions)());
     }
   };
 };
 
-var WrappedMain = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_3__.connect)(mapStateToProps, mapDispatchToProps)(Main));
+var WrappedMain = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_9__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_3__.connect)(mapStateToProps, mapDispatchToProps)(Main));
 (0,react_dom__WEBPACK_IMPORTED_MODULE_5__.render)( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__.Provider, {
   store: _ReduxStore__WEBPACK_IMPORTED_MODULE_4__.default
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.BrowserRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(WrappedMain, null))), document.getElementById('root')); // If you want to start measuring performance in your app, pass a function
+}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.BrowserRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(WrappedMain, null))), document.getElementById('root')); // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 

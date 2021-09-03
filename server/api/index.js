@@ -2,33 +2,12 @@ const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
 const {Song, User, Collection, CollectionSession, Listened} = require('../db/index');
 
-// router.get('/', (req, res, next) => {
-//     res.send('<h1>Hi</h1>')
-// })
-
-// router.post('/addSong', (req, res, next) => {
-//     const user = User.findOne({
-//         where: {
-//            email: req.email
-//         }
-//     });
-
-//     const song = Song.create({
-//         songName: 'Hi'
-//     });
-
-//     user.addSong(song);
-// })
-
-// router.get('/', (req, res, next) => {
-//     res.send('Yo')
-// })
-
 router.get('/fetchCollectionAndSessions', async (req, res, next) => {
+
     try {
         const user = await User.findOne({
             where: {
-                id: 1
+                id: req.session.passport.user
             },
             include: [{
                 model: Collection, 
@@ -36,36 +15,18 @@ router.get('/fetchCollectionAndSessions', async (req, res, next) => {
                     model: CollectionSession,
                     required: false,
                     where: {
-                        userId: 1
+                        userId: req.session.passport.user
                     }
                 }]
             }]
         });
 
         res.json(user);
-        
+
     } catch(err) {
         console.log(err)
     }
 })
-
-
-
-// router.get('/fetchCollectionAndSessions', async (req, res, next) => {
-//     try {
-//         const user = await User.findOne({
-//             where: {
-//                 id: 1
-//             },
-//             include: [Collection]
-//         });
-
-//         res.json(user);
-        
-//     } catch(err) {
-//         console.log(err)
-//     }
-// })
 
 router.get('/fetchSongsFromCollection', async (req, res, next) => {
     try {
@@ -78,6 +39,7 @@ router.get('/fetchSongsFromCollection', async (req, res, next) => {
         })
 
         res.json(collection);
+
     } catch (err) {
         console.log(err)
     }
@@ -92,12 +54,15 @@ router.get('fetchSongsFromListened', async (req, res, next) => {
             include: [Song]
         })
 
-        res.json(listened)
+        res.json(listened);
+
     } catch (err) {
         console.log(err)
     }
 });
 
+// Figure out how to fetch by date descending, so you have most recent songs first.
+// This query should return the songs that you've listened from this session, in order.
 router.get('fetchSongsFromSession', async (req, res, next) => {
     try {
         const sessionSongs = await CollectionSession.findOne({
@@ -107,7 +72,8 @@ router.get('fetchSongsFromSession', async (req, res, next) => {
             include: [Song]
         })
 
-        res.json(sessionSongs)
+        res.json(sessionSongs);
+
     } catch (err) {
         console.log(err)
     }
@@ -119,39 +85,27 @@ router.post('/addsong', async (req, res, next) => {
             songName: req.body.songName,
             artistName: req.body.artistName
         });
-        res.json(song)
+
+        res.json(song);
 
     } catch (err) {
         next(err)
     }
 })
 
+
+
+
+
+
+
+
+
+
+
+
 router.get('/findCollection', async (req, res, next) => {
     try {
-        // const collections = Collection.findAll({
-        //     where: {
-        //         userId: req.body.userIdentification
-        //     },
-        //     include: {
-        //         model: User,
-        //         where: {
-        //             userId: req.body.userIdentification
-        //         }
-        //     }
-        // })
-
-        // const collections = Collection.findAll({
-        //     include: [{
-        //         model: User,
-        //         through: {
-        //             attributes: ['collectionId'],
-        //             where: {
-        //                 userId: req.body.userIdentification
-        //             }
-        //         }
-        //     }]
-        // })
-
         const collections = Collection.findAll({
             through: {
                 where: {
@@ -160,7 +114,7 @@ router.get('/findCollection', async (req, res, next) => {
             }
         })
 
-        res.json(collections)
+        res.json(collections);
 
     } catch (error) {
         next(error);

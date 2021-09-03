@@ -6,17 +6,19 @@ import {Provider, connect} from 'react-redux'
 import store from './ReduxStore'
 import {render} from 'react-dom'
 import {fetchUser} from './redux/isLogged'
+import {fetchCollectionsAndSessions} from './redux/collections'
 import Routes from './components/Routes'
 import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 
 
 const Main = class extends React.Component { 
-  componentDidMount() {
-    this.props.fetchUser();
+  async componentDidMount() {
+      await this.props.fetchUser();
+      await this.props.fetchCollectionsAndSessions();
   }
 
   render() {
-    if (this.props.user.isFetching) {
+    if (this.props.user.isFetching || this.props.collections.isFetching) {
       return (
         //Loading animation while user is fetching when they refresh the page
         <h1></h1>
@@ -29,13 +31,16 @@ const Main = class extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
-    user: state.userReducer.user
+    user: state.userReducer.user,
+    collections: state.collectionReducer.collections
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUser: () => dispatch(fetchUser())
+  fetchUser: () => dispatch(fetchUser()),
+  fetchCollectionsAndSessions: () => dispatch(fetchCollectionsAndSessions())
 })
 
 const WrappedMain = withRouter(connect(mapStateToProps, mapDispatchToProps)(Main))

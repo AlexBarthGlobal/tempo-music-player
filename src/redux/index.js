@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import userReducer from './isLogged'
+import collectionReducer from './collections'
 
 const appReducer = combineReducers({
-  userReducer
+  userReducer,
+  collectionReducer
 })
 
 export default appReducer

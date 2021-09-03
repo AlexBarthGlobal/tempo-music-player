@@ -1,7 +1,6 @@
 import React from 'react';
 
 // This will be coming from Redux
-const tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3","https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"]
 
 class AudioPlayer extends React.Component {
   constructor() {
@@ -25,6 +24,7 @@ class AudioPlayer extends React.Component {
       idx: this.state.idx-1
     });
   };
+
 
   render() {
     return (

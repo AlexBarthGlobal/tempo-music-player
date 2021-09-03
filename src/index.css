@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: rgb(26, 24, 24) */
+
 }
 
 code {
@@ -14,10 +16,11 @@ code {
 
 a {
   display: inherit;
-  text-decoration: none;  
+  text-decoration: none;
 }
 
 .screenTitle {
+  /* color: rgb(255, 255, 255); */
   font-size: 2em;
   text-align: center;
 }
@@ -29,4 +32,13 @@ a {
 
 .secondButtons {
   text-align: right;
+}
+
+.footer {
+  position: fixed;
+  padding: 10px 10px 0px 10px;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background: rgba(128, 128, 128, 0.473);
 }

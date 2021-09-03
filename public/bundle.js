@@ -1963,8 +1963,8 @@ var App = /*#__PURE__*/function (_React$Component) {
       screenStr: 'Collections',
       //I can do a sessionStorage ternary here to remember the prev page I was on if there was one.
       screen: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, {
-        setState: function setState() {
-          return _this.setState();
+        setState: function setState(params) {
+          return _this.setState(params);
         }
       }),
       idx: 0,
@@ -2134,7 +2134,9 @@ var Collections = /*#__PURE__*/function (_React$Component) {
   _createClass(Collections, [{
     key: "render",
     value: function render() {
-      var collections = this.props.collections;
+      var _this$props = this.props,
+          collections = _this$props.collections,
+          setState = _this$props.setState;
       console.log('props from collections', this.props);
       var collectionComponents = [];
 
@@ -2142,6 +2144,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
         var collection = collections[key];
         if (!collection.collectionName) break;
         collectionComponents.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
+          setState: setState,
           collectionName: collection.collectionName,
           collectionArt: collection.collectionArtUrl,
           key: key
@@ -2400,8 +2403,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var SingleCollection = function SingleCollection(props) {
   var collectionName = props.collectionName,
-      collectionArt = props.collectionArt;
+      collectionArt = props.collectionArt,
+      setState = props.setState;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    onClick: function onClick() {
+      return setState();
+    },
     className: "collectionImage",
     src: collectionArt
   })), collectionName));

@@ -12,7 +12,7 @@ class App extends React.Component {
         super()
         this.state = {
           screenStr: 'Collections', //I can do a sessionStorage ternary here to remember the prev page I was on if there was one.
-          screen: <Collections setState={() => this.setState()}/>,
+          screen: <Collections setState={(params) => this.setState(params)}/>,
           idx: 0,
           playing: false
         }; 

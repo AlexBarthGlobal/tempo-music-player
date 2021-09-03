@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SingleCollection = (props) => {
-    const {collectionName, collectionArt} = props;
+    const {collectionName, collectionArt, setState} = props;
     return (
         <div>
             <div>
@@ -12,7 +12,7 @@ const SingleCollection = (props) => {
             </div>
             <div>
                 <div>
-                    <img className='collectionImage' src={collectionArt}></img>
+                    <img onClick={() => setState()} className='collectionImage' src={collectionArt}></img>
                 </div>
                 {collectionName}
             </div>

@@ -50,6 +50,10 @@ const seed = async () => {
             currBPM: 143
         })
 
+        newSession.update({
+            active: false
+        })
+
         firstCollection.addCollectionSession(newSession)
         alex.addCollectionSession(newSession)
 
@@ -60,6 +64,10 @@ const seed = async () => {
 
         const secondSession = await CollectionSession.create({
             currBPM: 117
+        })
+
+        secondSession.update({
+            active: false
         })
 
         secondCollection.addCollectionSession(secondSession)

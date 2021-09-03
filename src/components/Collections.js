@@ -6,14 +6,14 @@ class Collections extends React.Component {
 
 
     render() {
-        const {collections} = this.props;
+        const {collections, setState} = this.props;
         console.log('props from collections', this.props)
 
         const collectionComponents = [];
         for (const key in collections) {
             const collection = collections[key];
             if (!collection.collectionName) break;
-            collectionComponents.push(<SingleCollection collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} key={key}/>)
+            collectionComponents.push(<SingleCollection setState={setState} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} key={key}/>)
         };
 
         return (

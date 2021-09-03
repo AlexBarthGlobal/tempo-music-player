@@ -5,9 +5,9 @@ module.exports = db.define('collectionSessions', {
     currBPM: {
         type: Sequelize.SMALLINT,
     },
-    currColor: {
-        type: Sequelize.STRING,
-    },
+    // currColor: {
+    //     type: Sequelize.STRING,
+    // },
     active: {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
@@ -17,6 +17,7 @@ module.exports = db.define('collectionSessions', {
         defaultValue:0
     },
     timeElapsed: {
-        type: Sequelize.SMALLINT
+        type: Sequelize.SMALLINT,
+        defaultValue:0
     }
 });

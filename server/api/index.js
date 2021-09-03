@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
-const {Song, User, Collection, CollectionSession} = require('../db/index');
+const {Song, User, Collection, CollectionSession, Listened} = require('../db/index');
 
 // router.get('/', (req, res, next) => {
 //     res.send('<h1>Hi</h1>')
@@ -81,8 +81,37 @@ router.get('/fetchSongsFromCollection', async (req, res, next) => {
     } catch (err) {
         console.log(err)
     }
-}) 
+})
 
+router.get('fetchSongsFromListened', async (req, res, next) => {
+    try {
+        const listened = await Listened.findOne({
+            where: {
+                userId: req.passport.userId
+            },
+            include: [Song]
+        })
+
+        res.json(listened)
+    } catch (err) {
+        console.log(err)
+    }
+});
+
+router.get('fetchSongsFromSession', async (req, res, next) => {
+    try {
+        const sessionSongs = await CollectionSession.findOne({
+            where: {
+                userId: req.passport.userId
+            },
+            include: [Song]
+        })
+
+        res.json(sessionSongs)
+    } catch (err) {
+        console.log(err)
+    }
+})
 
 router.post('/addsong', async (req, res, next) => {
     try {

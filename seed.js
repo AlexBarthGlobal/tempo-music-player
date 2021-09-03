@@ -1,5 +1,5 @@
 const axios = require('axios')
-const {db, Song, User, Collection, CollectionSession} = require ('./server/db/index')
+const {db, Song, User, Collection, CollectionSession, Listened} = require ('./server/db/index')
 
 const seed = async () => {
     try {   
@@ -65,6 +65,14 @@ const seed = async () => {
         secondCollection.addCollectionSession(secondSession)
         alex.addCollection(secondCollection)
         alex.addCollectionSession(secondSession)
+
+        const firstListened = await Listened.create({
+            timeListened: 0
+        })
+
+        alex.setListened(firstListened); //One to one
+        firstListened.addSong(aSong);
+        newSession.addSong(aSong);
 
 
     } catch (err) {

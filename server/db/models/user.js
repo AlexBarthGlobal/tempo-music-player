@@ -26,10 +26,6 @@ module.exports = db.define('users', {
         defaultValue: 'CREATOR',
         allowNull: false
     },
-    listened: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
-        defaultValue:[],
-    },
     metronomeSound: {
         type: Sequelize.BOOLEAN,
         defaultValue: true

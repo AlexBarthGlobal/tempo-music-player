@@ -1,5 +1,5 @@
 const axios = require('axios')
-const {db, Song, User, Collection} = require ('./server/db/index')
+const {db, Song, User, Collection, CollectionSession} = require ('./server/db/index')
 
 const seed = async () => {
     try {   
@@ -17,6 +17,11 @@ const seed = async () => {
             uname: "alex2@gmail.com"
         })
 
+        const firstCollection = await Collection.create({
+            collectionName: 'Cool collection',
+            collectionOwner: 1
+        })
+
         const aSong = await Song.create({
             songName: 'Test Song'
         })
@@ -25,19 +30,41 @@ const seed = async () => {
             songName: 'AnotherSong'
         })
 
+        const thirdSong = await Song.create({
+            songName: 'Third Song'
+        })
+
+        firstCollection.addSong(aSong)
+        firstCollection.addSong(anotherSong)
+
         // await axios.post('http://localhost:8080/api/addsong', {
         //     songName: 'newSong',
         //     artistName: 'randomArtist'
         // })
         
         const alex = await User.findByPk(1);
-        const newCollection = await Collection.create({
-            collectionName: 'TestCollection',
-            collectionOwner: alex.dataValues.id
+       
+        alex.addCollection(firstCollection)
+
+        const newSession = await CollectionSession.create({
+            currBPM: 143
         })
 
-        alex.addCollection(newCollection)
+        firstCollection.addCollectionSession(newSession)
+        alex.addCollectionSession(newSession)
 
+        const secondCollection = await Collection.create({
+            collectionName: 'Second Collection',
+            collectionOwner: 1
+        })
+
+        const secondSession = await CollectionSession.create({
+            currBPM: 117
+        })
+
+        secondCollection.addCollectionSession(secondSession)
+        alex.addCollection(secondCollection)
+        alex.addCollectionSession(secondSession)
 
 
     } catch (err) {

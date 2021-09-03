@@ -3,7 +3,6 @@ const {isAuth, isAdmin} = require('./authMiddleware')
 const {Song, User, Collection, CollectionSession, Listened} = require('../db/index');
 
 router.get('/fetchCollectionAndSessions', async (req, res, next) => {
-
     try {
         const user = await User.findOne({
             where: {
@@ -20,7 +19,7 @@ router.get('/fetchCollectionAndSessions', async (req, res, next) => {
                 }]
             }]
         });
-        
+
         res.json(user);
 
     } catch(err) {

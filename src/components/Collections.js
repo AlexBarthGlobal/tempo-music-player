@@ -4,16 +4,15 @@ import SingleCollection from './SingleCollection'
 
 class Collections extends React.Component {
 
-
     render() {
-        const {collections, setState} = this.props;
+        const {collections} = this.props.musicInfo;
         console.log('props from collections', this.props)
 
         const collectionComponents = [];
         for (const key in collections) {
             const collection = collections[key];
             if (!collection.collectionName) break;
-            collectionComponents.push(<SingleCollection setState={setState} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} key={key}/>)
+            collectionComponents.push(<SingleCollection collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} key={key}/>)
         };
 
         return (
@@ -33,7 +32,7 @@ class Collections extends React.Component {
 const mapStateToProps = (state) => {
     return { 
         user: state.userReducer.user,
-        collections: state.collectionReducer.collections
+        musicInfo: state.musicInfoReducer
     }
   }
   

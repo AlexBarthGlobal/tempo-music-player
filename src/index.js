@@ -6,10 +6,9 @@ import {Provider, connect} from 'react-redux'
 import store from './ReduxStore'
 import {render} from 'react-dom'
 import {fetchUser} from './redux/isLogged'
-import {fetchCollectionsAndSessions} from './redux/collections'
+import {fetchCollectionsAndSessions} from './redux/musicInfoReducer'
 import Routes from './components/Routes'
-import { BrowserRouter as Router, withRouter } from 'react-router-dom'
-
+import { BrowserRouter as Router, withRouter, Redirect } from 'react-router-dom'
 
 const Main = class extends React.Component { 
 
@@ -21,7 +20,7 @@ const Main = class extends React.Component {
   render() {
     const isFetching = () => {
       if (this.props.user.isFetching) return true;
-      if (this.props.collections && this.props.collections.isFetching) return true;
+      if (this.props.musicInfo && this.props.musicInfo.isFetching) return true;
       return false;
     };
 
@@ -31,6 +30,8 @@ const Main = class extends React.Component {
         <h1></h1>
       )
     }
+
+    // if (this.props.user.id) localStorage.setItem('userId', this.props.user.id)
     return (
       <Routes props={this.props}/>
     )
@@ -41,7 +42,7 @@ const mapStateToProps = (state) => {
   console.log(state)
   return {
     user: state.userReducer.user,
-    collections: state.collectionReducer.collections
+    musicInfo: state.musicInfoReducer
   }
 }
 

@@ -12,7 +12,7 @@ const SingleCollection = (props) => {
             </div>
             <div>
                 <div>
-                    <img onClick={() => setState()} className='collectionImage' src={collectionArt}></img>
+                    <img onClick={() => console.log('Clicked')} className='collectionImage' src={collectionArt}></img>
                 </div>
                 {collectionName}
             </div>

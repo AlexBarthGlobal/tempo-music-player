@@ -29,9 +29,10 @@ export const fetchCollectionsAndSessions = () => {
 };
 
 const initialState = {
-    collections: {
-        isFetching: true,
-    }
+    // musicInfo: {
+    //     isFetching: true,
+    // }
+    isFetching: true
 };
 
 export default function collectionReducer (state = initialState, action) {
@@ -46,11 +47,8 @@ export default function collectionReducer (state = initialState, action) {
         case SET_FETCHING_STATUS:
             return {
                 ...state,
-                collections: {
-                    ...state.collections,
                 isFetching: action.isFetching
-            }
-        };
+            };
     default:
         return state
     }

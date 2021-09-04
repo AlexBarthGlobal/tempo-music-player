@@ -3,6 +3,7 @@ const passport = require('passport');
 const genPassword = require('../lib/passwordUtils').genPassword;
 const connection = require('../db/database');
 const User = require('../db/models/user')
+const isAuthLogin = require('./authMiddleware').isAuthLogin;
 
 router.get('/me', async (req, res, next) => {
     try {
@@ -21,6 +22,14 @@ router.get('/me', async (req, res, next) => {
       next(error);
     }
   });
+
+// router.delete('/logout', (req, res, next) => {
+//   req.logout()
+//   req.session.destroy((err) => {
+//     if (err) return next(err)
+//     res.status(204).end();
+//   })
+// })
 
 router.post('/login', passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}));
 
@@ -52,7 +61,7 @@ router.post('/register', (req, res, next) => {
 //     res.send('<p>Login<p>')
 // })
 
-router.get('/logout', (req, res, next) => {
+router.get('/logout', isAuthLogin, (req, res, next) => {
     req.logout();
     res.redirect('/login')
 })

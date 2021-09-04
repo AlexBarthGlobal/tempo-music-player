@@ -1918,7 +1918,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Tempo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Tempo */ "./src/components/Tempo.js");
 /* harmony import */ var _PlayerScreen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PlayerScreen */ "./src/components/PlayerScreen.js");
 /* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
+/* harmony import */ var _redux_isLogged__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../redux/isLogged */ "./src/redux/isLogged.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1946,6 +1952,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"];
 
 var App = /*#__PURE__*/function (_React$Component) {
@@ -1960,15 +1968,10 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
     _this.state = {
-      screenStr: 'Collections',
-      //I can do a sessionStorage ternary here to remember the prev page I was on if there was one.
-      screen: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, {
-        setState: function setState(params) {
-          return _this.setState(params);
-        }
-      }),
-      idx: 0,
-      playing: false
+      screenStr: sessionStorage.getItem('screenStr') || 'Collections',
+      screen: sessionStorage.getItem('screen') || /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null),
+      playing: false //   idx: 0
+
     };
     _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this));
     _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
@@ -1979,7 +1982,10 @@ var App = /*#__PURE__*/function (_React$Component) {
 
   _createClass(App, [{
     key: "play",
-    value: function play() {
+    value: // componentDidMount() {
+    //     // if (!this.props.user.id) this.props.history.push('login');
+    // }
+    function play() {
       this.rap.play();
       this.setState({
         playing: true
@@ -2013,10 +2019,32 @@ var App = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       console.log(this.props);
+      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Redirect, {
+        to: "/login"
+      });
 
-      var logout = function logout() {
-        location.href = "/auth/logout";
-      };
+      var logout = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+          return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  // await this.props.logoutUser();
+                  // this.props.history.push('login')
+                  location.href = "/auth/logout";
+
+                case 1:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function logout() {
+          return _ref.apply(this, arguments);
+        };
+      }();
 
       var homeLogout = this.state.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: logout
@@ -2044,7 +2072,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, "Pause") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.play
       }, "Play");
-      var footerControls = this.state.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      var footerControls =
+      /*this.props.musicInfo.activeSession.playIdx && */
+      this.state.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_5__.default, {
         playPause: playPause,
@@ -2068,12 +2098,16 @@ var mapStateToProps = function mapStateToProps(state) {
   console.log('Mapping state');
   return {
     user: state.userReducer.user,
-    collections: state.collectionReducer.collections
+    musicInfo: state.musicInfoReducer
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    logoutUser: function logoutUser() {
+      return dispatch((0,_redux_isLogged__WEBPACK_IMPORTED_MODULE_6__.logout)());
+    }
+  };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(App));
@@ -2134,9 +2168,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
   _createClass(Collections, [{
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          collections = _this$props.collections,
-          setState = _this$props.setState;
+      var collections = this.props.musicInfo.collections;
       console.log('props from collections', this.props);
       var collectionComponents = [];
 
@@ -2144,7 +2176,6 @@ var Collections = /*#__PURE__*/function (_React$Component) {
         var collection = collections[key];
         if (!collection.collectionName) break;
         collectionComponents.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
-          setState: setState,
           collectionName: collection.collectionName,
           collectionArt: collection.collectionArtUrl,
           key: key
@@ -2166,7 +2197,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
-    collections: state.collectionReducer.collections
+    musicInfo: state.musicInfoReducer
   };
 };
 
@@ -2268,7 +2299,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 
-var Login = function Login() {
+var Login = function Login(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     method: "POST",
     action: "/auth/login"
@@ -2372,7 +2403,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Routes = function Routes(props) {
+var Routes = function Routes() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.BrowserRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
     exact: true,
     path: "/login",
@@ -2407,7 +2438,7 @@ var SingleCollection = function SingleCollection(props) {
       setState = props.setState;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     onClick: function onClick() {
-      return setState();
+      return console.log('Clicked');
     },
     className: "collectionImage",
     src: collectionArt
@@ -2481,10 +2512,237 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
-/***/ "./src/redux/collections.js":
-/*!**********************************!*\
-  !*** ./src/redux/collections.js ***!
-  \**********************************/
+/***/ "./src/redux/index.js":
+/*!****************************!*\
+  !*** ./src/redux/index.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _isLogged__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isLogged */ "./src/redux/isLogged.js");
+/* harmony import */ var _musicInfoReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./musicInfoReducer */ "./src/redux/musicInfoReducer.js");
+/* harmony import */ var _screens__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./screens */ "./src/redux/screens.js");
+/* harmony import */ var _screens__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_screens__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
+  userReducer: _isLogged__WEBPACK_IMPORTED_MODULE_0__.default,
+  musicInfoReducer: _musicInfoReducer__WEBPACK_IMPORTED_MODULE_1__.default,
+  screenReducer: (_screens__WEBPACK_IMPORTED_MODULE_2___default())
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (appReducer);
+
+/***/ }),
+
+/***/ "./src/redux/isLogged.js":
+/*!*******************************!*\
+  !*** ./src/redux/isLogged.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchUser": () => (/* binding */ fetchUser),
+/* harmony export */   "logout": () => (/* binding */ logout),
+/* harmony export */   "default": () => (/* binding */ userReducer)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+// import {createStore, applyMiddleware} from 'redux'
+// import loggerMiddleware from 'redux-logger'
+// import thunkMiddleware from 'redux-thunk'
+
+var GET_USER = 'GET_USER';
+var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
+var LOGOUT_USER = 'LOGOUT_USER';
+
+var gotMe = function gotMe(user) {
+  return {
+    type: GET_USER,
+    user: user
+  };
+};
+
+var logoutUser = function logoutUser() {
+  return {
+    type: LOGOUT_USER
+  };
+};
+
+var setFetchingStatus = function setFetchingStatus(isFetching) {
+  return {
+    type: SET_FETCHING_STATUS,
+    isFetching: isFetching
+  };
+};
+
+var fetchUser = function fetchUser() {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
+      var response;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch(setFetchingStatus(true));
+              _context.prev = 1;
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth/me');
+
+            case 4:
+              response = _context.sent;
+              dispatch(gotMe(response.data));
+              _context.next = 11;
+              break;
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
+              console.error(_context.t0);
+
+            case 11:
+              _context.prev = 11;
+              dispatch(setFetchingStatus(false));
+              return _context.finish(11);
+
+            case 14:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 8, 11, 14]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+}; // export const signUp = credentials => {
+//   return async dispatch => {
+//     try {
+//       const response = await axios.post('/auth/signup', credentials)
+//       dispatch(gotMe(response.data))
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   };
+// }
+
+var logout = function logout() {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth/logout');
+
+            case 3:
+              dispatch(logoutUser()); // history.push('/login')
+
+              _context2.next = 9;
+              break;
+
+            case 6:
+              _context2.prev = 6;
+              _context2.t0 = _context2["catch"](0);
+              console.error(_context2.t0);
+
+            case 9:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 6]]);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+}; // export const login = credentials => {
+//   return async dispatch => {
+//     try {
+//       console.log('THESE ARE CREDS', credentials)
+//       const response = await axios.post('/auth/login', credentials)
+//       console.log('THIS IS RESPONSE', response)
+//       dispatch(gotMe(response.data))
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   };
+// }
+// export const logout = () => {
+//   return async dispatch => {
+//     try {
+//       await axios.delete('/auth/logout')
+//       dispatch(gotMe({}))
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+// }
+
+var initialState = {
+  user: {
+    isFetching: true
+  }
+};
+function userReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case GET_USER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        user: _objectSpread({}, action.user)
+      });
+
+    case SET_FETCHING_STATUS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        user: _objectSpread(_objectSpread({}, state.user), {}, {
+          isFetching: action.isFetching
+        })
+      });
+
+    case LOGOUT_USER:
+      return {
+        user: {
+          isFetching: false
+        }
+      };
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
+/***/ "./src/redux/musicInfoReducer.js":
+/*!***************************************!*\
+  !*** ./src/redux/musicInfoReducer.js ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2570,9 +2828,10 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
   }();
 };
 var initialState = {
-  collections: {
-    isFetching: true
-  }
+  // musicInfo: {
+  //     isFetching: true,
+  // }
+  isFetching: true
 };
 function collectionReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -2586,9 +2845,7 @@ function collectionReducer() {
 
     case SET_FETCHING_STATUS:
       return _objectSpread(_objectSpread({}, state), {}, {
-        collections: _objectSpread(_objectSpread({}, state.collections), {}, {
-          isFetching: action.isFetching
-        })
+        isFetching: action.isFetching
       });
 
     default:
@@ -2598,228 +2855,38 @@ function collectionReducer() {
 
 /***/ }),
 
-/***/ "./src/redux/index.js":
-/*!****************************!*\
-  !*** ./src/redux/index.js ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./src/redux/screens.js":
+/*!******************************!*\
+  !*** ./src/redux/screens.js ***!
+  \******************************/
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _isLogged__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isLogged */ "./src/redux/isLogged.js");
-/* harmony import */ var _collections__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collections */ "./src/redux/collections.js");
-
-
-
-var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_2__.combineReducers)({
-  userReducer: _isLogged__WEBPACK_IMPORTED_MODULE_0__.default,
-  collectionReducer: _collections__WEBPACK_IMPORTED_MODULE_1__.default
-});
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (appReducer);
-
-/***/ }),
-
-/***/ "./src/redux/isLogged.js":
-/*!*******************************!*\
-  !*** ./src/redux/isLogged.js ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchUser": () => (/* binding */ fetchUser),
-/* harmony export */   "login": () => (/* binding */ login),
-/* harmony export */   "logout": () => (/* binding */ logout),
-/* harmony export */   "default": () => (/* binding */ userReducer)
-/* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-// import {createStore, applyMiddleware} from 'redux'
-// import loggerMiddleware from 'redux-logger'
-// import thunkMiddleware from 'redux-thunk'
-
-var GET_USER = 'GET_USER';
-var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
-
-var gotMe = function gotMe(user) {
-  return {
-    type: GET_USER,
-    user: user
-  };
-};
-
-var setFetchingStatus = function setFetchingStatus(isFetching) {
-  return {
-    type: SET_FETCHING_STATUS,
-    isFetching: isFetching
-  };
-};
-
-var fetchUser = function fetchUser() {
-  return /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var response;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              dispatch(setFetchingStatus(true));
-              _context.prev = 1;
-              _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth/me');
-
-            case 4:
-              response = _context.sent;
-              dispatch(gotMe(response.data));
-              _context.next = 11;
-              break;
-
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](1);
-              console.error(_context.t0);
-
-            case 11:
-              _context.prev = 11;
-              dispatch(setFetchingStatus(false));
-              return _context.finish(11);
-
-            case 14:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[1, 8, 11, 14]]);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-}; // export const signUp = credentials => {
-//   return async dispatch => {
-//     try {
-//       const response = await axios.post('/auth/signup', credentials)
-//       dispatch(gotMe(response.data))
-//     } catch (error) {
-//       console.error(error)
+// const initialState = {
+//     collections: {
+//         isFetching: true,
 //     }
-//   };
+// };
+// export default function screenReducer (state = initialState, action) {
+//     switch (action.type) {
+//         case FETCH_COLLECTIONS_AND_SESSIONS:
+//             return {
+//                 ...state,
+//                 collections: {
+//                     ...action.data
+//                 }
+//             };
+//         case SET_FETCHING_STATUS:
+//             return {
+//                 ...state,
+//                 collections: {
+//                     ...state.collections,
+//                 isFetching: action.isFetching
+//             }
+//         };
+//     default:
+//         return state
+//     }
 // }
-
-var login = function login(credentials) {
-  return /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
-      var response;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.prev = 0;
-              console.log('THESE ARE CREDS', credentials);
-              _context2.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/auth/login', credentials);
-
-            case 4:
-              response = _context2.sent;
-              console.log('THIS IS RESPONSE', response);
-              dispatch(gotMe(response.data));
-              _context2.next = 12;
-              break;
-
-            case 9:
-              _context2.prev = 9;
-              _context2.t0 = _context2["catch"](0);
-              console.error(_context2.t0);
-
-            case 12:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, null, [[0, 9]]);
-    }));
-
-    return function (_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-};
-var logout = function logout() {
-  return /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().delete('/auth/logout');
-
-            case 3:
-              dispatch(gotMe({}));
-              _context3.next = 9;
-              break;
-
-            case 6:
-              _context3.prev = 6;
-              _context3.t0 = _context3["catch"](0);
-              console.error(_context3.t0);
-
-            case 9:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[0, 6]]);
-    }));
-
-    return function (_x3) {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-};
-var initialState = {
-  user: {
-    isFetching: true
-  }
-};
-function userReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case GET_USER:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        user: _objectSpread({}, action.user)
-      });
-
-    case SET_FETCHING_STATUS:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        user: _objectSpread(_objectSpread({}, state.user), {}, {
-          isFetching: action.isFetching
-        })
-      });
-
-    default:
-      return state;
-  }
-}
 
 /***/ }),
 
@@ -50831,7 +50898,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ReduxStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ReduxStore */ "./src/ReduxStore.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _redux_isLogged__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./redux/isLogged */ "./src/redux/isLogged.js");
-/* harmony import */ var _redux_collections__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./redux/collections */ "./src/redux/collections.js");
+/* harmony import */ var _redux_musicInfoReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./redux/musicInfoReducer */ "./src/redux/musicInfoReducer.js");
 /* harmony import */ var _components_Routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Routes */ "./src/components/Routes.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
@@ -50925,7 +50992,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
 
       var isFetching = function isFetching() {
         if (_this.props.user.isFetching) return true;
-        if (_this.props.collections && _this.props.collections.isFetching) return true;
+        if (_this.props.musicInfo && _this.props.musicInfo.isFetching) return true;
         return false;
       };
 
@@ -50935,7 +51002,8 @@ var Main = /*#__PURE__*/function (_React$Component) {
           //Loading animation while user is fetching when they refresh the page
           react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null)
         );
-      }
+      } // if (this.props.user.id) localStorage.setItem('userId', this.props.user.id)
+
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Routes__WEBPACK_IMPORTED_MODULE_8__.default, {
         props: this.props
@@ -50950,7 +51018,7 @@ var mapStateToProps = function mapStateToProps(state) {
   console.log(state);
   return {
     user: state.userReducer.user,
-    collections: state.collectionReducer.collections
+    musicInfo: state.musicInfoReducer
   };
 };
 
@@ -50960,7 +51028,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0,_redux_isLogged__WEBPACK_IMPORTED_MODULE_6__.fetchUser)());
     },
     fetchCollectionsAndSessions: function fetchCollectionsAndSessions() {
-      return dispatch((0,_redux_collections__WEBPACK_IMPORTED_MODULE_7__.fetchCollectionsAndSessions)());
+      return dispatch((0,_redux_musicInfoReducer__WEBPACK_IMPORTED_MODULE_7__.fetchCollectionsAndSessions)());
     }
   };
 };

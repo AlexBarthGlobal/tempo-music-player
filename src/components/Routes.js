@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Route, NavLink, Switch, Redirect } from "react
 import Login from '../components/LogIn'
 import App from '../components/App'
 
-const Routes = (props) => {
-
+const Routes = () => {
     return (
         <Router>
             <Switch>

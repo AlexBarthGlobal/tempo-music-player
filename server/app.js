@@ -12,11 +12,12 @@ const isAuthLogin = require('./api/authMiddleware').isAuthLogin;
 const app = express();
 
 const session = require('express-session');
+const user = require('./db/models/user');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const dbStore = new SequelizeStore({db})
 
-dbStore.sync(); //dbStore is only the Session table. The sessions on the server reset when the server is restarted if it is {force: true}
+dbStore.sync({force: true}); //dbStore is only the Session table. The sessions on the server reset when the server is restarted if it is {force: true}
 
 app.use(session({
   secret: secrets.sessionSecret,
@@ -43,6 +44,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // ------------------------------------------------------
+
+// app.use(function(req, res, next) {
+//   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+//   next();
+// });
+
+app.use(function(req, res, next) {
+  res.set('Cache-Control', 'no-store');
+  next();
+});
 
 app.use(express.static(path.join(__dirname, '../public'), {
   index: "false"

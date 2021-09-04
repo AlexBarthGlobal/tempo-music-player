@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import userReducer from './isLogged'
-import collectionReducer from './collections'
+import musicInfoReducer from './musicInfoReducer'
+import screenReducer from './screens'
 
 const appReducer = combineReducers({
   userReducer,
-  collectionReducer
+  musicInfoReducer,
+  screenReducer
 })
 
 export default appReducer

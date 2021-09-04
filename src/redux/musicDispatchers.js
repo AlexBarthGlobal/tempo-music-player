@@ -35,7 +35,7 @@ const initialState = {
     isFetching: true
 };
 
-export default function collectionReducer (state = initialState, action) {
+export default function musicReducer (state = initialState, action) {
     switch (action.type) {
         case FETCH_COLLECTIONS_AND_SESSIONS:
             return {

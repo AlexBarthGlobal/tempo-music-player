@@ -5,8 +5,9 @@ import SingleCollection from './SingleCollection'
 class Collections extends React.Component {
 
     render() {
-        const {collections} = this.props.musicInfo;
         console.log('props from collections', this.props)
+        const {collections} = this.props.musicInfo;
+        
 
         const collectionComponents = [];
         for (const key in collections) {
@@ -32,7 +33,7 @@ class Collections extends React.Component {
 const mapStateToProps = (state) => {
     return { 
         user: state.userReducer.user,
-        musicInfo: state.musicInfoReducer
+        musicInfo: state.musicReducer
     }
   }
   

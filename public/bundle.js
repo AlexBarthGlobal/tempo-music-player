@@ -2145,8 +2145,8 @@ var Collections = /*#__PURE__*/function (_React$Component) {
   _createClass(Collections, [{
     key: "render",
     value: function render() {
-      var collections = this.props.musicInfo.collections;
       console.log('props from collections', this.props);
+      var collections = this.props.musicInfo.collections;
       var collectionComponents = [];
 
       for (var key in collections) {
@@ -2174,7 +2174,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
-    musicInfo: state.musicInfoReducer
+    musicInfo: state.musicReducer
   };
 };
 
@@ -2501,27 +2501,178 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _isLogged__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isLogged */ "./src/redux/isLogged.js");
-/* harmony import */ var _musicInfoReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./musicInfoReducer */ "./src/redux/musicInfoReducer.js");
-/* harmony import */ var _screens__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./screens */ "./src/redux/screens.js");
-/* harmony import */ var _screens__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_screens__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _userDispatchers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./userDispatchers */ "./src/redux/userDispatchers.js");
+/* harmony import */ var _musicDispatchers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./musicDispatchers */ "./src/redux/musicDispatchers.js");
+/* harmony import */ var _screenDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./screenDispatchers */ "./src/redux/screenDispatchers.js");
+/* harmony import */ var _screenDispatchers__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_screenDispatchers__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
 
 var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
-  userReducer: _isLogged__WEBPACK_IMPORTED_MODULE_0__.default,
-  musicInfoReducer: _musicInfoReducer__WEBPACK_IMPORTED_MODULE_1__.default,
-  screenReducer: (_screens__WEBPACK_IMPORTED_MODULE_2___default())
+  userReducer: _userDispatchers__WEBPACK_IMPORTED_MODULE_0__.default,
+  musicReducer: _musicDispatchers__WEBPACK_IMPORTED_MODULE_1__.default,
+  screenReducer: (_screenDispatchers__WEBPACK_IMPORTED_MODULE_2___default())
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (appReducer);
 
 /***/ }),
 
-/***/ "./src/redux/isLogged.js":
-/*!*******************************!*\
-  !*** ./src/redux/isLogged.js ***!
-  \*******************************/
+/***/ "./src/redux/musicDispatchers.js":
+/*!***************************************!*\
+  !*** ./src/redux/musicDispatchers.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchCollectionsAndSessions": () => (/* binding */ fetchCollectionsAndSessions),
+/* harmony export */   "default": () => (/* binding */ musicReducer)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
+var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
+
+var setFetchingStatus = function setFetchingStatus(isFetching) {
+  return {
+    type: SET_FETCHING_STATUS,
+    isFetching: isFetching
+  };
+};
+
+var gotCollectionsAndSessions = function gotCollectionsAndSessions(data) {
+  return {
+    type: FETCH_COLLECTIONS_AND_SESSIONS,
+    data: data
+  };
+};
+
+var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
+      var response;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch(setFetchingStatus(true));
+              _context.prev = 1;
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/fetchCollectionAndSessions');
+
+            case 4:
+              response = _context.sent;
+              console.log('Returned from axios', response.data.collections);
+              dispatch(gotCollectionsAndSessions(response.data.collections));
+              _context.next = 12;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              console.error(_context.t0);
+
+            case 12:
+              _context.prev = 12;
+              dispatch(setFetchingStatus(false));
+              return _context.finish(12);
+
+            case 15:
+              ;
+
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 9, 12, 15]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+var initialState = {
+  // musicInfo: {
+  //     isFetching: true,
+  // }
+  isFetching: true
+};
+function musicReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case FETCH_COLLECTIONS_AND_SESSIONS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        collections: _objectSpread({}, action.data)
+      });
+
+    case SET_FETCHING_STATUS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isFetching: action.isFetching
+      });
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
+/***/ "./src/redux/screenDispatchers.js":
+/*!****************************************!*\
+  !*** ./src/redux/screenDispatchers.js ***!
+  \****************************************/
+/***/ (() => {
+
+// const initialState = {
+//     collections: {
+//         isFetching: true,
+//     }
+// };
+// export default function screenReducer (state = initialState, action) {
+//     switch (action.type) {
+//         case FETCH_COLLECTIONS_AND_SESSIONS:
+//             return {
+//                 ...state,
+//                 collections: {
+//                     ...action.data
+//                 }
+//             };
+//         case SET_FETCHING_STATUS:
+//             return {
+//                 ...state,
+//                 collections: {
+//                     ...state.collections,
+//                 isFetching: action.isFetching
+//             }
+//         };
+//     default:
+//         return state
+//     }
+// }
+
+/***/ }),
+
+/***/ "./src/redux/userDispatchers.js":
+/*!**************************************!*\
+  !*** ./src/redux/userDispatchers.js ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2713,157 +2864,6 @@ function userReducer() {
       return state;
   }
 }
-
-/***/ }),
-
-/***/ "./src/redux/musicInfoReducer.js":
-/*!***************************************!*\
-  !*** ./src/redux/musicInfoReducer.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchCollectionsAndSessions": () => (/* binding */ fetchCollectionsAndSessions),
-/* harmony export */   "default": () => (/* binding */ collectionReducer)
-/* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-var FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
-var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
-
-var setFetchingStatus = function setFetchingStatus(isFetching) {
-  return {
-    type: SET_FETCHING_STATUS,
-    isFetching: isFetching
-  };
-};
-
-var gotCollectionsAndSessions = function gotCollectionsAndSessions(data) {
-  return {
-    type: FETCH_COLLECTIONS_AND_SESSIONS,
-    data: data
-  };
-};
-
-var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
-  return /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var response;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              dispatch(setFetchingStatus(true));
-              _context.prev = 1;
-              _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/fetchCollectionAndSessions');
-
-            case 4:
-              response = _context.sent;
-              console.log('Returned from axios', response.data.collections);
-              dispatch(gotCollectionsAndSessions(response.data.collections));
-              _context.next = 12;
-              break;
-
-            case 9:
-              _context.prev = 9;
-              _context.t0 = _context["catch"](1);
-              console.error(_context.t0);
-
-            case 12:
-              _context.prev = 12;
-              dispatch(setFetchingStatus(false));
-              return _context.finish(12);
-
-            case 15:
-              ;
-
-            case 16:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[1, 9, 12, 15]]);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-};
-var initialState = {
-  // musicInfo: {
-  //     isFetching: true,
-  // }
-  isFetching: true
-};
-function collectionReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case FETCH_COLLECTIONS_AND_SESSIONS:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        collections: _objectSpread({}, action.data)
-      });
-
-    case SET_FETCHING_STATUS:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        isFetching: action.isFetching
-      });
-
-    default:
-      return state;
-  }
-}
-
-/***/ }),
-
-/***/ "./src/redux/screens.js":
-/*!******************************!*\
-  !*** ./src/redux/screens.js ***!
-  \******************************/
-/***/ (() => {
-
-// const initialState = {
-//     collections: {
-//         isFetching: true,
-//     }
-// };
-// export default function screenReducer (state = initialState, action) {
-//     switch (action.type) {
-//         case FETCH_COLLECTIONS_AND_SESSIONS:
-//             return {
-//                 ...state,
-//                 collections: {
-//                     ...action.data
-//                 }
-//             };
-//         case SET_FETCHING_STATUS:
-//             return {
-//                 ...state,
-//                 collections: {
-//                     ...state.collections,
-//                 isFetching: action.isFetching
-//             }
-//         };
-//     default:
-//         return state
-//     }
-// }
 
 /***/ }),
 
@@ -50874,8 +50874,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _ReduxStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ReduxStore */ "./src/ReduxStore.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var _redux_isLogged__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./redux/isLogged */ "./src/redux/isLogged.js");
-/* harmony import */ var _redux_musicInfoReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./redux/musicInfoReducer */ "./src/redux/musicInfoReducer.js");
+/* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./redux/userDispatchers */ "./src/redux/userDispatchers.js");
+/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _components_Routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Routes */ "./src/components/Routes.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
@@ -51001,10 +51001,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchUser: function fetchUser() {
-      return dispatch((0,_redux_isLogged__WEBPACK_IMPORTED_MODULE_6__.fetchUser)());
+      return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_6__.fetchUser)());
     },
     fetchCollectionsAndSessions: function fetchCollectionsAndSessions() {
-      return dispatch((0,_redux_musicInfoReducer__WEBPACK_IMPORTED_MODULE_7__.fetchCollectionsAndSessions)());
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_7__.fetchCollectionsAndSessions)());
     }
   };
 };

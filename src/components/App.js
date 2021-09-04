@@ -4,7 +4,7 @@ import Collections from './Collections'
 import Tempo from './Tempo'
 import PlayerScreen from './PlayerScreen'
 import FooterControls from './FooterControls'
-import {logout} from '../redux/isLogged'
+// import {logout} from '../redux/isLogged'
 import {Redirect} from 'react-router-dom'
 
 const tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3","https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"]
@@ -59,7 +59,7 @@ class App extends React.Component {
         console.log(this.props)
         if (!this.props.user.id) return <Redirect to='/login' />;
 
-        const logout = async () => {
+        const logout = /*async*/() => {
             // await this.props.logoutUser();
             // this.props.history.push('login')
             location.href = "/auth/logout"
@@ -99,7 +99,7 @@ const mapStateToProps = (state) => {
 }
   
 const mapDispatchToProps = (dispatch) => ({
-    logoutUser: () => dispatch(logout())
+    // logoutUser: () => dispatch(logout())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -31,7 +31,6 @@ const Main = class extends React.Component {
       )
     }
 
-    // if (this.props.user.id) localStorage.setItem('userId', this.props.user.id)
     return (
       <Routes props={this.props}/>
     )

@@ -51002,8 +51002,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
           //Loading animation while user is fetching when they refresh the page
           react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null)
         );
-      } // if (this.props.user.id) localStorage.setItem('userId', this.props.user.id)
-
+      }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_Routes__WEBPACK_IMPORTED_MODULE_8__.default, {
         props: this.props

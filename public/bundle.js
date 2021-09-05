@@ -2013,7 +2013,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log(this.props);
+      console.log('Props on App.js RENDER', this.props);
       if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Redirect, {
         to: "/login"
       });
@@ -2075,10 +2075,11 @@ var App = /*#__PURE__*/function (_React$Component) {
 ;
 
 var mapStateToProps = function mapStateToProps(state) {
-  console.log('Mapping state');
+  console.log('State from App.js', state);
   return {
     user: state.userReducer.user,
-    musicInfo: state.musicInfoReducer
+    musicInfo: state.musicInfoReducer,
+    screenInfo: state.screenReducer
   };
 };
 
@@ -2504,7 +2505,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _userDispatchers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./userDispatchers */ "./src/redux/userDispatchers.js");
 /* harmony import */ var _musicDispatchers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _screenDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./screenDispatchers */ "./src/redux/screenDispatchers.js");
-/* harmony import */ var _screenDispatchers__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_screenDispatchers__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -2512,7 +2512,7 @@ __webpack_require__.r(__webpack_exports__);
 var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
   userReducer: _userDispatchers__WEBPACK_IMPORTED_MODULE_0__.default,
   musicReducer: _musicDispatchers__WEBPACK_IMPORTED_MODULE_1__.default,
-  screenReducer: (_screenDispatchers__WEBPACK_IMPORTED_MODULE_2___default())
+  screenReducer: _screenDispatchers__WEBPACK_IMPORTED_MODULE_2__.default
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (appReducer);
 
@@ -2575,30 +2575,29 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
 
             case 4:
               response = _context.sent;
-              console.log('Returned from axios', response.data.collections);
               dispatch(gotCollectionsAndSessions(response.data.collections));
-              _context.next = 12;
+              _context.next = 11;
               break;
 
-            case 9:
-              _context.prev = 9;
+            case 8:
+              _context.prev = 8;
               _context.t0 = _context["catch"](1);
               console.error(_context.t0);
 
-            case 12:
-              _context.prev = 12;
+            case 11:
+              _context.prev = 11;
               dispatch(setFetchingStatus(false));
-              return _context.finish(12);
+              return _context.finish(11);
 
-            case 15:
+            case 14:
               ;
 
-            case 16:
+            case 15:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 9, 12, 15]]);
+      }, _callee, null, [[1, 8, 11, 14]]);
     }));
 
     return function (_x) {
@@ -2638,34 +2637,40 @@ function musicReducer() {
 /*!****************************************!*\
   !*** ./src/redux/screenDispatchers.js ***!
   \****************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-// const initialState = {
-//     collections: {
-//         isFetching: true,
-//     }
-// };
-// export default function screenReducer (state = initialState, action) {
-//     switch (action.type) {
-//         case FETCH_COLLECTIONS_AND_SESSIONS:
-//             return {
-//                 ...state,
-//                 collections: {
-//                     ...action.data
-//                 }
-//             };
-//         case SET_FETCHING_STATUS:
-//             return {
-//                 ...state,
-//                 collections: {
-//                     ...state.collections,
-//                 isFetching: action.isFetching
-//             }
-//         };
-//     default:
-//         return state
-//     }
-// }
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ screenReducer)
+/* harmony export */ });
+var initialState = {
+  screenInfo: {}
+};
+function screenReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    // case FETCH_COLLECTIONS_AND_SESSIONS:
+    //     return {
+    //         ...state,
+    //         collections: {
+    //             ...action.data
+    //         }
+    //     };
+    // case SET_FETCHING_STATUS:
+    //     return {
+    //         ...state,
+    //         collections: {
+    //             ...state.collections,
+    //         isFetching: action.isFetching
+    //     }
+    // };
+    default:
+      return state;
+  }
+}
 
 /***/ }),
 
@@ -50991,7 +50996,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
-  console.log(state);
+  console.log('State from index.js', state);
   return {
     user: state.userReducer.user,
     musicInfo: state.musicInfoReducer

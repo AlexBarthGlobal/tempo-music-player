@@ -18,7 +18,6 @@ export const fetchCollectionsAndSessions = () => {
         dispatch(setFetchingStatus(true))
         try {
             const response = await axios.get('/api/fetchCollectionAndSessions')
-            console.log('Returned from axios', response.data.collections)
             dispatch(gotCollectionsAndSessions(response.data.collections))
         } catch (error) {
             console.error(error)

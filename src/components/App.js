@@ -56,7 +56,7 @@ class App extends React.Component {
     };
 
     render() {
-        console.log(this.props)
+        console.log('Props on App.js RENDER', this.props)
         if (!this.props.user.id) return <Redirect to='/login' />;
 
         const logout = /*async*/() => {
@@ -91,10 +91,11 @@ class App extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log('Mapping state')
+    console.log('State from App.js', state)
     return {
         user: state.userReducer.user,
-        musicInfo: state.musicInfoReducer
+        musicInfo: state.musicInfoReducer,
+        screenInfo: state.screenReducer
     }
 }
   

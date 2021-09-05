@@ -38,7 +38,7 @@ const Main = class extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  console.log('State from index.js', state)
   return {
     user: state.userReducer.user,
     musicInfo: state.musicInfoReducer

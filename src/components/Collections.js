@@ -7,8 +7,8 @@ class Collections extends React.Component {
     render() {
         console.log('props from collections', this.props)
         const {collections} = this.props.musicInfo;
-        const noCollections = 'No collections yet. Create a new one!'
 
+        const noCollections = 'No collections yet. Create a new one!'
         const collectionComponents = [];
         for (const key in collections) {
             const collection = collections[key];

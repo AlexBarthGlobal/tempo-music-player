@@ -2,7 +2,7 @@ const router = require('express').Router();
 const passport = require('passport');
 const genPassword = require('../lib/passwordUtils').genPassword;
 const connection = require('../db/database');
-const User = require('../db/models/user')
+const {Song, User, Collection, CollectionSession, Listened} = require('../db/index');
 const isAuthLogin = require('./authMiddleware').isAuthLogin;
 
 router.get('/me', async (req, res, next) => {
@@ -11,7 +11,21 @@ router.get('/me', async (req, res, next) => {
       if (!req.session.passport.user) {
         res.sendStatus(401);
       } else {
-        const user = await User.findByPk(req.session.passport.user);
+        // const user = await User.findByPk(req.session.passport.user);
+        const user = await User.findOne({
+          where: {
+            id: req.session.passport.user
+          },
+          include: {
+            model: Listened,
+            required: false,
+            include: {
+              model: Song,
+              required: false
+            }
+          }
+        });
+        
         if (!user) {
           res.sendStatus(401);
         } else {

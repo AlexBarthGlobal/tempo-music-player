@@ -2148,12 +2148,14 @@ var Collections = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       console.log('props from collections', this.props);
       var collections = this.props.musicInfo.collections;
+      var noCollections = 'No collections yet. Create a new one!';
       var collectionComponents = [];
 
       for (var key in collections) {
         var collection = collections[key];
         if (!collection.collectionName) break;
         collectionComponents.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
+          collectionId: collection.id,
           collectionName: collection.collectionName,
           collectionArt: collection.collectionArtUrl,
           key: key
@@ -2165,7 +2167,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
         className: "screenTitle"
       }, "Collections"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "collections"
-      }, collectionComponents));
+      }, collectionComponents.length ? collectionComponents : noCollections));
     }
   }]);
 
@@ -2411,16 +2413,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SingleCollection = function SingleCollection(props) {
-  var collectionName = props.collectionName,
-      collectionArt = props.collectionArt,
-      setState = props.setState;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+  var collectionId = props.collectionId,
+      collectionName = props.collectionName,
+      collectionArt = props.collectionArt;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     onClick: function onClick() {
-      return console.log('Clicked');
-    },
+      return console.log("".concat(collectionId));
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "collectionImage",
     src: collectionArt
-  })), collectionName));
+  })), collectionName);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleCollection);
@@ -2695,6 +2698,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -2730,7 +2739,8 @@ var setFetchingStatus = function setFetchingStatus(isFetching) {
 var fetchUser = function fetchUser() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var response;
+      var response, listenedSongs, _iterator, _step, song;
+
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -2742,26 +2752,45 @@ var fetchUser = function fetchUser() {
 
             case 4:
               response = _context.sent;
+              console.log('This is response', response.data.listened);
+              listenedSongs = {};
+              _iterator = _createForOfIteratorHelper(response.data.listened.songs);
+
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  song = _step.value;
+                  delete song.listenedSongs;
+                  listenedSongs[song.id] = song;
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
+              }
+
+              ;
+              response.data.listened.songs = listenedSongs;
+              console.log('This is NEW response', listenedSongs);
               dispatch(gotMe(response.data));
-              _context.next = 11;
+              _context.next = 18;
               break;
 
-            case 8:
-              _context.prev = 8;
+            case 15:
+              _context.prev = 15;
               _context.t0 = _context["catch"](1);
               console.error(_context.t0);
 
-            case 11:
-              _context.prev = 11;
+            case 18:
+              _context.prev = 18;
               dispatch(setFetchingStatus(false));
-              return _context.finish(11);
+              return _context.finish(18);
 
-            case 14:
+            case 21:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 8, 11, 14]]);
+      }, _callee, null, [[1, 15, 18, 21]]);
     }));
 
     return function (_x) {

@@ -26,6 +26,16 @@ export const fetchUser = () => {
     dispatch(setFetchingStatus(true))
     try {
       const response = await axios.get('/auth/me')
+      console.log('This is response', response.data.listened)
+      const listenedSongs = {};
+      for (const song of response.data.listened.songs) {
+        delete song.listenedSongs
+        listenedSongs[song.id] = song
+      };
+      response.data.listened.songs = listenedSongs;
+
+      console.log('This is NEW response', listenedSongs)
+
       dispatch(gotMe(response.data))
     } catch (error) {
       console.error(error)

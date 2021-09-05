@@ -1,21 +1,13 @@
 import React from 'react';
 
 const SingleCollection = (props) => {
-    const {collectionName, collectionArt, setState} = props;
+    const {collectionId, collectionName, collectionArt} = props;
     return (
-        <div>
+        <div onClick={() => console.log(`${collectionId}`)}>
             <div>
-
-
-
-
+                <img className='collectionImage' src={collectionArt}></img>
             </div>
-            <div>
-                <div>
-                    <img onClick={() => console.log('Clicked')} className='collectionImage' src={collectionArt}></img>
-                </div>
-                {collectionName}
-            </div>
+            {collectionName}
         </div>
     )
 };

@@ -12,10 +12,27 @@ const seed = async () => {
             uname: "alex@gmail.com"
         })
 
+        const alex = await User.findByPk(1);
+
+        const firstListened = await Listened.create({
+            timeListened: 0
+        })
+
+        await alex.setListened(firstListened); //One to one
+
         await axios.post('http://localhost:8080/auth/register', {
             pw: "12345", 
             uname: "alex2@gmail.com"
         })
+
+        const alex2 = await User.findByPk(2);
+
+        const secondListened = await Listened.create({
+            timeListened: 0
+        })
+
+        await alex2.setListened(secondListened)
+        
 
         const firstCollection = await Collection.create({
             collectionName: 'Cool collection',
@@ -30,32 +47,32 @@ const seed = async () => {
             songName: 'AnotherSong'
         })
 
+        secondListened.addSong(anotherSong)
+
         const thirdSong = await Song.create({
             songName: 'Third Song'
         })
 
-        firstCollection.addSong(aSong)
-        firstCollection.addSong(anotherSong)
+        await firstCollection.addSong(aSong)
+        await firstCollection.addSong(anotherSong)
 
         // await axios.post('http://localhost:8080/api/addsong', {
         //     songName: 'newSong',
         //     artistName: 'randomArtist'
         // })
         
-        const alex = await User.findByPk(1);
-       
-        alex.addCollection(firstCollection)
+        
 
         const newSession = await CollectionSession.create({
             currBPM: 143
         })
 
-        newSession.update({
+        await newSession.update({
             active: false
         })
 
-        firstCollection.addCollectionSession(newSession)
-        alex.addCollectionSession(newSession)
+        await firstCollection.addCollectionSession(newSession)
+        await alex.addCollectionSession(newSession)
 
         const secondCollection = await Collection.create({
             collectionName: 'Second Collection',
@@ -66,21 +83,20 @@ const seed = async () => {
             currBPM: 117
         })
 
-        secondSession.update({
+        await secondSession.update({
             active: false
         })
 
-        secondCollection.addCollectionSession(secondSession)
-        alex.addCollection(secondCollection)
-        alex.addCollectionSession(secondSession)
+        await secondCollection.addCollectionSession(secondSession)
+        await alex.addCollection(secondCollection)
+        await alex.addCollectionSession(secondSession)
 
-        const firstListened = await Listened.create({
-            timeListened: 0
-        })
+        
+        await firstListened.addSong(aSong);
+        await firstListened.addSong(thirdSong);
+        await newSession.addSong(aSong);
 
-        alex.setListened(firstListened); //One to one
-        firstListened.addSong(aSong);
-        newSession.addSong(aSong);
+        await alex.addCollection(firstCollection)
 
 
     } catch (err) {

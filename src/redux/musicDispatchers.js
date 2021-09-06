@@ -18,7 +18,28 @@ export const fetchCollectionsAndSessions = () => {
         dispatch(setFetchingStatus(true))
         try {
             const response = await axios.get('/api/fetchCollectionAndSessions')
-            dispatch(gotCollectionsAndSessions(response.data.collections))
+            console.log('FETCHED COLLECTIONS & SESSIONS', response.data)
+            let activeSession;
+            for (const collection of response.data.collections) {
+                if (collection.collectionSessions) {
+                    if (collection.collectionSessions[0].active === true) {
+                        activeSession = collection.collectionSessions[0];
+                        break;
+                    };
+                };
+            };
+            console.log('THIS IS THE ACTIVE SESSION', activeSession)
+            if (activeSession) {
+                // console.log('YOOOOOOOO')
+                // get all songs from the session descending order so you get most recent songs first
+                const sessionSongs = await axios.post('/api/fetchSongsFromSession', {data: activeSession.id});
+                console.log('SESSIONSONGS THUNK', sessionSongs)
+                // activeSession.songs = [];
+                // if (sessionSongs) {
+                //     // loop over these
+                // }
+            }
+            dispatch(gotCollectionsAndSessions({collectionsAndSessions: response.data.collections, activeSession}))
         } catch (error) {
             console.error(error)
         } finally {
@@ -37,11 +58,11 @@ const initialState = {
 export default function musicReducer (state = initialState, action) {
     switch (action.type) {
         case FETCH_COLLECTIONS_AND_SESSIONS:
+            console.log('FROM MUSIC REDUCER', action)
             return {
                 ...state,
-                collections: {
-                    ...action.data
-                }
+                collections: action.data.collectionsAndSessions,
+                activeSession: action.data.activeSession 
             };
         case SET_FETCHING_STATUS:
             return {

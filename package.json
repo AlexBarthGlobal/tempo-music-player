@@ -10,7 +10,8 @@
     "server": "nodemon ./server/app.js",
     "build-watch": "webpack -w",
     "build": "webpack",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "seed2": "node seed2.js"
   },
   "author": "",
   "license": "ISC",

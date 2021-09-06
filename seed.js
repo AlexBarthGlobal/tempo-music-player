@@ -39,22 +39,22 @@ const seed = async () => {
             collectionOwner: 1
         })
 
-        const aSong = await Song.create({
-            songName: 'Test Song'
+        const firstSong = await Song.create({   //aSong
+            songName: 'First Song'
         })
 
-        const anotherSong = await Song.create({
-            songName: 'AnotherSong'
+        const secondSong = await Song.create({ //anotherSong
+            songName: 'Second Song'
         })
 
-        secondListened.addSong(anotherSong)
+        secondListened.addSong(secondSong)
 
         const thirdSong = await Song.create({
             songName: 'Third Song'
         })
 
-        await firstCollection.addSong(aSong)
-        await firstCollection.addSong(anotherSong)
+        await firstCollection.addSong(firstSong)
+        await firstCollection.addSong(secondSong)
 
         // await axios.post('http://localhost:8080/api/addsong', {
         //     songName: 'newSong',
@@ -84,7 +84,7 @@ const seed = async () => {
         })
 
         await secondSession.update({
-            active: false
+            active: true
         })
 
         await secondCollection.addCollectionSession(secondSession)
@@ -92,11 +92,25 @@ const seed = async () => {
         await alex.addCollectionSession(secondSession)
 
         
-        await firstListened.addSong(aSong);
+        await firstListened.addSong(firstSong);
         await firstListened.addSong(thirdSong);
-        await newSession.addSong(aSong);
+        await newSession.addSong(firstSong);
 
         await alex.addCollection(firstCollection)
+
+
+
+        // const forthSong = await Song.create({   //aSong
+        //     songName: 'Forth song'
+        // })
+
+        // const fifthSong = await Song.create({ //anotherSong
+        //     songName: 'fifth song'
+        // })
+
+        // const sixthSong = await Song.create({ //anotherSong
+        //     songName: 'sixth song'
+        // })
 
 
     } catch (err) {

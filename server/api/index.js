@@ -111,7 +111,7 @@ router.get('fetchSongsFromListened', async (req, res, next) => {
     try {
         const listened = await Listened.findOne({
             where: {
-                userId: req.passport.userId
+                userId: req.session.passport.user
             },
             include: [Song]
         })
@@ -125,14 +125,19 @@ router.get('fetchSongsFromListened', async (req, res, next) => {
 
 // Figure out how to fetch by date descending, so you have most recent songs first.
 // This query should return the songs that you've listened from this session, in order.
-router.get('fetchSongsFromSession', async (req, res, next) => {
+router.post('/fetchSongsFromSession', async (req, res, next) => {
+    const collectionSessionId = req.body.data;
+    
     try {
         const sessionSongs = await CollectionSession.findOne({
             where: {
-                id: req.body.collectionSession,
-                userId: req.passport.userId
+                id: collectionSessionId,
+                userId: req.session.passport.user
             },
-            include: [Song]
+            include: {
+                model: Song,
+                required: false
+            }
         })
 
         res.json(sessionSongs);

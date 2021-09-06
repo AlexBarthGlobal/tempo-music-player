@@ -91,10 +91,10 @@ class App extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    console.log('State from App.js', state)
+    // console.log('State from App.js', state)
     return {
         user: state.userReducer.user,
-        musicInfo: state.musicInfoReducer,
+        musicInfo: state.musicReducer,
         screenInfo: state.screenReducer
     }
 }

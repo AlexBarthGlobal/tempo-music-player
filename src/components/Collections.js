@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import SingleCollection from './SingleCollection'
+import {selectCollection} from '../redux/screenDispatchers'
 
 class Collections extends React.Component {
 
@@ -13,7 +14,7 @@ class Collections extends React.Component {
         for (const key in collections) {
             const collection = collections[key];
             if (!collection.collectionName) break;
-            collectionComponents.push(<SingleCollection collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} key={key}/>)
+            collectionComponents.push(<SingleCollection selectCollection={this.props.selectColl} collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} key={key}/>)
         };
 
         return (
@@ -38,7 +39,7 @@ const mapStateToProps = (state) => {
   }
   
   const mapDispatchToProps = dispatch => ({
-    
+    selectColl: (collectionId) => dispatch(selectCollection(collectionId))
   })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Collections)

@@ -2075,10 +2075,10 @@ var App = /*#__PURE__*/function (_React$Component) {
 ;
 
 var mapStateToProps = function mapStateToProps(state) {
-  console.log('State from App.js', state);
+  // console.log('State from App.js', state)
   return {
     user: state.userReducer.user,
-    musicInfo: state.musicInfoReducer,
+    musicInfo: state.musicReducer,
     screenInfo: state.screenReducer
   };
 };
@@ -2106,6 +2106,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _SingleCollection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SingleCollection */ "./src/components/SingleCollection.js");
+/* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2127,6 +2128,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -2155,6 +2157,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
         var collection = collections[key];
         if (!collection.collectionName) break;
         collectionComponents.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
+          selectCollection: this.props.selectColl,
           collectionId: collection.id,
           collectionName: collection.collectionName,
           collectionArt: collection.collectionArtUrl,
@@ -2182,7 +2185,11 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    selectColl: function selectColl(collectionId) {
+      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_3__.selectCollection)(collectionId));
+    }
+  };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Collections));
@@ -2415,10 +2422,12 @@ __webpack_require__.r(__webpack_exports__);
 var SingleCollection = function SingleCollection(props) {
   var collectionId = props.collectionId,
       collectionName = props.collectionName,
-      collectionArt = props.collectionArt;
+      collectionArt = props.collectionArt,
+      selectCollection = props.selectCollection; // console.log(selectCollection)
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     onClick: function onClick() {
-      return console.log("".concat(collectionId));
+      return selectCollection(collectionId);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "collectionImage",
@@ -2541,6 +2550,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -2566,7 +2581,8 @@ var gotCollectionsAndSessions = function gotCollectionsAndSessions(data) {
 var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var response;
+      var response, activeSession, _iterator, _step, collection, sessionSongs;
+
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -2578,29 +2594,108 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
 
             case 4:
               response = _context.sent;
-              dispatch(gotCollectionsAndSessions(response.data.collections));
-              _context.next = 11;
-              break;
+              console.log('FETCHED COLLECTIONS & SESSIONS', response.data);
+              _iterator = _createForOfIteratorHelper(response.data.collections);
+              _context.prev = 7;
 
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](1);
-              console.error(_context.t0);
+              _iterator.s();
 
-            case 11:
-              _context.prev = 11;
-              dispatch(setFetchingStatus(false));
-              return _context.finish(11);
+            case 9:
+              if ((_step = _iterator.n()).done) {
+                _context.next = 19;
+                break;
+              }
 
-            case 14:
-              ;
+              collection = _step.value;
+
+              if (!collection.collectionSessions) {
+                _context.next = 16;
+                break;
+              }
+
+              if (!(collection.collectionSessions[0].active === true)) {
+                _context.next = 15;
+                break;
+              }
+
+              activeSession = collection.collectionSessions[0];
+              return _context.abrupt("break", 19);
 
             case 15:
+              ;
+
+            case 16:
+              ;
+
+            case 17:
+              _context.next = 9;
+              break;
+
+            case 19:
+              _context.next = 24;
+              break;
+
+            case 21:
+              _context.prev = 21;
+              _context.t0 = _context["catch"](7);
+
+              _iterator.e(_context.t0);
+
+            case 24:
+              _context.prev = 24;
+
+              _iterator.f();
+
+              return _context.finish(24);
+
+            case 27:
+              ;
+              console.log('THIS IS THE ACTIVE SESSION', activeSession);
+
+              if (!activeSession) {
+                _context.next = 34;
+                break;
+              }
+
+              _context.next = 32;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchSongsFromSession', {
+                data: activeSession.id
+              });
+
+            case 32:
+              sessionSongs = _context.sent;
+              console.log('SESSIONSONGS THUNK', sessionSongs); // activeSession.songs = [];
+              // if (sessionSongs) {
+              //     // loop over these
+              // }
+
+            case 34:
+              dispatch(gotCollectionsAndSessions({
+                collectionsAndSessions: response.data.collections,
+                activeSession: activeSession
+              }));
+              _context.next = 40;
+              break;
+
+            case 37:
+              _context.prev = 37;
+              _context.t1 = _context["catch"](1);
+              console.error(_context.t1);
+
+            case 40:
+              _context.prev = 40;
+              dispatch(setFetchingStatus(false));
+              return _context.finish(40);
+
+            case 43:
+              ;
+
+            case 44:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 8, 11, 14]]);
+      }, _callee, null, [[1, 37, 40, 43], [7, 21, 24, 27]]);
     }));
 
     return function (_x) {
@@ -2620,8 +2715,10 @@ function musicReducer() {
 
   switch (action.type) {
     case FETCH_COLLECTIONS_AND_SESSIONS:
+      console.log('FROM MUSIC REDUCER', action);
       return _objectSpread(_objectSpread({}, state), {}, {
-        collections: _objectSpread({}, action.data)
+        collections: action.data.collectionsAndSessions,
+        activeSession: action.data.activeSession
       });
 
     case SET_FETCHING_STATUS:
@@ -2645,23 +2742,47 @@ function musicReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "selectCollection": () => (/* binding */ selectCollection),
 /* harmony export */   "default": () => (/* binding */ screenReducer)
 /* harmony export */ });
-var initialState = {
-  screenInfo: {}
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var SELECT_COLLECTION = 'SELECT_COLLECTION';
+var CHANGE_SCREEN = 'CHANGE_SCREEN';
+
+var setSelectedCollection = function setSelectedCollection(collectionId) {
+  return {
+    type: SELECT_COLLECTION,
+    collectionId: collectionId
+  };
 };
+
+var selectCollection = function selectCollection(collectionId) {
+  return function (dispatch) {
+    console.log('FROM DISPATCHER', collectionId);
+    dispatch(setSelectedCollection(collectionId));
+  };
+};
+var initialState = {};
 function screenReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    // case FETCH_COLLECTIONS_AND_SESSIONS:
-    //     return {
-    //         ...state,
-    //         collections: {
-    //             ...action.data
-    //         }
-    //     };
+    case SELECT_COLLECTION:
+      console.log('This is action', action.collectionId);
+      return _objectSpread(_objectSpread({}, state), {}, {
+        selectedCollection: action.collectionId
+      });
+
+    case CHANGE_SCREEN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screen: _objectSpread({}, action.data.screen)
+      });
     // case SET_FETCHING_STATUS:
     //     return {
     //         ...state,
@@ -2670,6 +2791,7 @@ function screenReducer() {
     //         isFetching: action.isFetching
     //     }
     // };
+
     default:
       return state;
   }

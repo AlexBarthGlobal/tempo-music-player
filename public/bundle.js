@@ -2577,7 +2577,7 @@ var gotCollectionsAndSessions = function gotCollectionsAndSessions(data) {
 var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var response, activeSession, _iterator, _step, collection, sessionSongs, key;
+      var response, activeSession, collectionsObj, _iterator, _step, collection, sessionSongs, key;
 
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -2590,73 +2590,44 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
 
             case 4:
               response = _context.sent;
+              collectionsObj = {};
               _iterator = _createForOfIteratorHelper(response.data.collections);
-              _context.prev = 6;
 
-              _iterator.s();
+              try {
+                for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                  collection = _step.value;
+                  collectionsObj[collection.id] = collection;
 
-            case 8:
-              if ((_step = _iterator.n()).done) {
-                _context.next = 18;
-                break;
+                  if (collection.collectionSessions) {
+                    if (collection.collectionSessions[0].active === true) {
+                      activeSession = collection.collectionSessions[0];
+                    }
+
+                    ;
+                  }
+
+                  ;
+                }
+              } catch (err) {
+                _iterator.e(err);
+              } finally {
+                _iterator.f();
               }
 
-              collection = _step.value;
-
-              if (!collection.collectionSessions) {
-                _context.next = 15;
-                break;
-              }
-
-              if (!(collection.collectionSessions[0].active === true)) {
-                _context.next = 14;
-                break;
-              }
-
-              activeSession = collection.collectionSessions[0];
-              return _context.abrupt("break", 18);
-
-            case 14:
               ;
-
-            case 15:
-              ;
-
-            case 16:
-              _context.next = 8;
-              break;
-
-            case 18:
-              _context.next = 23;
-              break;
-
-            case 20:
-              _context.prev = 20;
-              _context.t0 = _context["catch"](6);
-
-              _iterator.e(_context.t0);
-
-            case 23:
-              _context.prev = 23;
-
-              _iterator.f();
-
-              return _context.finish(23);
-
-            case 26:
-              ; // console.log('THIS IS THE ACTIVE SESSION', activeSession)
+              response.data.collections = collectionsObj; // console.log('THIS IS THE ACTIVE SESSION', activeSession)
 
               if (!activeSession) {
-                _context.next = 33;
+                _context.next = 16;
                 break;
               }
 
-              _context.next = 30;
+              _context.next = 13;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchSongsFromSession', {
                 data: activeSession.id
               });
 
-            case 30:
+            case 13:
               sessionSongs = _context.sent;
               // console.log('SESSIONSONGS THUNK', sessionSongs)
               activeSession.songs = [];
@@ -2667,33 +2638,33 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
                 }
               }
 
-            case 33:
+            case 16:
               dispatch(gotCollectionsAndSessions({
                 collectionsAndSessions: response.data.collections,
                 activeSession: activeSession
               }));
-              _context.next = 39;
+              _context.next = 22;
               break;
 
-            case 36:
-              _context.prev = 36;
-              _context.t1 = _context["catch"](1);
-              console.error(_context.t1);
+            case 19:
+              _context.prev = 19;
+              _context.t0 = _context["catch"](1);
+              console.error(_context.t0);
 
-            case 39:
-              _context.prev = 39;
+            case 22:
+              _context.prev = 22;
               dispatch(setFetchingStatus(false));
-              return _context.finish(39);
+              return _context.finish(22);
 
-            case 42:
+            case 25:
               ;
 
-            case 43:
+            case 26:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 36, 39, 42], [6, 20, 23, 26]]);
+      }, _callee, null, [[1, 19, 22, 25]]);
     }));
 
     return function (_x) {

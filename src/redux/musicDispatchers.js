@@ -20,14 +20,16 @@ export const fetchCollectionsAndSessions = () => {
             const response = await axios.get('/api/fetchCollectionAndSessions')
             // console.log('FETCHED COLLECTIONS & SESSIONS', response.data)
             let activeSession;
+            const collectionsObj = {};
             for (const collection of response.data.collections) {
+                collectionsObj[collection.id] = collection;
                 if (collection.collectionSessions) {
                     if (collection.collectionSessions[0].active === true) {
                         activeSession = collection.collectionSessions[0];
-                        break;
                     };
                 };
             };
+            response.data.collections = collectionsObj;
             // console.log('THIS IS THE ACTIVE SESSION', activeSession)
             if (activeSession) {
                 // get all songs from the session descending order so you get most recent songs first

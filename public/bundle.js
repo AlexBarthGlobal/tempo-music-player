@@ -1918,7 +1918,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Tempo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Tempo */ "./src/components/Tempo.js");
 /* harmony import */ var _PlayerScreen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PlayerScreen */ "./src/components/PlayerScreen.js");
 /* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
@@ -1951,6 +1952,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
  // import {logout} from '../redux/isLogged'
 
 
+
 var tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"];
 
 var App = /*#__PURE__*/function (_React$Component) {
@@ -1972,10 +1974,35 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
     _this.play = _this.play.bind(_assertThisInitialized(_this));
     _this.pause = _this.pause.bind(_assertThisInitialized(_this));
+    _this.checkIfLoaded = _this.checkPlayerReady.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
+    key: "checkPlayerReady",
+    value: function checkPlayerReady() {
+      return this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange &&
+      /*this.props.musicInfo.activeSession.songsInRange &&*/
+      this.props.musicInfo.activeSession.songs[this.props.playIdx];
+    }
+  }, {
+    key: "checkIfListened",
+    value: function checkIfListened() {
+      if (this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx]] && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
+        this.props.addToListenedAndSession();
+      }
+
+      ;
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.checkPlayerReady()) {// this.checkIfListened();
+      }
+
+      ;
+    }
+  }, {
     key: "play",
     value: function play() {
       this.rap.play();
@@ -1994,16 +2021,15 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "nextTrack",
     value: function nextTrack() {
-      this.setState({
-        idx: this.state.idx + 1
-      });
+      if (
+      /*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/
+      !this.props.musicInfo.activeSession.songs[this.props.playIdx + 2]) this.props.enqueueSong();
+      if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) this.props.incrementPlayIdx(); // this.checkIfListened();
     }
   }, {
     key: "prevTrack",
     value: function prevTrack() {
-      this.setState({
-        idx: this.state.idx - 1
-      });
+      this.props.decrementPlayIdx();
     }
   }, {
     key: "render",
@@ -2011,7 +2037,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       console.log('Props on App.js RENDER', this.props);
-      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Redirect, {
+      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Redirect, {
         to: "/login"
       });
 
@@ -2032,9 +2058,10 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       }, "Home");
       var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null;
-      var audio;
-      if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && this.props.musicInfo.activeSession.songsInRange.length) audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
-        src: this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null,
+      var audio; // if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && this.props.musicInfo.activeSession.songsInRange.length) audio = <audio src={this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
+
+      audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
+        src: this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null,
         preload: "auto",
         autoPlay: this.state.playing ? true : false,
         onEnded: this.nextTrack,
@@ -2082,7 +2109,17 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    enqueueSong: function enqueueSong() {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.enqueueSongThunk)());
+    },
+    incrementPlayIdx: function incrementPlayIdx() {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.incrementPlayIdxThunk)());
+    },
+    decrementPlayIdx: function decrementPlayIdx() {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.decrementPlayIdxThunk)());
+    }
+  };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(App));
@@ -2587,6 +2624,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetchCollectionsAndSessions": () => (/* binding */ fetchCollectionsAndSessions),
 /* harmony export */   "fetchActiveCollectionSongs": () => (/* binding */ fetchActiveCollectionSongs),
 /* harmony export */   "applySongsInRange": () => (/* binding */ applySongsInRange),
+/* harmony export */   "enqueueSongThunk": () => (/* binding */ enqueueSongThunk),
+/* harmony export */   "incrementPlayIdxThunk": () => (/* binding */ incrementPlayIdxThunk),
+/* harmony export */   "decrementPlayIdxThunk": () => (/* binding */ decrementPlayIdxThunk),
 /* harmony export */   "default": () => (/* binding */ musicReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -2622,6 +2662,8 @@ var SET_ACTIVE_COLLECTION_SONGS = 'SET_ACTIVE_COLLECTIONS_SONGS';
 var ADD_SONGS_IN_RANGE = 'ADD_SONGS_IN_RANGE';
 var ENQUEUE_SONG_INITIAL = 'ENQUEUE_SONG_INITIAL';
 var ENQUEUE_SONG = 'ENQUEUE_SONG';
+var INCREMENT_PLAY_IDX = 'INCREMENT_PLAY_IDX';
+var DECREMENT_PLAY_IDX = 'DECREMENT_PLAY_IDX';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -2660,6 +2702,18 @@ var enqueueSongInitial = function enqueueSongInitial() {
 var enqueueSong = function enqueueSong() {
   return {
     type: ENQUEUE_SONG
+  };
+};
+
+var incrementPlayIdx = function incrementPlayIdx() {
+  return {
+    type: INCREMENT_PLAY_IDX
+  };
+};
+
+var decrementPlayIdx = function decrementPlayIdx() {
+  return {
+    type: DECREMENT_PLAY_IDX
   };
 };
 
@@ -2818,6 +2872,21 @@ var applySongsInRange = function applySongsInRange(songs) {
     dispatch(enqueueSongInitial());
   };
 };
+var enqueueSongThunk = function enqueueSongThunk() {
+  return function (dispatch) {
+    dispatch(enqueueSong());
+  };
+};
+var incrementPlayIdxThunk = function incrementPlayIdxThunk() {
+  return function (dispatch) {
+    dispatch(incrementPlayIdx());
+  };
+};
+var decrementPlayIdxThunk = function decrementPlayIdxThunk() {
+  return function (dispatch) {
+    dispatch(decrementPlayIdx());
+  };
+};
 var initialState = {
   // musicInfo: {
   //     isFetching: true,
@@ -2826,6 +2895,7 @@ var initialState = {
 };
 var songsCopy;
 var songsInRangeCopy;
+var newPlayIdx;
 function musicReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -2873,6 +2943,22 @@ function musicReducer() {
         activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
           songs: songsCopy,
           songsInRange: songsInRangeCopy
+        })
+      });
+
+    case INCREMENT_PLAY_IDX:
+      newPlayIdx = state.activeSession.playIdx + 1;
+      return _objectSpread(_objectSpread({}, state), {}, {
+        activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
+          playIdx: newPlayIdx
+        })
+      });
+
+    case DECREMENT_PLAY_IDX:
+      newPlayIdx = state.activeSession.playIdx - 1;
+      return _objectSpread(_objectSpread({}, state), {}, {
+        activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
+          playIdx: newPlayIdx
         })
       });
 

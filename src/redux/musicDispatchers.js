@@ -6,6 +6,8 @@ const SET_ACTIVE_COLLECTION_SONGS = 'SET_ACTIVE_COLLECTIONS_SONGS'
 const ADD_SONGS_IN_RANGE = 'ADD_SONGS_IN_RANGE'
 const ENQUEUE_SONG_INITIAL = 'ENQUEUE_SONG_INITIAL'
 const ENQUEUE_SONG = 'ENQUEUE_SONG'
+const INCREMENT_PLAY_IDX = 'INCREMENT_PLAY_IDX'
+const DECREMENT_PLAY_IDX = 'DECREMENT_PLAY_IDX'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -33,6 +35,14 @@ const enqueueSongInitial = () => ({
 
 const enqueueSong = () => ({
     type: ENQUEUE_SONG
+})
+
+const incrementPlayIdx = () => ({
+    type: INCREMENT_PLAY_IDX
+})
+
+const decrementPlayIdx = () => ({
+    type: DECREMENT_PLAY_IDX
 })
 
 
@@ -100,6 +110,24 @@ export const applySongsInRange = (songs) => {
     };
 };
 
+export const enqueueSongThunk = () => {
+    return dispatch => {
+        dispatch(enqueueSong())
+    };
+};
+
+export const incrementPlayIdxThunk = () => {
+    return dispatch => {
+        dispatch(incrementPlayIdx())
+    }
+}
+
+export const decrementPlayIdxThunk = () => {
+    return dispatch => {
+        dispatch(decrementPlayIdx())
+    }
+}
+
 
 const initialState = {
     // musicInfo: {
@@ -110,6 +138,7 @@ const initialState = {
 
 let songsCopy;
 let songsInRangeCopy;
+let newPlayIdx;
 
 export default function musicReducer (state = initialState, action) {
     switch (action.type) {
@@ -148,6 +177,18 @@ export default function musicReducer (state = initialState, action) {
             return {
                 ...state,
                 activeSession: {...state.activeSession, songs: songsCopy, songsInRange: songsInRangeCopy}
+            }
+        case INCREMENT_PLAY_IDX:
+            newPlayIdx = state.activeSession.playIdx+1;
+            return {
+                ...state,
+                activeSession: {...state.activeSession, playIdx: newPlayIdx}
+            }
+        case DECREMENT_PLAY_IDX:
+            newPlayIdx = state.activeSession.playIdx-1;
+            return {
+                ...state,
+                 activeSession: {...state.activeSession, playIdx: newPlayIdx}
             }
         case SET_FETCHING_STATUS:
             return {

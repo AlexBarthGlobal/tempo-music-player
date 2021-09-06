@@ -6,6 +6,7 @@ import PlayerScreen from './PlayerScreen'
 import FooterControls from './FooterControls'
 // import {logout} from '../redux/isLogged'
 import {Redirect} from 'react-router-dom'
+import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk} from '../redux/musicDispatchers'
 
 const tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3","https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"]
 
@@ -21,6 +22,23 @@ class App extends React.Component {
         this.prevTrack = this.prevTrack.bind(this);
         this.play = this.play.bind(this);
         this.pause = this.pause.bind(this);
+        this.checkIfLoaded = this.checkPlayerReady.bind(this);
+    };
+
+    checkPlayerReady() {
+        return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && /*this.props.musicInfo.activeSession.songsInRange &&*/ this.props.musicInfo.activeSession.songs[this.props.playIdx]);
+    };
+
+    checkIfListened() {
+        if (this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx]] && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
+            this.props.addToListenedAndSession();
+        };
+    }
+
+    componentDidUpdate() {
+        if (this.checkPlayerReady()) {
+            // this.checkIfListened();
+        };
     };
 
     play() {
@@ -38,15 +56,13 @@ class App extends React.Component {
     };
 
     nextTrack () {
-        this.setState({
-            idx: this.state.idx+1
-        });
+        if (/*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/ !this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
+        if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) this.props.incrementPlayIdx();
+        // this.checkIfListened();
     };
     
     prevTrack () {
-        this.setState({
-            idx: this.state.idx-1
-        });
+        this.props.decrementPlayIdx();
     };
 
     render() {
@@ -64,7 +80,8 @@ class App extends React.Component {
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
         this.props.screenStr === 'PlayerScreen' ? <button>Add to Collection</button> : null;
         let audio;
-        if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && this.props.musicInfo.activeSession.songsInRange.length) audio = <audio src={this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
+        // if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && this.props.musicInfo.activeSession.songsInRange.length) audio = <audio src={this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
+        audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = <button>Clear Listened</button>
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
         const footerControls = this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} nextTrack={this.nextTrack} prevTrack={this.prevTrack} /></div> : null;
@@ -99,7 +116,9 @@ const mapStateToProps = (state) => {
 }
   
 const mapDispatchToProps = (dispatch) => ({
-
+    enqueueSong: () => dispatch(enqueueSongThunk()),
+    incrementPlayIdx: () => dispatch(incrementPlayIdxThunk()),
+    decrementPlayIdx: () => dispatch(decrementPlayIdxThunk())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -136,8 +136,10 @@ router.post('/fetchSongsFromSession', async (req, res, next) => {
             },
             include: {
                 model: Song,
-                required: false
-            }
+                required: false,
+            },
+            order: [['sessionSongs', 'createdAt', 'DESC' ]]
+            // order: [[Song, 'createdAt', 'ASC' ]]
         })
 
         res.json(sessionSongs);

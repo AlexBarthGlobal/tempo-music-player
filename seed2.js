@@ -3,7 +3,7 @@ const {db, Song, User, Collection, CollectionSession, Listened} = require ('./se
 
 const seed = async () => {
     try {   
-        await db.sync({force: true})
+        await db.sync()
 
         //create alex@gmail.com
         await axios.post('http://localhost:8080/auth/register', {
@@ -127,6 +127,10 @@ const seed = async () => {
         await setTimeout(() => {  firstSession.addSong(boomIt) }, 1000);
         await setTimeout(() => {  firstSession.addSong(diorInstrumental); }, 1000);
         await setTimeout(() => {  firstSession.addSong(fastLane); }, 1000);     // most recent
+
+        // const firstS = await CollectionSession.findByPk(1)
+        // const fastLa = await Song.findByPk(1)
+        // await setTimeout(() => {  firstS.addSong(fastLa); }, 1000);
 
         firstCollection.addCollectionSession(firstSession);   // Previously listened songs from that specific collection. (previous songs)
         alex.addCollectionSession(firstSession);

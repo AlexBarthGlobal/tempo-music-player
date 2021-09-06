@@ -13,8 +13,6 @@ class App extends React.Component {
     constructor() {
         super()
         this.state = {
-        //   screenStr: sessionStorage.getItem('screenStr') || 'Collections',
-        //   screen: sessionStorage.getItem('screen') || <Collections />,
         //Local player info
           playing: false,
         }; 
@@ -55,9 +53,7 @@ class App extends React.Component {
         console.log('Props on App.js RENDER', this.props)
         if (!this.props.user.id) return <Redirect to='/login' />;
 
-        const logout = /*async*/() => {
-            // await this.props.logoutUser();
-            // this.props.history.push('login')
+        const logout = () => {
             location.href = "/auth/logout"
         };
 
@@ -68,7 +64,7 @@ class App extends React.Component {
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
         this.props.screenStr === 'PlayerScreen' ? <button>Add to Collection</button> : null;
         let audio;
-        if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange) audio = <audio src={this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
+        if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && this.props.musicInfo.activeSession.songsInRange.length) audio = <audio src={this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = <button>Clear Listened</button>
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
         const footerControls = this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} nextTrack={this.nextTrack} prevTrack={this.prevTrack} /></div> : null;
@@ -83,8 +79,6 @@ class App extends React.Component {
                 <div className='secondButtons'>{clearListened}</div>
                 <div>
                     {selectedScreen}
-                    {/* <button onClick={() => this.setState({screen: <Tempo />, screenStr: 'Tempo'})}>TempoScr</button>
-                    <button onClick={() => this.setState({screen: <PlayerScreen />, screenStr: 'PlayerScreen'})}>PlayerScr</button> */}
                 </div>             
                     {footerControls}
             </div>
@@ -105,7 +99,7 @@ const mapStateToProps = (state) => {
 }
   
 const mapDispatchToProps = (dispatch) => ({
-    // logoutUser: () => dispatch(logout())
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

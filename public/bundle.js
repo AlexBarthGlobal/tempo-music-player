@@ -1965,8 +1965,6 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
     _this.state = {
-      //   screenStr: sessionStorage.getItem('screenStr') || 'Collections',
-      //   screen: sessionStorage.getItem('screen') || <Collections />,
       //Local player info
       playing: false
     };
@@ -2017,11 +2015,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         to: "/login"
       });
 
-      var logout =
-      /*async*/
-      function logout() {
-        // await this.props.logoutUser();
-        // this.props.history.push('login')
+      var logout = function logout() {
         location.href = "/auth/logout";
       }; // if (this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[playIdx]) // render a modal saying to change bpm,
       // // change collection, or clear listened
@@ -2039,7 +2033,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, "Home");
       var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null;
       var audio;
-      if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange) audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
+      if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && this.props.musicInfo.activeSession.songsInRange.length) audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null,
         preload: "auto",
         autoPlay: this.state.playing ? true : false,
@@ -2088,8 +2082,7 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {// logoutUser: () => dispatch(logout())
-  };
+  return {};
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(App));

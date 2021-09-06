@@ -2880,43 +2880,48 @@ var fetchUser = function fetchUser() {
               response = _context.sent;
               console.log('This is response', response.data.listened);
               listenedSongs = {};
-              _iterator = _createForOfIteratorHelper(response.data.listened.songs);
 
-              try {
-                for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                  song = _step.value;
-                  delete song.listenedSongs;
-                  listenedSongs[song.id] = song;
+              if (response.data.listened) {
+                _iterator = _createForOfIteratorHelper(response.data.listened.songs);
+
+                try {
+                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                    song = _step.value;
+                    delete song.listenedSongs;
+                    listenedSongs[song.id] = song;
+                  }
+                } catch (err) {
+                  _iterator.e(err);
+                } finally {
+                  _iterator.f();
                 }
-              } catch (err) {
-                _iterator.e(err);
-              } finally {
-                _iterator.f();
+
+                ;
               }
 
               ;
               response.data.listened.songs = listenedSongs;
               console.log('This is NEW response', listenedSongs);
               dispatch(gotMe(response.data));
-              _context.next = 18;
+              _context.next = 17;
               break;
 
-            case 15:
-              _context.prev = 15;
+            case 14:
+              _context.prev = 14;
               _context.t0 = _context["catch"](1);
               console.error(_context.t0);
 
-            case 18:
-              _context.prev = 18;
+            case 17:
+              _context.prev = 17;
               dispatch(setFetchingStatus(false));
-              return _context.finish(18);
+              return _context.finish(17);
 
-            case 21:
+            case 20:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 15, 18, 21]]);
+      }, _callee, null, [[1, 14, 17, 20]]);
     }));
 
     return function (_x) {

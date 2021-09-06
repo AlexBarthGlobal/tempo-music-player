@@ -3,6 +3,7 @@ const db = require('../database');
 
 module.exports = db.define('listened', {
     timeListened: {
-        type: Sequelize.SMALLINT
+        type: Sequelize.SMALLINT,
+        defaultValue:0
     },
 });

@@ -28,9 +28,11 @@ export const fetchUser = () => {
       const response = await axios.get('/auth/me')
       console.log('This is response', response.data.listened)
       const listenedSongs = {};
-      for (const song of response.data.listened.songs) {
-        delete song.listenedSongs
-        listenedSongs[song.id] = song
+      if (response.data.listened) {
+        for (const song of response.data.listened.songs) {
+          delete song.listenedSongs
+          listenedSongs[song.id] = song
+          };
       };
       response.data.listened.songs = listenedSongs;
 

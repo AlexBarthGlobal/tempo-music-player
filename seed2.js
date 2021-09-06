@@ -3,7 +3,7 @@ const {db, Song, User, Collection, CollectionSession, Listened} = require ('./se
 
 const seed = async () => {
     try {   
-        await db.sync()
+        await db.sync() // {alter: true}
 
         //create alex@gmail.com
         await axios.post('http://localhost:8080/auth/register', {

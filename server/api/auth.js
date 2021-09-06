@@ -51,24 +51,37 @@ router.get('/', (req, res, next) => {
     res.redirect('/')
 })
 
-router.post('/register', (req, res, next) => {
+router.post('/register', async (req, res, next) => {
+  try {
     const saltHash = genPassword(req.body.pw);
 
     const salt = saltHash.salt;
     const hash = saltHash.hash;
 
-    const newUser = new User({
-        email: req.body.uname,
-        hash: hash,
-        salt: salt
-    })
+    // const newUser = new User({
+    //     email: req.body.uname,
+    //     hash: hash,
+    //     salt: salt
+    // })
 
-    newUser.save()
-    .then((user) => {
-        console.log(user);
+    // newUser.save()
+    // .then((user) => {
+    //     console.log(user);
+    // });
+
+    const newUser = await User.create({
+      email: req.body.uname,
+      hash: hash,
+      salt: salt
     });
 
+    const listened = await Listened.create()
+    await newUser.setListened(listened)
+
     res.redirect('/');
+  } catch (error) {
+    next(error)
+  }
 })
 
 // router.get('/login', (req, res, next) => {

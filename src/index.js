@@ -6,16 +6,23 @@ import {Provider, connect} from 'react-redux'
 import store from './ReduxStore'
 import {render} from 'react-dom'
 import {fetchUser} from './redux/userDispatchers'
-import {fetchCollectionsAndSessions, fetchActiveCollectionSongs} from './redux/musicDispatchers'
+import {fetchCollectionsAndSessions, fetchActiveCollectionSongs, applySongsInRange} from './redux/musicDispatchers'
 import Routes from './components/Routes'
 import { BrowserRouter as Router, withRouter, Redirect } from 'react-router-dom'
+import songsInRange from './components/songsInRange'
 
 const Main = class extends React.Component { 
 
   async componentDidMount() {
       await this.props.fetchUser();
       if (this.props.user.id) await this.props.fetchCollectionsAndSessions();
-      if (this.props.musicInfo.activeSession) await this.props.fetchActiveCollectionSongs(this.props.musicInfo.activeSession.collectionId); // Put all active collection songs onto redux.
+      if (this.props.musicInfo.activeSession) {
+        await this.props.fetchActiveCollectionSongs(this.props.musicInfo.activeSession.collectionId); // Put all active collection songs onto redux.
+        if (this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
+          const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM)  //Run this when updating BPM
+          this.props.applySongsInRange(results);
+        }
+      }
   }
 
   render() {
@@ -49,7 +56,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   fetchUser: () => dispatch(fetchUser()),
   fetchCollectionsAndSessions: () => dispatch(fetchCollectionsAndSessions()),
-  fetchActiveCollectionSongs: (activeCollectionId) => dispatch(fetchActiveCollectionSongs(activeCollectionId))
+  fetchActiveCollectionSongs: (activeCollectionId) => dispatch(fetchActiveCollectionSongs(activeCollectionId)),
+  applySongsInRange: (songs) => dispatch(applySongsInRange(songs))
 })
 
 const WrappedMain = withRouter(connect(mapStateToProps, mapDispatchToProps)(Main))

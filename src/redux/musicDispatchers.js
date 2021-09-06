@@ -3,6 +3,8 @@ import axios from 'axios'
 const FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
 const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 const SET_ACTIVE_COLLECTION_SONGS = 'SET_ACTIVE_COLLECTIONS_SONGS'
+const ADD_SONGS_IN_RANGE = 'ADD_SONGS_IN_RANGE'
+const ENQUEUE_SONG = 'ENQUEUE_SONG'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -17,6 +19,15 @@ const gotCollectionsAndSessions = data => ({
 const setActiveCollectionSongs = data => ({
     type: SET_ACTIVE_COLLECTION_SONGS,
     data
+});
+
+const addSongsInRange = songs => ({
+    type: ADD_SONGS_IN_RANGE,
+    songs
+});
+
+const enqueueSong = () => ({
+    type: ENQUEUE_SONG
 })
 
 export const fetchCollectionsAndSessions = () => {
@@ -73,8 +84,15 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
         } finally {
             dispatch(setFetchingStatus(false))
         }
-    }
-}
+    };
+};
+
+export const applySongsInRange = (songs) => {
+    return dispatch => {
+        dispatch(addSongsInRange(songs))
+        dispatch(enqueueSong())
+    };
+};
 
 
 const initialState = {
@@ -99,6 +117,19 @@ export default function musicReducer (state = initialState, action) {
             return {
                 ...state,
                 collections: collectionsCopy
+            };
+        case ADD_SONGS_IN_RANGE:
+            return {
+                ...state,
+                activeSession: {...state.activeSession, songsInRange: action.songs}
+            };
+        case ENQUEUE_SONG:
+            const songsCopy = [...state.activeSession.songs];
+            const songsInRangeCopy = [...state.activeSession.songsInRange];
+            songsCopy.push(songsInRangeCopy.pop())
+            return {
+                ...state,
+                activeSession: {...state.activeSession, songs: songsCopy, songsInRange: songsInRangeCopy}
             }
         case SET_FETCHING_STATUS:
             return {

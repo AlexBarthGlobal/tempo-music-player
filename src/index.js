@@ -15,7 +15,7 @@ const Main = class extends React.Component {
   async componentDidMount() {
       await this.props.fetchUser();
       if (this.props.user.id) await this.props.fetchCollectionsAndSessions();
-      //if (this.props.musicInfo.activeSession) await this.props.fetchActiveCollectionSongs(this.props.musicInfo.activeSession.collectionId); // Put all active collection songs onto redux.
+      if (this.props.musicInfo.activeSession) await this.props.fetchActiveCollectionSongs(this.props.musicInfo.activeSession.collectionId); // Put all active collection songs onto redux.
   }
 
   render() {

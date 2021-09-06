@@ -51,16 +51,20 @@ export const fetchCollectionsAndSessions = () => {
     };
 };
 
-// export const fetchActiveCollectionSongs = (activeCollectionId) => {
-//     dispatch(setFetchingStatus(true))
-//     try {
-//         const collectionAndSongs = await axios.get('/api/fetchCollectionAndSessions', {data: activeCollectionId})
-//     } catch (error) {
-//         console.error(error)
-//     } finally {
-//         dispatch(setFetchingStatus(false))
-//     }
-// }
+export const fetchActiveCollectionSongs = (activeCollectionId) => {
+    return async dispatch => {
+        dispatch(setFetchingStatus(true))
+        try {
+            const activeCollectionSongs = await axios.post('/api/fetchCurrentcollectionAndSongs', {data: activeCollectionId})
+            console.log('THESE ARE ACTIVE SONGS', activeCollectionSongs)
+            dispatch(activeCollectionSongs)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            dispatch(setFetchingStatus(false))
+        }
+    }
+}
 
 
 const initialState = {

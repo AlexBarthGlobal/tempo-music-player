@@ -2536,6 +2536,7 @@ var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "fetchCollectionsAndSessions": () => (/* binding */ fetchCollectionsAndSessions),
+/* harmony export */   "fetchActiveCollectionSongs": () => (/* binding */ fetchActiveCollectionSongs),
 /* harmony export */   "default": () => (/* binding */ musicReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -2671,17 +2672,52 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
       return _ref.apply(this, arguments);
     };
   }();
-}; // export const fetchActiveCollectionSongs = (activeCollectionId) => {
-//     dispatch(setFetchingStatus(true))
-//     try {
-//         const collectionAndSongs = await axios.get('/api/fetchCollectionAndSessions', {data: activeCollectionId})
-//     } catch (error) {
-//         console.error(error)
-//     } finally {
-//         dispatch(setFetchingStatus(false))
-//     }
-// }
+};
+var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeCollectionId) {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
+      var activeCollectionSongs;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              dispatch(setFetchingStatus(true));
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchCurrentcollectionAndSongs', {
+                data: activeCollectionId
+              });
 
+            case 4:
+              activeCollectionSongs = _context2.sent;
+              console.log('THESE ARE ACTIVE SONGS', activeCollectionSongs);
+              dispatch(activeCollectionSongs);
+              _context2.next = 12;
+              break;
+
+            case 9:
+              _context2.prev = 9;
+              _context2.t0 = _context2["catch"](1);
+              console.error(_context2.t0);
+
+            case 12:
+              _context2.prev = 12;
+              dispatch(setFetchingStatus(false));
+              return _context2.finish(12);
+
+            case 15:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 9, 12, 15]]);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
 var initialState = {
   // musicInfo: {
   //     isFetching: true,
@@ -51092,6 +51128,15 @@ var Main = /*#__PURE__*/function (_React$Component) {
                 return this.props.fetchCollectionsAndSessions();
 
               case 5:
+                if (!this.props.musicInfo.activeSession) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 8;
+                return this.props.fetchActiveCollectionSongs(this.props.musicInfo.activeSession.collectionId);
+
+              case 8:
               case "end":
                 return _context.stop();
             }

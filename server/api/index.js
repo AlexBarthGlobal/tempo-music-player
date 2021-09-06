@@ -92,12 +92,24 @@ router.get('/fetchCollectionAndSessions', async (req, res, next) => {
 
 router.post('/fetchCurrentCollectionAndSongs', async (req, res, next) => {
     try {
-        const collection = await Collection.findOne({
+        // This is so only the user that actually has access to the collection may query it.
+        // Verifies by their passport user.
+        const collection = await User.findOne({
             where: {
-                id: req.body.collectionId,
-                userId: req.session.passport.user
+                id: req.session.passport.user
             },
-            include: [Song] //order these songs by BPM ascending
+            include: {
+                model: Collection,
+                where: {
+                    id: req.body.data
+                },
+                include: {
+                    model: Song,
+                }
+            },
+            order: [
+                [Collection, Song, 'BPM', 'ASC']
+            ]
         })
 
         res.json(collection);

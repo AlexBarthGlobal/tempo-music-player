@@ -4,6 +4,7 @@ const FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
 const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 const SET_ACTIVE_COLLECTION_SONGS = 'SET_ACTIVE_COLLECTIONS_SONGS'
 const ADD_SONGS_IN_RANGE = 'ADD_SONGS_IN_RANGE'
+const ENQUEUE_SONG_INITIAL = 'ENQUEUE_SONG_INITIAL'
 const ENQUEUE_SONG = 'ENQUEUE_SONG'
 
 const setFetchingStatus = isFetching => ({
@@ -26,9 +27,14 @@ const addSongsInRange = songs => ({
     songs
 });
 
+const enqueueSongInitial = () => ({
+    type: ENQUEUE_SONG_INITIAL
+})
+
 const enqueueSong = () => ({
     type: ENQUEUE_SONG
 })
+
 
 export const fetchCollectionsAndSessions = () => {
     return async dispatch => {
@@ -90,7 +96,7 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
 export const applySongsInRange = (songs) => {
     return dispatch => {
         dispatch(addSongsInRange(songs))
-        dispatch(enqueueSong())
+        dispatch(enqueueSongInitial())
     };
 };
 
@@ -101,6 +107,9 @@ const initialState = {
     // }
     isFetching: true
 };
+
+let songsCopy;
+let songsInRangeCopy;
 
 export default function musicReducer (state = initialState, action) {
     switch (action.type) {
@@ -123,9 +132,18 @@ export default function musicReducer (state = initialState, action) {
                 ...state,
                 activeSession: {...state.activeSession, songsInRange: action.songs}
             };
+        case ENQUEUE_SONG_INITIAL:
+            songsCopy = [...state.activeSession.songs];
+            songsInRangeCopy = [...state.activeSession.songsInRange];
+            songsCopy.push(songsInRangeCopy.pop())
+            songsCopy.push(songsInRangeCopy.pop())
+            return {
+                ...state,
+                activeSession: {...state.activeSession, songs: songsCopy, songsInRange: songsInRangeCopy}
+            }
         case ENQUEUE_SONG:
-            const songsCopy = [...state.activeSession.songs];
-            const songsInRangeCopy = [...state.activeSession.songsInRange];
+            songsCopy = [...state.activeSession.songs];
+            songsInRangeCopy = [...state.activeSession.songsInRange];
             songsCopy.push(songsInRangeCopy.pop())
             return {
                 ...state,

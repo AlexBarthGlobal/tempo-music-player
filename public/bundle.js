@@ -2620,6 +2620,7 @@ var FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
 var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 var SET_ACTIVE_COLLECTION_SONGS = 'SET_ACTIVE_COLLECTIONS_SONGS';
 var ADD_SONGS_IN_RANGE = 'ADD_SONGS_IN_RANGE';
+var ENQUEUE_SONG_INITIAL = 'ENQUEUE_SONG_INITIAL';
 var ENQUEUE_SONG = 'ENQUEUE_SONG';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
@@ -2647,6 +2648,12 @@ var addSongsInRange = function addSongsInRange(songs) {
   return {
     type: ADD_SONGS_IN_RANGE,
     songs: songs
+  };
+};
+
+var enqueueSongInitial = function enqueueSongInitial() {
+  return {
+    type: ENQUEUE_SONG_INITIAL
   };
 };
 
@@ -2808,7 +2815,7 @@ var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeColle
 var applySongsInRange = function applySongsInRange(songs) {
   return function (dispatch) {
     dispatch(addSongsInRange(songs));
-    dispatch(enqueueSong());
+    dispatch(enqueueSongInitial());
   };
 };
 var initialState = {
@@ -2817,6 +2824,8 @@ var initialState = {
   // }
   isFetching: true
 };
+var songsCopy;
+var songsInRangeCopy;
 function musicReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -2844,11 +2853,21 @@ function musicReducer() {
         })
       });
 
+    case ENQUEUE_SONG_INITIAL:
+      songsCopy = _toConsumableArray(state.activeSession.songs);
+      songsInRangeCopy = _toConsumableArray(state.activeSession.songsInRange);
+      songsCopy.push(songsInRangeCopy.pop());
+      songsCopy.push(songsInRangeCopy.pop());
+      return _objectSpread(_objectSpread({}, state), {}, {
+        activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
+          songs: songsCopy,
+          songsInRange: songsInRangeCopy
+        })
+      });
+
     case ENQUEUE_SONG:
-      var songsCopy = _toConsumableArray(state.activeSession.songs);
-
-      var songsInRangeCopy = _toConsumableArray(state.activeSession.songsInRange);
-
+      songsCopy = _toConsumableArray(state.activeSession.songs);
+      songsInRangeCopy = _toConsumableArray(state.activeSession.songsInRange);
       songsCopy.push(songsInRangeCopy.pop());
       return _objectSpread(_objectSpread({}, state), {}, {
         activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {

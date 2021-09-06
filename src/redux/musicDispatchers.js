@@ -18,7 +18,7 @@ export const fetchCollectionsAndSessions = () => {
         dispatch(setFetchingStatus(true))
         try {
             const response = await axios.get('/api/fetchCollectionAndSessions')
-            console.log('FETCHED COLLECTIONS & SESSIONS', response.data)
+            // console.log('FETCHED COLLECTIONS & SESSIONS', response.data)
             let activeSession;
             for (const collection of response.data.collections) {
                 if (collection.collectionSessions) {
@@ -28,11 +28,11 @@ export const fetchCollectionsAndSessions = () => {
                     };
                 };
             };
-            console.log('THIS IS THE ACTIVE SESSION', activeSession)
+            // console.log('THIS IS THE ACTIVE SESSION', activeSession)
             if (activeSession) {
                 // get all songs from the session descending order so you get most recent songs first
                 const sessionSongs = await axios.post('/api/fetchSongsFromSession', {data: activeSession.id});
-                console.log('SESSIONSONGS THUNK', sessionSongs)
+                // console.log('SESSIONSONGS THUNK', sessionSongs)
                 activeSession.songs = [];
                 if (sessionSongs) {
                     for (const key in sessionSongs.data.songs) {
@@ -49,6 +49,18 @@ export const fetchCollectionsAndSessions = () => {
     };
 };
 
+// export const fetchActiveCollectionSongs = (activeCollectionId) => {
+//     dispatch(setFetchingStatus(true))
+//     try {
+//         const collectionAndSongs = await axios.get('/api/fetchCollectionAndSessions', {data: activeCollectionId})
+//     } catch (error) {
+//         console.error(error)
+//     } finally {
+//         dispatch(setFetchingStatus(false))
+//     }
+// }
+
+
 const initialState = {
     // musicInfo: {
     //     isFetching: true,
@@ -59,7 +71,7 @@ const initialState = {
 export default function musicReducer (state = initialState, action) {
     switch (action.type) {
         case FETCH_COLLECTIONS_AND_SESSIONS:
-            console.log('FROM MUSIC REDUCER', action)
+            // console.log('FROM MUSIC REDUCER', action)
             return {
                 ...state,
                 collections: action.data.collectionsAndSessions,

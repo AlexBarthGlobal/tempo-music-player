@@ -13,10 +13,10 @@ class App extends React.Component {
     constructor() {
         super()
         this.state = {
-          screenStr: sessionStorage.getItem('screenStr') || 'Collections',
-          screen: sessionStorage.getItem('screen') || <Collections />,
+        //   screenStr: sessionStorage.getItem('screenStr') || 'Collections',
+        //   screen: sessionStorage.getItem('screen') || <Collections />,
+        //Local player info
           playing: false,
-        //   idx: 0
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
@@ -24,10 +24,6 @@ class App extends React.Component {
         this.play = this.play.bind(this);
         this.pause = this.pause.bind(this);
     };
-
-    // componentDidMount() {
-    //     // if (!this.props.user.id) this.props.history.push('login');
-    // }
 
     play() {
         this.rap.play();
@@ -65,21 +61,27 @@ class App extends React.Component {
             location.href = "/auth/logout"
         };
 
-        const homeLogout = this.state.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.setState({screen: <Collections />, screenStr: 'Collections'})}>Home</button>
-        const createOrAddToCollection = this.state.screenStr === 'Collections' ? <button>Create Collection</button> :
-        this.state.screenStr === 'PlayerScreen' ? <button>Add to Collection</button> : null;
-        const audio = <audio src={tracks[this.state.idx]} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
+        // if (this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[playIdx]) // render a modal saying to change bpm,
+        // // change collection, or clear listened
+
+        const homeLogout = this.props.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.setState({screen: <Collections />, screenStr: 'Collections'})}>Home</button>
+        const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
+        this.props.screenStr === 'PlayerScreen' ? <button>Add to Collection</button> : null;
+        //const audio = <audio src={tracks[this.state.idx]} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = <button>Clear Listened</button>
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
-        const footerControls = /*this.props.musicInfo.activeSession.playIdx && */this.state.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} nextTrack={this.nextTrack} prevTrack={this.prevTrack} /></div> : null;
+        const footerControls = this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} nextTrack={this.nextTrack} prevTrack={this.prevTrack} /></div> : null;
+        const selectedScreen = <Collections />
+        if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo />
+        else if (this.props.screenStr === 'PlayerScreen') selectedScreen = <PlayerScreen />
 
         return (
             <div>
-                {audio}
+                {/* {audio} */}
                 <div className='topButtons'>{homeLogout}{createOrAddToCollection}</div>
                 <div className='secondButtons'>{clearListened}</div>
                 <div>
-                    {this.state.screen}
+                    {selectedScreen}
                     {/* <button onClick={() => this.setState({screen: <Tempo />, screenStr: 'Tempo'})}>TempoScr</button>
                     <button onClick={() => this.setState({screen: <PlayerScreen />, screenStr: 'PlayerScreen'})}>PlayerScr</button> */}
                 </div>             
@@ -95,7 +97,9 @@ const mapStateToProps = (state) => {
     return {
         user: state.userReducer.user,
         musicInfo: state.musicReducer,
-        screenInfo: state.screenReducer
+        screenStr: state.screenReducer.screenStr,
+        selectedCollection: state.screenReducer.selectedCollection,
+        playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
     }
 }
   

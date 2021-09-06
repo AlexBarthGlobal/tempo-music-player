@@ -6,7 +6,7 @@ import {Provider, connect} from 'react-redux'
 import store from './ReduxStore'
 import {render} from 'react-dom'
 import {fetchUser} from './redux/userDispatchers'
-import {fetchCollectionsAndSessions} from './redux/musicDispatchers'
+import {fetchCollectionsAndSessions, fetchActiveCollectionSongs} from './redux/musicDispatchers'
 import Routes from './components/Routes'
 import { BrowserRouter as Router, withRouter, Redirect } from 'react-router-dom'
 
@@ -15,6 +15,7 @@ const Main = class extends React.Component {
   async componentDidMount() {
       await this.props.fetchUser();
       if (this.props.user.id) await this.props.fetchCollectionsAndSessions();
+      //if (this.props.musicInfo.activeSession) await this.props.fetchActiveCollectionSongs(this.props.musicInfo.activeSession.collectionId); // Put all active collection songs onto redux.
   }
 
   render() {
@@ -38,16 +39,17 @@ const Main = class extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('State from index.js', state)
+  console.log('State (not props) from index.js', state)
   return {
     user: state.userReducer.user,
-    musicInfo: state.musicInfoReducer
+    musicInfo: state.musicReducer
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   fetchUser: () => dispatch(fetchUser()),
-  fetchCollectionsAndSessions: () => dispatch(fetchCollectionsAndSessions())
+  fetchCollectionsAndSessions: () => dispatch(fetchCollectionsAndSessions()),
+  fetchActiveCollectionSongs: (activeCollectionId) => dispatch(fetchActiveCollectionSongs(activeCollectionId))
 })
 
 const WrappedMain = withRouter(connect(mapStateToProps, mapDispatchToProps)(Main))

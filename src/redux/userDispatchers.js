@@ -26,7 +26,7 @@ export const fetchUser = () => {
     dispatch(setFetchingStatus(true))
     try {
       const response = await axios.get('/auth/me')
-      console.log('This is response', response.data.listened)
+      // console.log('This is response', response.data.listened)
       const listenedSongs = {};
       if (response.data.listened) {
         for (const song of response.data.listened.songs) {

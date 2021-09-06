@@ -20,7 +20,8 @@ export const selectCollection = (collectionId) => {
 
 
 const initialState = {
-    
+    screenStr: "Collections",
+    selectedCollection: null
 };
 
 

@@ -1921,6 +1921,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1963,10 +1965,10 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
     _this.state = {
-      screenStr: sessionStorage.getItem('screenStr') || 'Collections',
-      screen: sessionStorage.getItem('screen') || /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null),
-      playing: false //   idx: 0
-
+      //   screenStr: sessionStorage.getItem('screenStr') || 'Collections',
+      //   screen: sessionStorage.getItem('screen') || <Collections />,
+      //Local player info
+      playing: false
     };
     _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this));
     _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
@@ -1977,10 +1979,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
   _createClass(App, [{
     key: "play",
-    value: // componentDidMount() {
-    //     // if (!this.props.user.id) this.props.history.push('login');
-    // }
-    function play() {
+    value: function play() {
       this.rap.play();
       this.setState({
         playing: true
@@ -2024,9 +2023,11 @@ var App = /*#__PURE__*/function (_React$Component) {
         // await this.props.logoutUser();
         // this.props.history.push('login')
         location.href = "/auth/logout";
-      };
+      }; // if (this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[playIdx]) // render a modal saying to change bpm,
+      // // change collection, or clear listened
 
-      var homeLogout = this.state.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+
+      var homeLogout = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: logout
       }, "Logout") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
@@ -2036,36 +2037,28 @@ var App = /*#__PURE__*/function (_React$Component) {
           });
         }
       }, "Home");
-      var createOrAddToCollection = this.state.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.state.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null;
-      var audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
-        src: tracks[this.state.idx],
-        preload: "auto",
-        autoPlay: this.state.playing ? true : false,
-        onEnded: this.nextTrack,
-        ref: function ref(element) {
-          _this2.rap = element;
-        }
-      });
+      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null; //const audio = <audio src={tracks[this.state.idx]} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
+
       var clearListened = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Clear Listened");
       var playPause = this.state.playing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.pause
       }, "Pause") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.play
       }, "Play");
-      var footerControls =
-      /*this.props.musicInfo.activeSession.playIdx && */
-      this.state.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      var footerControls = this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_5__.default, {
         playPause: playPause,
         nextTrack: this.nextTrack,
         prevTrack: this.prevTrack
       })) : null;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null);
+      if (this.props.screenStr === 'Tempo') /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, null), _readOnlyError("selectedScreen");else if (this.props.screenStr === 'PlayerScreen') /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_4__.default, null), _readOnlyError("selectedScreen");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "topButtons"
       }, homeLogout, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"
-      }, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.screen), footerControls);
+      }, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), footerControls);
     }
   }]);
 
@@ -2079,7 +2072,9 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
     musicInfo: state.musicReducer,
-    screenInfo: state.screenReducer
+    screenStr: state.screenReducer.screenStr,
+    selectedCollection: state.screenReducer.selectedCollection,
+    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
   };
 };
 
@@ -2157,7 +2152,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
         var collection = collections[key];
         if (!collection.collectionName) break;
         collectionComponents.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
-          selectCollection: this.props.selectColl,
+          selectCollection: this.props.selectCollection,
           collectionId: collection.id,
           collectionName: collection.collectionName,
           collectionArt: collection.collectionArtUrl,
@@ -2180,13 +2175,14 @@ var Collections = /*#__PURE__*/function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
-    musicInfo: state.musicReducer
+    musicInfo: state.musicReducer // screenInfo: state.screenReducer
+
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    selectColl: function selectColl(collectionId) {
+    selectCollection: function selectCollection(collectionId) {
       return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_3__.selectCollection)(collectionId));
     }
   };
@@ -2594,77 +2590,75 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
 
             case 4:
               response = _context.sent;
-              console.log('FETCHED COLLECTIONS & SESSIONS', response.data);
               _iterator = _createForOfIteratorHelper(response.data.collections);
-              _context.prev = 7;
+              _context.prev = 6;
 
               _iterator.s();
 
-            case 9:
+            case 8:
               if ((_step = _iterator.n()).done) {
-                _context.next = 19;
+                _context.next = 18;
                 break;
               }
 
               collection = _step.value;
 
               if (!collection.collectionSessions) {
-                _context.next = 16;
-                break;
-              }
-
-              if (!(collection.collectionSessions[0].active === true)) {
                 _context.next = 15;
                 break;
               }
 
+              if (!(collection.collectionSessions[0].active === true)) {
+                _context.next = 14;
+                break;
+              }
+
               activeSession = collection.collectionSessions[0];
-              return _context.abrupt("break", 19);
+              return _context.abrupt("break", 18);
+
+            case 14:
+              ;
 
             case 15:
               ;
 
             case 16:
-              ;
-
-            case 17:
-              _context.next = 9;
+              _context.next = 8;
               break;
 
-            case 19:
-              _context.next = 24;
+            case 18:
+              _context.next = 23;
               break;
 
-            case 21:
-              _context.prev = 21;
-              _context.t0 = _context["catch"](7);
+            case 20:
+              _context.prev = 20;
+              _context.t0 = _context["catch"](6);
 
               _iterator.e(_context.t0);
 
-            case 24:
-              _context.prev = 24;
+            case 23:
+              _context.prev = 23;
 
               _iterator.f();
 
-              return _context.finish(24);
+              return _context.finish(23);
 
-            case 27:
-              ;
-              console.log('THIS IS THE ACTIVE SESSION', activeSession);
+            case 26:
+              ; // console.log('THIS IS THE ACTIVE SESSION', activeSession)
 
               if (!activeSession) {
-                _context.next = 36;
+                _context.next = 33;
                 break;
               }
 
-              _context.next = 32;
+              _context.next = 30;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchSongsFromSession', {
                 data: activeSession.id
               });
 
-            case 32:
+            case 30:
               sessionSongs = _context.sent;
-              console.log('SESSIONSONGS THUNK', sessionSongs);
+              // console.log('SESSIONSONGS THUNK', sessionSongs)
               activeSession.songs = [];
 
               if (sessionSongs) {
@@ -2673,40 +2667,50 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
                 }
               }
 
-            case 36:
+            case 33:
               dispatch(gotCollectionsAndSessions({
                 collectionsAndSessions: response.data.collections,
                 activeSession: activeSession
               }));
-              _context.next = 42;
+              _context.next = 39;
               break;
 
-            case 39:
-              _context.prev = 39;
+            case 36:
+              _context.prev = 36;
               _context.t1 = _context["catch"](1);
               console.error(_context.t1);
 
-            case 42:
-              _context.prev = 42;
+            case 39:
+              _context.prev = 39;
               dispatch(setFetchingStatus(false));
-              return _context.finish(42);
+              return _context.finish(39);
 
-            case 45:
+            case 42:
               ;
 
-            case 46:
+            case 43:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 39, 42, 45], [7, 21, 24, 27]]);
+      }, _callee, null, [[1, 36, 39, 42], [6, 20, 23, 26]]);
     }));
 
     return function (_x) {
       return _ref.apply(this, arguments);
     };
   }();
-};
+}; // export const fetchActiveCollectionSongs = (activeCollectionId) => {
+//     dispatch(setFetchingStatus(true))
+//     try {
+//         const collectionAndSongs = await axios.get('/api/fetchCollectionAndSessions', {data: activeCollectionId})
+//     } catch (error) {
+//         console.error(error)
+//     } finally {
+//         dispatch(setFetchingStatus(false))
+//     }
+// }
+
 var initialState = {
   // musicInfo: {
   //     isFetching: true,
@@ -2719,7 +2723,7 @@ function musicReducer() {
 
   switch (action.type) {
     case FETCH_COLLECTIONS_AND_SESSIONS:
-      console.log('FROM MUSIC REDUCER', action);
+      // console.log('FROM MUSIC REDUCER', action)
       return _objectSpread(_objectSpread({}, state), {}, {
         collections: action.data.collectionsAndSessions,
         activeSession: action.data.activeSession
@@ -2771,7 +2775,10 @@ var selectCollection = function selectCollection(collectionId) {
     dispatch(setSelectedCollection(collectionId));
   };
 };
-var initialState = {};
+var initialState = {
+  screenStr: "Collections",
+  selectedCollection: null
+};
 function screenReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -2878,7 +2885,7 @@ var fetchUser = function fetchUser() {
 
             case 4:
               response = _context.sent;
-              console.log('This is response', response.data.listened);
+              // console.log('This is response', response.data.listened)
               listenedSongs = {};
 
               if (response.data.listened) {
@@ -2903,25 +2910,25 @@ var fetchUser = function fetchUser() {
               response.data.listened.songs = listenedSongs;
               console.log('This is NEW response', listenedSongs);
               dispatch(gotMe(response.data));
-              _context.next = 17;
+              _context.next = 16;
               break;
 
-            case 14:
-              _context.prev = 14;
+            case 13:
+              _context.prev = 13;
               _context.t0 = _context["catch"](1);
               console.error(_context.t0);
 
-            case 17:
-              _context.prev = 17;
+            case 16:
+              _context.prev = 16;
               dispatch(setFetchingStatus(false));
-              return _context.finish(17);
+              return _context.finish(16);
 
-            case 20:
+            case 19:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 14, 17, 20]]);
+      }, _callee, null, [[1, 13, 16, 19]]);
     }));
 
     return function (_x) {
@@ -51156,10 +51163,10 @@ var Main = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
-  console.log('State from index.js', state);
+  console.log('State (not props) from index.js', state);
   return {
     user: state.userReducer.user,
-    musicInfo: state.musicInfoReducer
+    musicInfo: state.musicReducer
   };
 };
 
@@ -51170,6 +51177,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchCollectionsAndSessions: function fetchCollectionsAndSessions() {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_7__.fetchCollectionsAndSessions)());
+    },
+    fetchActiveCollectionSongs: function fetchActiveCollectionSongs(activeCollectionId) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_7__.fetchActiveCollectionSongs)(activeCollectionId));
     }
   };
 };

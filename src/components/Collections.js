@@ -14,7 +14,7 @@ class Collections extends React.Component {
         for (const key in collections) {
             const collection = collections[key];
             if (!collection.collectionName) break;
-            collectionComponents.push(<SingleCollection selectCollection={this.props.selectColl} collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} key={key}/>)
+            collectionComponents.push(<SingleCollection selectCollection={this.props.selectCollection} collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} key={key}/>)
         };
 
         return (
@@ -34,12 +34,13 @@ class Collections extends React.Component {
 const mapStateToProps = (state) => {
     return { 
         user: state.userReducer.user,
-        musicInfo: state.musicReducer
+        musicInfo: state.musicReducer,
+        // screenInfo: state.screenReducer
     }
   }
   
   const mapDispatchToProps = dispatch => ({
-    selectColl: (collectionId) => dispatch(selectCollection(collectionId))
+    selectCollection: (collectionId) => dispatch(selectCollection(collectionId))
   })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Collections)

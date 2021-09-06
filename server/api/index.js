@@ -90,7 +90,7 @@ router.get('/fetchCollectionAndSessions', async (req, res, next) => {
     }
 })
 
-router.get('/fetchCurrentCollectionAndSongs', async (req, res, next) => {
+router.post('/fetchCurrentCollectionAndSongs', async (req, res, next) => {
     try {
         const collection = await Collection.findOne({
             where: {

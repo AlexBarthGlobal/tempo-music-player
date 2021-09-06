@@ -2037,8 +2037,17 @@ var App = /*#__PURE__*/function (_React$Component) {
           });
         }
       }, "Home");
-      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null; //const audio = <audio src={tracks[this.state.idx]} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
-
+      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null;
+      var audio;
+      if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange) audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
+        src: this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null,
+        preload: "auto",
+        autoPlay: this.state.playing ? true : false,
+        onEnded: this.nextTrack,
+        ref: function ref(element) {
+          _this2.rap = element;
+        }
+      });
       var clearListened = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Clear Listened");
       var playPause = this.state.playing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.pause
@@ -2054,7 +2063,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       })) : null;
       var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null);
       if (this.props.screenStr === 'Tempo') /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, null), _readOnlyError("selectedScreen");else if (this.props.screenStr === 'PlayerScreen') /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_4__.default, null), _readOnlyError("selectedScreen");
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "topButtons"
       }, homeLogout, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"

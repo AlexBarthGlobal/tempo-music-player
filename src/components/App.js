@@ -67,7 +67,8 @@ class App extends React.Component {
         const homeLogout = this.props.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.setState({screen: <Collections />, screenStr: 'Collections'})}>Home</button>
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
         this.props.screenStr === 'PlayerScreen' ? <button>Add to Collection</button> : null;
-        //const audio = <audio src={tracks[this.state.idx]} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
+        let audio;
+        if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange) audio = <audio src={this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = <button>Clear Listened</button>
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
         const footerControls = this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} nextTrack={this.nextTrack} prevTrack={this.prevTrack} /></div> : null;
@@ -77,7 +78,7 @@ class App extends React.Component {
 
         return (
             <div>
-                {/* {audio} */}
+                {audio}
                 <div className='topButtons'>{homeLogout}{createOrAddToCollection}</div>
                 <div className='secondButtons'>{clearListened}</div>
                 <div>

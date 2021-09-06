@@ -62,7 +62,6 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
         dispatch(setFetchingStatus(true))
         try {
             const activeCollectionSongs = await axios.post('/api/fetchCurrentcollectionAndSongs', {data: activeCollectionId})
-            console.log('THESE ARE ACTIVE SONGS', activeCollectionSongs)
             let data = {};
             if (activeCollectionSongs && activeCollectionSongs.data.collections[0].songs) {
                 data.activeCollectionSongs = activeCollectionSongs.data.collections[0].songs;

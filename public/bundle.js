@@ -2698,7 +2698,6 @@ var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeColle
 
             case 4:
               activeCollectionSongs = _context2.sent;
-              console.log('THESE ARE ACTIVE SONGS', activeCollectionSongs);
               data = {};
 
               if (activeCollectionSongs && activeCollectionSongs.data.collections[0].songs) {
@@ -2707,25 +2706,25 @@ var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeColle
 
               data.activeCollectionId = activeCollectionId;
               dispatch(setActiveCollectionSongs(data));
-              _context2.next = 15;
+              _context2.next = 14;
               break;
 
-            case 12:
-              _context2.prev = 12;
+            case 11:
+              _context2.prev = 11;
               _context2.t0 = _context2["catch"](1);
               console.error(_context2.t0);
 
-            case 15:
-              _context2.prev = 15;
+            case 14:
+              _context2.prev = 14;
               dispatch(setFetchingStatus(false));
-              return _context2.finish(15);
+              return _context2.finish(14);
 
-            case 18:
+            case 17:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 12, 15, 18]]);
+      }, _callee2, null, [[1, 11, 14, 17]]);
     }));
 
     return function (_x2) {

@@ -33,10 +33,12 @@ export const fetchCollectionsAndSessions = () => {
                 // get all songs from the session descending order so you get most recent songs first
                 const sessionSongs = await axios.post('/api/fetchSongsFromSession', {data: activeSession.id});
                 console.log('SESSIONSONGS THUNK', sessionSongs)
-                // activeSession.songs = [];
-                // if (sessionSongs) {
-                //     // loop over these
-                // }
+                activeSession.songs = [];
+                if (sessionSongs) {
+                    for (const key in sessionSongs.data.songs) {
+                        activeSession.songs.push(sessionSongs.data.songs[key]);
+                    }
+                }
             }
             dispatch(gotCollectionsAndSessions({collectionsAndSessions: response.data.collections, activeSession}))
         } catch (error) {

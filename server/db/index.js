@@ -3,6 +3,7 @@ const Song = require('./models/song')
 const User = require('./models/user')
 const Collection = require('./models/collection')
 const CollectionSession = require('./models/collectionSession');
+const SessionSong = require('./models/sessionSongs')
 const Listened = require('./models/listened');
 
 User.hasMany(CollectionSession);
@@ -23,8 +24,8 @@ Listened.belongsTo(User);
 Listened.belongsToMany(Song, {through: 'listenedSongs'})
 Song.belongsToMany(Listened, {through: 'listenedSongs'})
 
-CollectionSession.belongsToMany(Song, {through: 'sessionSongs'})
-Song.belongsToMany(CollectionSession, {through: 'sessionSongs'})
+CollectionSession.belongsToMany(Song, {through: SessionSong})
+Song.belongsToMany(CollectionSession, {through: SessionSong})
 
 module.exports = {
     db,
@@ -32,5 +33,6 @@ module.exports = {
     User,
     Collection,
     CollectionSession,
-    Listened
+    Listened,
+    SessionSong
 }

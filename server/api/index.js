@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
-const {Song, User, Collection, CollectionSession, Listened} = require('../db/index');
+const {Song, User, Collection, CollectionSession, Listened, SessionSong} = require('../db/index');
 
 // On metronome button Click after choosing BPM
 router.get('/createOrUpdateCollectionSession', async (req, res, next) => {
@@ -138,7 +138,7 @@ router.post('/fetchSongsFromSession', async (req, res, next) => {
                 model: Song,
                 required: false,
             },
-            order: [['sessionSongs', 'createdAt', 'DESC' ]]
+            order: [[Song, SessionSong, 'createdAt', 'ASC' ]]
             // order: [[Song, 'createdAt', 'ASC' ]]
         })
 

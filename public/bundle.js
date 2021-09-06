@@ -2581,7 +2581,7 @@ var gotCollectionsAndSessions = function gotCollectionsAndSessions(data) {
 var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var response, activeSession, _iterator, _step, collection, sessionSongs;
+      var response, activeSession, _iterator, _step, collection, sessionSongs, key;
 
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -2653,7 +2653,7 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
               console.log('THIS IS THE ACTIVE SESSION', activeSession);
 
               if (!activeSession) {
-                _context.next = 34;
+                _context.next = 36;
                 break;
               }
 
@@ -2664,38 +2664,42 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
 
             case 32:
               sessionSongs = _context.sent;
-              console.log('SESSIONSONGS THUNK', sessionSongs); // activeSession.songs = [];
-              // if (sessionSongs) {
-              //     // loop over these
-              // }
+              console.log('SESSIONSONGS THUNK', sessionSongs);
+              activeSession.songs = [];
 
-            case 34:
+              if (sessionSongs) {
+                for (key in sessionSongs.data.songs) {
+                  activeSession.songs.push(sessionSongs.data.songs[key]);
+                }
+              }
+
+            case 36:
               dispatch(gotCollectionsAndSessions({
                 collectionsAndSessions: response.data.collections,
                 activeSession: activeSession
               }));
-              _context.next = 40;
+              _context.next = 42;
               break;
 
-            case 37:
-              _context.prev = 37;
+            case 39:
+              _context.prev = 39;
               _context.t1 = _context["catch"](1);
               console.error(_context.t1);
 
-            case 40:
-              _context.prev = 40;
+            case 42:
+              _context.prev = 42;
               dispatch(setFetchingStatus(false));
-              return _context.finish(40);
+              return _context.finish(42);
 
-            case 43:
+            case 45:
               ;
 
-            case 44:
+            case 46:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 37, 40, 43], [7, 21, 24, 27]]);
+      }, _callee, null, [[1, 39, 42, 45], [7, 21, 24, 27]]);
     }));
 
     return function (_x) {

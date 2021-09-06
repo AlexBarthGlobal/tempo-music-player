@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
 const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
+const SET_ACTIVE_COLLECTION_SONGS = 'SET_ACTIVE_COLLECTIONS_SONGS'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -12,6 +13,11 @@ const gotCollectionsAndSessions = data => ({
     type: FETCH_COLLECTIONS_AND_SESSIONS,
     data
 });
+
+const setActiveCollectionSongs = data => ({
+    type: SET_ACTIVE_COLLECTION_SONGS,
+    data
+})
 
 export const fetchCollectionsAndSessions = () => {
     return async dispatch => {
@@ -57,7 +63,12 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
         try {
             const activeCollectionSongs = await axios.post('/api/fetchCurrentcollectionAndSongs', {data: activeCollectionId})
             console.log('THESE ARE ACTIVE SONGS', activeCollectionSongs)
-            dispatch(activeCollectionSongs)
+            let data = {};
+            if (activeCollectionSongs && activeCollectionSongs.data.collections[0].songs) {
+                data.activeCollectionSongs = activeCollectionSongs.data.collections[0].songs;
+            } else data.activeCollectionSongs = [];
+            data.activeCollectionId = activeCollectionId
+            dispatch(setActiveCollectionSongs(data))
         } catch (error) {
             console.error(error)
         } finally {
@@ -83,6 +94,13 @@ export default function musicReducer (state = initialState, action) {
                 collections: action.data.collectionsAndSessions,
                 activeSession: action.data.activeSession 
             };
+        case SET_ACTIVE_COLLECTION_SONGS:
+            const collectionsCopy = {...state.collections}
+            collectionsCopy[action.data.activeCollectionId].songs = action.data.activeCollectionSongs
+            return {
+                ...state,
+                collections: collectionsCopy
+            }
         case SET_FETCHING_STATUS:
             return {
                 ...state,

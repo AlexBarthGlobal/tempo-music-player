@@ -2560,6 +2560,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
 var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
+var SET_ACTIVE_COLLECTION_SONGS = 'SET_ACTIVE_COLLECTIONS_SONGS';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -2571,6 +2572,13 @@ var setFetchingStatus = function setFetchingStatus(isFetching) {
 var gotCollectionsAndSessions = function gotCollectionsAndSessions(data) {
   return {
     type: FETCH_COLLECTIONS_AND_SESSIONS,
+    data: data
+  };
+};
+
+var setActiveCollectionSongs = function setActiveCollectionSongs(data) {
+  return {
+    type: SET_ACTIVE_COLLECTION_SONGS,
     data: data
   };
 };
@@ -2676,7 +2684,7 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
 var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeCollectionId) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
-      var activeCollectionSongs;
+      var activeCollectionSongs, data;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -2691,26 +2699,33 @@ var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeColle
             case 4:
               activeCollectionSongs = _context2.sent;
               console.log('THESE ARE ACTIVE SONGS', activeCollectionSongs);
-              dispatch(activeCollectionSongs);
-              _context2.next = 12;
-              break;
+              data = {};
 
-            case 9:
-              _context2.prev = 9;
-              _context2.t0 = _context2["catch"](1);
-              console.error(_context2.t0);
+              if (activeCollectionSongs && activeCollectionSongs.data.collections[0].songs) {
+                data.activeCollectionSongs = activeCollectionSongs.data.collections[0].songs;
+              } else data.activeCollectionSongs = [];
+
+              data.activeCollectionId = activeCollectionId;
+              dispatch(setActiveCollectionSongs(data));
+              _context2.next = 15;
+              break;
 
             case 12:
               _context2.prev = 12;
-              dispatch(setFetchingStatus(false));
-              return _context2.finish(12);
+              _context2.t0 = _context2["catch"](1);
+              console.error(_context2.t0);
 
             case 15:
+              _context2.prev = 15;
+              dispatch(setFetchingStatus(false));
+              return _context2.finish(15);
+
+            case 18:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 9, 12, 15]]);
+      }, _callee2, null, [[1, 12, 15, 18]]);
     }));
 
     return function (_x2) {
@@ -2734,6 +2749,14 @@ function musicReducer() {
       return _objectSpread(_objectSpread({}, state), {}, {
         collections: action.data.collectionsAndSessions,
         activeSession: action.data.activeSession
+      });
+
+    case SET_ACTIVE_COLLECTION_SONGS:
+      var collectionsCopy = _objectSpread({}, state.collections);
+
+      collectionsCopy[action.data.activeCollectionId].songs = action.data.activeCollectionSongs;
+      return _objectSpread(_objectSpread({}, state), {}, {
+        collections: collectionsCopy
       });
 
     case SET_FETCHING_STATUS:

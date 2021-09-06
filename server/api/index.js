@@ -100,11 +100,13 @@ router.post('/fetchCurrentCollectionAndSongs', async (req, res, next) => {
             },
             include: {
                 model: Collection,
+                required: false,
                 where: {
                     id: req.body.data
                 },
                 include: {
                     model: Song,
+                    required: false,
                 }
             },
             order: [

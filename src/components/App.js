@@ -30,8 +30,8 @@ class App extends React.Component {
     };
 
     checkIfListened() {
-        if (this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx]] && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
-            this.props.addToListenedAndSession();
+        if (this.props.musicInfo.activeSession.songs[this.props.playIdx] && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
+            this.props.addToListenedAndSession(); //pass in the songId and activeSessionId
         };
     }
 
@@ -56,6 +56,7 @@ class App extends React.Component {
     };
 
     nextTrack () {
+        //Line below prevents next/enqueue if current song is null.
         if (/*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/ !this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) this.props.incrementPlayIdx();
         // this.checkIfListened();

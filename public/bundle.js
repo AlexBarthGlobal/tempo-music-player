@@ -2188,8 +2188,12 @@ var Collections = /*#__PURE__*/function (_React$Component) {
       console.log('props from collections', this.props);
       var collections = this.props.musicInfo.collections;
 
+      var isActive = function isActive(collectionId) {
+        return _this.props.musicInfo.activeSession && _this.props.musicInfo.activeSession.collectionId === collectionId;
+      };
+
       var selectCollectionAndChangeScreen = function selectCollectionAndChangeScreen(collectionId) {
-        if (_this.props.musicInfo.activeSession && _this.props.musicInfo.activeSession.collectionId === collectionId) {
+        if (isActive(collectionId)) {
           _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen');
         } else _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo');
       };
@@ -2202,9 +2206,11 @@ var Collections = /*#__PURE__*/function (_React$Component) {
         if (!collection.collectionName) break;
         collectionComponents.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
           selectCollectionAndChangeScreen: selectCollectionAndChangeScreen,
+          isActive: isActive,
           collectionId: collection.id,
           collectionName: collection.collectionName,
           collectionArt: collection.collectionArtUrl,
+          BPM: isActive(collection.id) ? this.props.musicInfo.activeSession.currBPM : null,
           key: key
         }));
       }
@@ -2483,8 +2489,11 @@ var SingleCollection = function SingleCollection(props) {
   var collectionId = props.collectionId,
       collectionName = props.collectionName,
       collectionArt = props.collectionArt,
-      selectCollectionAndChangeScreen = props.selectCollectionAndChangeScreen; // console.log(selectCollection)
+      selectCollectionAndChangeScreen = props.selectCollectionAndChangeScreen,
+      isActive = props.isActive,
+      BPM = props.BPM; // console.log(selectCollection)
 
+  var resume = isActive(collectionId) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Resume at ", BPM, " BPM") : null;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     onClick: function onClick() {
       return selectCollectionAndChangeScreen(collectionId);
@@ -2492,7 +2501,7 @@ var SingleCollection = function SingleCollection(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "collectionImage",
     src: collectionArt
-  })), collectionName);
+  })), collectionName, resume);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleCollection);
@@ -2783,7 +2792,7 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
                   collection = _step.value;
                   collectionsObj[collection.id] = collection;
 
-                  if (collection.collectionSessions) {
+                  if (collection.collectionSessions.length) {
                     if (collection.collectionSessions[0].active === true) {
                       activeSession = collection.collectionSessions[0];
                     }

@@ -56,7 +56,7 @@ export const fetchCollectionsAndSessions = () => {
             const collectionsObj = {};
             for (const collection of response.data.collections) {
                 collectionsObj[collection.id] = collection;
-                if (collection.collectionSessions) {
+                if (collection.collectionSessions.length) {
                     if (collection.collectionSessions[0].active === true) {
                         activeSession = collection.collectionSessions[0];
                     };

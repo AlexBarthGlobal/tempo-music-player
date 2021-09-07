@@ -51,11 +51,20 @@ router.get('/createOrUpdateCollectionSession', async (req, res, next) => {
 
 router.put('/updateUserCollectionSessionsToInactive', async (req, res, next) => {
     try {
+        // await CollectionSession.update({
+        //     active: false,
+        //     where: {
+        //         userId: req.session.passport.user,
+        //         id: {$not: req.body.collectionSessionId}
+        //     }
+        // });
         await CollectionSession.update({
             active: false,
             where: {
                 userId: req.session.passport.user,
-                id: {$not: req.body.collectionSessionId}
+                id: {
+                    [sequelize.Op.not]: req.body.collectionSessionId
+                }
             }
         });
 

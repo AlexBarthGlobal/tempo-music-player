@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux'
 
 class Tempo extends React.Component {
 
@@ -14,6 +15,19 @@ class Tempo extends React.Component {
 
 
 
-}
+};
 
-export default Tempo
+const mapStateToProps = (state) => {
+    return { 
+        user: state.userReducer.user,
+        musicInfo: state.musicReducer,
+        screenStr: state.screenReducer.screenStr,
+        selectedCollection: state.screenReducer.selectedCollection,
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => ({
+
+  })
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tempo)

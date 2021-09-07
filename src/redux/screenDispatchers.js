@@ -1,9 +1,20 @@
 const SELECT_COLLECTION = 'SELECT_COLLECTION'
 const CHANGE_SCREEN = 'CHANGE_SCREEN'
+const SET_SELECTED_COLLECTION_AND_SCREEN = 'SET_SELECTED_COLLECTION_AND_SCREEN'
 
 const setSelectedCollection = collectionId => ({
     type: SELECT_COLLECTION,
     collectionId
+});
+
+const setSelectedCollectionAndScreen = data => ({
+    type: SET_SELECTED_COLLECTION_AND_SCREEN,
+    data
+});
+
+const changeScreenAction = screen => ({
+    type: CHANGE_SCREEN,
+    screen
 })
 
 export const selectCollection = (collectionId) => {
@@ -13,9 +24,17 @@ export const selectCollection = (collectionId) => {
     }
 }
 
+export const selectCollectionAndChangeScreenThunk = (collectionId, screen) => {
+    return dispatch => {
+        dispatch(setSelectedCollectionAndScreen({collectionId, screen}))
+    };
+};
 
-
-
+export const changeScreenThunk = (screen) => {
+    return dispatch => {
+        dispatch(changeScreenAction(screen))
+    };
+};
 
 
 
@@ -36,9 +55,14 @@ export default function screenReducer (state = initialState, action) {
         case CHANGE_SCREEN:
             return {
                 ...state,
-                screen: {
-                    ...action.data.screen
-                }
+                screenStr: action.screen
+            }
+        case SET_SELECTED_COLLECTION_AND_SCREEN:
+            console.log('SELECTED COLLECTION AND SCREEN', action.data)
+            return {
+                ...state,
+                screenStr: action.data.screen,
+                selectedCollection: action.data.collectionId
             }
         // case SET_FETCHING_STATUS:
         //     return {

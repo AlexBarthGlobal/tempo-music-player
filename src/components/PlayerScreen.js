@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux'
 
 class PlayerScreen extends React.Component {
 
@@ -13,5 +14,18 @@ class PlayerScreen extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return { 
+        user: state.userReducer.user,
+        musicInfo: state.musicReducer,
+        screenStr: state.screenReducer.screenStr,
+        selectedCollection: state.screenReducer.selectedCollection,
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => ({
 
-export default PlayerScreen
+  })
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerScreen)

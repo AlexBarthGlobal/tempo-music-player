@@ -1,10 +1,10 @@
 import React from 'react';
 
 const SingleCollection = (props) => {
-    const {collectionId, collectionName, collectionArt, selectCollection} = props;
+    const {collectionId, collectionName, collectionArt, selectCollectionAndChangeScreen} = props;
     // console.log(selectCollection)
     return (
-        <div onClick={() => selectCollection(collectionId)}>
+        <div onClick={() => selectCollectionAndChangeScreen(collectionId)}>
             <div>
                 <img className='collectionImage' src={collectionArt}></img>
             </div>

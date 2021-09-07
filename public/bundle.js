@@ -1918,11 +1918,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Tempo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Tempo */ "./src/components/Tempo.js");
 /* harmony import */ var _PlayerScreen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PlayerScreen */ "./src/components/PlayerScreen.js");
 /* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
+/* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1950,6 +1949,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
  // import {logout} from '../redux/isLogged'
+
 
 
 
@@ -2038,7 +2038,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       console.log('Props on App.js RENDER', this.props);
-      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Redirect, {
+      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Redirect, {
         to: "/login"
       });
 
@@ -2052,13 +2052,10 @@ var App = /*#__PURE__*/function (_React$Component) {
         onClick: logout
       }, "Logout") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
-          return _this2.setState({
-            screen: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null),
-            screenStr: 'Collections'
-          });
+          return _this2.props.changeScreen('Collections');
         }
       }, "Home");
-      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null;
+      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null;
       var audio; // if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && this.props.musicInfo.activeSession.songsInRange.length) audio = <audio src={this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
 
       audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
@@ -2084,12 +2081,12 @@ var App = /*#__PURE__*/function (_React$Component) {
         prevTrack: this.prevTrack
       })) : null;
       var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null);
-      if (this.props.screenStr === 'Tempo') /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, null), _readOnlyError("selectedScreen");else if (this.props.screenStr === 'PlayerScreen') /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_4__.default, null), _readOnlyError("selectedScreen");
+      if (this.props.screenStr === 'Tempo') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, null);else if (this.props.screenStr === 'PlayerScreen') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_4__.default, null);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "topButtons"
-      }, homeLogout, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, homeLogout, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"
-      }, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), footerControls);
+      }, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), footerControls);
     }
   }]);
 
@@ -2119,6 +2116,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     decrementPlayIdx: function decrementPlayIdx() {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.decrementPlayIdxThunk)());
+    },
+    changeScreen: function changeScreen(screen) {
+      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_7__.changeScreenThunk)(screen));
     }
   };
 };
@@ -2183,8 +2183,17 @@ var Collections = /*#__PURE__*/function (_React$Component) {
   _createClass(Collections, [{
     key: "render",
     value: function render() {
+      var _this = this;
+
       console.log('props from collections', this.props);
       var collections = this.props.musicInfo.collections;
+
+      var selectCollectionAndChangeScreen = function selectCollectionAndChangeScreen(collectionId) {
+        if (_this.props.musicInfo.activeSession && _this.props.musicInfo.activeSession.collectionId === collectionId) {
+          _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen');
+        } else _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo');
+      };
+
       var noCollections = 'No collections yet. Create a new one!';
       var collectionComponents = [];
 
@@ -2192,7 +2201,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
         var collection = collections[key];
         if (!collection.collectionName) break;
         collectionComponents.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
-          selectCollection: this.props.selectCollection,
+          selectCollectionAndChangeScreen: selectCollectionAndChangeScreen,
           collectionId: collection.id,
           collectionName: collection.collectionName,
           collectionArt: collection.collectionArtUrl,
@@ -2222,8 +2231,8 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    selectCollection: function selectCollection(collectionId) {
-      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_3__.selectCollection)(collectionId));
+    dispatchSelectCollectionAndChangeScreen: function dispatchSelectCollectionAndChangeScreen(collectionId, screen) {
+      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_3__.selectCollectionAndChangeScreenThunk)(collectionId, screen));
     }
   };
 };
@@ -2354,6 +2363,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2375,6 +2385,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -2401,7 +2412,20 @@ var PlayerScreen = /*#__PURE__*/function (_React$Component) {
   return PlayerScreen;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerScreen);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    user: state.userReducer.user,
+    musicInfo: state.musicReducer,
+    screenStr: state.screenReducer.screenStr,
+    selectedCollection: state.screenReducer.selectedCollection
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(PlayerScreen));
 
 /***/ }),
 
@@ -2459,11 +2483,11 @@ var SingleCollection = function SingleCollection(props) {
   var collectionId = props.collectionId,
       collectionName = props.collectionName,
       collectionArt = props.collectionArt,
-      selectCollection = props.selectCollection; // console.log(selectCollection)
+      selectCollectionAndChangeScreen = props.selectCollectionAndChangeScreen; // console.log(selectCollection)
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     onClick: function onClick() {
-      return selectCollection(collectionId);
+      return selectCollectionAndChangeScreen(collectionId);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "collectionImage",
@@ -2487,6 +2511,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2508,6 +2533,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -2534,7 +2560,22 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
   return Tempo;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tempo);
+;
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    user: state.userReducer.user,
+    musicInfo: state.musicReducer,
+    screenStr: state.screenReducer.screenStr,
+    selectedCollection: state.screenReducer.selectedCollection
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Tempo));
 
 /***/ }),
 
@@ -2985,6 +3026,8 @@ function musicReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "selectCollection": () => (/* binding */ selectCollection),
+/* harmony export */   "selectCollectionAndChangeScreenThunk": () => (/* binding */ selectCollectionAndChangeScreenThunk),
+/* harmony export */   "changeScreenThunk": () => (/* binding */ changeScreenThunk),
 /* harmony export */   "default": () => (/* binding */ screenReducer)
 /* harmony export */ });
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
@@ -2995,6 +3038,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var SELECT_COLLECTION = 'SELECT_COLLECTION';
 var CHANGE_SCREEN = 'CHANGE_SCREEN';
+var SET_SELECTED_COLLECTION_AND_SCREEN = 'SET_SELECTED_COLLECTION_AND_SCREEN';
 
 var setSelectedCollection = function setSelectedCollection(collectionId) {
   return {
@@ -3003,10 +3047,37 @@ var setSelectedCollection = function setSelectedCollection(collectionId) {
   };
 };
 
+var setSelectedCollectionAndScreen = function setSelectedCollectionAndScreen(data) {
+  return {
+    type: SET_SELECTED_COLLECTION_AND_SCREEN,
+    data: data
+  };
+};
+
+var changeScreenAction = function changeScreenAction(screen) {
+  return {
+    type: CHANGE_SCREEN,
+    screen: screen
+  };
+};
+
 var selectCollection = function selectCollection(collectionId) {
   return function (dispatch) {
     console.log('FROM DISPATCHER', collectionId);
     dispatch(setSelectedCollection(collectionId));
+  };
+};
+var selectCollectionAndChangeScreenThunk = function selectCollectionAndChangeScreenThunk(collectionId, screen) {
+  return function (dispatch) {
+    dispatch(setSelectedCollectionAndScreen({
+      collectionId: collectionId,
+      screen: screen
+    }));
+  };
+};
+var changeScreenThunk = function changeScreenThunk(screen) {
+  return function (dispatch) {
+    dispatch(changeScreenAction(screen));
   };
 };
 var initialState = {
@@ -3026,7 +3097,14 @@ function screenReducer() {
 
     case CHANGE_SCREEN:
       return _objectSpread(_objectSpread({}, state), {}, {
-        screen: _objectSpread({}, action.data.screen)
+        screenStr: action.screen
+      });
+
+    case SET_SELECTED_COLLECTION_AND_SCREEN:
+      console.log('SELECTED COLLECTION AND SCREEN', action.data);
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenStr: action.data.screen,
+        selectedCollection: action.data.collectionId
       });
     // case SET_FETCHING_STATUS:
     //     return {

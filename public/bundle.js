@@ -2077,8 +2077,8 @@ var App = /*#__PURE__*/function (_React$Component) {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_5__.default, {
         playPause: playPause,
-        nextTrack: this.nextTrack,
-        prevTrack: this.prevTrack
+        prevTrack: this.prevTrack,
+        nextTrack: this.nextTrack
       })) : null;
       var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null);
       if (this.props.screenStr === 'Tempo') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, null);else if (this.props.screenStr === 'PlayerScreen') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_4__.default, null);
@@ -2313,10 +2313,10 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
           nextTrack = _this$props.nextTrack,
           prevTrack = _this$props.prevTrack;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, playPause, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: nextTrack
-      }, "Next"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: prevTrack
-      }, "Prev"));
+      }, "Prev"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: nextTrack
+      }, "Next"));
     }
   }]);
 

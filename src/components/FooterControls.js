@@ -14,8 +14,8 @@ class FooterControls extends React.Component {
       return (
         <div>
           {playPause}
-          <button onClick={nextTrack}>Next</button>
           <button onClick={prevTrack}>Prev</button>
+          <button onClick={nextTrack}>Next</button>  
         </div>
       )
     };

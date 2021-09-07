@@ -11,6 +11,9 @@ class Collections extends React.Component {
         const isActive = (collectionId) => {
             return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === collectionId)
         };
+        const hasSession = (collectionId) => {
+            return (this.props.musicInfo.collections[collectionId] && this.props.musicInfo.collections[collectionId].collectionSessions.length)
+        };
         const selectCollectionAndChangeScreen = (collectionId) => {
             if (isActive(collectionId)) {
                 this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen')
@@ -23,7 +26,7 @@ class Collections extends React.Component {
         for (const key in collections) {
             const collection = collections[key];
             if (!collection.collectionName) break;
-            collectionComponents.push(<SingleCollection selectCollectionAndChangeScreen={selectCollectionAndChangeScreen} isActive={isActive} collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} BPM={isActive(collection.id) ? this.props.musicInfo.activeSession.currBPM : null} key={key}/>)
+            collectionComponents.push(<SingleCollection selectCollectionAndChangeScreen={selectCollectionAndChangeScreen} isActive={isActive} hasSession={hasSession} collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} BPM={hasSession(collection.id) ? this.props.musicInfo.collections[collection.id].collectionSessions[0].currBPM : null} key={key}/>)
         };
 
         return (

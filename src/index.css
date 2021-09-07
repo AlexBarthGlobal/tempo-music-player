@@ -54,3 +54,9 @@ a {
   border-radius: 17px;
 }
 
+.centerThis {
+  /* margin-left: auto;
+  margin-right: auto;
+  width: 8em */
+  text-align: center;
+}

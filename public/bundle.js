@@ -2192,6 +2192,10 @@ var Collections = /*#__PURE__*/function (_React$Component) {
         return _this.props.musicInfo.activeSession && _this.props.musicInfo.activeSession.collectionId === collectionId;
       };
 
+      var hasSession = function hasSession(collectionId) {
+        return _this.props.musicInfo.collections[collectionId] && _this.props.musicInfo.collections[collectionId].collectionSessions.length;
+      };
+
       var selectCollectionAndChangeScreen = function selectCollectionAndChangeScreen(collectionId) {
         if (isActive(collectionId)) {
           _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen');
@@ -2207,10 +2211,11 @@ var Collections = /*#__PURE__*/function (_React$Component) {
         collectionComponents.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
           selectCollectionAndChangeScreen: selectCollectionAndChangeScreen,
           isActive: isActive,
+          hasSession: hasSession,
           collectionId: collection.id,
           collectionName: collection.collectionName,
           collectionArt: collection.collectionArtUrl,
-          BPM: isActive(collection.id) ? this.props.musicInfo.activeSession.currBPM : null,
+          BPM: hasSession(collection.id) ? this.props.musicInfo.collections[collection.id].collectionSessions[0].currBPM : null,
           key: key
         }));
       }
@@ -2491,9 +2496,11 @@ var SingleCollection = function SingleCollection(props) {
       collectionArt = props.collectionArt,
       selectCollectionAndChangeScreen = props.selectCollectionAndChangeScreen,
       isActive = props.isActive,
+      hasSession = props.hasSession,
       BPM = props.BPM; // console.log(selectCollection)
 
-  var resume = isActive(collectionId) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Resume at ", BPM, " BPM") : null;
+  var sessionStatus = null;
+  if (isActive(collectionId)) sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Playing at ", BPM, " BPM");else if (hasSession(collectionId)) sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Resume at ", BPM, " BPM");else sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Start new session!");
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     onClick: function onClick() {
       return selectCollectionAndChangeScreen(collectionId);
@@ -2501,7 +2508,7 @@ var SingleCollection = function SingleCollection(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "collectionImage",
     src: collectionArt
-  })), collectionName, resume);
+  })), collectionName, sessionStatus);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleCollection);
@@ -2543,26 +2550,60 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+ // this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : null
 
 var Tempo = /*#__PURE__*/function (_React$Component) {
   _inherits(Tempo, _React$Component);
 
   var _super = _createSuper(Tempo);
 
-  function Tempo() {
+  function Tempo(props) {
+    var _this;
+
     _classCallCheck(this, Tempo);
 
-    return _super.apply(this, arguments);
+    console.log('PROPS from Constructor', props);
+    _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (evt) {
+      evt.preventDefault();
+      console.log(_this.state.BPM);
+    });
+
+    _this.state = {
+      BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : 0
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(Tempo, [{
+    key: "handleChange",
+    value: function handleChange(evt) {
+      this.setState(_defineProperty({}, evt.target.name, evt.target.value));
+    }
+  }, {
     key: "render",
     value: function render() {
+      console.log('PROPS from TEMPO', this.props);
+      var BPM = this.state.BPM;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle"
-      }, "Tempo Screen"));
+      }, "Tempo Screen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "centerThis"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Confirm BPM ", BPM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        name: "BPM",
+        onChange: this.handleChange,
+        value: BPM
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        type: "submit"
+      }, "Confirm")))));
     }
   }]);
 
@@ -14091,7 +14132,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE;;cAEY;EACZ,kBAAkB;AACpB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

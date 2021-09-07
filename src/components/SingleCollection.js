@@ -1,16 +1,19 @@
 import React from 'react';
 
 const SingleCollection = (props) => {
-    const {collectionId, collectionName, collectionArt, selectCollectionAndChangeScreen, isActive, BPM} = props;
+    const {collectionId, collectionName, collectionArt, selectCollectionAndChangeScreen, isActive, hasSession, BPM} = props;
     // console.log(selectCollection)
-    const resume = isActive(collectionId) ? <div>Resume at {BPM} BPM</div> : null;
+    let sessionStatus = null;
+    if (isActive(collectionId)) sessionStatus = <div>Playing at {BPM} BPM</div>
+    else if (hasSession(collectionId)) sessionStatus = <div>Resume at {BPM} BPM</div>
+    else sessionStatus = <div>Start new session!</div>
     return (
         <div onClick={() => selectCollectionAndChangeScreen(collectionId)}>
             <div>
                 <img className='collectionImage' src={collectionArt}></img>
             </div>
             {collectionName}
-            {resume}
+            {sessionStatus}
         </div>
     )
 };

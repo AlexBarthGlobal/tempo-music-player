@@ -2528,6 +2528,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2553,6 +2554,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+
  // this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : null
 
 var Tempo = /*#__PURE__*/function (_React$Component) {
@@ -2568,9 +2570,20 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
     console.log('PROPS from Constructor', props);
     _this = _super.call(this);
 
+    _defineProperty(_assertThisInitialized(_this), "isActive", function (collectionId) {
+      return _this.props.musicInfo.activeSession && _this.props.musicInfo.activeSession.collectionId === collectionId;
+    });
+
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (evt) {
-      evt.preventDefault();
-      console.log(_this.state.BPM);
+      evt.preventDefault(); // console.log(this.state.BPM)
+
+      _this.props.fetchOnTempoChange('');
+
+      _this.props.changeScreen('PlayerScreen');
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleChange", function (evt) {
+      _this.setState(_defineProperty({}, evt.target.name, evt.target.value));
     });
 
     _this.state = {
@@ -2578,15 +2591,11 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.isActive = _this.isActive.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Tempo, [{
-    key: "handleChange",
-    value: function handleChange(evt) {
-      this.setState(_defineProperty({}, evt.target.name, evt.target.value));
-    }
-  }, {
     key: "render",
     value: function render() {
       console.log('PROPS from TEMPO', this.props);
@@ -2622,7 +2631,11 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    changeScreen: function changeScreen(screen) {
+      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_2__.changeScreenThunk)(screen));
+    }
+  };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Tempo));

@@ -2,23 +2,14 @@ const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
 const {Song, User, Collection, CollectionSession, Listened, SessionSong} = require('../db/index');
 
-// On metronome button Click after choosing BPM
-router.get('/createOrUpdateCollectionSession', async (req, res, next) => {
-    // req.body = {
-    //     selectedBPM: 143,
-    //     collectionId: 1,
-    //     // user id is on the req.passport
-    // }
+
+router.get('/createOrUpdateCollectionSessionAndReturnCollectionWithSession', async (req, res, next) => {
     try {
         const prevCollectionSession = await CollectionSession.findOne({
             where: {
                 userId: req.session.passport.user,
                 collectionId: req.body.collectionId,
             },
-            include: [{
-                model: Song,
-                required: false,
-            }]
         });
 
         if (prevCollectionSession) {
@@ -26,9 +17,6 @@ router.get('/createOrUpdateCollectionSession', async (req, res, next) => {
                 BPM: req.body.selectedBPM,
                 active: true
             });
-
-            res.json(prevCollectionSession);
-
         } else {
             const collectionSession = await CollectionSession.create({
                 currBPM: req.body.selectedBPM
@@ -39,15 +27,61 @@ router.get('/createOrUpdateCollectionSession', async (req, res, next) => {
 
             await user.addCollectionSession(collectionSession);
             await collection.addCollectionSession(collectionSession);
-
-            res.json(collectionSession);
         };
-        throw Error;
+
+        
+
     } catch (err) {
         console.log(err)
     };
-
 })
+
+// On metronome button Click after choosing BPM
+// router.get('/createOrUpdateCollectionSession', async (req, res, next) => {
+//     // req.body = {
+//     //     selectedBPM: 143,
+//     //     collectionId: 1,
+//     //     // user id is on the req.passport
+//     // }
+//     try {
+//         const prevCollectionSession = await CollectionSession.findOne({
+//             where: {
+//                 userId: req.session.passport.user,
+//                 collectionId: req.body.collectionId,
+//             },
+//             include: [{
+//                 model: Song,
+//                 required: false,
+//             }]
+//         });
+
+//         if (prevCollectionSession) {
+//             await prevCollectionSession.update({
+//                 BPM: req.body.selectedBPM,
+//                 active: true
+//             });
+
+//             res.json(prevCollectionSession);
+
+//         } else {
+//             const collectionSession = await CollectionSession.create({
+//                 currBPM: req.body.selectedBPM
+//             });
+
+//             const user = await User.findByPk(req.session.passport.user);
+//             const collection = await Collection.findByPk(req.body.collectionId);
+
+//             await user.addCollectionSession(collectionSession);
+//             await collection.addCollectionSession(collectionSession);
+
+//             res.json(collectionSession);
+//         };
+//         throw Error;
+//     } catch (err) {
+//         console.log(err)
+//     };
+
+// })
 
 router.put('/updateUserCollectionSessionsToInactive', async (req, res, next) => {
     try {

@@ -94,6 +94,7 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
             if (activeCollectionSongs && activeCollectionSongs.data.collections[0].songs) {
                 data.activeCollectionSongs = activeCollectionSongs.data.collections[0].songs;
             } else data.activeCollectionSongs = [];
+            
             data.activeCollectionId = activeCollectionId
             dispatch(setActiveCollectionSongs(data))
         } catch (error) {

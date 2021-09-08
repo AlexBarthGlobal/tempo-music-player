@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import {changeScreenThunk} from '../redux/screenDispatchers'
 
 // this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : null
 
@@ -13,14 +14,21 @@ class Tempo extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.isActive = this.isActive.bind(this)
+    };
+
+    isActive = (collectionId) => {
+        return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === collectionId)
     };
 
     handleSubmit = (evt) => {
         evt.preventDefault();
-        console.log(this.state.BPM)
+        // console.log(this.state.BPM)
+        this.props.fetchOnTempoChange('')
+        this.props.changeScreen('PlayerScreen')
     };
 
-    handleChange (evt) {
+    handleChange = (evt) => {
         this.setState({
           [evt.target.name]: evt.target.value
         })
@@ -57,10 +65,10 @@ const mapStateToProps = (state) => {
         screenStr: state.screenReducer.screenStr,
         selectedCollection: state.screenReducer.selectedCollection,
     }
-  }
+}
   
-  const mapDispatchToProps = dispatch => ({
-
-  })
+const mapDispatchToProps = dispatch => ({
+    changeScreen: (screen) => dispatch(changeScreenThunk(screen))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tempo)

@@ -2723,6 +2723,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2746,6 +2747,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 var FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
@@ -3018,8 +3020,15 @@ function musicReducer() {
     case ENQUEUE_SONG_INITIAL:
       songsCopy = _toConsumableArray(state.activeSession.songs);
       songsInRangeCopy = _toConsumableArray(state.activeSession.songsInRange);
-      songsCopy.push(songsInRangeCopy.pop());
-      songsCopy.push(songsInRangeCopy.pop());
+
+      if (songsInRangeCopy[0] && songsInRangeCopy[1]) {
+        songsCopy.push(songsInRangeCopy.pop());
+        songsCopy.push(songsInRangeCopy.pop());
+      } else if (songsInRangeCopy[0]) {
+        songsCopy.push(songsInRangeCopy.pop());
+        songsCopy.push(undefined);
+      } else songsCopy.push(undefined);
+
       return _objectSpread(_objectSpread({}, state), {}, {
         activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
           songs: songsCopy,
@@ -3030,7 +3039,7 @@ function musicReducer() {
     case ENQUEUE_SONG:
       songsCopy = _toConsumableArray(state.activeSession.songs);
       songsInRangeCopy = _toConsumableArray(state.activeSession.songsInRange);
-      songsCopy.push(songsInRangeCopy.pop());
+      if (songsInRangeCopy[0]) songsCopy.push(songsInRangeCopy.pop());else if (songsCopy[songsCopy.length - 1] !== undefined) songsCopy.push(undefined);
       return _objectSpread(_objectSpread({}, state), {}, {
         activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
           songs: songsCopy,

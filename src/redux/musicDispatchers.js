@@ -1,4 +1,5 @@
 import axios from 'axios'
+import songsInRange from '../components/songsInRange';
 
 const FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
 const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
@@ -164,8 +165,14 @@ export default function musicReducer (state = initialState, action) {
         case ENQUEUE_SONG_INITIAL:
             songsCopy = [...state.activeSession.songs];
             songsInRangeCopy = [...state.activeSession.songsInRange];
-            songsCopy.push(songsInRangeCopy.pop())
-            songsCopy.push(songsInRangeCopy.pop())
+            if (songsInRangeCopy[0] && songsInRangeCopy[1]) {
+                songsCopy.push(songsInRangeCopy.pop())
+                songsCopy.push(songsInRangeCopy.pop())
+            } else if (songsInRangeCopy[0]) {
+                songsCopy.push(songsInRangeCopy.pop());
+                songsCopy.push(undefined);
+            } else songsCopy.push(undefined);
+            
             return {
                 ...state,
                 activeSession: {...state.activeSession, songs: songsCopy, songsInRange: songsInRangeCopy}
@@ -173,7 +180,9 @@ export default function musicReducer (state = initialState, action) {
         case ENQUEUE_SONG:
             songsCopy = [...state.activeSession.songs];
             songsInRangeCopy = [...state.activeSession.songsInRange];
-            songsCopy.push(songsInRangeCopy.pop())
+            if (songsInRangeCopy[0]) songsCopy.push(songsInRangeCopy.pop());
+            else if (songsCopy[songsCopy.length-1] !== undefined) songsCopy.push(undefined);
+            
             return {
                 ...state,
                 activeSession: {...state.activeSession, songs: songsCopy, songsInRange: songsInRangeCopy}

@@ -127,6 +127,17 @@ export const updateSessionBpmThunk = (selectedCollectionId, newBPM) => {
     };
 };
 
+export const fetchOnTempoChangeThunk = (selectedCollectionId, newBPM) => {
+    return async dispatch => {
+        try {
+
+
+        } catch (err) {
+            console.log(err)
+        };
+    };
+};
+
 export const popOneFromActiveSessionSongsThunk = () => {
     return dispatch => {
         dispatch(popOneFromActiveSession())

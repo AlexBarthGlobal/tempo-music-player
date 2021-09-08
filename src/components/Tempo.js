@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {changeScreenThunk} from '../redux/screenDispatchers'
-import {updateSessionBpmThunk, popOneFromActiveSessionSongsThunk, applySongsInRange} from '../redux/musicDispatchers'
+import {updateSessionBpmThunk, popOneFromActiveSessionSongsThunk, applySongsInRange, fetchOnTempoChangeThunk} from '../redux/musicDispatchers'
 import songsInRange from '../components/songsInRange'
 
 // this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : null
@@ -26,7 +26,7 @@ class Tempo extends React.Component {
     handleSubmit = async (evt) => {
         evt.preventDefault();
         if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, this.state.BPM) //update the BPM of the already activeSession or create new session
-        else await this.props.fetchOnTempoChange(this.props.selectedCollection) //load the collection and include its songs & session & its sessionSongs
+        else await this.props.fetchOnTempoChange(this.props.selectedCollection, this.state.BPM) //load the collection and include its songs & session & its sessionSongs
             
         if (this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
             // if (!this.rap.isPlaying) this.props.popOneFromActiveSessionSongs() //Pop an additional song off (the current song) if player is paused
@@ -85,7 +85,8 @@ const mapDispatchToProps = dispatch => ({
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
     updateSessionBpm: (selectedCollectionId, newBPM) => dispatch(updateSessionBpmThunk(selectedCollectionId, newBPM)),
     popOneFromActiveSessionSongs: () => dispatch(popOneFromActiveSessionSongsThunk()),
-    applySongsInRange: (songs) => dispatch(applySongsInRange(songs))
+    applySongsInRange: (songs) => dispatch(applySongsInRange(songs)),
+    fetchOnTempoChange: (selectedCollectionId, newBPM) => dispatch(fetchOnTempoChangeThunk(selectedCollectionId, newBPM))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tempo)

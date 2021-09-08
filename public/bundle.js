@@ -2607,7 +2607,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
               case 6:
                 _context.next = 8;
-                return _this.props.fetchOnTempoChange(_this.props.selectedCollection);
+                return _this.props.fetchOnTempoChange(_this.props.selectedCollection, _this.state.BPM);
 
               case 8:
                 //load the collection and include its songs & session & its sessionSongs
@@ -2704,6 +2704,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     applySongsInRange: function applySongsInRange(songs) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_3__.applySongsInRange)(songs));
+    },
+    fetchOnTempoChange: function fetchOnTempoChange(selectedCollectionId, newBPM) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_3__.fetchOnTempoChangeThunk)(selectedCollectionId, newBPM));
     }
   };
 };
@@ -2799,6 +2802,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetchCollectionsAndSessions": () => (/* binding */ fetchCollectionsAndSessions),
 /* harmony export */   "fetchActiveCollectionSongs": () => (/* binding */ fetchActiveCollectionSongs),
 /* harmony export */   "updateSessionBpmThunk": () => (/* binding */ updateSessionBpmThunk),
+/* harmony export */   "fetchOnTempoChangeThunk": () => (/* binding */ fetchOnTempoChangeThunk),
 /* harmony export */   "popOneFromActiveSessionSongsThunk": () => (/* binding */ popOneFromActiveSessionSongsThunk),
 /* harmony export */   "applySongsInRange": () => (/* binding */ applySongsInRange),
 /* harmony export */   "enqueueSongThunk": () => (/* binding */ enqueueSongThunk),
@@ -3102,6 +3106,32 @@ var updateSessionBpmThunk = function updateSessionBpmThunk(selectedCollectionId,
 
     return function (_x3) {
       return _ref3.apply(this, arguments);
+    };
+  }();
+};
+var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectionId, newBPM) {
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch) {
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              try {} catch (err) {
+                console.log(err);
+              }
+
+              ;
+
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
     };
   }();
 };

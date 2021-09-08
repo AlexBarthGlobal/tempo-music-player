@@ -6,7 +6,7 @@ import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 class Collections extends React.Component {
 
     render() {
-        console.log('props from collections', this.props)
+        console.log('PROPS FROM COLLECTIONS', this.props)
         const {collections} = this.props.musicInfo;
         const isActive = (collectionId) => {
             return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === collectionId)

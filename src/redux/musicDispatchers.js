@@ -47,9 +47,9 @@ const decrementPlayIdx = () => ({
     type: DECREMENT_PLAY_IDX
 })
 
-const updateNewBPM = (newBPM) => ({
+const updateNewBPM = (data) => ({
     type: UPDATE_NEW_BPM,
-    newBPM
+    data
 })
 
 const popOneFromActiveSession = () => ({
@@ -119,7 +119,8 @@ export const updateSessionBpmThunk = (selectedCollectionId, newBPM) => {
     return async dispatch => {
         try {
             await axios.put('/api/updateOrCreateSessionBpm', {data:{selectedCollectionId, newBPM}});
-            dispatch(updateNewBPM(newBPM));
+            const data = {selectedCollectionId, newBPM}
+            dispatch(updateNewBPM(data));
         } catch (err) {
             console.log(err)
         };
@@ -228,9 +229,10 @@ export default function musicReducer (state = initialState, action) {
                  activeSession: {...state.activeSession, playIdx: newPlayIdx}
             }
         case UPDATE_NEW_BPM:
+            state.collections[action.data.selectedCollectionId].collectionSessions[0].currBPM = action.data.newBPM
             return {
                 ...state,
-                activeSession: {...state.activeSession, currBPM: action.newBPM }
+                activeSession: {...state.activeSession, currBPM: action.data.newBPM }
             };
         case POP_ONE_FROM_ACTIVE_SESSION:
             songsCopy = [...state.activeSession.songs];

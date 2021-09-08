@@ -2185,7 +2185,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      console.log('props from collections', this.props);
+      console.log('PROPS FROM COLLECTIONS', this.props);
       var collections = this.props.musicInfo.collections;
 
       var isActive = function isActive(collectionId) {
@@ -2896,10 +2896,10 @@ var decrementPlayIdx = function decrementPlayIdx() {
   };
 };
 
-var updateNewBPM = function updateNewBPM(newBPM) {
+var updateNewBPM = function updateNewBPM(data) {
   return {
     type: UPDATE_NEW_BPM,
-    newBPM: newBPM
+    data: data
   };
 };
 
@@ -3061,6 +3061,7 @@ var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeColle
 var updateSessionBpmThunk = function updateSessionBpmThunk(selectedCollectionId, newBPM) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
+      var data;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -3075,24 +3076,28 @@ var updateSessionBpmThunk = function updateSessionBpmThunk(selectedCollectionId,
               });
 
             case 3:
-              dispatch(updateNewBPM(newBPM));
-              _context3.next = 9;
+              data = {
+                selectedCollectionId: selectedCollectionId,
+                newBPM: newBPM
+              };
+              dispatch(updateNewBPM(data));
+              _context3.next = 10;
               break;
 
-            case 6:
-              _context3.prev = 6;
+            case 7:
+              _context3.prev = 7;
               _context3.t0 = _context3["catch"](0);
               console.log(_context3.t0);
 
-            case 9:
+            case 10:
               ;
 
-            case 10:
+            case 11:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 6]]);
+      }, _callee3, null, [[0, 7]]);
     }));
 
     return function (_x3) {
@@ -3209,9 +3214,10 @@ function musicReducer() {
       });
 
     case UPDATE_NEW_BPM:
+      state.collections[action.data.selectedCollectionId].collectionSessions[0].currBPM = action.data.newBPM;
       return _objectSpread(_objectSpread({}, state), {}, {
         activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
-          currBPM: action.newBPM
+          currBPM: action.data.newBPM
         })
       });
 

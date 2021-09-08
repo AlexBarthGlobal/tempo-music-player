@@ -2576,6 +2576,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (evt) {
       evt.preventDefault(); // console.log(this.state.BPM)
+      // Write this out
 
       _this.props.fetchOnTempoChange('');
 

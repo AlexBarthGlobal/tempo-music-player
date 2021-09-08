@@ -24,6 +24,7 @@ class Tempo extends React.Component {
     handleSubmit = (evt) => {
         evt.preventDefault();
         // console.log(this.state.BPM)
+        // Write this out
         this.props.fetchOnTempoChange('')
         this.props.changeScreen('PlayerScreen')
     };

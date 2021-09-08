@@ -16,7 +16,7 @@ class Collections extends React.Component {
         };
         const selectCollectionAndChangeScreen = (collectionId) => {
             if (isActive(collectionId)) {
-                this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen')
+                this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo') // set back to 'PlayerScreen'
             } else this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo')
         };
         
@@ -47,6 +47,7 @@ const mapStateToProps = (state) => {
     return { 
         user: state.userReducer.user,
         musicInfo: state.musicReducer,
+        activeSession: state.musicReducer.activeSession
         // screenInfo: state.screenReducer
     }
   }

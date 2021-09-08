@@ -2198,7 +2198,8 @@ var Collections = /*#__PURE__*/function (_React$Component) {
 
       var selectCollectionAndChangeScreen = function selectCollectionAndChangeScreen(collectionId) {
         if (isActive(collectionId)) {
-          _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen');
+          _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo'); // set back to 'PlayerScreen'
+
         } else _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo');
       };
 
@@ -2235,7 +2236,8 @@ var Collections = /*#__PURE__*/function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
-    musicInfo: state.musicReducer // screenInfo: state.screenReducer
+    musicInfo: state.musicReducer,
+    activeSession: state.musicReducer.activeSession // screenInfo: state.screenReducer
 
   };
 };
@@ -2529,7 +2531,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
+/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
+/* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2555,6 +2563,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
  // this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : null
 
 var Tempo = /*#__PURE__*/function (_React$Component) {
@@ -2574,17 +2584,67 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
       return _this.props.musicInfo.activeSession && _this.props.musicInfo.activeSession.collectionId === collectionId;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (evt) {
-      evt.preventDefault(); // console.log(this.state.BPM)
-      // Write this out
+    _defineProperty(_assertThisInitialized(_this), "handleSubmit", /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(evt) {
+        var results;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                evt.preventDefault();
 
-      _this.props.fetchOnTempoChange('');
+                if (!_this.isActive(_this.props.selectedCollection)) {
+                  _context.next = 6;
+                  break;
+                }
 
-      _this.props.changeScreen('PlayerScreen');
-    });
+                _context.next = 4;
+                return _this.props.updateSessionBpm(_this.props.selectedCollection, _this.state.BPM);
+
+              case 4:
+                _context.next = 8;
+                break;
+
+              case 6:
+                _context.next = 8;
+                return _this.props.fetchOnTempoChange(_this.props.selectedCollection);
+
+              case 8:
+                //load the collection and include its songs & session & its sessionSongs
+                if (_this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs.length) {
+                  // if (!this.rap.isPlaying) this.props.popOneFromActiveSessionSongs() //Pop an additional song off (the current song) if player is paused
+                  _this.props.popOneFromActiveSessionSongs(); //removes the next pre-loaded song or undefined off of the session's activeSongs
+
+
+                  results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM); //Run this when updating BPM
+
+                  _this.props.applySongsInRange(results);
+
+                  _this.props.changeScreen('PlayerScreen');
+                } else {
+                  //This session will still be active at this point
+                  // the actual reason for the message below is because the collection doesn't have any songs. And that's what will have triggered it.
+                  console.log('No songs at this BPM, choose a different BPM or add songs to collection!');
+                  console.log('Or clear listened'); // which will clear the activeSession and all sessions, and listened.
+                }
+
+                ;
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
 
     _defineProperty(_assertThisInitialized(_this), "handleChange", function (evt) {
-      _this.setState(_defineProperty({}, evt.target.name, evt.target.value));
+      _this.setState(_defineProperty({}, evt.target.name, Number(evt.target.value)));
     });
 
     _this.state = {
@@ -2635,6 +2695,15 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     changeScreen: function changeScreen(screen) {
       return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_2__.changeScreenThunk)(screen));
+    },
+    updateSessionBpm: function updateSessionBpm(selectedCollectionId, newBPM) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_3__.updateSessionBpmThunk)(selectedCollectionId, newBPM));
+    },
+    popOneFromActiveSessionSongs: function popOneFromActiveSessionSongs() {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_3__.popOneFromActiveSessionSongsThunk)());
+    },
+    applySongsInRange: function applySongsInRange(songs) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_3__.applySongsInRange)(songs));
     }
   };
 };
@@ -2729,6 +2798,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "fetchCollectionsAndSessions": () => (/* binding */ fetchCollectionsAndSessions),
 /* harmony export */   "fetchActiveCollectionSongs": () => (/* binding */ fetchActiveCollectionSongs),
+/* harmony export */   "updateSessionBpmThunk": () => (/* binding */ updateSessionBpmThunk),
+/* harmony export */   "popOneFromActiveSessionSongsThunk": () => (/* binding */ popOneFromActiveSessionSongsThunk),
 /* harmony export */   "applySongsInRange": () => (/* binding */ applySongsInRange),
 /* harmony export */   "enqueueSongThunk": () => (/* binding */ enqueueSongThunk),
 /* harmony export */   "incrementPlayIdxThunk": () => (/* binding */ incrementPlayIdxThunk),
@@ -2737,7 +2808,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2763,7 +2833,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-
 var FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
 var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 var SET_ACTIVE_COLLECTION_SONGS = 'SET_ACTIVE_COLLECTIONS_SONGS';
@@ -2772,6 +2841,8 @@ var ENQUEUE_SONG_INITIAL = 'ENQUEUE_SONG_INITIAL';
 var ENQUEUE_SONG = 'ENQUEUE_SONG';
 var INCREMENT_PLAY_IDX = 'INCREMENT_PLAY_IDX';
 var DECREMENT_PLAY_IDX = 'DECREMENT_PLAY_IDX';
+var UPDATE_NEW_BPM = 'UPDATE_NEW_BPM';
+var POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -2822,6 +2893,19 @@ var incrementPlayIdx = function incrementPlayIdx() {
 var decrementPlayIdx = function decrementPlayIdx() {
   return {
     type: DECREMENT_PLAY_IDX
+  };
+};
+
+var updateNewBPM = function updateNewBPM(newBPM) {
+  return {
+    type: UPDATE_NEW_BPM,
+    newBPM: newBPM
+  };
+};
+
+var popOneFromActiveSession = function popOneFromActiveSession() {
+  return {
+    type: POP_ONE_FROM_ACTIVE_SESSION
   };
 };
 
@@ -2974,6 +3058,53 @@ var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeColle
     };
   }();
 };
+var updateSessionBpmThunk = function updateSessionBpmThunk(selectedCollectionId, newBPM) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _context3.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/updateOrCreateSessionBpm', {
+                data: {
+                  selectedCollectionId: selectedCollectionId,
+                  newBPM: newBPM
+                }
+              });
+
+            case 3:
+              dispatch(updateNewBPM(newBPM));
+              _context3.next = 9;
+              break;
+
+            case 6:
+              _context3.prev = 6;
+              _context3.t0 = _context3["catch"](0);
+              console.log(_context3.t0);
+
+            case 9:
+              ;
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[0, 6]]);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+};
+var popOneFromActiveSessionSongsThunk = function popOneFromActiveSessionSongsThunk() {
+  return function (dispatch) {
+    dispatch(popOneFromActiveSession());
+  };
+};
 var applySongsInRange = function applySongsInRange(songs) {
   return function (dispatch) {
     dispatch(addSongsInRange(songs));
@@ -3074,6 +3205,22 @@ function musicReducer() {
       return _objectSpread(_objectSpread({}, state), {}, {
         activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
           playIdx: newPlayIdx
+        })
+      });
+
+    case UPDATE_NEW_BPM:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
+          currBPM: action.newBPM
+        })
+      });
+
+    case POP_ONE_FROM_ACTIVE_SESSION:
+      songsCopy = _toConsumableArray(state.activeSession.songs);
+      songsCopy.pop();
+      return _objectSpread(_objectSpread({}, state), {}, {
+        activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
+          songs: songsCopy
         })
       });
 

@@ -2,34 +2,53 @@ const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
 const {Song, User, Collection, CollectionSession, Listened, SessionSong} = require('../db/index');
 
-
-router.get('/createOrUpdateCollectionSessionAndReturnCollectionWithSession', async (req, res, next) => {
+router.put('/updateOrCreateSessionBpm', async (req, res, next) => {
+    console.log('cherry', req.body.data.newBPM)
     try {
-        const prevCollectionSession = await CollectionSession.findOne({
+        const currentSession = await CollectionSession.findOne({
             where: {
                 userId: req.session.passport.user,
-                collectionId: req.body.collectionId,
+                collectionId: req.body.data.selectedCollectionId
             },
         });
 
-        if (prevCollectionSession) {
-            await prevCollectionSession.update({
-                BPM: req.body.selectedBPM,
-                active: true
-            });
+        console.log('cherries', currentSession)
+
+        if (currentSession) {
+            console.log('mango', req.body.data.newBPM)
+            await CollectionSession.update(
+                {currBPM: req.body.data.newBPM,
+                active: true},
+                {where: {
+                    userId: req.session.passport.user,
+                    collectionId: req.body.data.selectedCollectionId
+                }}
+            );
         } else {
-            const collectionSession = await CollectionSession.create({
-                currBPM: req.body.selectedBPM
+            const newSession = await CollectionSession.create({
+                currBPM: req.body.data.newBPM
             });
 
             const user = await User.findByPk(req.session.passport.user);
-            const collection = await Collection.findByPk(req.body.collectionId);
+            const collection = await Collection.findByPk(req.body.data.selectedCollectionId);
 
-            await user.addCollectionSession(collectionSession);
-            await collection.addCollectionSession(collectionSession);
+            await user.addCollectionSession(newSession);
+            await collection.addCollectionSession(newSession);
         };
 
+        res.status(200).send('Done')
+
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+
+router.get('/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', async (req, res, next) => {
+    try {
         
+
+
 
     } catch (err) {
         console.log(err)

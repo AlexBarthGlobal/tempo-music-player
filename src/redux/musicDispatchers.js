@@ -1,5 +1,4 @@
 import axios from 'axios'
-import songsInRange from '../components/songsInRange';
 
 const FETCH_COLLECTIONS_AND_SESSIONS = 'FETCH_COLLECTIONS_AND_SESSIONS';
 const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
@@ -9,6 +8,8 @@ const ENQUEUE_SONG_INITIAL = 'ENQUEUE_SONG_INITIAL'
 const ENQUEUE_SONG = 'ENQUEUE_SONG'
 const INCREMENT_PLAY_IDX = 'INCREMENT_PLAY_IDX'
 const DECREMENT_PLAY_IDX = 'DECREMENT_PLAY_IDX'
+const UPDATE_NEW_BPM = 'UPDATE_NEW_BPM'
+const POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -44,6 +45,15 @@ const incrementPlayIdx = () => ({
 
 const decrementPlayIdx = () => ({
     type: DECREMENT_PLAY_IDX
+})
+
+const updateNewBPM = (newBPM) => ({
+    type: UPDATE_NEW_BPM,
+    newBPM
+})
+
+const popOneFromActiveSession = () => ({
+    type: POP_ONE_FROM_ACTIVE_SESSION
 })
 
 
@@ -94,7 +104,7 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
             if (activeCollectionSongs && activeCollectionSongs.data.collections[0].songs) {
                 data.activeCollectionSongs = activeCollectionSongs.data.collections[0].songs;
             } else data.activeCollectionSongs = [];
-            
+
             data.activeCollectionId = activeCollectionId
             dispatch(setActiveCollectionSongs(data))
         } catch (error) {
@@ -104,6 +114,23 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
         }
     };
 };
+
+export const updateSessionBpmThunk = (selectedCollectionId, newBPM) => {
+    return async dispatch => {
+        try {
+            await axios.put('/api/updateOrCreateSessionBpm', {data:{selectedCollectionId, newBPM}});
+            dispatch(updateNewBPM(newBPM));
+        } catch (err) {
+            console.log(err)
+        };
+    };
+};
+
+export const popOneFromActiveSessionSongsThunk = () => {
+    return dispatch => {
+        dispatch(popOneFromActiveSession())
+    }
+}
 
 export const applySongsInRange = (songs) => {
     return dispatch => {
@@ -200,6 +227,18 @@ export default function musicReducer (state = initialState, action) {
                 ...state,
                  activeSession: {...state.activeSession, playIdx: newPlayIdx}
             }
+        case UPDATE_NEW_BPM:
+            return {
+                ...state,
+                activeSession: {...state.activeSession, currBPM: action.newBPM }
+            };
+        case POP_ONE_FROM_ACTIVE_SESSION:
+            songsCopy = [...state.activeSession.songs];
+            songsCopy.pop();
+            return {
+                ...state,
+                activeSession: {...state.activeSession, songs: songsCopy}
+            };
         case SET_FETCHING_STATUS:
             return {
                 ...state,

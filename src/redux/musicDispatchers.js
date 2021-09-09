@@ -10,6 +10,7 @@ const INCREMENT_PLAY_IDX = 'INCREMENT_PLAY_IDX'
 const DECREMENT_PLAY_IDX = 'DECREMENT_PLAY_IDX'
 const UPDATE_NEW_BPM = 'UPDATE_NEW_BPM'
 const POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION'
+const LOAD_ALL_DATA_FROM_SINGLE_COLLECTION = 'LOAD_ALL_DATA_FROM_SINGLE_COLLECTION'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -54,6 +55,11 @@ const updateNewBPM = (data) => ({
 
 const popOneFromActiveSession = () => ({
     type: POP_ONE_FROM_ACTIVE_SESSION
+})
+
+const dispatchLoadAllDataFromSingleCollection = (singleCollection) => ({
+    type: LOAD_ALL_DATA_FROM_SINGLE_COLLECTION,
+    singleCollection
 })
 
 
@@ -131,12 +137,15 @@ export const fetchOnTempoChangeThunk = (selectedCollectionId, newBPM) => {
     return async dispatch => {
         try {
             await axios.put('/api/updateOrCreateSessionBpm', {data:{selectedCollectionId, newBPM}});
-            const collectionAndCollectionSongsAndSessionAndSessionSongs = await axios.post('/api/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', {data: selectedCollectionId});
+            let results = await axios.post('/api/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', {data: selectedCollectionId});
             await axios.put('/api/updateUserCollectionSessionsToInactive', {data: selectedCollectionId});        
-            console.log('COLLECTIONINFO', collectionAndCollectionSongsAndSessionAndSessionSongs)
+            // console.log('COLLECTIONINFO', results)
+            results.data.collectionAndSongs.collections[0].collectionSessions = [results.data.sessionSongs]
+            results = results.data.collectionAndSongs.collections[0];
 
-            
+            console.log('COLLECTIONINFO', results)
 
+            dispatch(dispatchLoadAllDataFromSingleCollection(results))
         } catch (err) {
             console.log(err)
         };
@@ -185,6 +194,7 @@ const initialState = {
 let songsCopy;
 let songsInRangeCopy;
 let newPlayIdx;
+let collectionCopy;
 
 export default function musicReducer (state = initialState, action) {
     switch (action.type) {
@@ -195,6 +205,14 @@ export default function musicReducer (state = initialState, action) {
                 collections: action.data.collectionsAndSessions,
                 activeSession: action.data.activeSession 
             };
+        case LOAD_ALL_DATA_FROM_SINGLE_COLLECTION:
+            collectionCopy = {...state.collections}
+            collectionCopy[action.singleCollection.id] = action.singleCollection
+            return {
+                ...state,
+                collections: collectionCopy,
+                activeSession: action.singleCollection.collectionSessions[0]
+            }
         case SET_ACTIVE_COLLECTION_SONGS:
             const collectionsCopy = {...state.collections}
             collectionsCopy[action.data.activeCollectionId].songs = action.data.activeCollectionSongs

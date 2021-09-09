@@ -2847,6 +2847,7 @@ var INCREMENT_PLAY_IDX = 'INCREMENT_PLAY_IDX';
 var DECREMENT_PLAY_IDX = 'DECREMENT_PLAY_IDX';
 var UPDATE_NEW_BPM = 'UPDATE_NEW_BPM';
 var POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION';
+var LOAD_ALL_DATA_FROM_SINGLE_COLLECTION = 'LOAD_ALL_DATA_FROM_SINGLE_COLLECTION';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -2910,6 +2911,13 @@ var updateNewBPM = function updateNewBPM(data) {
 var popOneFromActiveSession = function popOneFromActiveSession() {
   return {
     type: POP_ONE_FROM_ACTIVE_SESSION
+  };
+};
+
+var dispatchLoadAllDataFromSingleCollection = function dispatchLoadAllDataFromSingleCollection(singleCollection) {
+  return {
+    type: LOAD_ALL_DATA_FROM_SINGLE_COLLECTION,
+    singleCollection: singleCollection
   };
 };
 
@@ -3112,7 +3120,7 @@ var updateSessionBpmThunk = function updateSessionBpmThunk(selectedCollectionId,
 var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectionId, newBPM) {
   return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch) {
-      var collectionAndCollectionSongsAndSessionAndSessionSongs;
+      var results;
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -3133,31 +3141,35 @@ var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectio
               });
 
             case 5:
-              collectionAndCollectionSongsAndSessionAndSessionSongs = _context4.sent;
+              results = _context4.sent;
               _context4.next = 8;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/updateUserCollectionSessionsToInactive', {
                 data: selectedCollectionId
               });
 
             case 8:
-              console.log('COLLECTIONINFO', collectionAndCollectionSongsAndSessionAndSessionSongs);
-              _context4.next = 14;
+              // console.log('COLLECTIONINFO', results)
+              results.data.collectionAndSongs.collections[0].collectionSessions = [results.data.sessionSongs];
+              results = results.data.collectionAndSongs.collections[0];
+              console.log('COLLECTIONINFO', results);
+              dispatch(dispatchLoadAllDataFromSingleCollection(results));
+              _context4.next = 17;
               break;
 
-            case 11:
-              _context4.prev = 11;
+            case 14:
+              _context4.prev = 14;
               _context4.t0 = _context4["catch"](0);
               console.log(_context4.t0);
 
-            case 14:
+            case 17:
               ;
 
-            case 15:
+            case 18:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, null, [[0, 11]]);
+      }, _callee4, null, [[0, 14]]);
     }));
 
     return function (_x4) {
@@ -3200,6 +3212,7 @@ var initialState = {
 var songsCopy;
 var songsInRangeCopy;
 var newPlayIdx;
+var collectionCopy;
 function musicReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -3210,6 +3223,14 @@ function musicReducer() {
       return _objectSpread(_objectSpread({}, state), {}, {
         collections: action.data.collectionsAndSessions,
         activeSession: action.data.activeSession
+      });
+
+    case LOAD_ALL_DATA_FROM_SINGLE_COLLECTION:
+      collectionCopy = _objectSpread({}, state.collections);
+      collectionCopy[action.singleCollection.id] = action.singleCollection;
+      return _objectSpread(_objectSpread({}, state), {}, {
+        collections: collectionCopy,
+        activeSession: action.singleCollection.collectionSessions[0]
       });
 
     case SET_ACTIVE_COLLECTION_SONGS:

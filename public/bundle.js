@@ -3112,22 +3112,52 @@ var updateSessionBpmThunk = function updateSessionBpmThunk(selectedCollectionId,
 var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectionId, newBPM) {
   return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch) {
+      var collectionAndCollectionSongsAndSessionAndSessionSongs;
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              try {} catch (err) {
-                console.log(err);
-              }
+              _context4.prev = 0;
+              _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/updateOrCreateSessionBpm', {
+                data: {
+                  selectedCollectionId: selectedCollectionId,
+                  newBPM: newBPM
+                }
+              });
 
+            case 3:
+              _context4.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', {
+                data: selectedCollectionId
+              });
+
+            case 5:
+              collectionAndCollectionSongsAndSessionAndSessionSongs = _context4.sent;
+              _context4.next = 8;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/updateUserCollectionSessionsToInactive', {
+                data: selectedCollectionId
+              });
+
+            case 8:
+              console.log('COLLECTIONINFO', collectionAndCollectionSongsAndSessionAndSessionSongs);
+              _context4.next = 14;
+              break;
+
+            case 11:
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](0);
+              console.log(_context4.t0);
+
+            case 14:
               ;
 
-            case 2:
+            case 15:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4);
+      }, _callee4, null, [[0, 11]]);
     }));
 
     return function (_x4) {

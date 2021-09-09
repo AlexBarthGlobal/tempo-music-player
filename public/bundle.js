@@ -2013,6 +2013,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       this.setState({
         playing: true
       });
+      this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx]);
     }
   }, {
     key: "pause",
@@ -2035,11 +2036,12 @@ var App = /*#__PURE__*/function (_React$Component) {
       }
 
       ; // this.checkIfListened();
+      //this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
     }
   }, {
     key: "prevTrack",
     value: function prevTrack() {
-      this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+      this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id); //this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
     }
   }, {
     key: "render",
@@ -2111,7 +2113,8 @@ var mapStateToProps = function mapStateToProps(state) {
     musicInfo: state.musicReducer,
     screenStr: state.screenReducer.screenStr,
     selectedCollection: state.screenReducer.selectedCollection,
-    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
+    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null //currentSong: state.musicReducer.activeSession ? state.musicReducer.currentSong : null
+
   };
 };
 
@@ -2131,6 +2134,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     addToListenedAndSession: function addToListenedAndSession(song, collectionSessionId) {
       return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_8__.addToListenedAndSessionThunk)(song, collectionSessionId));
+    },
+    setCurrentSong: function setCurrentSong(song) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.setCurrentSongThunk)(song));
     }
   };
 };
@@ -2278,6 +2284,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2299,6 +2306,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -2330,7 +2338,7 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
         onClick: prevTrack
       }, "Prev"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: nextTrack
-      }, "Next"));
+      }, "Next"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songName : null));
     }
   }]);
 
@@ -2338,7 +2346,18 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 ;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FooterControls);
+
+var mapStateToProps = function mapStateToProps(state) {
+  // console.log('State from App.js', state)
+  return {
+    // currentSong: state.musicReducer.activeSession ? state.musicReducer.currentSong : null
+    musicInfo: state.musicReducer,
+    selectedCollection: state.screenReducer.selectedCollection,
+    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(FooterControls));
 
 /***/ }),
 
@@ -2818,6 +2837,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "enqueueSongThunk": () => (/* binding */ enqueueSongThunk),
 /* harmony export */   "incrementPlayIdxThunk": () => (/* binding */ incrementPlayIdxThunk),
 /* harmony export */   "decrementPlayIdxThunk": () => (/* binding */ decrementPlayIdxThunk),
+/* harmony export */   "setCurrentSongThunk": () => (/* binding */ setCurrentSongThunk),
 /* harmony export */   "default": () => (/* binding */ musicReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -2858,6 +2878,7 @@ var DECREMENT_PLAY_IDX = 'DECREMENT_PLAY_IDX';
 var UPDATE_NEW_BPM = 'UPDATE_NEW_BPM';
 var POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION';
 var LOAD_ALL_DATA_FROM_SINGLE_COLLECTION = 'LOAD_ALL_DATA_FROM_SINGLE_COLLECTION';
+var SET_CURRENT_SONG = 'SET_CURRENT_SONG';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -2928,6 +2949,13 @@ var dispatchLoadAllDataFromSingleCollection = function dispatchLoadAllDataFromSi
   return {
     type: LOAD_ALL_DATA_FROM_SINGLE_COLLECTION,
     singleCollection: singleCollection
+  };
+};
+
+var dispatchSetCurrentSong = function dispatchSetCurrentSong(song) {
+  return {
+    type: SET_CURRENT_SONG,
+    song: song
   };
 };
 
@@ -3219,6 +3247,11 @@ var decrementPlayIdxThunk = function decrementPlayIdxThunk(sessionId) {
     dispatch(decrementPlayIdx());
   };
 };
+var setCurrentSongThunk = function setCurrentSongThunk(song) {
+  return function (dispatch) {
+    dispatch(dispatchSetCurrentSong(song));
+  };
+};
 var initialState = {
   // musicInfo: {
   //     isFetching: true,
@@ -3326,6 +3359,11 @@ function musicReducer() {
           songs: songsCopy
         })
       });
+    // case SET_CURRENT_SONG:
+    //     return {
+    //         ...state,
+    //         currentSong: action.song
+    //     }
 
     case SET_FETCHING_STATUS:
       return _objectSpread(_objectSpread({}, state), {}, {

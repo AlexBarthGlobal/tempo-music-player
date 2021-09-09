@@ -6,7 +6,7 @@ import PlayerScreen from './PlayerScreen'
 import FooterControls from './FooterControls'
 // import {logout} from '../redux/isLogged'
 import {Redirect} from 'react-router-dom'
-import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk} from '../redux/musicDispatchers'
+import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk} from '../redux/musicDispatchers'
 import {changeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk} from '../redux/userDispatchers'
 
@@ -25,7 +25,7 @@ class App extends React.Component {
         this.play = this.play.bind(this);
         this.pause = this.pause.bind(this);
         this.checkIfLoaded = this.checkPlayerReady.bind(this);
-    };  
+    };
 
     checkPlayerReady() {
         return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && /*this.props.musicInfo.activeSession.songsInRange &&*/ this.props.musicInfo.activeSession.songs[this.props.playIdx]);
@@ -48,7 +48,8 @@ class App extends React.Component {
         this.rap.play();
         this.setState({
             playing: true
-        })  
+        })
+        this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
     };
     
     pause() {
@@ -63,13 +64,14 @@ class App extends React.Component {
         if (/*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/ !this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
             this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
-
         };
         // this.checkIfListened();
+        //this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
     };
     
     prevTrack () {
         this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+        //this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
     };
 
     render() {
@@ -118,7 +120,8 @@ const mapStateToProps = (state) => {
         musicInfo: state.musicReducer,
         screenStr: state.screenReducer.screenStr,
         selectedCollection: state.screenReducer.selectedCollection,
-        playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
+        playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null,
+        //currentSong: state.musicReducer.activeSession ? state.musicReducer.currentSong : null
     }
 }
   
@@ -128,6 +131,7 @@ const mapDispatchToProps = (dispatch) => ({
     decrementPlayIdx: (sessionId) => dispatch(decrementPlayIdxThunk(sessionId)),
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
     addToListenedAndSession: (song, collectionSessionId) => dispatch(addToListenedAndSessionThunk(song, collectionSessionId)),
+    setCurrentSong: (song) => dispatch(setCurrentSongThunk(song))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

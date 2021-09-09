@@ -33,6 +33,8 @@ router.put('/incrementPlayIdx', async (req, res, next) => {
             userId: req.session.passport.user,
             id: req.body.data
         }})
+
+        res.status(200).send('Done')
     } catch (err) {
         console.log(err)
     }
@@ -44,6 +46,8 @@ router.put('/decrementPlayIdx', async (req, res, next) => {
             userId: req.session.passport.user,
             id: req.body.data
         }})
+
+        res.status(200).send('Done')
     } catch (err) {
         console.log(err)
     }

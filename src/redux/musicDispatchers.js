@@ -11,6 +11,7 @@ const DECREMENT_PLAY_IDX = 'DECREMENT_PLAY_IDX'
 const UPDATE_NEW_BPM = 'UPDATE_NEW_BPM'
 const POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION'
 const LOAD_ALL_DATA_FROM_SINGLE_COLLECTION = 'LOAD_ALL_DATA_FROM_SINGLE_COLLECTION'
+const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -60,6 +61,11 @@ const popOneFromActiveSession = () => ({
 const dispatchLoadAllDataFromSingleCollection = (singleCollection) => ({
     type: LOAD_ALL_DATA_FROM_SINGLE_COLLECTION,
     singleCollection
+})
+
+const dispatchSetCurrentSong = (song) => ({
+    type: SET_CURRENT_SONG,
+    song
 })
 
 
@@ -185,6 +191,12 @@ export const decrementPlayIdxThunk = (sessionId) => {
     }
 }
 
+export const setCurrentSongThunk = (song) => {
+    return dispatch => {
+        dispatch(dispatchSetCurrentSong(song));
+    }
+}
+
 
 const initialState = {
     // musicInfo: {
@@ -277,6 +289,11 @@ export default function musicReducer (state = initialState, action) {
                 ...state,
                 activeSession: {...state.activeSession, songs: songsCopy}
             };
+        // case SET_CURRENT_SONG:
+        //     return {
+        //         ...state,
+        //         currentSong: action.song
+        //     }
         case SET_FETCHING_STATUS:
             return {
                 ...state,

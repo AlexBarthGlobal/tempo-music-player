@@ -2648,29 +2648,33 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
               case 0:
                 evt.preventDefault();
 
+                if (_this.isActive(_this.props.selectedCollection)) {
+                  _this.props.popOneFromActiveSessionSongs(); //New Tempo will start at next song
+
+                }
+
                 if (!_this.isActive(_this.props.selectedCollection)) {
-                  _context.next = 6;
+                  _context.next = 7;
                   break;
                 }
 
-                _context.next = 4;
+                _context.next = 5;
                 return _this.props.updateSessionBpm(_this.props.selectedCollection, _this.state.BPM);
 
-              case 4:
-                _context.next = 8;
+              case 5:
+                _context.next = 9;
                 break;
 
-              case 6:
-                _context.next = 8;
+              case 7:
+                _context.next = 9;
                 return _this.props.fetchOnTempoChange(_this.props.selectedCollection, _this.state.BPM);
 
-              case 8:
+              case 9:
                 //load the collection and include its songs & session & its sessionSongs
                 if (
                 /*this.props.musicInfo.activeSession &&*/
                 _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs.length) {
                   // if (!this.rap.isPlaying) this.props.popOneFromActiveSessionSongs() //Pop an additional song off (the current song) if player is paused
-                  // this.props.popOneFromActiveSessionSongs()
                   results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM); //Run this when updating BPM
 
                   _this.props.applySongsInRange(results);
@@ -2683,7 +2687,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
                 ;
 
-              case 10:
+              case 11:
               case "end":
                 return _context.stop();
             }

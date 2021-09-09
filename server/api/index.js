@@ -1,7 +1,51 @@
 const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
-const {Song, User, Collection, CollectionSession, Listened, SessionSong} = require('../db/index');
+const {Song, User, Collection, CollectionSession, Listened, SessionSong, ListenedSong} = require('../db/index');
 const { Op } = require('Sequelize');
+
+router.put('/clearSessions', async (req, res, next) => {
+    try {
+        await CollectionSession.destroy({
+            where: {
+                userId: req.session.passport.user
+            }
+        })
+        
+        res.status(200).send('Done')
+    } catch (err) {
+        next (err);
+    }
+})
+
+router.put('/clearListened', async (req, res, next) => {
+    try {
+        await Listened.update(
+            {timeListened: 0},
+            {where: {
+                userId: req.session.passport.user,
+                id: req.body.data
+            }}
+        );
+
+        await ListenedSong.destroy({
+            where: {
+                listenedId: req.body.data
+            }
+        });
+
+        const listened = await Listened.findOne({
+            where: {
+                userId: req.session.passport.user,
+                id: req.body.data
+            }
+        })
+
+        res.json(listened);
+
+    } catch (err) {
+        next(err)
+    };
+})
 
 router.post('/addSongToListenedAndSession', async (req, res, next) => {
     try {

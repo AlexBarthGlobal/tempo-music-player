@@ -6,9 +6,9 @@ import PlayerScreen from './PlayerScreen'
 import FooterControls from './FooterControls'
 // import {logout} from '../redux/isLogged'
 import {Redirect} from 'react-router-dom'
-import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk} from '../redux/musicDispatchers'
+import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk} from '../redux/musicDispatchers'
 import {changeScreenThunk} from '../redux/screenDispatchers'
-import {addToListenedAndSessionThunk} from '../redux/userDispatchers'
+import {addToListenedAndSessionThunk, clearListenedThunk} from '../redux/userDispatchers'
 
 let modal;
 class App extends React.Component {
@@ -24,7 +24,14 @@ class App extends React.Component {
         this.play = this.play.bind(this);
         this.pause = this.pause.bind(this);
         this.checkIfLoaded = this.checkPlayerReady.bind(this);
+        this.resetInfo = this.resetInfo.bind(this);
     };
+
+    resetInfo() {
+        console.log('RESETTING INFO')
+        this.props.clearSessions()
+        this.props.clearListened(this.props.user.listened.id)
+    }
 
     checkPlayerReady() {
         return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && /*this.props.musicInfo.activeSession.songsInRange &&*/ this.props.musicInfo.activeSession.songs[this.props.playIdx]);
@@ -61,23 +68,16 @@ class App extends React.Component {
     };
 
     nextTrack () {
-        //Line below prevents next/enqueue if current song is null.
-        
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
             if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
             this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
         };
-        // this.checkIfListened();
     };
     
     prevTrack () {
-        // if ((this.props.musicInfo.activeSession.songs[this.props.playIdx] || this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) && this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
-        //     this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
-        // };
-
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
             this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
-        }
+        };
     };
 
     render() {
@@ -97,7 +97,7 @@ class App extends React.Component {
         this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? <button>Add Songs</button> : null;
         let audio;
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
-        const clearListened = <button>Clear Listened</button>
+        const clearListened = <button onClick={this.resetInfo}>Clear Listened</button>
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
         const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
         let changeTempo;
@@ -141,7 +141,9 @@ const mapDispatchToProps = (dispatch) => ({
     decrementPlayIdx: (sessionId) => dispatch(decrementPlayIdxThunk(sessionId)),
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
     addToListenedAndSession: (song, collectionSessionId) => dispatch(addToListenedAndSessionThunk(song, collectionSessionId)),
-    setCurrentSong: (song) => dispatch(setCurrentSongThunk(song))
+    setCurrentSong: (song) => dispatch(setCurrentSongThunk(song)),
+    clearListened: (listenedId) => dispatch(clearListenedThunk(listenedId)),
+    clearSessions: () => dispatch(clearSessionsThunk())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

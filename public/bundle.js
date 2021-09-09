@@ -1977,10 +1977,18 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.play = _this.play.bind(_assertThisInitialized(_this));
     _this.pause = _this.pause.bind(_assertThisInitialized(_this));
     _this.checkIfLoaded = _this.checkPlayerReady.bind(_assertThisInitialized(_this));
+    _this.resetInfo = _this.resetInfo.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
+    key: "resetInfo",
+    value: function resetInfo() {
+      console.log('RESETTING INFO');
+      this.props.clearSessions();
+      this.props.clearListened(this.props.user.listened.id);
+    }
+  }, {
     key: "checkPlayerReady",
     value: function checkPlayerReady() {
       return this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange &&
@@ -2026,23 +2034,21 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "nextTrack",
     value: function nextTrack() {
-      //Line below prevents next/enqueue if current song is null.
       if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
         if (!this.props.musicInfo.activeSession.songs[this.props.playIdx + 2]) this.props.enqueueSong();
         this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
       }
 
-      ; // this.checkIfListened();
+      ;
     }
   }, {
     key: "prevTrack",
     value: function prevTrack() {
-      // if ((this.props.musicInfo.activeSession.songs[this.props.playIdx] || this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) && this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
-      //     this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
-      // };
       if (this.props.musicInfo.activeSession.songs[this.props.playIdx - 1]) {
         this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
       }
+
+      ;
     }
   }, {
     key: "render",
@@ -2079,7 +2085,9 @@ var App = /*#__PURE__*/function (_React$Component) {
           _this2.rap = element;
         }
       });
-      var clearListened = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Clear Listened");
+      var clearListened = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.resetInfo
+      }, "Clear Listened");
       var playPause = this.state.playing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.pause
       }, "Pause") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
@@ -2148,6 +2156,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setCurrentSong: function setCurrentSong(song) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.setCurrentSongThunk)(song));
+    },
+    clearListened: function clearListened(listenedId) {
+      return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_8__.clearListenedThunk)(listenedId));
+    },
+    clearSessions: function clearSessions() {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.clearSessionsThunk)());
     }
   };
 };
@@ -2842,6 +2856,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetchActiveCollectionSongs": () => (/* binding */ fetchActiveCollectionSongs),
 /* harmony export */   "updateSessionBpmThunk": () => (/* binding */ updateSessionBpmThunk),
 /* harmony export */   "fetchOnTempoChangeThunk": () => (/* binding */ fetchOnTempoChangeThunk),
+/* harmony export */   "clearSessionsThunk": () => (/* binding */ clearSessionsThunk),
 /* harmony export */   "popOneFromActiveSessionSongsThunk": () => (/* binding */ popOneFromActiveSessionSongsThunk),
 /* harmony export */   "applySongsInRange": () => (/* binding */ applySongsInRange),
 /* harmony export */   "enqueueSongThunk": () => (/* binding */ enqueueSongThunk),
@@ -2889,6 +2904,7 @@ var UPDATE_NEW_BPM = 'UPDATE_NEW_BPM';
 var POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION';
 var LOAD_ALL_DATA_FROM_SINGLE_COLLECTION = 'LOAD_ALL_DATA_FROM_SINGLE_COLLECTION';
 var SET_CURRENT_SONG = 'SET_CURRENT_SONG';
+var CLEAR_SESSIONS = 'CLEAR_SESSIONS';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -2966,6 +2982,12 @@ var dispatchSetCurrentSong = function dispatchSetCurrentSong(song) {
   return {
     type: SET_CURRENT_SONG,
     song: song
+  };
+};
+
+var clearSessions = function clearSessions() {
+  return {
+    type: CLEAR_SESSIONS
   };
 };
 
@@ -3225,6 +3247,43 @@ var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectio
     };
   }();
 };
+var clearSessionsThunk = function clearSessionsThunk() {
+  return /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dispatch) {
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.prev = 0;
+              _context5.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/clearSessions');
+
+            case 3:
+              dispatch(clearSessions());
+              _context5.next = 9;
+              break;
+
+            case 6:
+              _context5.prev = 6;
+              _context5.t0 = _context5["catch"](0);
+              console.log(_context5.t0);
+
+            case 9:
+              ;
+
+            case 10:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[0, 6]]);
+    }));
+
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+};
 var popOneFromActiveSessionSongsThunk = function popOneFromActiveSessionSongsThunk() {
   return function (dispatch) {
     dispatch(popOneFromActiveSession());
@@ -3375,6 +3434,20 @@ function musicReducer() {
     //         currentSong: action.song
     //     }
 
+    case CLEAR_SESSIONS:
+      collectionCopy = _objectSpread({}, state.collections);
+
+      for (var key in collectionCopy) {
+        var currCollection = collectionCopy[key];
+        currCollection.collectionSessions = [];
+      }
+
+      ;
+      return _objectSpread(_objectSpread({}, state), {}, {
+        activeSession: undefined,
+        collections: collectionCopy
+      });
+
     case SET_FETCHING_STATUS:
       return _objectSpread(_objectSpread({}, state), {}, {
         isFetching: action.isFetching
@@ -3505,6 +3578,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetchUser": () => (/* binding */ fetchUser),
 /* harmony export */   "addToListenedAndSessionThunk": () => (/* binding */ addToListenedAndSessionThunk),
 /* harmony export */   "logout": () => (/* binding */ logout),
+/* harmony export */   "clearListenedThunk": () => (/* binding */ clearListenedThunk),
 /* harmony export */   "default": () => (/* binding */ userReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -3533,6 +3607,7 @@ var GET_USER = 'GET_USER';
 var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 var LOGOUT_USER = 'LOGOUT_USER';
 var ADD_SONG_TO_LISTENED = 'ADD_SONG_TO_LISTENED';
+var SET_UPDATED_LISTENED = 'SET_UPDATED_LISTENED';
 
 var gotMe = function gotMe(user) {
   return {
@@ -3558,6 +3633,13 @@ var dispatchAddSongToListened = function dispatchAddSongToListened(song) {
   return {
     type: ADD_SONG_TO_LISTENED,
     song: song
+  };
+};
+
+var setUpdatedListened = function setUpdatedListened(updatedListened) {
+  return {
+    type: SET_UPDATED_LISTENED,
+    updatedListened: updatedListened
   };
 };
 
@@ -3716,6 +3798,48 @@ var logout = function logout() {
       return _ref3.apply(this, arguments);
     };
   }();
+};
+var clearListenedThunk = function clearListenedThunk(listenedId) {
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch) {
+      var updatedListened;
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/clearListened', {
+                data: listenedId
+              });
+
+            case 3:
+              updatedListened = _context4.sent;
+              updatedListened.data.songs = {};
+              dispatch(setUpdatedListened(updatedListened.data));
+              _context4.next = 11;
+              break;
+
+            case 8:
+              _context4.prev = 8;
+              _context4.t0 = _context4["catch"](0);
+              console.log(_context4.t0);
+
+            case 11:
+              ;
+
+            case 12:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0, 8]]);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
 }; // export const login = credentials => {
 //   return async dispatch => {
 //     try {
@@ -3775,6 +3899,14 @@ function userReducer() {
       return {
         user: _objectSpread(_objectSpread({}, state.user), {}, {
           listened: listenedCopy
+        })
+      };
+
+    case SET_UPDATED_LISTENED:
+      console.log('DISPATCH LISTENED', action.updatedListened);
+      return {
+        user: _objectSpread(_objectSpread({}, state.user), {}, {
+          listened: action.updatedListened
         })
       };
 

@@ -12,6 +12,7 @@ const UPDATE_NEW_BPM = 'UPDATE_NEW_BPM'
 const POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION'
 const LOAD_ALL_DATA_FROM_SINGLE_COLLECTION = 'LOAD_ALL_DATA_FROM_SINGLE_COLLECTION'
 const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
+const CLEAR_SESSIONS = 'CLEAR_SESSIONS'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -66,6 +67,10 @@ const dispatchLoadAllDataFromSingleCollection = (singleCollection) => ({
 const dispatchSetCurrentSong = (song) => ({
     type: SET_CURRENT_SONG,
     song
+})
+
+const clearSessions = () => ({
+    type: CLEAR_SESSIONS
 })
 
 
@@ -152,6 +157,17 @@ export const fetchOnTempoChangeThunk = (selectedCollectionId, newBPM) => {
             console.log('COLLECTIONINFO', results)
 
             dispatch(dispatchLoadAllDataFromSingleCollection(results))
+        } catch (err) {
+            console.log(err)
+        };
+    };
+};
+
+export const clearSessionsThunk = () => {
+    return async dispatch => {
+        try {
+            await axios.put('/api/clearSessions')
+            dispatch(clearSessions())
         } catch (err) {
             console.log(err)
         };
@@ -294,6 +310,17 @@ export default function musicReducer (state = initialState, action) {
         //         ...state,
         //         currentSong: action.song
         //     }
+        case CLEAR_SESSIONS:
+            collectionCopy = {...state.collections};
+            for (const key in collectionCopy) {
+                const currCollection = collectionCopy[key];
+                currCollection.collectionSessions = []
+            };
+            return {
+                ...state,
+                activeSession: undefined,
+                collections: collectionCopy
+            }
         case SET_FETCHING_STATUS:
             return {
                 ...state,

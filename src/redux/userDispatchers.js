@@ -7,6 +7,7 @@ const GET_USER = 'GET_USER';
 const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 const LOGOUT_USER = 'LOGOUT_USER'
 const ADD_SONG_TO_LISTENED = 'ADD_SONG_TO_LISTENED'
+const SET_UPDATED_LISTENED = 'SET_UPDATED_LISTENED'
 
 const gotMe = user => ({
   type: GET_USER,
@@ -25,6 +26,11 @@ const setFetchingStatus = isFetching => ({
 const dispatchAddSongToListened = song => ({
   type: ADD_SONG_TO_LISTENED,
   song
+})
+
+const setUpdatedListened = updatedListened => ({
+  type: SET_UPDATED_LISTENED,
+  updatedListened
 })
 
 export const fetchUser = () => {
@@ -88,6 +94,18 @@ export const logout = () => {
   }
 }
 
+export const clearListenedThunk = (listenedId) => {
+  return async dispatch => {
+    try {
+      const updatedListened = await axios.put('/api/clearListened', {data: listenedId})
+      updatedListened.data.songs = {};
+      dispatch(setUpdatedListened(updatedListened.data)) 
+    } catch (err) {
+      console.log(err)
+    };
+  };
+};
+
 // export const login = credentials => {
 //   return async dispatch => {
 //     try {
@@ -145,6 +163,11 @@ export default function userReducer (state = initialState, action) {
       return {
         user: {...state.user, listened: listenedCopy}
       };
+    case SET_UPDATED_LISTENED:
+      console.log('DISPATCH LISTENED', action.updatedListened)
+      return {
+        user: {...state.user, listened: action.updatedListened}
+      }
     default:
       return state
   }

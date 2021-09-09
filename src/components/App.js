@@ -48,6 +48,7 @@ class App extends React.Component {
             this.checkIfListened();
         } else {
             // no song currently available
+            console.log('YOOOOOOOOOOOOOOO')
             this.rap.src = null;
         }
     };
@@ -57,7 +58,7 @@ class App extends React.Component {
         this.setState({
             playing: true
         })
-        this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
+        // this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
     };
     
     pause() {
@@ -102,7 +103,7 @@ class App extends React.Component {
         const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
         let changeTempo;
         let selectedScreen = <Collections />
-        if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo />
+        if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo play={this.play} />
         else if (this.props.screenStr === 'PlayerScreen') {
             selectedScreen = <PlayerScreen />
             changeTempo = <button onClick={() => this.props.changeScreen('Tempo')}>Change Tempo</button>
@@ -141,7 +142,7 @@ const mapDispatchToProps = (dispatch) => ({
     decrementPlayIdx: (sessionId) => dispatch(decrementPlayIdxThunk(sessionId)),
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
     addToListenedAndSession: (song, collectionSessionId) => dispatch(addToListenedAndSessionThunk(song, collectionSessionId)),
-    setCurrentSong: (song) => dispatch(setCurrentSongThunk(song)),
+    // setCurrentSong: (song) => dispatch(setCurrentSongThunk(song)),
     clearListened: (listenedId) => dispatch(clearListenedThunk(listenedId)),
     clearSessions: () => dispatch(clearSessionsThunk())
 })

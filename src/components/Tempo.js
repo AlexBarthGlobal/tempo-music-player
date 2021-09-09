@@ -37,6 +37,7 @@ class Tempo extends React.Component {
             const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM)  //Run this when updating BPM
             this.props.applySongsInRange(results);
             this.props.changeScreen('PlayerScreen')
+            this.props.play();
         } else {
             console.log('No songs at this BPM, choose a different BPM or add songs to collection!');
             console.log('Or clear listened')

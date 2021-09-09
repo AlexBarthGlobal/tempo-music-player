@@ -2011,6 +2011,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         this.checkIfListened();
       } else {
         // no song currently available
+        console.log('YOOOOOOOOOOOOOOO');
         this.rap.src = null;
       }
     }
@@ -2020,8 +2021,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       this.rap.play();
       this.setState({
         playing: true
-      });
-      this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx]);
+      }); // this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
     }
   }, {
     key: "pause",
@@ -2104,7 +2104,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       })) : null;
       var changeTempo;
       var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null);
-      if (this.props.screenStr === 'Tempo') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, null);else if (this.props.screenStr === 'PlayerScreen') {
+      if (this.props.screenStr === 'Tempo') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, {
+        play: this.play
+      });else if (this.props.screenStr === 'PlayerScreen') {
         selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_4__.default, null);
         changeTempo = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: function onClick() {
@@ -2154,9 +2156,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     addToListenedAndSession: function addToListenedAndSession(song, collectionSessionId) {
       return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_8__.addToListenedAndSessionThunk)(song, collectionSessionId));
     },
-    setCurrentSong: function setCurrentSong(song) {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.setCurrentSongThunk)(song));
-    },
+    // setCurrentSong: (song) => dispatch(setCurrentSongThunk(song)),
     clearListened: function clearListened(listenedId) {
       return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_8__.clearListenedThunk)(listenedId));
     },
@@ -2680,6 +2680,8 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
                   _this.props.applySongsInRange(results);
 
                   _this.props.changeScreen('PlayerScreen');
+
+                  _this.props.play();
                 } else {
                   console.log('No songs at this BPM, choose a different BPM or add songs to collection!');
                   console.log('Or clear listened');

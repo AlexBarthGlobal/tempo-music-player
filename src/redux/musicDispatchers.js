@@ -171,14 +171,16 @@ export const enqueueSongThunk = () => {
     };
 };
 
-export const incrementPlayIdxThunk = () => {
+export const incrementPlayIdxThunk = (sessionId) => {
     return dispatch => {
+        axios.put('/api/incrementPlayIdx', {data: sessionId})
         dispatch(incrementPlayIdx())
     }
 }
 
-export const decrementPlayIdxThunk = () => {
+export const decrementPlayIdxThunk = (sessionId) => {
     return dispatch => {
+        axios.put('/api/decrementPlayIdx', {data: sessionId})
         dispatch(decrementPlayIdx())
     }
 }

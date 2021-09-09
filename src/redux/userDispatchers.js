@@ -6,6 +6,7 @@ import axios from 'axios'
 const GET_USER = 'GET_USER';
 const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 const LOGOUT_USER = 'LOGOUT_USER'
+const ADD_SONG_TO_LISTENED = 'ADD_SONG_TO_LISTENED'
 
 const gotMe = user => ({
   type: GET_USER,
@@ -19,6 +20,11 @@ const logoutUser = () => ({
 const setFetchingStatus = isFetching => ({
   type: SET_FETCHING_STATUS,
   isFetching
+})
+
+const dispatchAddSongToListened = song => ({
+  type: ADD_SONG_TO_LISTENED,
+  song
 })
 
 export const fetchUser = () => {
@@ -45,7 +51,19 @@ export const fetchUser = () => {
       dispatch(setFetchingStatus(false))
     }
   }
-}
+};
+
+export const addToListenedAndSessionThunk = (song, collectionSessionId) => {
+  return async dispatch => {
+      try {
+          const songId = song.id
+          await axios.post('/api/addSongToListenedAndSession', {data: {songId, collectionSessionId}})
+          dispatch(dispatchAddSongToListened(song));
+      } catch (err) {
+          console.log(err)
+      };
+  };
+};
 
 // export const signUp = credentials => {
 //   return async dispatch => {
@@ -99,7 +117,7 @@ const initialState = {
     isFetching: true,
   }
 }
-
+let listenedCopy;
 export default function userReducer (state = initialState, action) {
   switch (action.type) {
     case GET_USER:
@@ -121,6 +139,12 @@ export default function userReducer (state = initialState, action) {
       return {
         user: {isFetching: false}
       }
+    case ADD_SONG_TO_LISTENED:
+      listenedCopy = {...state.user.listened};
+      listenedCopy.songs[action.song.id] = action.song;
+      return {
+        user: {...state.user, listened: listenedCopy}
+      };
     default:
       return state
   }

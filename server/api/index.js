@@ -3,6 +3,52 @@ const {isAuth, isAdmin} = require('./authMiddleware')
 const {Song, User, Collection, CollectionSession, Listened, SessionSong} = require('../db/index');
 const { Op } = require('Sequelize');
 
+router.post('/addSongToListenedAndSession', async (req, res, next) => {
+    try {
+        const song = await Song.findByPk(req.body.data.songId);
+        const listened = await Listened.findOne({
+            where: {
+                userId: req.session.passport.user
+            }
+        });
+        const session = await CollectionSession.findOne({
+            where: {
+                userId: req.session.passport.user,
+                id: req.body.data.collectionSessionId
+            }
+        })
+
+        await listened.addSong(song);
+        await session.addSong(song);
+
+        res.json('Done')
+    } catch (err) {
+        console.log(err)
+    };
+});
+
+router.put('/incrementPlayIdx', async (req, res, next) => {
+    try {
+        await CollectionSession.increment('playIdx', {by: 1, where: {
+            userId: req.session.passport.user,
+            id: req.body.data
+        }})
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+router.put('/decrementPlayIdx', async (req, res, next) => {
+    try {
+        await CollectionSession.decrement('playIdx', {by: 1, where: {
+            userId: req.session.passport.user,
+            id: req.body.data
+        }})
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 router.put('/updateOrCreateSessionBpm', async (req, res, next) => {
     console.log('cherry', req.body.data.newBPM)
     try {
@@ -47,35 +93,6 @@ router.put('/updateOrCreateSessionBpm', async (req, res, next) => {
 
 router.post('/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', async (req, res, next) => {
     try {
-        // const singleCollectionInfo = await User.findOne({
-        //     where: {
-        //         id: req.session.passport.user
-        //     },
-        //     include: {
-        //         model: Collection,
-        //         required: false,
-        //         where: {
-        //             id: req.body.data
-        //         },
-        //         include: [{
-        //             model: Song,
-        //             required: false,
-        //         }, {
-        //             model: CollectionSession,
-        //             required: false,
-        //             include: {
-        //                 model: Song,
-        //                 required: false,
-        //             },
-        //         }],
-        //     },
-        //     order: [
-        //         [Collection, Song, 'BPM', 'ASC']
-        //     ]
-        // });
-
-        // res.json(singleCollectionInfo)
-
         const collectionAndSongs = await User.findOne({
             where: {
                 id: req.session.passport.user

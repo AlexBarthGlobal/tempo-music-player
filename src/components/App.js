@@ -8,6 +8,7 @@ import FooterControls from './FooterControls'
 import {Redirect} from 'react-router-dom'
 import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk} from '../redux/musicDispatchers'
 import {changeScreenThunk} from '../redux/screenDispatchers'
+import {addToListenedAndSessionThunk} from '../redux/userDispatchers'
 
 const tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3","https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"]
 
@@ -32,13 +33,13 @@ class App extends React.Component {
 
     checkIfListened() {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx] && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
-            this.props.addToListenedAndSession(); //pass in the songId and activeSessionId
+            this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
         };
     }
 
     componentDidUpdate() {
         if (this.checkPlayerReady()) {
-            // this.checkIfListened();
+            this.checkIfListened();
             console.log('UPDATED COMPONENT')
         };
     };
@@ -60,12 +61,15 @@ class App extends React.Component {
     nextTrack () {
         //Line below prevents next/enqueue if current song is null.
         if (/*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/ !this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
-        if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) this.props.incrementPlayIdx();
+        if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
+            this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
+
+        };
         // this.checkIfListened();
     };
     
     prevTrack () {
-        this.props.decrementPlayIdx();
+        this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
     };
 
     render() {
@@ -120,9 +124,10 @@ const mapStateToProps = (state) => {
   
 const mapDispatchToProps = (dispatch) => ({
     enqueueSong: () => dispatch(enqueueSongThunk()),
-    incrementPlayIdx: () => dispatch(incrementPlayIdxThunk()),
-    decrementPlayIdx: () => dispatch(decrementPlayIdxThunk()),
-    changeScreen: (screen) => dispatch(changeScreenThunk(screen))
+    incrementPlayIdx: (sessionId) => dispatch(incrementPlayIdxThunk(sessionId)),
+    decrementPlayIdx: (sessionId) => dispatch(decrementPlayIdxThunk(sessionId)),
+    changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
+    addToListenedAndSession: (song, collectionSessionId) => dispatch(addToListenedAndSessionThunk(song, collectionSessionId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

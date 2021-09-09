@@ -2666,7 +2666,9 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
               case 8:
                 //load the collection and include its songs & session & its sessionSongs
-                if (_this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs.length) {
+                if (
+                /*this.props.musicInfo.activeSession &&*/
+                _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs.length) {
                   // if (!this.rap.isPlaying) this.props.popOneFromActiveSessionSongs() //Pop an additional song off (the current song) if player is paused
                   // this.props.popOneFromActiveSessionSongs()
                   results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM); //Run this when updating BPM
@@ -2675,10 +2677,8 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
                   _this.props.changeScreen('PlayerScreen');
                 } else {
-                  //This session will still be active at this point
-                  // the actual reason for the message below is because the collection doesn't have any songs. And that's what will have triggered it.
                   console.log('No songs at this BPM, choose a different BPM or add songs to collection!');
-                  console.log('Or clear listened'); // which will clear the activeSession and all sessions, and listened.
+                  console.log('Or clear listened');
                 }
 
                 ;
@@ -3218,10 +3218,10 @@ var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectio
               });
 
             case 8:
-              // console.log('COLLECTIONINFO', results)
-              results.data.collectionAndSongs.collections[0].collectionSessions = [results.data.sessionSongs];
-              results = results.data.collectionAndSongs.collections[0];
               console.log('COLLECTIONINFO', results);
+              results.data.collectionAndSongs.collections[0].collectionSessions = [results.data.sessionSongs];
+              results = results.data.collectionAndSongs.collections[0]; // console.log('COLLECTIONINFO', results)
+
               dispatch(dispatchLoadAllDataFromSingleCollection(results));
               _context4.next = 17;
               break;
@@ -3346,6 +3346,7 @@ function musicReducer() {
     case LOAD_ALL_DATA_FROM_SINGLE_COLLECTION:
       collectionCopy = _objectSpread({}, state.collections);
       collectionCopy[action.singleCollection.id] = action.singleCollection;
+      console.log('CHECK HERE', action.singleCollection);
       return _objectSpread(_objectSpread({}, state), {}, {
         collections: collectionCopy,
         activeSession: action.singleCollection.collectionSessions[0]

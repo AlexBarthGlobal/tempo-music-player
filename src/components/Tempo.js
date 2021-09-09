@@ -28,17 +28,15 @@ class Tempo extends React.Component {
         if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, this.state.BPM) //update the BPM of the already activeSession or create new session
         else await this.props.fetchOnTempoChange(this.props.selectedCollection, this.state.BPM) //load the collection and include its songs & session & its sessionSongs
             
-        if (this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
+        if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
             // if (!this.rap.isPlaying) this.props.popOneFromActiveSessionSongs() //Pop an additional song off (the current song) if player is paused
             // this.props.popOneFromActiveSessionSongs()
             const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM)  //Run this when updating BPM
             this.props.applySongsInRange(results);
             this.props.changeScreen('PlayerScreen')
         } else {
-            //This session will still be active at this point
-            // the actual reason for the message below is because the collection doesn't have any songs. And that's what will have triggered it.
             console.log('No songs at this BPM, choose a different BPM or add songs to collection!');
-            console.log('Or clear listened') // which will clear the activeSession and all sessions, and listened.
+            console.log('Or clear listened')
         };
     };
 

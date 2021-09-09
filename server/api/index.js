@@ -10,7 +10,7 @@ router.put('/clearSessions', async (req, res, next) => {
                 userId: req.session.passport.user
             }
         })
-        
+
         res.status(200).send('Done')
     } catch (err) {
         next (err);
@@ -120,6 +120,7 @@ router.put('/updateOrCreateSessionBpm', async (req, res, next) => {
                 }}
             );
         } else {
+            console.log('rari')
             const newSession = await CollectionSession.create({
                 currBPM: req.body.data.newBPM
             });
@@ -163,7 +164,7 @@ router.post('/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSon
 
         const sessionSongs = await CollectionSession.findOne({
             where: {
-                id: req.body.data,
+                collectionId: req.body.data,
                 userId: req.session.passport.user
             },
             include: {
@@ -197,7 +198,7 @@ router.put('/updateUserCollectionSessionsToInactive', async (req, res, next) => 
             {active: false},
             {where: {
                 userId: req.session.passport.user,
-                id: {
+                collectionId: {
                     [Op.not]: req.body.data
                 }
             }}

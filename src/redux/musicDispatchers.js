@@ -150,11 +150,11 @@ export const fetchOnTempoChangeThunk = (selectedCollectionId, newBPM) => {
             await axios.put('/api/updateOrCreateSessionBpm', {data:{selectedCollectionId, newBPM}});
             let results = await axios.post('/api/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', {data: selectedCollectionId});
             await axios.put('/api/updateUserCollectionSessionsToInactive', {data: selectedCollectionId});        
-            // console.log('COLLECTIONINFO', results)
+            console.log('COLLECTIONINFO', results)
             results.data.collectionAndSongs.collections[0].collectionSessions = [results.data.sessionSongs]
             results = results.data.collectionAndSongs.collections[0];
 
-            console.log('COLLECTIONINFO', results)
+            // console.log('COLLECTIONINFO', results)
 
             dispatch(dispatchLoadAllDataFromSingleCollection(results))
         } catch (err) {
@@ -238,6 +238,7 @@ export default function musicReducer (state = initialState, action) {
         case LOAD_ALL_DATA_FROM_SINGLE_COLLECTION:
             collectionCopy = {...state.collections}
             collectionCopy[action.singleCollection.id] = action.singleCollection
+            console.log('CHECK HERE',action.singleCollection)
             return {
                 ...state,
                 collections: collectionCopy,

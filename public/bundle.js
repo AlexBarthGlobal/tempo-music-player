@@ -2613,9 +2613,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
                 //load the collection and include its songs & session & its sessionSongs
                 if (_this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs.length) {
                   // if (!this.rap.isPlaying) this.props.popOneFromActiveSessionSongs() //Pop an additional song off (the current song) if player is paused
-                  _this.props.popOneFromActiveSessionSongs(); //removes the next pre-loaded song or undefined off of the session's activeSongs
-
-
+                  // this.props.popOneFromActiveSessionSongs()
                   results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM); //Run this when updating BPM
 
                   _this.props.applySongsInRange(results);

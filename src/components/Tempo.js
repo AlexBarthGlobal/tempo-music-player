@@ -30,7 +30,7 @@ class Tempo extends React.Component {
             
         if (this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
             // if (!this.rap.isPlaying) this.props.popOneFromActiveSessionSongs() //Pop an additional song off (the current song) if player is paused
-            this.props.popOneFromActiveSessionSongs() //removes the next pre-loaded song or undefined off of the session's activeSongs
+            // this.props.popOneFromActiveSessionSongs()
             const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM)  //Run this when updating BPM
             this.props.applySongsInRange(results);
             this.props.changeScreen('PlayerScreen')

@@ -1955,7 +1955,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"];
+var modal;
 
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
@@ -2001,10 +2001,10 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function componentDidUpdate() {
       if (this.checkPlayerReady()) {
         this.checkIfListened();
-        console.log('UPDATED COMPONENT');
+      } else {
+        // no song currently available
+        this.rap.src = null;
       }
-
-      ;
     }
   }, {
     key: "play",
@@ -2027,21 +2027,22 @@ var App = /*#__PURE__*/function (_React$Component) {
     key: "nextTrack",
     value: function nextTrack() {
       //Line below prevents next/enqueue if current song is null.
-      if (
-      /*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/
-      !this.props.musicInfo.activeSession.songs[this.props.playIdx + 2]) this.props.enqueueSong();
-
       if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
+        if (!this.props.musicInfo.activeSession.songs[this.props.playIdx + 2]) this.props.enqueueSong();
         this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
       }
 
       ; // this.checkIfListened();
-      //this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
     }
   }, {
     key: "prevTrack",
     value: function prevTrack() {
-      this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id); //this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
+      // if ((this.props.musicInfo.activeSession.songs[this.props.playIdx] || this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) && this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
+      //     this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+      // };
+      if (this.props.musicInfo.activeSession.songs[this.props.playIdx - 1]) {
+        this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+      }
     }
   }, {
     key: "render",
@@ -2049,6 +2050,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       console.log('Props on App.js RENDER', this.props);
+      console.log('STATE', this.state);
       if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Redirect, {
         to: "/login"
       });
@@ -2067,8 +2069,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       }, "Home");
       var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null;
-      var audio; // if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && this.props.musicInfo.activeSession.songsInRange.length) audio = <audio src={this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
-
+      var audio;
       audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null,
         preload: "auto",
@@ -2084,7 +2085,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, "Pause") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.play
       }, "Play");
-      var footerControls = this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      var footerControls =
+      /*this.checkPlayerReady() &&*/
+      this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_5__.default, {
         playPause: playPause,

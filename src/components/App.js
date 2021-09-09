@@ -10,8 +10,7 @@ import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurre
 import {changeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk} from '../redux/userDispatchers'
 
-const tracks = ["https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/FastLane1.1.mp3","https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Dior-Instrumental-Prod.-By-808Melo.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Pop-Smoke-Invincible-Instrumental-Prod.-By-Yoz-Beatz.mp3", "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Boomit3.mp3"]
-
+let modal;
 class App extends React.Component {
     constructor() {
         super()
@@ -40,8 +39,10 @@ class App extends React.Component {
     componentDidUpdate() {
         if (this.checkPlayerReady()) {
             this.checkIfListened();
-            console.log('UPDATED COMPONENT')
-        };
+        } else {
+            // no song currently available
+            this.rap.src = null;
+        }
     };
 
     play() {
@@ -61,21 +62,27 @@ class App extends React.Component {
 
     nextTrack () {
         //Line below prevents next/enqueue if current song is null.
-        if (/*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/ !this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
+        
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
+            if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
             this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
         };
         // this.checkIfListened();
-        //this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
     };
     
     prevTrack () {
-        this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
-        //this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
+        // if ((this.props.musicInfo.activeSession.songs[this.props.playIdx] || this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) && this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
+        //     this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+        // };
+
+        if (this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
+            this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+        }
     };
 
     render() {
         console.log('Props on App.js RENDER', this.props)
+        console.log('STATE', this.state)
         if (!this.props.user.id) return <Redirect to='/login' />;
 
         const logout = () => {
@@ -89,11 +96,10 @@ class App extends React.Component {
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
         this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? <button>Add to Collection</button> : null;
         let audio;
-        // if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && this.props.musicInfo.activeSession.songsInRange.length) audio = <audio src={this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = <button>Clear Listened</button>
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
-        const footerControls = this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
+        const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
         let selectedScreen = <Collections />
         if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo />
         else if (this.props.screenStr === 'PlayerScreen') selectedScreen = <PlayerScreen />

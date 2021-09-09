@@ -2011,7 +2011,6 @@ var App = /*#__PURE__*/function (_React$Component) {
         this.checkIfListened();
       } else {
         // no song currently available
-        console.log('YOOOOOOOOOOOOOOO');
         this.rap.src = null;
       }
     }
@@ -2105,7 +2104,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       var changeTempo;
       var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null);
       if (this.props.screenStr === 'Tempo') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, {
-        play: this.play
+        play: this.play,
+        next: this.nextTrack,
+        player: this.rap
       });else if (this.props.screenStr === 'PlayerScreen') {
         selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_4__.default, null);
         changeTempo = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
@@ -2641,7 +2642,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(evt) {
-        var results;
+        var results, idx;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2671,6 +2672,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
               case 9:
                 //load the collection and include its songs & session & its sessionSongs
+                // if (this.props.player.paused) this.props.popOneFromActiveSessionSongs()
                 if (
                 /*this.props.musicInfo.activeSession &&*/
                 _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs.length) {
@@ -2679,7 +2681,19 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
                   _this.props.applySongsInRange(results);
 
-                  _this.props.changeScreen('PlayerScreen');
+                  _this.props.changeScreen('PlayerScreen'); // if (this.props.player.paused /*&& this.props.musicInfo.activeSession.songs.length > 2*/) {
+
+
+                  idx = _this.props.musicInfo.activeSession.playIdx;
+
+                  while (_this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3) {
+                    console.log(_this.props.musicInfo.activeSession.currBPM);
+                    idx++;
+
+                    _this.props.next();
+                  }
+
+                  ; // };
 
                   _this.props.play();
                 } else {

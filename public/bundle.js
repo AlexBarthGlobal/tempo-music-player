@@ -1997,7 +1997,9 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (this.checkPlayerReady()) {// this.checkIfListened();
+      if (this.checkPlayerReady()) {
+        // this.checkIfListened();
+        console.log('UPDATED COMPONENT');
       }
 
       ;
@@ -2198,7 +2200,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
 
       var selectCollectionAndChangeScreen = function selectCollectionAndChangeScreen(collectionId) {
         if (isActive(collectionId)) {
-          _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo'); // set back to 'PlayerScreen'
+          _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen'); // set back to 'PlayerScreen'
 
         } else _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo');
       };

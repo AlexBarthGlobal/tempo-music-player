@@ -39,6 +39,7 @@ class App extends React.Component {
     componentDidUpdate() {
         if (this.checkPlayerReady()) {
             // this.checkIfListened();
+            console.log('UPDATED COMPONENT')
         };
     };
 

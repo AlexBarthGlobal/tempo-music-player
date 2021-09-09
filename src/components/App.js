@@ -94,21 +94,25 @@ class App extends React.Component {
 
         const homeLogout = this.props.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.props.changeScreen('Collections')}>Home</button>
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
-        this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? <button>Add to Collection</button> : null;
+        this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? <button>Add Songs</button> : null;
         let audio;
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = <button>Clear Listened</button>
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
         const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
+        let changeTempo;
         let selectedScreen = <Collections />
         if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo />
-        else if (this.props.screenStr === 'PlayerScreen') selectedScreen = <PlayerScreen />
+        else if (this.props.screenStr === 'PlayerScreen') {
+            selectedScreen = <PlayerScreen />
+            changeTempo = <button onClick={() => this.props.changeScreen('Tempo')}>Change Tempo</button>
+        }
 
         return (
             <div>
                 {audio}
                 <div className='topButtons'>{homeLogout}{clearListened}</div>
-                <div className='secondButtons'>{createOrAddToCollection}</div>
+                <div className='secondButtons'>{changeTempo}{createOrAddToCollection}</div>
                 <div>
                     {selectedScreen}
                 </div>             

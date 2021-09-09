@@ -16,7 +16,7 @@ class Collections extends React.Component {
         };
         const selectCollectionAndChangeScreen = (collectionId) => {
             if (isActive(collectionId)) {
-                this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen') // set back to 'PlayerScreen'
+                this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen')
             } else this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo')
         };
         

@@ -2068,7 +2068,7 @@ var App = /*#__PURE__*/function (_React$Component) {
           return _this2.props.changeScreen('Collections');
         }
       }, "Home");
-      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add to Collection") : null;
+      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add Songs") : null;
       var audio;
       audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null,
@@ -2094,13 +2094,21 @@ var App = /*#__PURE__*/function (_React$Component) {
         prevTrack: this.prevTrack,
         nextTrack: this.nextTrack
       })) : null;
+      var changeTempo;
       var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null);
-      if (this.props.screenStr === 'Tempo') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, null);else if (this.props.screenStr === 'PlayerScreen') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_4__.default, null);
+      if (this.props.screenStr === 'Tempo') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, null);else if (this.props.screenStr === 'PlayerScreen') {
+        selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_4__.default, null);
+        changeTempo = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          onClick: function onClick() {
+            return _this2.props.changeScreen('Tempo');
+          }
+        }, "Change Tempo");
+      }
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "topButtons"
       }, homeLogout, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"
-      }, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), footerControls);
+      }, changeTempo, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), footerControls);
     }
   }]);
 
@@ -2219,8 +2227,7 @@ var Collections = /*#__PURE__*/function (_React$Component) {
 
       var selectCollectionAndChangeScreen = function selectCollectionAndChangeScreen(collectionId) {
         if (isActive(collectionId)) {
-          _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen'); // set back to 'PlayerScreen'
-
+          _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen');
         } else _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo');
       };
 
@@ -14509,7 +14516,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE;;cAEY;EACZ,kBAAkB;AACpB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;EACjB;mCACiC;AACnC;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE;;cAEY;EACZ,kBAAkB;AACpB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

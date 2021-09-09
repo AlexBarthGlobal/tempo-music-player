@@ -132,9 +132,11 @@ export const fetchOnTempoChangeThunk = (selectedCollectionId, newBPM) => {
         try {
             await axios.put('/api/updateOrCreateSessionBpm', {data:{selectedCollectionId, newBPM}});
             const collectionAndCollectionSongsAndSessionAndSessionSongs = await axios.post('/api/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', {data: selectedCollectionId});
-            await axios.put('/api/updateUserCollectionSessionsToInactive', {data: selectedCollectionId});
-
+            await axios.put('/api/updateUserCollectionSessionsToInactive', {data: selectedCollectionId});        
             console.log('COLLECTIONINFO', collectionAndCollectionSongsAndSessionAndSessionSongs)
+
+            
+
         } catch (err) {
             console.log(err)
         };

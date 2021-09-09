@@ -2100,7 +2100,8 @@ var App = /*#__PURE__*/function (_React$Component) {
         playPause: playPause,
         prevTrack: this.prevTrack,
         nextTrack: this.nextTrack
-      })) : null;
+      })) : null; //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
+
       var changeTempo;
       var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_2__.default, null);
       if (this.props.screenStr === 'Tempo') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_3__.default, {

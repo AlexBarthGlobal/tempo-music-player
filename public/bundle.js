@@ -2622,7 +2622,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
- // this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : null
+
 
 var Tempo = /*#__PURE__*/function (_React$Component) {
   _inherits(Tempo, _React$Component);
@@ -2676,19 +2676,17 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
                   _this.props.applySongsInRange(results);
 
-                  _this.props.changeScreen('PlayerScreen'); // if (this.props.player.paused /*&& this.props.musicInfo.activeSession.songs.length > 2*/) {
-
+                  _this.props.changeScreen('PlayerScreen');
 
                   idx = _this.props.musicInfo.activeSession.playIdx;
 
                   while (_this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id]) {
-                    console.log(_this.props.musicInfo.activeSession.currBPM);
                     idx++;
 
                     _this.props.next();
                   }
 
-                  ; // };
+                  ;
 
                   _this.props.play();
                 } else {

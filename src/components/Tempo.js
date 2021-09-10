@@ -4,8 +4,6 @@ import {changeScreenThunk} from '../redux/screenDispatchers'
 import {updateSessionBpmThunk, popOneFromActiveSessionSongsThunk, applySongsInRange, fetchOnTempoChangeThunk} from '../redux/musicDispatchers'
 import songsInRange from '../components/songsInRange'
 
-// this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : null
-
 class Tempo extends React.Component {
     constructor (props) {
         console.log('PROPS from Constructor',props)
@@ -33,14 +31,11 @@ class Tempo extends React.Component {
             const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM)  //Run this when updating BPM
             this.props.applySongsInRange(results);
             this.props.changeScreen('PlayerScreen')
-            // if (this.props.player.paused /*&& this.props.musicInfo.activeSession.songs.length > 2*/) {
-                let idx = this.props.musicInfo.activeSession.playIdx
-                while (this.props.musicInfo.activeSession.songs[idx].BPM < this.props.musicInfo.activeSession.currBPM-2 || this.props.musicInfo.activeSession.songs[idx].BPM > this.props.musicInfo.activeSession.currBPM+3 || this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[idx].id]) {
-                    console.log(this.props.musicInfo.activeSession.currBPM)
-                    idx++;
-                    this.props.next();
-                };
-            // };
+            let idx = this.props.musicInfo.activeSession.playIdx
+            while (this.props.musicInfo.activeSession.songs[idx].BPM < this.props.musicInfo.activeSession.currBPM-2 || this.props.musicInfo.activeSession.songs[idx].BPM > this.props.musicInfo.activeSession.currBPM+3 || this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[idx].id]) {
+                idx++;
+                this.props.next();
+            };
             this.props.play();
         } else {
             console.log('No songs at this BPM, choose a different BPM or add songs to collection!');

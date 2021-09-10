@@ -25,22 +25,17 @@ class Tempo extends React.Component {
 
     handleSubmit = async (evt) => {
         evt.preventDefault();
-        if (this.isActive(this.props.selectedCollection)) {
-            this.props.popOneFromActiveSessionSongs();
-            //New Tempo will start at next song
-        }
+        if (this.isActive(this.props.selectedCollection)) this.props.popOneFromActiveSessionSongs();
         if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, this.state.BPM) //update the BPM of the already activeSession or create new session
         else await this.props.fetchOnTempoChange(this.props.selectedCollection, this.state.BPM); //load the collection and include its songs & session & its sessionSongs
         
-        // if (this.props.player.paused) this.props.popOneFromActiveSessionSongs()
         if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
-            // if (!this.rap.isPlaying) this.props.popOneFromActiveSessionSongs() //Pop an additional song off (the current song) if player is paused
             const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM)  //Run this when updating BPM
             this.props.applySongsInRange(results);
             this.props.changeScreen('PlayerScreen')
             // if (this.props.player.paused /*&& this.props.musicInfo.activeSession.songs.length > 2*/) {
                 let idx = this.props.musicInfo.activeSession.playIdx
-                while (this.props.musicInfo.activeSession.songs[idx].BPM < this.props.musicInfo.activeSession.currBPM-2 || this.props.musicInfo.activeSession.songs[idx].BPM > this.props.musicInfo.activeSession.currBPM+3) {
+                while (this.props.musicInfo.activeSession.songs[idx].BPM < this.props.musicInfo.activeSession.currBPM-2 || this.props.musicInfo.activeSession.songs[idx].BPM > this.props.musicInfo.activeSession.currBPM+3 || this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[idx].id]) {
                     console.log(this.props.musicInfo.activeSession.currBPM)
                     idx++;
                     this.props.next();

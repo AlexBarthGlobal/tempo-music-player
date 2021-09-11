@@ -94,8 +94,8 @@ class App extends React.Component {
         // // change collection, or clear listened
 
         const homeLogout = this.props.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.props.changeScreen('Collections')}>Home</button>
-        const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
-        this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? <button>Add Songs</button> : null;
+        const createOrAddToCollection = this.props.user.userType === 'CREATOR' || this.props.user.userType === 'ADMIN' ? (this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
+        this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? <button>Add Songs</button> : null) : null;
         let audio;
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = <button onClick={this.resetInfo}>Clear Listened</button>

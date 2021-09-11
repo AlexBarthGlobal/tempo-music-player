@@ -2073,7 +2073,7 @@ var App = /*#__PURE__*/function (_React$Component) {
           return _this2.props.changeScreen('Collections');
         }
       }, "Home");
-      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add Songs") : null;
+      var createOrAddToCollection = this.props.user.userType === 'CREATOR' || this.props.user.userType === 'ADMIN' ? this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Create Collection") : this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add Songs") : null : null;
       var audio;
       audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null,

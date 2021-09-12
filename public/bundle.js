@@ -2402,7 +2402,9 @@ var Collections = /*#__PURE__*/function (_React$Component) {
       var selectCollectionAndChangeScreen = function selectCollectionAndChangeScreen(collectionId) {
         if (isActive(collectionId)) {
           _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen');
-        } else if (_this.props.musicInfo.collections[collectionId]) _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'AddSongs');else _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo');
+        }
+        /*else if (this.props.musicInfo.collections[collectionId]) this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'AddSongs')*/
+        else _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo');
       };
 
       var noCollections = 'No collections yet. Create a new one!';

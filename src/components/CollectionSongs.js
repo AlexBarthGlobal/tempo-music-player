@@ -1,7 +1,9 @@
 import React from 'React'
 import {connect} from 'react-redux'
 import {fetchActiveCollectionSongs} from '../redux/musicDispatchers';
+import {changeScreenThunk} from '../redux/screenDispatchers'
 import SingleSong from './SingleSong'
+
 
 class CollectionSongs extends React.Component {
     constructor() {
@@ -20,9 +22,10 @@ class CollectionSongs extends React.Component {
 
         let songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
+            let idx = 0;
             for (const song of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-                // songList.push(<ol>{song.songName}</ol>)
-                songList.push(<SingleSong songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} />)
+                songList.push(<SingleSong key={idx} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} />)
+                idx++;
             }
         }
 
@@ -30,13 +33,18 @@ class CollectionSongs extends React.Component {
         // return loading screen if no songs loaded yet for the selected collection
         if (!this.props.musicInfo.collections[this.props.selectedCollection].songs) return (
             <div className='screenTitle'>
-                Collection Songs
+                
             </div>
         )
         else return (
             <div>
                 <div className='screenTitle'>
-                    Collection Songs
+                    <div>
+                        {this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
+                    </div>
+                    <div>
+                        <button onClick={() => this.props.changeScreen('Tempo')}>Select Tempo and Play</button>
+                    </div>
                 </div>
                 <ul>
                     {songList}
@@ -63,7 +71,8 @@ const mapStateToProps = (state) => {
 };
   
 const mapDispatchToProps = (dispatch) => ({
-    dispatchFetchActiveCollectionSongs: (collectionId) => dispatch(fetchActiveCollectionSongs(collectionId))
+    dispatchFetchActiveCollectionSongs: (collectionId) => dispatch(fetchActiveCollectionSongs(collectionId)),
+    changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionSongs)

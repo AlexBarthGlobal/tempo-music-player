@@ -98,11 +98,12 @@ class App extends React.Component {
 
         const homeLogout = this.props.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.props.changeScreen('Collections')}>Home</button>
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
-        this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs' ? <button>Add Songs</button> : null;
+        /*this.props.screenStr === 'PlayerScreen' ||*/ this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs' ? <button>Add Songs</button> : null;
         let audio;
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = <button onClick={this.resetInfo}>Clear Listened</button>
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
+        const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>Songs</button> : null
         const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
@@ -119,7 +120,7 @@ class App extends React.Component {
             <div>
                 {audio}
                 <div className='topButtons'>{homeLogout}{clearListened}</div>
-                <div className='secondButtons'>{changeTempo}{createOrAddToCollection}</div>
+                <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{createOrAddToCollection}</div>
                 <div>
                     {selectedScreen}
                 </div>             

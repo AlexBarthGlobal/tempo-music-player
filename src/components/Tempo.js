@@ -64,7 +64,7 @@ class Tempo extends React.Component {
                             <input name='BPM' onChange={this.handleChange} value={BPM}/>
                         </div>
                         <div>
-                            <button type='submit'>Confirm</button>
+                            <button type='submit'>Play</button>
                         </div>
                     </form>
                 </div>

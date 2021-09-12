@@ -10,7 +10,7 @@ const SingleCollection = (props) => {
     return (
         <div onClick={() => selectCollectionAndChangeScreen(collectionId)}>
             <div>
-                <img className='collectionImage' src={collectionArt}></img>
+                <img className='collectionImage' src={collectionArt} /*onLoad={}*/></img>
             </div>
             {collectionName}
             {sessionStatus}

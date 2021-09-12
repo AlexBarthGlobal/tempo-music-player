@@ -114,7 +114,7 @@ export const fetchCollectionsAndSessions = () => {
 
 export const fetchActiveCollectionSongs = (activeCollectionId) => {
     return async dispatch => {
-        dispatch(setFetchingStatus(true))
+        // dispatch(setFetchingStatus(true))
         try {
             const activeCollectionSongs = await axios.post('/api/fetchCurrentcollectionAndSongs', {data: activeCollectionId})
             let data = {};
@@ -127,7 +127,7 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
         } catch (error) {
             console.error(error)
         } finally {
-            dispatch(setFetchingStatus(false))
+            // dispatch(setFetchingStatus(false))
         }
     };
 };

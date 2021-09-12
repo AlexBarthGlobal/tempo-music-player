@@ -17,8 +17,7 @@ class Collections extends React.Component {
         const selectCollectionAndChangeScreen = (collectionId) => {
             if (isActive(collectionId)) {
                 this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen')
-            } /*else if (this.props.musicInfo.collections[collectionId]) this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'AddSongs')*/
-            else this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'Tempo')
+            } else this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'CollectionSongs')
         };
         
 

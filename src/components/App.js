@@ -6,6 +6,7 @@ import PlayerScreen from './PlayerScreen'
 import FooterControls from './FooterControls'
 import AddSongs from './AddSongs'
 import BrowseSongs from './BrowseSongs'
+import CollectionSongs from './CollectionSongs'
 // import {logout} from '../redux/isLogged'
 import {Redirect} from 'react-router-dom'
 import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk} from '../redux/musicDispatchers'
@@ -97,7 +98,7 @@ class App extends React.Component {
 
         const homeLogout = this.props.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.props.changeScreen('Collections')}>Home</button>
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
-        this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? <button>Add Songs</button> : null;
+        this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs' ? <button>Add Songs</button> : null;
         let audio;
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = <button onClick={this.resetInfo}>Clear Listened</button>
@@ -112,6 +113,7 @@ class App extends React.Component {
             changeTempo = <button onClick={() => this.props.changeScreen('Tempo')}>Change Tempo</button>
         } else if (this.props.screenStr === 'AddSongs') selectedScreen = <AddSongs />
         else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs />
+        else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs />
 
         return (
             <div>

@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import Modal from 'react-modal'
 import Collections from './Collections'
 import Tempo from './Tempo'
 import PlayerScreen from './PlayerScreen'
 import FooterControls from './FooterControls'
-import AddSongs from './AddSongs'
+// import AddSongs from './AddSongs'
 import BrowseSongs from './BrowseSongs'
 import CollectionSongs from './CollectionSongs'
 // import {logout} from '../redux/isLogged'
@@ -13,13 +14,15 @@ import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurre
 import {changeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk, clearListenedThunk} from '../redux/userDispatchers'
 
-let modal;
+Modal.setAppElement('#root')
 class App extends React.Component {
     constructor() {
         super()
         this.state = {
         //Local player info
           playing: false,
+          addCollectionModal: false,
+          addSongModal: false
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
@@ -97,7 +100,7 @@ class App extends React.Component {
         // // change collection, or clear listened
 
         const homeLogout = this.props.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.props.changeScreen('Collections')}>Home</button>
-        const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button>Create Collection</button> :
+        const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button onClick={() => this.setState({addCollectionModal: true})}>Create Collection</button> :
         /*this.props.screenStr === 'PlayerScreen' ||*/ this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs' ? <button>Add Songs</button> : null;
         let audio;
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
@@ -112,12 +115,48 @@ class App extends React.Component {
         else if (this.props.screenStr === 'PlayerScreen') {
             selectedScreen = <PlayerScreen />
             changeTempo = <button onClick={() => this.props.changeScreen('Tempo')}>Change Tempo</button>
-        } else if (this.props.screenStr === 'AddSongs') selectedScreen = <AddSongs />
-        else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs />
+        } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs />    
         else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs />
 
         return (
             <div>
+                <Modal 
+                    isOpen={this.state.addCollectionModal} 
+                    onRequestClose={() => this.setState({addCollectionModal: false})}
+                    style={
+                        {
+                            content: {
+                                borderRadius: '8px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                minHeight: '12vh',
+                                maxHeight: '12vh',
+                                position: 'absolute',
+                                width: '50vw',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                top: '28%',
+                                // left: '50%'
+                            }
+                        }
+                    }
+                    >
+                    <div>
+                        <div>Name your collection:</div>
+                        <div>
+                            <form onSubmit={this.handleSubmit}>
+                                <div>
+                                    <input name='BPM' onChange={this.handleChange} defaultValue={''}/>
+                                </div>
+                                <div>
+                                    <button type='submit'>Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </Modal>
                 {audio}
                 <div className='topButtons'>{homeLogout}{clearListened}</div>
                 <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{createOrAddToCollection}</div>

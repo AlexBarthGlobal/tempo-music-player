@@ -6,20 +6,19 @@ import SingleSong from './SingleSong'
 
 
 class CollectionSongs extends React.Component {
-    constructor() {
-        super()
-        this.state = {
+    // constructor() {
+    //     super()
+    //     this.state = {
 
-        };
-    };
+    //     };
+    // };
 
     componentDidMount() {
         this.props.dispatchFetchActiveCollectionSongs(this.props.selectedCollection)
     }
 
     render() {
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!', this.props)
-
+        const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
         let songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
             let idx = 0;
@@ -43,7 +42,7 @@ class CollectionSongs extends React.Component {
                         {this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
                     </div>
                     <div>
-                        <button onClick={() => this.props.changeScreen('Tempo')}>Select Tempo and Play</button>
+                        <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button>
                     </div>
                 </div>
                 <ul>

@@ -22,7 +22,7 @@ router.post('/createCollection', async (req, res, next) => {
         const newCollection = await Collection.create({
             collectionName: req.body.data.collectionName,
             collectionOwner: req.session.passport.user,
-            collectionArtUrl: req.body.data.collectionArtUrl || 'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ed6636cdd5d320006caf841%2FThe-Blackout-Tuesday-movement-is-causing-Instagram-feeds-to-turn-black-%2F960x0.jpg%3Ffit%3Dscale'
+            collectionArtUrl: req.body.data.collectionArtURL || 'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ed6636cdd5d320006caf841%2FThe-Blackout-Tuesday-movement-is-causing-Instagram-feeds-to-turn-black-%2F960x0.jpg%3Ffit%3Dscale'
         })
 
         const user = await User.findByPk(req.session.passport.user);

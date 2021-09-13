@@ -4288,7 +4288,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4309,6 +4311,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -4338,13 +4342,51 @@ var App = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, App);
 
     _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "handleSubmit", /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(evt) {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                evt.preventDefault();
+
+                _this.setState({
+                  addCollectionModal: false
+                });
+
+                _context.next = 4;
+                return _this.props.createCollection(_this.state.collectionName, _this.state.collectionArtURL);
+
+              case 4:
+                _this.setState({
+                  collectionName: ''
+                });
+
+                _this.setState({
+                  collectionArtURL: ''
+                });
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+
     _this.state = {
       //Local player info
       playing: false,
       addCollectionModal: false,
       addSongModal: false,
       collectionName: '',
-      artURL: ''
+      collectionArtURL: ''
     };
     _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this));
     _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
@@ -4361,23 +4403,6 @@ var App = /*#__PURE__*/function (_React$Component) {
     key: "handleChange",
     value: function handleChange(evt) {
       this.setState(_defineProperty({}, evt.target.name, evt.target.value));
-    }
-  }, {
-    key: "handleSubmit",
-    value: function handleSubmit(evt) {
-      evt.preventDefault();
-      this.setState({
-        addCollectionModal: false
-      });
-      console.log('collectionName', this.state.collectionName);
-      console.log('artURL', this.state.artURL); // dispatch thunk add collection
-
-      this.setState({
-        collectionName: ''
-      });
-      this.setState({
-        artURL: ''
-      });
     }
   }, {
     key: "resetInfo",
@@ -4558,10 +4583,10 @@ var App = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleChange,
         value: this.state.collectionName
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Art URL:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-        name: "artURL",
+        name: "collectionArtURL",
         onChange: this.handleChange,
         placeholder: 'Optional',
-        value: this.state.artURL
+        value: this.state.collectionArtURL
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "submit"
       }, "Create")))))), audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -4612,6 +4637,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     clearSessions: function clearSessions() {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__.clearSessionsThunk)());
+    },
+    createCollection: function createCollection(collectionName, collectionArtURL) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__.createCollectionThunk)(collectionName, collectionArtURL));
     }
   };
 };
@@ -5563,6 +5591,7 @@ var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createCollectionThunk": () => (/* binding */ createCollectionThunk),
 /* harmony export */   "fetchCollectionsAndSessions": () => (/* binding */ fetchCollectionsAndSessions),
 /* harmony export */   "fetchActiveCollectionSongs": () => (/* binding */ fetchActiveCollectionSongs),
 /* harmony export */   "updateSessionBpmThunk": () => (/* binding */ updateSessionBpmThunk),
@@ -5616,6 +5645,7 @@ var POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION';
 var LOAD_ALL_DATA_FROM_SINGLE_COLLECTION = 'LOAD_ALL_DATA_FROM_SINGLE_COLLECTION';
 var SET_CURRENT_SONG = 'SET_CURRENT_SONG';
 var CLEAR_SESSIONS = 'CLEAR_SESSIONS';
+var CREATE_COLLECTION = 'CREATE_COLLECTION';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -5702,22 +5732,74 @@ var clearSessions = function clearSessions() {
   };
 };
 
-var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
+var createCollection = function createCollection(newCollection) {
+  return {
+    type: CREATE_COLLECTION,
+    newCollection: newCollection
+  };
+};
+
+var createCollectionThunk = function createCollectionThunk(collectionName, collectionArtURL) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch) {
-      var response, activeSession, collectionsObj, _iterator, _step, collection, sessionSongs, key;
-
+      var newCollection;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/createCollection', {
+                data: {
+                  collectionName: collectionName,
+                  collectionArtURL: collectionArtURL
+                }
+              });
+
+            case 3:
+              newCollection = _context.sent;
+              console.log('THIS IS THE NEW COLLECTION', newCollection);
+              dispatch(createCollection(newCollection.data));
+              _context.next = 11;
+              break;
+
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](0);
+              console.error(_context.t0);
+
+            case 11:
+              ;
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 8]]);
+    }));
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
+  return /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
+      var response, activeSession, collectionsObj, _iterator, _step, collection, sessionSongs, key;
+
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
               dispatch(setFetchingStatus(true));
-              _context.prev = 1;
-              _context.next = 4;
+              _context2.prev = 1;
+              _context2.next = 4;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/fetchCollectionAndSessions');
 
             case 4:
-              response = _context.sent;
+              response = _context2.sent;
               collectionsObj = {};
               _iterator = _createForOfIteratorHelper(response.data.collections);
 
@@ -5746,17 +5828,17 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
               response.data.collections = collectionsObj; // console.log('THIS IS THE ACTIVE SESSION', activeSession)
 
               if (!activeSession) {
-                _context.next = 16;
+                _context2.next = 16;
                 break;
               }
 
-              _context.next = 13;
+              _context2.next = 13;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchSongsFromSession', {
                 data: activeSession.id
               });
 
             case 13:
-              sessionSongs = _context.sent;
+              sessionSongs = _context2.sent;
               // console.log('SESSIONSONGS THUNK', sessionSongs)
               activeSession.songs = [];
 
@@ -5771,51 +5853,51 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
                 collectionsAndSessions: response.data.collections,
                 activeSession: activeSession
               }));
-              _context.next = 22;
+              _context2.next = 22;
               break;
 
             case 19:
-              _context.prev = 19;
-              _context.t0 = _context["catch"](1);
-              console.error(_context.t0);
+              _context2.prev = 19;
+              _context2.t0 = _context2["catch"](1);
+              console.error(_context2.t0);
 
             case 22:
-              _context.prev = 22;
+              _context2.prev = 22;
               dispatch(setFetchingStatus(false));
-              return _context.finish(22);
+              return _context2.finish(22);
 
             case 25:
               ;
 
             case 26:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee, null, [[1, 19, 22, 25]]);
+      }, _callee2, null, [[1, 19, 22, 25]]);
     }));
 
-    return function (_x) {
-      return _ref.apply(this, arguments);
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
     };
   }();
 };
 var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeCollectionId) {
   return /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
       var activeCollectionSongs, data;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              _context2.prev = 0;
-              _context2.next = 3;
+              _context3.prev = 0;
+              _context3.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchCurrentcollectionAndSongs', {
                 data: activeCollectionId
               });
 
             case 3:
-              activeCollectionSongs = _context2.sent;
+              activeCollectionSongs = _context3.sent;
               data = {};
 
               if (activeCollectionSongs && activeCollectionSongs.data.collections[0].songs) {
@@ -5824,71 +5906,24 @@ var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeColle
 
               data.activeCollectionId = activeCollectionId;
               dispatch(setActiveCollectionSongs(data));
-              _context2.next = 13;
+              _context3.next = 13;
               break;
 
             case 10:
-              _context2.prev = 10;
-              _context2.t0 = _context2["catch"](0);
-              console.error(_context2.t0);
+              _context3.prev = 10;
+              _context3.t0 = _context3["catch"](0);
+              console.error(_context3.t0);
 
             case 13:
-              _context2.prev = 13;
-              return _context2.finish(13);
+              _context3.prev = 13;
+              return _context3.finish(13);
 
             case 15:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, null, [[0, 10, 13, 15]]);
-    }));
-
-    return function (_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-};
-var updateSessionBpmThunk = function updateSessionBpmThunk(selectedCollectionId, newBPM) {
-  return /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
-      var data;
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/updateOrCreateSessionBpm', {
-                data: {
-                  selectedCollectionId: selectedCollectionId,
-                  newBPM: newBPM
-                }
-              });
-
-            case 3:
-              data = {
-                selectedCollectionId: selectedCollectionId,
-                newBPM: newBPM
-              };
-              dispatch(updateNewBPM(data));
-              _context3.next = 10;
-              break;
-
-            case 7:
-              _context3.prev = 7;
-              _context3.t0 = _context3["catch"](0);
-              console.log(_context3.t0);
-
-            case 10:
-              ;
-
-            case 11:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 7]]);
+      }, _callee3, null, [[0, 10, 13, 15]]);
     }));
 
     return function (_x3) {
@@ -5896,10 +5931,10 @@ var updateSessionBpmThunk = function updateSessionBpmThunk(selectedCollectionId,
     };
   }();
 };
-var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectionId, newBPM) {
+var updateSessionBpmThunk = function updateSessionBpmThunk(selectedCollectionId, newBPM) {
   return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch) {
-      var results;
+      var data;
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -5914,14 +5949,61 @@ var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectio
               });
 
             case 3:
-              _context4.next = 5;
+              data = {
+                selectedCollectionId: selectedCollectionId,
+                newBPM: newBPM
+              };
+              dispatch(updateNewBPM(data));
+              _context4.next = 10;
+              break;
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](0);
+              console.log(_context4.t0);
+
+            case 10:
+              ;
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0, 7]]);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+};
+var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectionId, newBPM) {
+  return /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dispatch) {
+      var results;
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.prev = 0;
+              _context5.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/updateOrCreateSessionBpm', {
+                data: {
+                  selectedCollectionId: selectedCollectionId,
+                  newBPM: newBPM
+                }
+              });
+
+            case 3:
+              _context5.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', {
                 data: selectedCollectionId
               });
 
             case 5:
-              results = _context4.sent;
-              _context4.next = 8;
+              results = _context5.sent;
+              _context5.next = 8;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/updateUserCollectionSessionsToInactive', {
                 data: selectedCollectionId
               });
@@ -5932,64 +6014,64 @@ var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectio
               results = results.data.collectionAndSongs.collections[0]; // console.log('COLLECTIONINFO', results)
 
               dispatch(dispatchLoadAllDataFromSingleCollection(results));
-              _context4.next = 17;
+              _context5.next = 17;
               break;
 
             case 14:
-              _context4.prev = 14;
-              _context4.t0 = _context4["catch"](0);
-              console.log(_context4.t0);
+              _context5.prev = 14;
+              _context5.t0 = _context5["catch"](0);
+              console.log(_context5.t0);
 
             case 17:
               ;
 
             case 18:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4, null, [[0, 14]]);
+      }, _callee5, null, [[0, 14]]);
     }));
 
-    return function (_x4) {
-      return _ref4.apply(this, arguments);
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
     };
   }();
 };
 var clearSessionsThunk = function clearSessionsThunk() {
   return /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dispatch) {
-      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(dispatch) {
+      return regeneratorRuntime.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              _context5.prev = 0;
-              _context5.next = 3;
+              _context6.prev = 0;
+              _context6.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/clearSessions');
 
             case 3:
               dispatch(clearSessions());
-              _context5.next = 9;
+              _context6.next = 9;
               break;
 
             case 6:
-              _context5.prev = 6;
-              _context5.t0 = _context5["catch"](0);
-              console.log(_context5.t0);
+              _context6.prev = 6;
+              _context6.t0 = _context6["catch"](0);
+              console.log(_context6.t0);
 
             case 9:
               ;
 
             case 10:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
         }
-      }, _callee5, null, [[0, 6]]);
+      }, _callee6, null, [[0, 6]]);
     }));
 
-    return function (_x5) {
-      return _ref5.apply(this, arguments);
+    return function (_x6) {
+      return _ref6.apply(this, arguments);
     };
   }();
 };
@@ -6155,6 +6237,15 @@ function musicReducer() {
       ;
       return _objectSpread(_objectSpread({}, state), {}, {
         activeSession: undefined,
+        collections: collectionCopy
+      });
+
+    case CREATE_COLLECTION:
+      action.newCollection.collectionSessions = [];
+      collectionCopy = _objectSpread({}, state.collections);
+      collectionCopy[action.newCollection.id] = action.newCollection;
+      console.log(action.newCollection);
+      return _objectSpread(_objectSpread({}, state), {}, {
         collections: collectionCopy
       });
 

@@ -10,7 +10,7 @@ import BrowseSongs from './BrowseSongs'
 import CollectionSongs from './CollectionSongs'
 // import {logout} from '../redux/isLogged'
 import {Redirect} from 'react-router-dom'
-import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk} from '../redux/musicDispatchers'
+import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk} from '../redux/musicDispatchers'
 import {changeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk, clearListenedThunk} from '../redux/userDispatchers'
 
@@ -24,7 +24,7 @@ class App extends React.Component {
           addCollectionModal: false,
           addSongModal: false,
           collectionName: '',
-          artURL: ''
+          collectionArtURL: ''
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
@@ -44,15 +44,12 @@ class App extends React.Component {
         });
     };
 
-    handleSubmit(evt) {
+    handleSubmit = async (evt) => {
         evt.preventDefault();
         this.setState({addCollectionModal: false})
-        console.log('collectionName', this.state.collectionName);
-        console.log('artURL', this.state.artURL);
-        // dispatch thunk add collection
-
+        await this.props.createCollection(this.state.collectionName, this.state.collectionArtURL)
         this.setState({collectionName: ''})
-        this.setState({artURL: ''})
+        this.setState({collectionArtURL: ''})
     }
 
     resetInfo() {
@@ -177,7 +174,7 @@ class App extends React.Component {
                                     Art URL:
                                 </div>
                                 <div>
-                                    <input name='artURL' onChange={this.handleChange} placeholder={'Optional'} value={this.state.artURL} />
+                                    <input name='collectionArtURL' onChange={this.handleChange} placeholder={'Optional'} value={this.state.collectionArtURL} />
                                 </div>
                                 <div>
                                     <button type='submit'>Create</button>
@@ -219,7 +216,8 @@ const mapDispatchToProps = (dispatch) => ({
     addToListenedAndSession: (song, collectionSessionId) => dispatch(addToListenedAndSessionThunk(song, collectionSessionId)),
     // setCurrentSong: (song) => dispatch(setCurrentSongThunk(song)),
     clearListened: (listenedId) => dispatch(clearListenedThunk(listenedId)),
-    clearSessions: () => dispatch(clearSessionsThunk())
+    clearSessions: () => dispatch(clearSessionsThunk()),
+    createCollection: (collectionName, collectionArtURL) => dispatch(createCollectionThunk(collectionName, collectionArtURL))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

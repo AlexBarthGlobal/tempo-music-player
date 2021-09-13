@@ -13,6 +13,7 @@ const POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION'
 const LOAD_ALL_DATA_FROM_SINGLE_COLLECTION = 'LOAD_ALL_DATA_FROM_SINGLE_COLLECTION'
 const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
 const CLEAR_SESSIONS = 'CLEAR_SESSIONS'
+const CREATE_COLLECTION = 'CREATE_COLLECTION'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -72,6 +73,23 @@ const dispatchSetCurrentSong = (song) => ({
 const clearSessions = () => ({
     type: CLEAR_SESSIONS
 })
+
+const createCollection = (newCollection) => ({
+    type: CREATE_COLLECTION,
+    newCollection
+})
+
+export const createCollectionThunk = (collectionName, collectionArtURL) => {
+    return async dispatch => {
+        try {
+            const newCollection = await axios.post('/api/createCollection', {data:{collectionName, collectionArtURL}})
+            console.log('THIS IS THE NEW COLLECTION', newCollection)
+            dispatch(createCollection(newCollection.data))
+        } catch (err) {
+            console.error(err)
+        };
+    };
+};
 
 
 export const fetchCollectionsAndSessions = () => {
@@ -320,6 +338,15 @@ export default function musicReducer (state = initialState, action) {
             return {
                 ...state,
                 activeSession: undefined,
+                collections: collectionCopy
+            };
+        case CREATE_COLLECTION:
+            action.newCollection.collectionSessions = [];
+            collectionCopy = {...state.collections};
+            collectionCopy[action.newCollection.id] = action.newCollection
+            console.log(action.newCollection)
+            return {
+                ...state,
                 collections: collectionCopy
             }
         case SET_FETCHING_STATUS:

@@ -11,7 +11,8 @@ module.exports = db.define('collections', {
         type: Sequelize.SMALLINT
     },
     totalTime: {
-        type: Sequelize.SMALLINT
+        type: Sequelize.SMALLINT,
+        defaultValue:0
     },
     collectionArtUrl: {
         type: Sequelize.TEXT,

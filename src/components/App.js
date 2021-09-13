@@ -22,7 +22,9 @@ class App extends React.Component {
         //Local player info
           playing: false,
           addCollectionModal: false,
-          addSongModal: false
+          addSongModal: false,
+          collectionName: '',
+          artURL: ''
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
@@ -31,7 +33,27 @@ class App extends React.Component {
         this.pause = this.pause.bind(this);
         this.checkIfLoaded = this.checkPlayerReady.bind(this);
         this.resetInfo = this.resetInfo.bind(this);
+
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     };
+
+    handleChange(evt) {
+        this.setState({
+            [evt.target.name]: evt.target.value
+        });
+    };
+
+    handleSubmit(evt) {
+        evt.preventDefault();
+        this.setState({addCollectionModal: false})
+        console.log('collectionName', this.state.collectionName);
+        console.log('artURL', this.state.artURL);
+        // dispatch thunk add collection
+
+        this.setState({collectionName: ''})
+        this.setState({artURL: ''})
+    }
 
     resetInfo() {
         console.log('RESETTING INFO')
@@ -57,6 +79,7 @@ class App extends React.Component {
             
             this.rap.src = null;
         }
+
     };
 
     play() {
@@ -148,13 +171,13 @@ class App extends React.Component {
                         <div>
                             <form onSubmit={this.handleSubmit}>
                                 <div>
-                                    <input name='CollectionName' onChange={this.handleChange} defaultValue={''}/>
+                                    <input name='collectionName' onChange={this.handleChange} value={this.state.collectionName} />
                                 </div>
                                 <div>
                                     Art URL:
                                 </div>
                                 <div>
-                                    <input name='artURL' onChange={this.handleChange} placeholder={'Optional'} defaultValue={''}/>
+                                    <input name='artURL' onChange={this.handleChange} placeholder={'Optional'} value={this.state.artURL} />
                                 </div>
                                 <div>
                                     <button type='submit'>Create</button>

@@ -4288,6 +4288,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -4340,7 +4342,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       //Local player info
       playing: false,
       addCollectionModal: false,
-      addSongModal: false
+      addSongModal: false,
+      collectionName: '',
+      artURL: ''
     };
     _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this));
     _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
@@ -4348,10 +4352,34 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.pause = _this.pause.bind(_assertThisInitialized(_this));
     _this.checkIfLoaded = _this.checkPlayerReady.bind(_assertThisInitialized(_this));
     _this.resetInfo = _this.resetInfo.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
+    key: "handleChange",
+    value: function handleChange(evt) {
+      this.setState(_defineProperty({}, evt.target.name, evt.target.value));
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(evt) {
+      evt.preventDefault();
+      this.setState({
+        addCollectionModal: false
+      });
+      console.log('collectionName', this.state.collectionName);
+      console.log('artURL', this.state.artURL); // dispatch thunk add collection
+
+      this.setState({
+        collectionName: ''
+      });
+      this.setState({
+        artURL: ''
+      });
+    }
+  }, {
     key: "resetInfo",
     value: function resetInfo() {
       console.log('RESETTING INFO');
@@ -4526,14 +4554,14 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Name your collection:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-        name: "CollectionName",
+        name: "collectionName",
         onChange: this.handleChange,
-        defaultValue: ''
+        value: this.state.collectionName
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Art URL:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         name: "artURL",
         onChange: this.handleChange,
         placeholder: 'Optional',
-        defaultValue: ''
+        value: this.state.artURL
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "submit"
       }, "Create")))))), audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {

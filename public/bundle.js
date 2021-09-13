@@ -4513,8 +4513,8 @@ var App = /*#__PURE__*/function (_React$Component) {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            minHeight: '12vh',
-            maxHeight: '12vh',
+            minHeight: '14vh',
+            maxHeight: '14vh',
             position: 'absolute',
             width: '50vw',
             marginLeft: 'auto',
@@ -4526,8 +4526,13 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Name your collection:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-        name: "BPM",
+        name: "CollectionName",
         onChange: this.handleChange,
+        defaultValue: ''
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Art URL:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        name: "artURL",
+        onChange: this.handleChange,
+        placeholder: 'Optional',
         defaultValue: ''
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "submit"

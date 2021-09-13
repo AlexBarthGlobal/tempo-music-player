@@ -131,8 +131,8 @@ class App extends React.Component {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                minHeight: '12vh',
-                                maxHeight: '12vh',
+                                minHeight: '14vh',
+                                maxHeight: '14vh',
                                 position: 'absolute',
                                 width: '50vw',
                                 marginLeft: 'auto',
@@ -148,7 +148,13 @@ class App extends React.Component {
                         <div>
                             <form onSubmit={this.handleSubmit}>
                                 <div>
-                                    <input name='BPM' onChange={this.handleChange} defaultValue={''}/>
+                                    <input name='CollectionName' onChange={this.handleChange} defaultValue={''}/>
+                                </div>
+                                <div>
+                                    Art URL:
+                                </div>
+                                <div>
+                                    <input name='artURL' onChange={this.handleChange} placeholder={'Optional'} defaultValue={''}/>
                                 </div>
                                 <div>
                                     <button type='submit'>Create</button>

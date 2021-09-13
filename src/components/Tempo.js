@@ -3,13 +3,15 @@ import {connect} from 'react-redux'
 import {changeScreenThunk} from '../redux/screenDispatchers'
 import {updateSessionBpmThunk, popOneFromActiveSessionSongsThunk, applySongsInRange, fetchOnTempoChangeThunk} from '../redux/musicDispatchers'
 import songsInRange from '../components/songsInRange'
+import Modal from 'react-modal'
 
 class Tempo extends React.Component {
     constructor (props) {
         console.log('PROPS from Constructor',props)
         super()
         this.state = {
-            BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : 0
+            BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : 0,
+            noMoreMusic: false
         };
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,13 +25,12 @@ class Tempo extends React.Component {
 
     handleSubmit = async (evt) => {
         evt.preventDefault();
-        if (this.isActive(this.props.selectedCollection)) this.props.popOneFromActiveSessionSongs();
-        
-        if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, this.state.BPM) //update the BPM of the already activeSession or create new session
-        else await this.props.fetchOnTempoChange(this.props.selectedCollection, this.state.BPM); //load the collection and include its songs & session & its sessionSongs
-        
-        if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
-            const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM)  //Run this when updating BPM
+        const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.selectedCollection].songs, this.state.BPM)  //Run this when updating BPM
+        if (results.length) {
+            if (this.isActive(this.props.selectedCollection)) this.props.popOneFromActiveSessionSongs();     
+            if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, this.state.BPM) //update the BPM of the already activeSession or create new session
+            else await this.props.fetchOnTempoChange(this.props.selectedCollection, this.state.BPM); //load the collection and include its songs & session & its sessionSongs  
+            // if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
             this.props.applySongsInRange(results);
             this.props.changeScreen('PlayerScreen')
             let idx = this.props.musicInfo.activeSession.playIdx
@@ -38,10 +39,10 @@ class Tempo extends React.Component {
                 this.props.next();
             };
             this.props.play();
+            // }
         } else {
-            console.log('No songs at this BPM, choose a different BPM or add songs to collection!');
-            console.log('Or clear listened')
-        };
+            this.setState({noMoreMusic: true})
+        }
     };
 
     handleChange = (evt) => {
@@ -55,6 +56,39 @@ class Tempo extends React.Component {
         const { BPM } = this.state;
         return (
             <div>
+                <Modal 
+                    isOpen={this.state.noMoreMusic}
+                    onRequestClose={() => this.setState({noMoreMusic: false})}
+                    style={
+                        {
+                            content: {
+                                borderRadius: '8px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                // minHeight: '116px',
+                                // maxHeight: '14vh',
+                                height: '116px',
+                                maxHeight: '116px',
+                                position: 'absolute',
+                                width: '50vw',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                top: '28%',
+                            }
+                        }
+                    }
+                >
+                    <div>
+                        <div>No more music at the selected BPM!</div>
+                        <div>Try a different BPM,</div>
+                        <div>add songs, or clear listened.</div>
+                        <div>
+                            
+                        </div>
+                    </div>
+                </Modal>
                 <div className='screenTitle'>
                     Tempo Screen
                 </div>

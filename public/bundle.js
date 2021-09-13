@@ -5385,6 +5385,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
 /* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5419,6 +5421,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var Tempo = /*#__PURE__*/function (_React$Component) {
   _inherits(Tempo, _React$Component);
 
@@ -5444,54 +5447,60 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 evt.preventDefault();
-                if (_this.isActive(_this.props.selectedCollection)) _this.props.popOneFromActiveSessionSongs();
+                results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.selectedCollection].songs, _this.state.BPM); //Run this when updating BPM
 
-                if (!_this.isActive(_this.props.selectedCollection)) {
-                  _context.next = 7;
+                if (!results.length) {
+                  _context.next = 19;
                   break;
                 }
 
-                _context.next = 5;
+                if (_this.isActive(_this.props.selectedCollection)) _this.props.popOneFromActiveSessionSongs();
+
+                if (!_this.isActive(_this.props.selectedCollection)) {
+                  _context.next = 9;
+                  break;
+                }
+
+                _context.next = 7;
                 return _this.props.updateSessionBpm(_this.props.selectedCollection, _this.state.BPM);
 
-              case 5:
-                _context.next = 9;
+              case 7:
+                _context.next = 11;
                 break;
 
-              case 7:
-                _context.next = 9;
+              case 9:
+                _context.next = 11;
                 return _this.props.fetchOnTempoChange(_this.props.selectedCollection, _this.state.BPM);
 
-              case 9:
-                //load the collection and include its songs & session & its sessionSongs
-                if (
-                /*this.props.musicInfo.activeSession &&*/
-                _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs.length) {
-                  results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM); //Run this when updating BPM
+              case 11:
+                //load the collection and include its songs & session & its sessionSongs  
+                // if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
+                _this.props.applySongsInRange(results);
 
-                  _this.props.applySongsInRange(results);
+                _this.props.changeScreen('PlayerScreen');
 
-                  _this.props.changeScreen('PlayerScreen');
+                idx = _this.props.musicInfo.activeSession.playIdx;
 
-                  idx = _this.props.musicInfo.activeSession.playIdx;
+                while (_this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id]) {
+                  idx++;
 
-                  while (_this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id]) {
-                    idx++;
-
-                    _this.props.next();
-                  }
-
-                  ;
-
-                  _this.props.play();
-                } else {
-                  console.log('No songs at this BPM, choose a different BPM or add songs to collection!');
-                  console.log('Or clear listened');
+                  _this.props.next();
                 }
 
                 ;
 
-              case 11:
+                _this.props.play(); // }
+
+
+                _context.next = 20;
+                break;
+
+              case 19:
+                _this.setState({
+                  noMoreMusic: true
+                });
+
+              case 20:
               case "end":
                 return _context.stop();
             }
@@ -5509,7 +5518,8 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
     });
 
     _this.state = {
-      BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : 0
+      BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : 0,
+      noMoreMusic: false
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -5520,9 +5530,36 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
   _createClass(Tempo, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       console.log('PROPS from TEMPO', this.props);
       var BPM = this.state.BPM;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_5___default()), {
+        isOpen: this.state.noMoreMusic,
+        onRequestClose: function onRequestClose() {
+          return _this2.setState({
+            noMoreMusic: false
+          });
+        },
+        style: {
+          content: {
+            borderRadius: '8px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            // minHeight: '116px',
+            // maxHeight: '14vh',
+            height: '116px',
+            maxHeight: '116px',
+            position: 'absolute',
+            width: '50vw',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            top: '28%'
+          }
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No more music at the selected BPM!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Try a different BPM,"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "add songs, or clear listened."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle"
       }, "Tempo Screen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "centerThis"

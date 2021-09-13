@@ -68,7 +68,8 @@ class App extends React.Component {
         };
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
         if (this.checkPlayerReady()) {
             this.checkIfListened();
         } else {

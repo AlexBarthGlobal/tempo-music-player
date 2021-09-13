@@ -170,6 +170,25 @@ router.put('/updateOrCreateSessionBpm', async (req, res, next) => {
     }
 })
 
+router.post('/fetchCollectionSessionAndSessionSongs', async (req, res, next) => {
+    try {
+        const collectionSessionAndSessionSongs = await CollectionSession.findOne({
+            where: {
+                userId: req.session.passport.user,
+                collectionId: req.body.data
+            },
+            include: {
+                model: Song,
+                required: false
+            },
+            order: [[Song, SessionSong, 'createdAt', 'ASC' ]]
+        })
+
+        res.json(collectionSessionAndSessionSongs)
+    } catch (err) {
+        next(err)
+    }
+})
 
 router.post('/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', async (req, res, next) => {
     try {

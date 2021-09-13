@@ -5711,7 +5711,7 @@ var INCREMENT_PLAY_IDX = 'INCREMENT_PLAY_IDX';
 var DECREMENT_PLAY_IDX = 'DECREMENT_PLAY_IDX';
 var UPDATE_NEW_BPM = 'UPDATE_NEW_BPM';
 var POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION';
-var LOAD_ALL_DATA_FROM_SINGLE_COLLECTION = 'LOAD_ALL_DATA_FROM_SINGLE_COLLECTION';
+var LOAD_SESSION_AND_SESSIONSONGS = 'LOAD_SESSION_AND_SESSIONSONGS';
 var SET_CURRENT_SONG = 'SET_CURRENT_SONG';
 var CLEAR_SESSIONS = 'CLEAR_SESSIONS';
 var CREATE_COLLECTION = 'CREATE_COLLECTION';
@@ -5781,10 +5781,10 @@ var popOneFromActiveSession = function popOneFromActiveSession() {
   };
 };
 
-var dispatchLoadAllDataFromSingleCollection = function dispatchLoadAllDataFromSingleCollection(singleCollection) {
+var dispatchLoadSessionAndSessionSongs = function dispatchLoadSessionAndSessionSongs(sessionAndSessionSongs) {
   return {
-    type: LOAD_ALL_DATA_FROM_SINGLE_COLLECTION,
-    singleCollection: singleCollection
+    type: LOAD_SESSION_AND_SESSIONSONGS,
+    sessionAndSessionSongs: sessionAndSessionSongs
   };
 };
 
@@ -6066,40 +6066,37 @@ var fetchOnTempoChangeThunk = function fetchOnTempoChangeThunk(selectedCollectio
 
             case 3:
               _context5.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchCollectionSessionAndSessionSongs', {
                 data: selectedCollectionId
               });
 
             case 5:
               results = _context5.sent;
-              _context5.next = 8;
+              console.log('SESSION RESULTS', results);
+              _context5.next = 9;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/updateUserCollectionSessionsToInactive', {
                 data: selectedCollectionId
               });
 
-            case 8:
-              console.log('COLLECTIONINFO', results);
-              results.data.collectionAndSongs.collections[0].collectionSessions = [results.data.sessionSongs];
-              results = results.data.collectionAndSongs.collections[0]; // console.log('COLLECTIONINFO', results)
-
-              dispatch(dispatchLoadAllDataFromSingleCollection(results));
-              _context5.next = 17;
+            case 9:
+              dispatch(dispatchLoadSessionAndSessionSongs(results.data));
+              _context5.next = 15;
               break;
 
-            case 14:
-              _context5.prev = 14;
+            case 12:
+              _context5.prev = 12;
               _context5.t0 = _context5["catch"](0);
               console.log(_context5.t0);
 
-            case 17:
+            case 15:
               ;
 
-            case 18:
+            case 16:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, null, [[0, 14]]);
+      }, _callee5, null, [[0, 12]]);
     }));
 
     return function (_x5) {
@@ -6203,13 +6200,12 @@ function musicReducer() {
         activeSession: action.data.activeSession
       });
 
-    case LOAD_ALL_DATA_FROM_SINGLE_COLLECTION:
+    case LOAD_SESSION_AND_SESSIONSONGS:
       collectionCopy = _objectSpread({}, state.collections);
-      collectionCopy[action.singleCollection.id] = action.singleCollection;
-      console.log('CHECK HERE', action.singleCollection);
+      collectionCopy[action.sessionAndSessionSongs.collectionId].collectionSessions = [action.sessionAndSessionSongs];
       return _objectSpread(_objectSpread({}, state), {}, {
         collections: collectionCopy,
-        activeSession: action.singleCollection.collectionSessions[0]
+        activeSession: action.sessionAndSessionSongs
       });
 
     case SET_ACTIVE_COLLECTION_SONGS:

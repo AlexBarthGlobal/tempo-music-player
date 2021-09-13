@@ -10,7 +10,7 @@ const INCREMENT_PLAY_IDX = 'INCREMENT_PLAY_IDX'
 const DECREMENT_PLAY_IDX = 'DECREMENT_PLAY_IDX'
 const UPDATE_NEW_BPM = 'UPDATE_NEW_BPM'
 const POP_ONE_FROM_ACTIVE_SESSION = 'POP_ONE_FROM_ACTIVE_SESSION'
-const LOAD_ALL_DATA_FROM_SINGLE_COLLECTION = 'LOAD_ALL_DATA_FROM_SINGLE_COLLECTION'
+const LOAD_SESSION_AND_SESSIONSONGS = 'LOAD_SESSION_AND_SESSIONSONGS'
 const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
 const CLEAR_SESSIONS = 'CLEAR_SESSIONS'
 const CREATE_COLLECTION = 'CREATE_COLLECTION'
@@ -60,9 +60,9 @@ const popOneFromActiveSession = () => ({
     type: POP_ONE_FROM_ACTIVE_SESSION
 })
 
-const dispatchLoadAllDataFromSingleCollection = (singleCollection) => ({
-    type: LOAD_ALL_DATA_FROM_SINGLE_COLLECTION,
-    singleCollection
+const dispatchLoadSessionAndSessionSongs = (sessionAndSessionSongs) => ({
+    type: LOAD_SESSION_AND_SESSIONSONGS,
+    sessionAndSessionSongs
 })
 
 const dispatchSetCurrentSong = (song) => ({
@@ -166,15 +166,10 @@ export const fetchOnTempoChangeThunk = (selectedCollectionId, newBPM) => {
     return async dispatch => {
         try {
             await axios.put('/api/updateOrCreateSessionBpm', {data:{selectedCollectionId, newBPM}});
-            let results = await axios.post('/api/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSongs', {data: selectedCollectionId});
+            let results = await axios.post('/api/fetchCollectionSessionAndSessionSongs', {data: selectedCollectionId})
+            console.log('SESSION RESULTS', results)
             await axios.put('/api/updateUserCollectionSessionsToInactive', {data: selectedCollectionId});        
-            console.log('COLLECTIONINFO', results)
-            results.data.collectionAndSongs.collections[0].collectionSessions = [results.data.sessionSongs]
-            results = results.data.collectionAndSongs.collections[0];
-
-            // console.log('COLLECTIONINFO', results)
-
-            dispatch(dispatchLoadAllDataFromSingleCollection(results))
+            dispatch(dispatchLoadSessionAndSessionSongs(results.data))
         } catch (err) {
             console.log(err)
         };
@@ -253,14 +248,13 @@ export default function musicReducer (state = initialState, action) {
                 collections: action.data.collectionsAndSessions,
                 activeSession: action.data.activeSession 
             };
-        case LOAD_ALL_DATA_FROM_SINGLE_COLLECTION:
+        case LOAD_SESSION_AND_SESSIONSONGS:
             collectionCopy = {...state.collections}
-            collectionCopy[action.singleCollection.id] = action.singleCollection
-            console.log('CHECK HERE',action.singleCollection)
+            collectionCopy[action.sessionAndSessionSongs.collectionId].collectionSessions = [action.sessionAndSessionSongs]
             return {
                 ...state,
                 collections: collectionCopy,
-                activeSession: action.singleCollection.collectionSessions[0]
+                activeSession: action.sessionAndSessionSongs
             }
         case SET_ACTIVE_COLLECTION_SONGS:
             const collectionsCopy = {...state.collections}

@@ -24,7 +24,8 @@ class App extends React.Component {
           addCollectionModal: false,
           addSongModal: false,
           collectionName: '',
-          collectionArtURL: ''
+          collectionArtURL: '',
+          noNextSong: false
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
@@ -71,12 +72,20 @@ class App extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
+        if (prevState.noNextSong !== this.state.noNextSong) return;
         if (this.checkPlayerReady()) {
             this.checkIfListened();
         } else {
-            // no song currently available
-            console.log('No song available')
-            this.rap.src = null;
+            if (this.state.playing) {
+                // During playback, FIRST check for songs in a slightly higher bpm range.
+
+                // ---
+                
+                // If still no music there, THEN render the modal.
+                console.log('No song available')
+                this.setState({noNextSong: true})
+                this.rap.src = null;
+            }
         }
 
     };
@@ -129,7 +138,7 @@ class App extends React.Component {
         const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
         const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>Songs</button> : null
-        const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
+        const footerControls = this.checkPlayerReady() && this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
         let selectedScreen = <Collections />
@@ -183,6 +192,46 @@ class App extends React.Component {
                                     <button type='submit'>Create</button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal 
+                    isOpen={this.state.noNextSong} 
+                    onRequestClose={() => this.setState({noNextSong: false})}
+                    style={
+                        {
+                            content: {
+                                borderRadius: '8px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                // minHeight: '116px',
+                                // maxHeight: '14vh',
+                                height: '124px',
+                                maxHeight: '124px',
+                                position: 'absolute',
+                                width: '50vw',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                top: '28%',
+                            }
+                        }
+                    }
+                >
+                    <div>
+                        <div>No more music in this BPM range!</div>
+                        <div>
+                            <button>Change BPM</button>
+                        </div>
+                        <div>
+                            <button>Add Songs</button>
+                        </div>
+                        <div>
+                            <button>Clear Listened</button>
+                        </div>
+                        <div>
+                            <button>Home</button>
                         </div>
                     </div>
                 </Modal>

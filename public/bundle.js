@@ -4394,7 +4394,8 @@ var App = /*#__PURE__*/function (_React$Component) {
       addCollectionModal: false,
       addSongModal: false,
       collectionName: '',
-      collectionArtURL: ''
+      collectionArtURL: '',
+      noNextSong: false
     };
     _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this));
     _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
@@ -4439,13 +4440,21 @@ var App = /*#__PURE__*/function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
       if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
+      if (prevState.noNextSong !== this.state.noNextSong) return;
 
       if (this.checkPlayerReady()) {
         this.checkIfListened();
       } else {
-        // no song currently available
-        console.log('No song available');
-        this.rap.src = null;
+        if (this.state.playing) {
+          // During playback, FIRST check for songs in a slightly higher bpm range.
+          // ---
+          // If still no music there, THEN render the modal.
+          console.log('No song available');
+          this.setState({
+            noNextSong: true
+          });
+          this.rap.src = null;
+        }
       }
     }
   }, {
@@ -4539,9 +4548,7 @@ var App = /*#__PURE__*/function (_React$Component) {
           return _this2.props.changeScreen('CollectionSongs');
         }
       }, "Songs") : null;
-      var footerControls =
-      /*this.checkPlayerReady() &&*/
-      this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      var footerControls = this.checkPlayerReady() && this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_6__.default, {
         playPause: playPause,
@@ -4601,7 +4608,32 @@ var App = /*#__PURE__*/function (_React$Component) {
         value: this.state.collectionArtURL
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "submit"
-      }, "Create")))))), audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "Create")))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_2___default()), {
+        isOpen: this.state.noNextSong,
+        onRequestClose: function onRequestClose() {
+          return _this2.setState({
+            noNextSong: false
+          });
+        },
+        style: {
+          content: {
+            borderRadius: '8px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            // minHeight: '116px',
+            // maxHeight: '14vh',
+            height: '124px',
+            maxHeight: '124px',
+            position: 'absolute',
+            width: '50vw',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            top: '28%'
+          }
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No more music in this BPM range!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Change BPM")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add Songs")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Clear Listened")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Home")))), audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "topButtons"
       }, homeLogout, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"

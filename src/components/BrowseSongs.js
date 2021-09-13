@@ -22,6 +22,7 @@ class BrowseSongs extends React.Component {
 };
 
 const mapStateToProps = (state) => {
+    console.log('STATE from BROWSESONGS', state)
     return {
 
     };
@@ -31,4 +32,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(BrowseSongs)
+export default connect(mapStateToProps, mapDispatchToProps)(BrowseSongs)

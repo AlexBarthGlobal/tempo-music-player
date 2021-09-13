@@ -124,7 +124,7 @@ class App extends React.Component {
         /*this.props.screenStr === 'PlayerScreen' ||*/ this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs' ? <button>Add Songs</button> : null;
         let audio;
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
-        const clearListened = <button onClick={this.resetInfo}>Clear Listened</button>
+        const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
         const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>Songs</button> : null
         const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
@@ -151,18 +151,19 @@ class App extends React.Component {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                minHeight: '14vh',
-                                maxHeight: '14vh',
+                                // minHeight: '116px',
+                                // maxHeight: '14vh',
+                                height: '116px',
+                                maxHeight: '116px',
                                 position: 'absolute',
                                 width: '50vw',
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
                                 top: '28%',
-                                // left: '50%'
                             }
                         }
                     }
-                    >
+                >
                     <div>
                         <div>Name your collection:</div>
                         <div>

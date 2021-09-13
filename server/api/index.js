@@ -34,6 +34,20 @@ router.post('/createCollection', async (req, res, next) => {
     };
 });
 
+router.delete('/deleteCollection', async (req, res, next) => {
+    try {
+        await Collection.destroy({
+            where: {
+                id: req.body.collectionId
+            }
+        })
+
+        res.status(200).send('Done')
+    } catch(err) {
+        next(err)
+    }
+})
+
 router.put('/clearListened', async (req, res, next) => {
     try {
         await Listened.update(

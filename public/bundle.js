@@ -4351,14 +4351,22 @@ var App = /*#__PURE__*/function (_React$Component) {
               case 0:
                 evt.preventDefault();
 
+                if (_this.state.collectionName.length) {
+                  _context.next = 3;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 3:
                 _this.setState({
                   addCollectionModal: false
                 });
 
-                _context.next = 4;
+                _context.next = 6;
                 return _this.props.createCollection(_this.state.collectionName, _this.state.collectionArtURL);
 
-              case 4:
+              case 6:
                 _this.setState({
                   collectionName: ''
                 });
@@ -4367,7 +4375,7 @@ var App = /*#__PURE__*/function (_React$Component) {
                   collectionArtURL: ''
                 });
 
-              case 6:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -4436,6 +4444,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         this.checkIfListened();
       } else {
         // no song currently available
+        console.log('No song available');
         this.rap.src = null;
       }
     }

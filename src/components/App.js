@@ -46,6 +46,7 @@ class App extends React.Component {
 
     handleSubmit = async (evt) => {
         evt.preventDefault();
+        if (!this.state.collectionName.length) return;
         this.setState({addCollectionModal: false})
         await this.props.createCollection(this.state.collectionName, this.state.collectionArtURL)
         this.setState({collectionName: ''})
@@ -74,7 +75,7 @@ class App extends React.Component {
             this.checkIfListened();
         } else {
             // no song currently available
-            
+            console.log('No song available')
             this.rap.src = null;
         }
 

@@ -24,6 +24,7 @@ class Tempo extends React.Component {
     handleSubmit = async (evt) => {
         evt.preventDefault();
         if (this.isActive(this.props.selectedCollection)) this.props.popOneFromActiveSessionSongs();
+        
         if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, this.state.BPM) //update the BPM of the already activeSession or create new session
         else await this.props.fetchOnTempoChange(this.props.selectedCollection, this.state.BPM); //load the collection and include its songs & session & its sessionSongs
         

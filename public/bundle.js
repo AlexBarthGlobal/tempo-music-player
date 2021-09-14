@@ -4430,6 +4430,7 @@ var App = /*#__PURE__*/function (_React$Component) {
               break;
 
             case 11:
+              // if playback is at 0, pause. It means the song has ended on its own and I can set the Pause button back to where it says Play.
               tempActiveCollectionSession = _this.props.musicInfo.activeSession.collectionId; //This keeps track of the collectionId after we clear the activeSession.
 
               _this.setState({

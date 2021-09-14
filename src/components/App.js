@@ -132,7 +132,7 @@ class App extends React.Component {
 
             // Then still if no more songs, in DB and Redux:
             tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
-            this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
+            await this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
             this.setState({noNextSong: true});
         }
     };

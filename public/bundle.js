@@ -4408,20 +4408,25 @@ var App = /*#__PURE__*/function (_React$Component) {
             case 4:
               ;
 
-              if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx]) {
-                // this.pause();
-                // First check for music at slightly higher bpm
-                // Then still if no more songs, in DB and Redux:
-                tempActiveCollectionSession = _this.props.musicInfo.activeSession.collectionId; //This keeps track of the collectionId after we clear the activeSession.
-
-                _this.props.clearActiveSession(_this.props.musicInfo.activeSession.id);
-
-                _this.setState({
-                  noNextSong: true
-                });
+              if (_this.props.musicInfo.activeSession.songs[_this.props.playIdx]) {
+                _context2.next = 10;
+                break;
               }
 
-            case 6:
+              // this.pause();
+              // First check for music at slightly higher bpm
+              // Then still if no more songs, in DB and Redux:
+              tempActiveCollectionSession = _this.props.musicInfo.activeSession.collectionId; //This keeps track of the collectionId after we clear the activeSession.
+
+              _context2.next = 9;
+              return _this.props.clearActiveSession(_this.props.musicInfo.activeSession.id);
+
+            case 9:
+              _this.setState({
+                noNextSong: true
+              });
+
+            case 10:
             case "end":
               return _context2.stop();
           }

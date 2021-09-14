@@ -29,7 +29,7 @@ class Tempo extends React.Component {
         if (results.length) {
             if (this.isActive(this.props.selectedCollection)) this.props.popOneFromActiveSessionSongs();     
             if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, this.state.BPM) //update the BPM of the already activeSession or create new session
-            else await this.props.fetchOnTempoChange(this.props.selectedCollection, this.state.BPM); //load the collection and include its songs & session & its sessionSongs  
+            else await this.props.fetchOnTempoChange(this.props.selectedCollection, this.state.BPM); //load the session and its sessionSongs 
             // if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
             this.props.applySongsInRange(results);
             this.props.changeScreen('PlayerScreen')

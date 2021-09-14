@@ -4329,6 +4329,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+var tempActiveCollectionSession;
 react_modal__WEBPACK_IMPORTED_MODULE_2___default().setAppElement('#root');
 
 var App = /*#__PURE__*/function (_React$Component) {
@@ -4445,20 +4446,20 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function componentDidUpdate(prevProps, prevState) {
       console.log('PREV STATE', prevState);
       console.log('CURR STATE', this.state);
+      console.log('!!!!!!', tempActiveCollectionSession);
       if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
 
       if (this.checkPlayerReady()) {
         this.checkIfListened();
       } else {
-        if (!this.state.playing && this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && !this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
-          // During playback, FIRST check for songs in a slightly higher bpm range.
-          // ---
-          // If still no music there, THEN render the modal.
-          console.log('No song available'); // if (this.state.noNextSong && (prevState.noNextSong && this.state.noNextSong)) return;
-          // else this.setState({noNextSong: true});
+        // if (!this.state.playing && this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && !this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
+        // During playback, FIRST check for songs in a slightly higher bpm range.
+        // ---
+        // If still no music there, THEN render the modal.
+        console.log('No song available'); // if (this.state.noNextSong && (prevState.noNextSong && this.state.noNextSong)) return;
+        // else this.setState({noNextSong: true});
 
-          this.rap.src = null;
-        }
+        this.rap.src = null; // }
       }
     }
   }, {
@@ -4488,7 +4489,12 @@ var App = /*#__PURE__*/function (_React$Component) {
       ;
 
       if (!this.props.musicInfo.activeSession.songs[this.props.playIdx + 1]) {
-        this.pause();
+        // this.pause();
+        // First check for music at slightly higher bpm
+        // Then still if no more songs, in DB and Redux:
+        tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId; //This keeps track of the collectionId after we clear the activeSession.
+
+        this.props.clearActiveSession(this.props.musicInfo.activeSession.id);
         this.setState({
           noNextSong: true
         });
@@ -4509,7 +4515,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       this.setState({
         noNextSong: false
       });
-      this.props.dispatchSelectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'Tempo');
+      this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'Tempo');
     }
   }, {
     key: "render",
@@ -4710,6 +4716,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     dispatchSelectCollectionAndChangeScreen: function dispatchSelectCollectionAndChangeScreen(collectionId, screen) {
       return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_10__.selectCollectionAndChangeScreenThunk)(collectionId, screen));
+    },
+    clearActiveSession: function clearActiveSession(collectionSessionId) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__.clearActiveSessionThunk)(collectionSessionId));
     }
   };
 };
@@ -5531,7 +5540,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
                 return _this.props.fetchOnTempoChange(_this.props.selectedCollection, _this.state.BPM);
 
               case 11:
-                //load the collection and include its songs & session & its sessionSongs  
+                //load the session and its sessionSongs 
                 // if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
                 _this.props.applySongsInRange(results);
 
@@ -5761,6 +5770,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "updateSessionBpmThunk": () => (/* binding */ updateSessionBpmThunk),
 /* harmony export */   "fetchOnTempoChangeThunk": () => (/* binding */ fetchOnTempoChangeThunk),
 /* harmony export */   "clearSessionsThunk": () => (/* binding */ clearSessionsThunk),
+/* harmony export */   "clearActiveSessionThunk": () => (/* binding */ clearActiveSessionThunk),
 /* harmony export */   "popOneFromActiveSessionSongsThunk": () => (/* binding */ popOneFromActiveSessionSongsThunk),
 /* harmony export */   "applySongsInRange": () => (/* binding */ applySongsInRange),
 /* harmony export */   "enqueueSongThunk": () => (/* binding */ enqueueSongThunk),
@@ -5810,6 +5820,7 @@ var LOAD_SESSION_AND_SESSIONSONGS = 'LOAD_SESSION_AND_SESSIONSONGS';
 var SET_CURRENT_SONG = 'SET_CURRENT_SONG';
 var CLEAR_SESSIONS = 'CLEAR_SESSIONS';
 var CREATE_COLLECTION = 'CREATE_COLLECTION';
+var CLEAR_ACTIVE_SESSION = 'CLEAR_ACTIVE_SESSION';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -5893,6 +5904,12 @@ var dispatchSetCurrentSong = function dispatchSetCurrentSong(song) {
 var clearSessions = function clearSessions() {
   return {
     type: CLEAR_SESSIONS
+  };
+};
+
+var clearActiveSession = function clearActiveSession() {
+  return {
+    type: CLEAR_ACTIVE_SESSION
   };
 };
 
@@ -6236,6 +6253,45 @@ var clearSessionsThunk = function clearSessionsThunk() {
     };
   }();
 };
+var clearActiveSessionThunk = function clearActiveSessionThunk(collectionSessionId) {
+  return /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(dispatch) {
+      return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.prev = 0;
+              _context7.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/makeSingleSessionInactive', {
+                data: collectionSessionId
+              });
+
+            case 3:
+              dispatch(clearActiveSession());
+              _context7.next = 9;
+              break;
+
+            case 6:
+              _context7.prev = 6;
+              _context7.t0 = _context7["catch"](0);
+              console.log(_context7.t0);
+
+            case 9:
+              ;
+
+            case 10:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, null, [[0, 6]]);
+    }));
+
+    return function (_x7) {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+};
 var popOneFromActiveSessionSongsThunk = function popOneFromActiveSessionSongsThunk() {
   return function (dispatch) {
     dispatch(popOneFromActiveSession());
@@ -6398,6 +6454,11 @@ function musicReducer() {
       return _objectSpread(_objectSpread({}, state), {}, {
         activeSession: undefined,
         collections: collectionCopy
+      });
+
+    case CLEAR_ACTIVE_SESSION:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        activeSession: undefined
       });
 
     case CREATE_COLLECTION:

@@ -13,7 +13,23 @@ router.put('/clearSessions', async (req, res, next) => {
 
         res.status(200).send('Done')
     } catch (err) {
-        next (err);
+        next(err);
+    }
+});
+
+router.put('/makeSingleSessionInactive', async (req, res, next) => {
+    try {
+        await CollectionSession.update(
+            {active: false},
+            {where: {
+                id: req.body.data,
+                userId: req.session.passport.user,
+            }}
+        );
+
+        res.status(200).send('Done')
+    } catch (err) {
+        next(err)
     }
 })
 

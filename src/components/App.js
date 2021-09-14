@@ -10,10 +10,11 @@ import BrowseSongs from './BrowseSongs'
 import CollectionSongs from './CollectionSongs'
 // import {logout} from '../redux/isLogged'
 import {Redirect} from 'react-router-dom'
-import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk} from '../redux/musicDispatchers'
+import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk, clearActiveSessionThunk} from '../redux/musicDispatchers'
 import {changeScreenThunk, selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk, clearListenedThunk} from '../redux/userDispatchers'
 
+let tempActiveCollectionSession;
 Modal.setAppElement('#root')
 class App extends React.Component {
     constructor() {
@@ -75,11 +76,12 @@ class App extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         console.log('PREV STATE', prevState)
         console.log('CURR STATE', this.state)
+        console.log('!!!!!!', tempActiveCollectionSession)
         if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
         if (this.checkPlayerReady()) {
             this.checkIfListened();
         } else {
-            if (!this.state.playing && this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && !this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
+            // if (!this.state.playing && this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && !this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
                 
                 // During playback, FIRST check for songs in a slightly higher bpm range.
 
@@ -90,7 +92,7 @@ class App extends React.Component {
                 // if (this.state.noNextSong && (prevState.noNextSong && this.state.noNextSong)) return;
                 // else this.setState({noNextSong: true});
                 this.rap.src = null;
-            }
+            // }
         }
 
     };
@@ -116,7 +118,16 @@ class App extends React.Component {
             this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
         };
         if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+1]) {
-            this.pause();
+            // this.pause();
+
+            // First check for music at slightly higher bpm
+    
+
+
+
+            // Then still if no more songs, in DB and Redux:
+            tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
+            this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
             this.setState({noNextSong: true});
         }
     };
@@ -129,7 +140,7 @@ class App extends React.Component {
 
     changeTempoFromModal() {
         this.setState({noNextSong: false})
-        this.props.dispatchSelectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'Tempo')
+        this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'Tempo')
     };
 
     render() {
@@ -284,7 +295,8 @@ const mapDispatchToProps = (dispatch) => ({
     clearListened: (listenedId) => dispatch(clearListenedThunk(listenedId)),
     clearSessions: () => dispatch(clearSessionsThunk()),
     createCollection: (collectionName, collectionArtURL) => dispatch(createCollectionThunk(collectionName, collectionArtURL)),
-    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen))
+    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
+    clearActiveSession: (collectionSessionId) => dispatch(clearActiveSessionThunk(collectionSessionId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

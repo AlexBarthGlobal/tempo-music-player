@@ -14,6 +14,7 @@ const LOAD_SESSION_AND_SESSIONSONGS = 'LOAD_SESSION_AND_SESSIONSONGS'
 const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
 const CLEAR_SESSIONS = 'CLEAR_SESSIONS'
 const CREATE_COLLECTION = 'CREATE_COLLECTION'
+const CLEAR_ACTIVE_SESSION = 'CLEAR_ACTIVE_SESSION'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -72,6 +73,10 @@ const dispatchSetCurrentSong = (song) => ({
 
 const clearSessions = () => ({
     type: CLEAR_SESSIONS
+})
+
+const clearActiveSession = () => ({
+    type: CLEAR_ACTIVE_SESSION
 })
 
 const createCollection = (newCollection) => ({
@@ -181,6 +186,17 @@ export const clearSessionsThunk = () => {
         try {
             await axios.put('/api/clearSessions')
             dispatch(clearSessions())
+        } catch (err) {
+            console.log(err)
+        };
+    };
+};
+
+export const clearActiveSessionThunk = (collectionSessionId) => {
+    return async dispatch => {
+        try {
+            await axios.put('/api/makeSingleSessionInactive', {data: collectionSessionId})
+            dispatch(clearActiveSession())
         } catch (err) {
             console.log(err)
         };
@@ -333,6 +349,11 @@ export default function musicReducer (state = initialState, action) {
                 ...state,
                 activeSession: undefined,
                 collections: collectionCopy
+            };
+        case CLEAR_ACTIVE_SESSION:
+            return {
+                ...state,
+                activeSession: undefined
             };
         case CREATE_COLLECTION:
             action.newCollection.collectionSessions = [];

@@ -4661,7 +4661,7 @@ var App = /*#__PURE__*/function (_React$Component) {
             // minHeight: '116px',
             // maxHeight: '14vh',
             height: '116px',
-            maxHeight: '116px',
+            // maxHeight: '116px',
             position: 'absolute',
             width: '50vw',
             marginLeft: 'auto',
@@ -4698,8 +4698,8 @@ var App = /*#__PURE__*/function (_React$Component) {
             textAlign: 'center',
             // minHeight: '116px',
             // maxHeight: '14vh',
-            height: '124px',
-            maxHeight: '124px',
+            height: '140px',
+            // maxHeight: '126px',
             position: 'absolute',
             width: '50vw',
             marginLeft: 'auto',
@@ -4707,11 +4707,11 @@ var App = /*#__PURE__*/function (_React$Component) {
             top: '28%'
           }
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No more music in this BPM range!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No more music in this BPM range!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Choose a different collection, or:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.changeTempoFromModal
       }, "Change BPM")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.addSongsFromModal
-      }, "Add Songs")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }, "Add songs to collection")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.resetInfo
       }, "Clear Listened")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {

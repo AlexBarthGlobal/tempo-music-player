@@ -202,7 +202,7 @@ class App extends React.Component {
                                 // minHeight: '116px',
                                 // maxHeight: '14vh',
                                 height: '116px',
-                                maxHeight: '116px',
+                                // maxHeight: '116px',
                                 position: 'absolute',
                                 width: '50vw',
                                 marginLeft: 'auto',
@@ -245,8 +245,8 @@ class App extends React.Component {
                                 textAlign: 'center',
                                 // minHeight: '116px',
                                 // maxHeight: '14vh',
-                                height: '124px',
-                                maxHeight: '124px',
+                                height: '140px',
+                                // maxHeight: '126px',
                                 position: 'absolute',
                                 width: '50vw',
                                 marginLeft: 'auto',
@@ -259,10 +259,13 @@ class App extends React.Component {
                     <div>
                         <div>No more music in this BPM range!</div>
                         <div>
+                            Choose a different collection, or:
+                        </div>
+                        <div>
                             <button onClick={this.changeTempoFromModal}>Change BPM</button>
                         </div>
                         <div>
-                            <button onClick={this.addSongsFromModal}>Add Songs</button>
+                            <button onClick={this.addSongsFromModal}>Add songs to collection</button>
                         </div>
                         <div>
                             <button onClick={this.resetInfo}>Clear Listened</button>

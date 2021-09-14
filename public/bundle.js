@@ -5281,7 +5281,8 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
           nextTrack = _this$props.nextTrack,
           prevTrack = _this$props.prevTrack;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, playPause, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: prevTrack
+        onClick: prevTrack,
+        disabled: !this.props.musicInfo.activeSession.songs[this.props.playIdx - 1]
       }, "Prev"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: nextTrack
       }, "Next"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songName : null));

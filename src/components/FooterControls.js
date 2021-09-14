@@ -15,7 +15,7 @@ class FooterControls extends React.Component {
       return (
         <div>
           {playPause}
-          <button onClick={prevTrack}>Prev</button>
+          <button onClick={prevTrack} disabled={!this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Prev</button>
           <button onClick={nextTrack}>Next</button>
           <span>{this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songName : null}</span>
         </div>

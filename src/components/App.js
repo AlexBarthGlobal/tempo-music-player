@@ -36,6 +36,7 @@ class App extends React.Component {
         this.checkIfLoaded = this.checkPlayerReady.bind(this);
         this.resetInfo = this.resetInfo.bind(this);
         this.changeTempoFromModal = this.changeTempoFromModal.bind(this);
+        this.addSongsFromModal = this.addSongsFromModal.bind(this);
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -121,7 +122,7 @@ class App extends React.Component {
             // this.pause();
 
             // First check for music at slightly higher bpm
-    
+            
 
 
 
@@ -141,6 +142,11 @@ class App extends React.Component {
     changeTempoFromModal() {
         this.setState({noNextSong: false})
         this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'Tempo')
+    };
+
+    addSongsFromModal() {
+        this.setState({noNextSong: false})
+        this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'BrowseSongs')
     };
 
     render() {
@@ -250,13 +256,13 @@ class App extends React.Component {
                             <button onClick={this.changeTempoFromModal}>Change BPM</button>
                         </div>
                         <div>
-                            <button>Add Songs</button>
+                            <button onClick={this.addSongsFromModal}>Add Songs</button>
                         </div>
                         <div>
                             <button onClick={this.resetInfo}>Clear Listened</button>
                         </div>
                         <div>
-                            <button>Home</button>
+                            <button onClick={() => this.setState({noNextSong: false})}>Close</button>
                         </div>
                     </div>
                 </Modal>

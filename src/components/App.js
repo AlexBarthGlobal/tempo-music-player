@@ -10,7 +10,7 @@ import BrowseSongs from './BrowseSongs'
 import CollectionSongs from './CollectionSongs'
 // import {logout} from '../redux/isLogged'
 import {Redirect} from 'react-router-dom'
-import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk, clearActiveSessionThunk} from '../redux/musicDispatchers'
+import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk, clearActiveSessionThunk, popOneFromActiveSessionSongsThunk, updateSessionBpmThunk, applySongsInRange} from '../redux/musicDispatchers'
 import {changeScreenThunk, selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk, clearListenedThunk} from '../redux/userDispatchers'
 import songsInRange from '../components/songsInRange'
@@ -84,21 +84,9 @@ class App extends React.Component {
             this.checkIfListened();
         } else {
             // if (!this.state.playing && this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && !this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
-                
-                // During playback, FIRST check for songs in a slightly higher bpm range.
-
-                // ---
-
-                // If still no music there, THEN render the modal.
-                console.log('No song available')
-                // if (this.state.noNextSong && (prevState.noNextSong && this.state.noNextSong)) return;
-                // else this.setState({noNextSong: true});
-
-
-                this.rap.src = null;
+            this.rap.src = null;
             // }
         }
-
     };
 
     play() {
@@ -127,8 +115,10 @@ class App extends React.Component {
             // First check for music at slightly higher bpm
             const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM, 'up')
             if (results[0].length) {
-                
-                
+                this.props.popOneFromActiveSessionSongs();
+                await this.props.updateSessionBpm(this.props.musicInfo.activeSession.collectionId, results[1])
+                this.props.applySongsInRange(results[0]);
+                this.play();
             } else {
             // Then still if no more songs, in DB and Redux:
                 tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
@@ -176,7 +166,7 @@ class App extends React.Component {
         const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
         const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>Songs</button> : null
-        const footerControls = this.checkPlayerReady() && this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
+        const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
         let selectedScreen = <Collections />
@@ -312,7 +302,10 @@ const mapDispatchToProps = (dispatch) => ({
     clearSessions: () => dispatch(clearSessionsThunk()),
     createCollection: (collectionName, collectionArtURL) => dispatch(createCollectionThunk(collectionName, collectionArtURL)),
     dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
-    clearActiveSession: (collectionSessionId) => dispatch(clearActiveSessionThunk(collectionSessionId))
+    clearActiveSession: (collectionSessionId) => dispatch(clearActiveSessionThunk(collectionSessionId)),
+    popOneFromActiveSessionSongs: () => dispatch(popOneFromActiveSessionSongsThunk()),
+    updateSessionBpm: (selectedCollectionId, newBPM) => dispatch(updateSessionBpmThunk(selectedCollectionId, newBPM)),
+    applySongsInRange: (songs) => dispatch(applySongsInRange(songs)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

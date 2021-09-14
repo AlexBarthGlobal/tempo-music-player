@@ -4412,7 +4412,7 @@ var App = /*#__PURE__*/function (_React$Component) {
               ;
 
               if (_this.props.musicInfo.activeSession.songs[_this.props.playIdx]) {
-                _context2.next = 15;
+                _context2.next = 20;
                 break;
               }
 
@@ -4421,29 +4421,39 @@ var App = /*#__PURE__*/function (_React$Component) {
               results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_12__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM, 'up');
 
               if (!results[0].length) {
-                _context2.next = 10;
+                _context2.next = 15;
                 break;
               }
 
-              _context2.next = 14;
+              _this.props.popOneFromActiveSessionSongs();
+
+              _context2.next = 11;
+              return _this.props.updateSessionBpm(_this.props.musicInfo.activeSession.collectionId, results[1]);
+
+            case 11:
+              _this.props.applySongsInRange(results[0]);
+
+              _this.play();
+
+              _context2.next = 19;
               break;
 
-            case 10:
+            case 15:
               // Then still if no more songs, in DB and Redux:
               tempActiveCollectionSession = _this.props.musicInfo.activeSession.collectionId; //This keeps track of the collectionId after we clear the activeSession.
 
-              _context2.next = 13;
+              _context2.next = 18;
               return _this.props.clearActiveSession(_this.props.musicInfo.activeSession.id);
 
-            case 13:
+            case 18:
               _this.setState({
                 noNextSong: true
               });
 
-            case 14:
+            case 19:
               ;
 
-            case 15:
+            case 20:
             case "end":
               return _context2.stop();
           }
@@ -4540,12 +4550,6 @@ var App = /*#__PURE__*/function (_React$Component) {
         this.checkIfListened();
       } else {
         // if (!this.state.playing && this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && !this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
-        // During playback, FIRST check for songs in a slightly higher bpm range.
-        // ---
-        // If still no music there, THEN render the modal.
-        console.log('No song available'); // if (this.state.noNextSong && (prevState.noNextSong && this.state.noNextSong)) return;
-        // else this.setState({noNextSong: true});
-
         this.rap.src = null; // }
       }
     }
@@ -4639,7 +4643,9 @@ var App = /*#__PURE__*/function (_React$Component) {
           return _this2.props.changeScreen('CollectionSongs');
         }
       }, "Songs") : null;
-      var footerControls = this.checkPlayerReady() && this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      var footerControls =
+      /*this.checkPlayerReady() &&*/
+      this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_6__.default, {
         playPause: playPause,
@@ -4793,6 +4799,15 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     clearActiveSession: function clearActiveSession(collectionSessionId) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__.clearActiveSessionThunk)(collectionSessionId));
+    },
+    popOneFromActiveSessionSongs: function popOneFromActiveSessionSongs() {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__.popOneFromActiveSessionSongsThunk)());
+    },
+    updateSessionBpm: function updateSessionBpm(selectedCollectionId, newBPM) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__.updateSessionBpmThunk)(selectedCollectionId, newBPM));
+    },
+    applySongsInRange: function applySongsInRange(songs) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__.applySongsInRange)(songs));
     }
   };
 };

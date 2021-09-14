@@ -120,7 +120,7 @@ class App extends React.Component {
             if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2] /*|| !this.props.musicInfo.activeSession.songs[this.props.playIdx+1]*/) this.props.enqueueSong();
             await this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
         };
-        
+
         if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
             // this.pause();
             
@@ -137,9 +137,9 @@ class App extends React.Component {
         }
     };
     
-    prevTrack () {
+    prevTrack = async () => {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
-            this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+           await this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
         };
     };
 

@@ -4429,6 +4429,30 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, _callee2);
     })));
 
+    _defineProperty(_assertThisInitialized(_this), "prevTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx - 1]) {
+                _context3.next = 3;
+                break;
+              }
+
+              _context3.next = 3;
+              return _this.props.decrementPlayIdx(_this.props.musicInfo.activeSession.id);
+
+            case 3:
+              ;
+
+            case 4:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    })));
+
     _this.state = {
       //Local player info
       playing: false,
@@ -4518,15 +4542,6 @@ var App = /*#__PURE__*/function (_React$Component) {
       this.setState({
         playing: false
       });
-    }
-  }, {
-    key: "prevTrack",
-    value: function prevTrack() {
-      if (this.props.musicInfo.activeSession.songs[this.props.playIdx - 1]) {
-        this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
-      }
-
-      ;
     }
   }, {
     key: "changeTempoFromModal",
@@ -5554,7 +5569,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
                 results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.selectedCollection].songs, _this.state.BPM); //Run this when updating BPM
 
                 if (!results.length) {
-                  _context.next = 19;
+                  _context.next = 24;
                   break;
                 }
 
@@ -5585,28 +5600,37 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
                 idx = _this.props.musicInfo.activeSession.playIdx;
 
-                while (_this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id]) {
-                  idx++;
-
-                  _this.props.next();
+              case 14:
+                if (!(_this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id])) {
+                  _context.next = 20;
+                  break;
                 }
 
+                idx++;
+                _context.next = 18;
+                return _this.props.next();
+
+              case 18:
+                _context.next = 14;
+                break;
+
+              case 20:
                 ;
 
                 _this.props.play(); // }
 
 
-                _context.next = 21;
+                _context.next = 26;
                 break;
 
-              case 19:
+              case 24:
                 _this.setState({
                   noMoreMusic: true
                 });
 
                 console.log('No more music');
 
-              case 21:
+              case 26:
               case "end":
                 return _context.stop();
             }
@@ -6348,20 +6372,60 @@ var enqueueSongThunk = function enqueueSongThunk() {
   };
 };
 var incrementPlayIdxThunk = function incrementPlayIdxThunk(sessionId) {
-  return function (dispatch) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/incrementPlayIdx', {
-      data: sessionId
-    });
-    dispatch(incrementPlayIdx());
-  };
+  return /*#__PURE__*/function () {
+    var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(dispatch) {
+      return regeneratorRuntime.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/incrementPlayIdx', {
+                data: sessionId
+              });
+
+            case 2:
+              dispatch(incrementPlayIdx());
+
+            case 3:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8);
+    }));
+
+    return function (_x8) {
+      return _ref8.apply(this, arguments);
+    };
+  }();
 };
 var decrementPlayIdxThunk = function decrementPlayIdxThunk(sessionId) {
-  return function (dispatch) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/decrementPlayIdx', {
-      data: sessionId
-    });
-    dispatch(decrementPlayIdx());
-  };
+  return /*#__PURE__*/function () {
+    var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(dispatch) {
+      return regeneratorRuntime.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/decrementPlayIdx', {
+                data: sessionId
+              });
+
+            case 2:
+              dispatch(decrementPlayIdx());
+
+            case 3:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9);
+    }));
+
+    return function (_x9) {
+      return _ref9.apply(this, arguments);
+    };
+  }();
 };
 var setCurrentSongThunk = function setCurrentSongThunk(song) {
   return function (dispatch) {

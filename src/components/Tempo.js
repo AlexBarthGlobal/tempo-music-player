@@ -26,12 +26,12 @@ class Tempo extends React.Component {
     handleSubmit = async (evt) => {
         evt.preventDefault();
         const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.selectedCollection].songs, this.state.BPM)  //Run this when updating BPM
-        if (results.length) {
+        if (results[0].length) {
             if (this.isActive(this.props.selectedCollection)) this.props.popOneFromActiveSessionSongs();     
             if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, this.state.BPM) //update the BPM of the already activeSession or create new session
             else await this.props.fetchOnTempoChange(this.props.selectedCollection, this.state.BPM); //load the session and its sessionSongs 
             // if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
-            this.props.applySongsInRange(results);
+            this.props.applySongsInRange(results[0]);
             this.props.changeScreen('PlayerScreen')
             let idx = this.props.musicInfo.activeSession.playIdx
             while (this.props.musicInfo.activeSession.songs[idx].BPM < this.props.musicInfo.activeSession.currBPM-2 || this.props.musicInfo.activeSession.songs[idx].BPM > this.props.musicInfo.activeSession.currBPM+3 || this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[idx].id]) {

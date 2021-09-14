@@ -4282,10 +4282,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
 /* harmony import */ var _BrowseSongs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./BrowseSongs */ "./src/components/BrowseSongs.js");
 /* harmony import */ var _CollectionSongs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./CollectionSongs */ "./src/components/CollectionSongs.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
 /* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
+/* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4324,6 +4325,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
  // import {logout} from '../redux/isLogged'
+
 
 
 
@@ -4390,6 +4392,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     }());
 
     _defineProperty(_assertThisInitialized(_this), "nextTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      var results;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -4409,24 +4412,38 @@ var App = /*#__PURE__*/function (_React$Component) {
               ;
 
               if (_this.props.musicInfo.activeSession.songs[_this.props.playIdx]) {
-                _context2.next = 10;
+                _context2.next = 15;
                 break;
               }
 
               // this.pause();
               // First check for music at slightly higher bpm
+              results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_12__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM, 'up');
+
+              if (!results[0].length) {
+                _context2.next = 10;
+                break;
+              }
+
+              _context2.next = 14;
+              break;
+
+            case 10:
               // Then still if no more songs, in DB and Redux:
               tempActiveCollectionSession = _this.props.musicInfo.activeSession.collectionId; //This keeps track of the collectionId after we clear the activeSession.
 
-              _context2.next = 9;
+              _context2.next = 13;
               return _this.props.clearActiveSession(_this.props.musicInfo.activeSession.id);
 
-            case 9:
+            case 13:
               _this.setState({
                 noNextSong: true
               });
 
-            case 10:
+            case 14:
+              ;
+
+            case 15:
             case "end":
               return _context2.stop();
           }
@@ -4573,7 +4590,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       console.log('Props on App.js RENDER', this.props);
       console.log('STATE', this.state);
-      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Redirect, {
+      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Redirect, {
         to: "/login"
       });
 
@@ -5573,7 +5590,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
                 evt.preventDefault();
                 results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.selectedCollection].songs, _this.state.BPM); //Run this when updating BPM
 
-                if (!results.length) {
+                if (!results[0].length) {
                   _context.next = 24;
                   break;
                 }
@@ -5599,7 +5616,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
               case 11:
                 //load the session and its sessionSongs 
                 // if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
-                _this.props.applySongsInRange(results);
+                _this.props.applySongsInRange(results[0]);
 
                 _this.props.changeScreen('PlayerScreen');
 
@@ -5759,8 +5776,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var shuffle = function shuffle(array) {
   // Fisher-Yates (aka Knuth) Shuffle
+  if (!array.length) return [];
   var currentIndex = array.length;
   var randomIndex;
 
@@ -5776,19 +5800,44 @@ var shuffle = function shuffle(array) {
   return array;
 };
 
-var songsInRange = function songsInRange(listened, collectionSongs, BPM) {
+var songsInRange = function songsInRange(listened, collectionSongs, BPM, checkNearbyRange) {
   var newSongs = [];
 
-  for (var key in collectionSongs) {
-    var currSong = collectionSongs[key];
-    if (currSong.BPM < BPM - 2) continue;
-    if (listened[currSong.id]) continue;
-    if (currSong.BPM > BPM + 3) break;
-    newSongs.push(currSong);
-  }
+  var checkForSongs = function checkForSongs() {
+    var _iterator = _createForOfIteratorHelper(collectionSongs),
+        _step;
 
-  ;
-  return shuffle(newSongs);
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var currSong = _step.value;
+        if (currSong.BPM < BPM - 2) continue;
+        if (listened[currSong.id]) continue;
+        if (currSong.BPM > BPM + 3) break;
+        newSongs.push(currSong);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    ;
+  };
+
+  if (checkNearbyRange) {
+    var inc = 1;
+
+    while (!newSongs.length && inc <= 3) {
+      checkNearbyRange === 'up' ? BPM++ : BPM--;
+      checkForSongs();
+      inc++;
+    }
+
+    ;
+  } else checkForSongs();
+
+  var randomizedSongs = shuffle(newSongs);
+  return [randomizedSongs, BPM];
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (songsInRange);
@@ -57025,7 +57074,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
                 if (this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
                   results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_9__.default)(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM); //Run this when updating BPM
 
-                  this.props.applySongsInRange(results);
+                  this.props.applySongsInRange(results[0]);
                 }
 
               case 9:

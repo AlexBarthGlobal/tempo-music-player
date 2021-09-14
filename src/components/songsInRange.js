@@ -1,4 +1,5 @@
 const shuffle = (array) => {   // Fisher-Yates (aka Knuth) Shuffle
+    if (!array.length) return [];
     let currentIndex = array.length;
     let randomIndex;
 
@@ -11,18 +12,28 @@ const shuffle = (array) => {   // Fisher-Yates (aka Knuth) Shuffle
     return array;
 };
   
-const songsInRange = (listened, collectionSongs, BPM) => {
+const songsInRange = (listened, collectionSongs, BPM, checkNearbyRange) => {
     const newSongs = [];
-
-    for (const key in collectionSongs) {
-        const currSong = collectionSongs[key];
-        if (currSong.BPM < BPM - 2) continue;
-        if (listened[currSong.id]) continue;
-        if (currSong.BPM > BPM + 3) break;
-        newSongs.push(currSong);
+    const checkForSongs = () => {
+        for (const currSong of collectionSongs) {
+            if (currSong.BPM < BPM - 2) continue;
+            if (listened[currSong.id]) continue;
+            if (currSong.BPM > BPM + 3) break;
+            newSongs.push(currSong);
+        };
     };
 
-    return shuffle(newSongs);
+    if (checkNearbyRange) {
+        let inc = 1;
+        while (!newSongs.length && inc <= 3) {
+            checkNearbyRange === 'up' ? BPM++ : BPM--;
+            checkForSongs();
+            inc++;
+        };
+    } else checkForSongs();
+    
+    const randomizedSongs = shuffle(newSongs);
+    return [randomizedSongs, BPM]
 };
 
 export default songsInRange

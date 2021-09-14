@@ -13,6 +13,7 @@ import {Redirect} from 'react-router-dom'
 import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk, clearActiveSessionThunk} from '../redux/musicDispatchers'
 import {changeScreenThunk, selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk, clearListenedThunk} from '../redux/userDispatchers'
+import songsInRange from '../components/songsInRange'
 
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
@@ -123,17 +124,17 @@ class App extends React.Component {
 
         if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
             // this.pause();
-            
-
             // First check for music at slightly higher bpm
-            
-
-
-
+            const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM, 'up')
+            if (results[0].length) {
+                
+                
+            } else {
             // Then still if no more songs, in DB and Redux:
-            tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
-            await this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
-            this.setState({noNextSong: true});
+                tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
+                await this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
+                this.setState({noNextSong: true});
+            };
         }
     };
     

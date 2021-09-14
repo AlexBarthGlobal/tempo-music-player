@@ -11,7 +11,7 @@ import CollectionSongs from './CollectionSongs'
 // import {logout} from '../redux/isLogged'
 import {Redirect} from 'react-router-dom'
 import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk} from '../redux/musicDispatchers'
-import {changeScreenThunk} from '../redux/screenDispatchers'
+import {changeScreenThunk, selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk, clearListenedThunk} from '../redux/userDispatchers'
 
 Modal.setAppElement('#root')
@@ -34,6 +34,7 @@ class App extends React.Component {
         this.pause = this.pause.bind(this);
         this.checkIfLoaded = this.checkPlayerReady.bind(this);
         this.resetInfo = this.resetInfo.bind(this);
+        this.changeTempoFromModal = this.changeTempoFromModal.bind(this);
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -58,6 +59,7 @@ class App extends React.Component {
         console.log('RESETTING INFO')
         this.props.clearSessions()
         this.props.clearListened(this.props.user.listened.id)
+        if (this.state.noNextSong) this.setState({noNextSong: false})
     }
 
     checkPlayerReady() {
@@ -71,19 +73,22 @@ class App extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log('PREV STATE', prevState)
+        console.log('CURR STATE', this.state)
         if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
-        if (prevState.noNextSong !== this.state.noNextSong) return;
         if (this.checkPlayerReady()) {
             this.checkIfListened();
         } else {
-            if (this.state.playing) {
+            if (!this.state.playing && this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && !this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
+                
                 // During playback, FIRST check for songs in a slightly higher bpm range.
 
                 // ---
-                
+
                 // If still no music there, THEN render the modal.
                 console.log('No song available')
-                this.setState({noNextSong: true})
+                // if (this.state.noNextSong && (prevState.noNextSong && this.state.noNextSong)) return;
+                // else this.setState({noNextSong: true});
                 this.rap.src = null;
             }
         }
@@ -110,12 +115,21 @@ class App extends React.Component {
             if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
             this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
         };
+        if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+1]) {
+            this.pause();
+            this.setState({noNextSong: true});
+        }
     };
     
     prevTrack () {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
             this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
         };
+    };
+
+    changeTempoFromModal() {
+        this.setState({noNextSong: false})
+        this.props.dispatchSelectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'Tempo')
     };
 
     render() {
@@ -222,13 +236,13 @@ class App extends React.Component {
                     <div>
                         <div>No more music in this BPM range!</div>
                         <div>
-                            <button>Change BPM</button>
+                            <button onClick={this.changeTempoFromModal}>Change BPM</button>
                         </div>
                         <div>
                             <button>Add Songs</button>
                         </div>
                         <div>
-                            <button>Clear Listened</button>
+                            <button onClick={this.resetInfo}>Clear Listened</button>
                         </div>
                         <div>
                             <button>Home</button>
@@ -269,7 +283,8 @@ const mapDispatchToProps = (dispatch) => ({
     // setCurrentSong: (song) => dispatch(setCurrentSongThunk(song)),
     clearListened: (listenedId) => dispatch(clearListenedThunk(listenedId)),
     clearSessions: () => dispatch(clearSessionsThunk()),
-    createCollection: (collectionName, collectionArtURL) => dispatch(createCollectionThunk(collectionName, collectionArtURL))
+    createCollection: (collectionName, collectionArtURL) => dispatch(createCollectionThunk(collectionName, collectionArtURL)),
+    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

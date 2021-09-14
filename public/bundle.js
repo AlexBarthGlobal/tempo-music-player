@@ -4403,6 +4403,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.pause = _this.pause.bind(_assertThisInitialized(_this));
     _this.checkIfLoaded = _this.checkPlayerReady.bind(_assertThisInitialized(_this));
     _this.resetInfo = _this.resetInfo.bind(_assertThisInitialized(_this));
+    _this.changeTempoFromModal = _this.changeTempoFromModal.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
@@ -4419,6 +4420,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       console.log('RESETTING INFO');
       this.props.clearSessions();
       this.props.clearListened(this.props.user.listened.id);
+      if (this.state.noNextSong) this.setState({
+        noNextSong: false
+      });
     }
   }, {
     key: "checkPlayerReady",
@@ -4439,20 +4443,20 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
+      console.log('PREV STATE', prevState);
+      console.log('CURR STATE', this.state);
       if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
-      if (prevState.noNextSong !== this.state.noNextSong) return;
 
       if (this.checkPlayerReady()) {
         this.checkIfListened();
       } else {
-        if (this.state.playing) {
+        if (!this.state.playing && this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && !this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
           // During playback, FIRST check for songs in a slightly higher bpm range.
           // ---
           // If still no music there, THEN render the modal.
-          console.log('No song available');
-          this.setState({
-            noNextSong: true
-          });
+          console.log('No song available'); // if (this.state.noNextSong && (prevState.noNextSong && this.state.noNextSong)) return;
+          // else this.setState({noNextSong: true});
+
           this.rap.src = null;
         }
       }
@@ -4482,6 +4486,13 @@ var App = /*#__PURE__*/function (_React$Component) {
       }
 
       ;
+
+      if (!this.props.musicInfo.activeSession.songs[this.props.playIdx + 1]) {
+        this.pause();
+        this.setState({
+          noNextSong: true
+        });
+      }
     }
   }, {
     key: "prevTrack",
@@ -4491,6 +4502,14 @@ var App = /*#__PURE__*/function (_React$Component) {
       }
 
       ;
+    }
+  }, {
+    key: "changeTempoFromModal",
+    value: function changeTempoFromModal() {
+      this.setState({
+        noNextSong: false
+      });
+      this.props.dispatchSelectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'Tempo');
     }
   }, {
     key: "render",
@@ -4633,7 +4652,11 @@ var App = /*#__PURE__*/function (_React$Component) {
             top: '28%'
           }
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No more music in this BPM range!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Change BPM")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add Songs")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Clear Listened")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Home")))), audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No more music in this BPM range!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.changeTempoFromModal
+      }, "Change BPM")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add Songs")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.resetInfo
+      }, "Clear Listened")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Home")))), audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "topButtons"
       }, homeLogout, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"
@@ -4684,6 +4707,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     createCollection: function createCollection(collectionName, collectionArtURL) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__.createCollectionThunk)(collectionName, collectionArtURL));
+    },
+    dispatchSelectCollectionAndChangeScreen: function dispatchSelectCollectionAndChangeScreen(collectionId, screen) {
+      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_10__.selectCollectionAndChangeScreenThunk)(collectionId, screen));
     }
   };
 };

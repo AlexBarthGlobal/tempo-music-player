@@ -4398,60 +4398,72 @@ var App = /*#__PURE__*/function (_React$Component) {
           switch (_context2.prev = _context2.next) {
             case 0:
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx]) {
-                _context2.next = 4;
+                _context2.next = 19;
                 break;
               }
 
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 2]
               /*|| !this.props.musicInfo.activeSession.songs[this.props.playIdx+1]*/
               ) _this.props.enqueueSong();
-              _context2.next = 4;
-              return _this.props.incrementPlayIdx(_this.props.musicInfo.activeSession.id);
 
-            case 4:
-              ;
-
-              if (_this.props.musicInfo.activeSession.songs[_this.props.playIdx]) {
-                _context2.next = 20;
+              if (_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 1]) {
+                _context2.next = 13;
                 break;
               }
 
-              // this.pause();
-              // First check for music at slightly higher bpm
               results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_12__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM, 'up');
 
               if (!results[0].length) {
-                _context2.next = 15;
+                _context2.next = 11;
                 break;
               }
 
               _this.props.popOneFromActiveSessionSongs();
 
-              _context2.next = 11;
+              _context2.next = 8;
               return _this.props.updateSessionBpm(_this.props.musicInfo.activeSession.collectionId, results[1]);
 
-            case 11:
+            case 8:
               _this.props.applySongsInRange(results[0]);
 
-              _this.play();
-
-              _context2.next = 19;
+              _context2.next = 12;
               break;
 
-            case 15:
-              // Then still if no more songs, in DB and Redux:
-              tempActiveCollectionSession = _this.props.musicInfo.activeSession.collectionId; //This keeps track of the collectionId after we clear the activeSession.
-
-              _context2.next = 18;
-              return _this.props.clearActiveSession(_this.props.musicInfo.activeSession.id);
-
-            case 18:
+            case 11:
               _this.setState({
                 noNextSong: true
               });
 
-            case 19:
+            case 12:
               ;
+
+            case 13:
+              ;
+
+              if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 1]) {
+                _context2.next = 18;
+                break;
+              }
+
+              _context2.next = 17;
+              return _this.props.incrementPlayIdx(_this.props.musicInfo.activeSession.id);
+
+            case 17:
+              _this.play();
+
+            case 18:
+              ;
+
+            case 19:
+              ; // if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
+              //     // this.pause();
+              //     // First check for music at slightly higher bpm
+              //     } else {
+              //     // Then still if no more songs, in DB and Redux:
+              //         // tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
+              //         // await this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
+              //     };
+              // }
 
             case 20:
             case "end":

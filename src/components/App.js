@@ -107,25 +107,34 @@ class App extends React.Component {
     nextTrack = async () => {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
             if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2] /*|| !this.props.musicInfo.activeSession.songs[this.props.playIdx+1]*/) this.props.enqueueSong();
-            await this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
+            if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+1]) {
+                const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM, 'up')
+                if (results[0].length) {
+                    this.props.popOneFromActiveSessionSongs();
+                    await this.props.updateSessionBpm(this.props.musicInfo.activeSession.collectionId, results[1])
+                    this.props.applySongsInRange(results[0]);
+                } else {
+                    this.setState({noNextSong: true});
+                };
+            };
+            if (this.props.musicInfo.activeSession.songs[this.props.playIdx+1]) {
+                await this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
+                this.play();
+            };
         };
 
-        if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
-            // this.pause();
-            // First check for music at slightly higher bpm
-            const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM, 'up')
-            if (results[0].length) {
-                this.props.popOneFromActiveSessionSongs();
-                await this.props.updateSessionBpm(this.props.musicInfo.activeSession.collectionId, results[1])
-                this.props.applySongsInRange(results[0]);
-                this.play();
-            } else {
-            // Then still if no more songs, in DB and Redux:
-                tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
-                await this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
-                this.setState({noNextSong: true});
-            };
-        }
+        // if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
+        //     // this.pause();
+        //     // First check for music at slightly higher bpm
+            
+            
+        //     } else {
+        //     // Then still if no more songs, in DB and Redux:
+        //         // tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
+        //         // await this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
+                
+        //     };
+        // }
     };
     
     prevTrack = async () => {

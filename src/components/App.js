@@ -114,6 +114,7 @@ class App extends React.Component {
                     await this.props.updateSessionBpm(this.props.musicInfo.activeSession.collectionId, results[1])
                     this.props.applySongsInRange(results[0]);
                 } else {
+                    tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
                     this.setState({noNextSong: true});
                 };
             };
@@ -130,7 +131,7 @@ class App extends React.Component {
             
         //     } else {
         //     // Then still if no more songs, in DB and Redux:
-        //         // tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
+        // tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
         //         // await this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
                 
         //     };

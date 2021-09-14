@@ -42,6 +42,7 @@ class Tempo extends React.Component {
             // }
         } else {
             this.setState({noMoreMusic: true})
+            console.log('No more music')
         }
     };
 

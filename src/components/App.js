@@ -14,7 +14,7 @@ import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurre
 import {changeScreenThunk, selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk, clearListenedThunk} from '../redux/userDispatchers'
 
-let tempActiveCollectionSession;
+let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
 class App extends React.Component {
     constructor() {
@@ -92,6 +92,8 @@ class App extends React.Component {
                 console.log('No song available')
                 // if (this.state.noNextSong && (prevState.noNextSong && this.state.noNextSong)) return;
                 // else this.setState({noNextSong: true});
+
+
                 this.rap.src = null;
             // }
         }
@@ -113,13 +115,15 @@ class App extends React.Component {
         })  
     };
 
-    nextTrack () {
+    nextTrack = async () => {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
-            if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
-            this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
+            if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2] /*|| !this.props.musicInfo.activeSession.songs[this.props.playIdx+1]*/) this.props.enqueueSong();
+            await this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
         };
-        if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+1]) {
+        
+        if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
             // this.pause();
+            
 
             // First check for music at slightly higher bpm
             
@@ -142,11 +146,13 @@ class App extends React.Component {
     changeTempoFromModal() {
         this.setState({noNextSong: false})
         this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'Tempo')
+        tempActiveCollectionSession = null;
     };
 
     addSongsFromModal() {
         this.setState({noNextSong: false})
         this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'BrowseSongs')
+        tempActiveCollectionSession = null;
     };
 
     render() {

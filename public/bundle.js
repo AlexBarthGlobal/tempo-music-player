@@ -4329,7 +4329,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var tempActiveCollectionSession;
+var tempActiveCollectionSession = null;
 react_modal__WEBPACK_IMPORTED_MODULE_2___default().setAppElement('#root');
 
 var App = /*#__PURE__*/function (_React$Component) {
@@ -4388,6 +4388,46 @@ var App = /*#__PURE__*/function (_React$Component) {
         return _ref.apply(this, arguments);
       };
     }());
+
+    _defineProperty(_assertThisInitialized(_this), "nextTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx]) {
+                _context2.next = 4;
+                break;
+              }
+
+              if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 2]
+              /*|| !this.props.musicInfo.activeSession.songs[this.props.playIdx+1]*/
+              ) _this.props.enqueueSong();
+              _context2.next = 4;
+              return _this.props.incrementPlayIdx(_this.props.musicInfo.activeSession.id);
+
+            case 4:
+              ;
+
+              if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx]) {
+                // this.pause();
+                // First check for music at slightly higher bpm
+                // Then still if no more songs, in DB and Redux:
+                tempActiveCollectionSession = _this.props.musicInfo.activeSession.collectionId; //This keeps track of the collectionId after we clear the activeSession.
+
+                _this.props.clearActiveSession(_this.props.musicInfo.activeSession.id);
+
+                _this.setState({
+                  noNextSong: true
+                });
+              }
+
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    })));
 
     _this.state = {
       //Local player info
@@ -4480,28 +4520,6 @@ var App = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
-    key: "nextTrack",
-    value: function nextTrack() {
-      if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
-        if (!this.props.musicInfo.activeSession.songs[this.props.playIdx + 2]) this.props.enqueueSong();
-        this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
-      }
-
-      ;
-
-      if (!this.props.musicInfo.activeSession.songs[this.props.playIdx + 1]) {
-        // this.pause();
-        // First check for music at slightly higher bpm
-        // Then still if no more songs, in DB and Redux:
-        tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId; //This keeps track of the collectionId after we clear the activeSession.
-
-        this.props.clearActiveSession(this.props.musicInfo.activeSession.id);
-        this.setState({
-          noNextSong: true
-        });
-      }
-    }
-  }, {
     key: "prevTrack",
     value: function prevTrack() {
       if (this.props.musicInfo.activeSession.songs[this.props.playIdx - 1]) {
@@ -4517,6 +4535,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         noNextSong: false
       });
       this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'Tempo');
+      tempActiveCollectionSession = null;
     }
   }, {
     key: "addSongsFromModal",
@@ -4525,6 +4544,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         noNextSong: false
       });
       this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'BrowseSongs');
+      tempActiveCollectionSession = null;
     }
   }, {
     key: "render",
@@ -5576,7 +5596,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
                 _this.props.play(); // }
 
 
-                _context.next = 20;
+                _context.next = 21;
                 break;
 
               case 19:
@@ -5584,7 +5604,9 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
                   noMoreMusic: true
                 });
 
-              case 20:
+                console.log('No more music');
+
+              case 21:
               case "end":
                 return _context.stop();
             }

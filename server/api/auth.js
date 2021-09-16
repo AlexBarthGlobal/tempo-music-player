@@ -60,8 +60,9 @@ router.post('/register', async (req, res, next) => {
       }
     });
 
-    if (userExists) {
-      res.redirect('/login');
+    if (userExists !== null) {
+      // res.redirect('/login');
+      res.status(403).send('Already exists')
       // throw new Error('Email already exists.')
     }
 
@@ -90,9 +91,11 @@ router.post('/register', async (req, res, next) => {
     const listened = await Listened.create()
     await newUser.setListened(listened)
 
+    
     // Put any pre-made collections here
 
-    res.redirect('/');
+    // res.redirect('/');
+    res.status(200).json('Registered')
   } catch (error) {
     next(error)
   }

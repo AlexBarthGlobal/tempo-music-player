@@ -5335,7 +5335,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5359,6 +5367,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Login = /*#__PURE__*/function (_React$Component) {
   _inherits(Login, _React$Component);
 
@@ -5371,36 +5380,152 @@ var Login = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
     _this.state = {
-      screen: 'login'
+      screen: 'login',
+      uname: '',
+      pw: '',
+      error: null,
+      viewPw: false
     };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.viewPw = _this.viewPw.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Login, [{
+    key: "handleSubmit",
+    value: function () {
+      var _handleSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(evt) {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                evt.preventDefault();
+
+                if (!(this.state.screen === 'login')) {
+                  _context.next = 13;
+                  break;
+                }
+
+                _context.prev = 2;
+                _context.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/login', {
+                  uname: this.state.uname,
+                  pw: this.state.pw
+                });
+
+              case 5:
+                window.location.reload();
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](2);
+                this.setState({
+                  error: 'Wrong email/password combination.'
+                });
+
+              case 11:
+                _context.next = 24;
+                break;
+
+              case 13:
+                _context.prev = 13;
+                _context.next = 16;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/register', {
+                  uname: this.state.uname,
+                  pw: this.state.pw
+                });
+
+              case 16:
+                _context.next = 18;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/login', {
+                  uname: this.state.uname,
+                  pw: this.state.pw
+                });
+
+              case 18:
+                window.location.reload();
+                _context.next = 24;
+                break;
+
+              case 21:
+                _context.prev = 21;
+                _context.t1 = _context["catch"](13);
+                this.setState({
+                  error: 'Email already exists.'
+                });
+
+              case 24:
+                ;
+
+              case 25:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 8], [13, 21]]);
+      }));
+
+      function handleSubmit(_x) {
+        return _handleSubmit.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
+  }, {
+    key: "handleChange",
+    value: function handleChange(evt) {
+      this.setState(_defineProperty({}, evt.target.name, evt.target.value));
+    }
+  }, {
+    key: "viewPw",
+    value: function viewPw(evt) {
+      evt.preventDefault();
+      this.setState({
+        viewPw: this.state.viewPw ? false : true
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, this.state.screen === 'login' ? 'Login' : 'Sign Up'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
-        method: "POST",
-        action: this.state.screen === 'login' ? "/auth/login" : "/auth/register"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Enter Email:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      var _this$state = this.state,
+          uname = _this$state.uname,
+          pw = _this$state.pw;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "centerThis"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, this.state.screen === 'login' ? 'Login' : 'Sign Up'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
-        name: "uname"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Enter Password:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-        type: "password",
-        name: "pw"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        name: "uname",
+        placeholder: "E-mail",
+        onChange: this.handleChange,
+        value: uname
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: this.state.viewPw ? 'text' : 'password',
+        name: "pw",
+        placeholder: "Password",
+        onChange: this.handleChange,
+        value: pw
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.viewPw
+      }, this.state.viewPw ? 'Hide password' : 'View password'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "submit",
         value: "Submit"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.state.screen === 'login' ? function () {
           return _this2.setState({
-            screen: 'signup'
+            screen: 'signup',
+            error: null
           });
         } : function () {
           return _this2.setState({
-            screen: 'login'
+            screen: 'login',
+            error: null
           });
         }
       }, this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'));
@@ -17915,7 +18040,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;EACjB;mCACiC;AACnC;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,eAAe;AACjB;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE;;cAEY;EACZ,kBAAkB;AACpB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}\n\n.centerWithMargin {\n  margin-left: auto;\n  margin-right: auto;\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;EACjB;mCACiC;AACnC;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,eAAe;AACjB;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE;;cAEY;EACZ,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;EACjB,kBAAkB;AACpB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}\n\n.centerWithMargin {\n  margin-left: auto;\n  margin-right: auto;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

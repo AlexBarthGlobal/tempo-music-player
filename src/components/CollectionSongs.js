@@ -65,7 +65,7 @@ class CollectionSongs extends React.Component {
                         <div>
                             <div>No songs in this collection yet!</div>
                             <div>
-                                <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button>
+                                {this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null}
                             </div>
                             <div>
                                 <button onClick={() => this.props.dispatchSelectCollectionAndChangeScreen(null, 'Collections')}>Go back</button>

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
-const {Song, User, Collection, CollectionSession, Listened, SessionSong, ListenedSong} = require('../db/index');
+const {Song, User, Collection, CollectionSession, Listened, SessionSong, ListenedSong, UserCollection} = require('../db/index');
 const { Op } = require('Sequelize');
 
 router.put('/clearSessions', async (req, res, next) => {
@@ -16,6 +16,42 @@ router.put('/clearSessions', async (req, res, next) => {
         next(err);
     }
 });
+
+router.post('/shareCollection', async (req, res, next) => {
+    try {
+        const recipient = await User.findOne({
+            where: {
+                email: req.body.recipientEmail
+            }
+        });
+
+        console.log('Blackberry', recipient.dataValues.id)
+
+        if (!recipient) res.sendStatus(403) //Recipient doesn't exist
+
+        //check if the user already has the collection
+
+        const checkIfAlreadyHasCollection = await UserCollection.findOne({
+            where: {
+                userId: recipient.dataValues.id,
+                collectionId: req.body.collectionId
+
+            }
+        });
+
+        if (!checkIfAlreadyHasCollection) {
+            const collectionToShare = await Collection.findByPk(req.body.collectionId)
+            await recipient.addCollection(collectionToShare)
+            res.status('201').send('Shared successfully.')
+            console.log('Dog')
+        } else {
+            res.status('201').send('Recipient already has the collection.')
+            console.log('Cat')
+        };
+    } catch (err) {
+        next(err)
+    }
+})
 
 router.put('/makeSingleSessionInactive', async (req, res, next) => {
     try {

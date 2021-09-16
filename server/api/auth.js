@@ -62,7 +62,7 @@ router.post('/register', async (req, res, next) => {
 
     if (userExists !== null) {
       // res.redirect('/login');
-      res.status(403).send('Already exists')
+      res.sendStatus(403)
       // throw new Error('Email already exists.')
     }
 

@@ -4282,11 +4282,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
 /* harmony import */ var _BrowseSongs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./BrowseSongs */ "./src/components/BrowseSongs.js");
 /* harmony import */ var _CollectionSongs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./CollectionSongs */ "./src/components/CollectionSongs.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
 /* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
 /* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_13__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4325,6 +4327,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
  // import {logout} from '../redux/isLogged'
+
 
 
 
@@ -4391,14 +4394,81 @@ var App = /*#__PURE__*/function (_React$Component) {
       };
     }());
 
-    _defineProperty(_assertThisInitialized(_this), "nextTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    _defineProperty(_assertThisInitialized(_this), "handleShare", /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(evt) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                evt.preventDefault();
+
+                if (!(_this.state.recipientEmail === _this.props.user.email)) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                _this.setState({
+                  shareConfirmation: "You can't share this with yourself!"
+                });
+
+                _context2.next = 15;
+                break;
+
+              case 5:
+                _context2.prev = 5;
+                _context2.next = 8;
+                return axios__WEBPACK_IMPORTED_MODULE_13___default().post('/api/shareCollection', {
+                  collectionId: _this.props.selectedCollection,
+                  recipientEmail: _this.state.recipientEmail
+                });
+
+              case 8:
+                _this.setState({
+                  shareConfirmation: 'Shared successfully.'
+                });
+
+                _context2.next = 14;
+                break;
+
+              case 11:
+                _context2.prev = 11;
+                _context2.t0 = _context2["catch"](5);
+
+                _this.setState({
+                  shareConfirmation: "Recipient doesn't exist!"
+                });
+
+              case 14:
+                ;
+
+              case 15:
+                ;
+
+                _this.setState({
+                  recipientEmail: ''
+                });
+
+              case 17:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[5, 11]]);
+      }));
+
+      return function (_x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "nextTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
       var results;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx]) {
-                _context2.next = 20;
+                _context3.next = 20;
                 break;
               }
 
@@ -4407,26 +4477,26 @@ var App = /*#__PURE__*/function (_React$Component) {
               ) _this.props.enqueueSong();
 
               if (_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 1]) {
-                _context2.next = 14;
+                _context3.next = 14;
                 break;
               }
 
               results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_12__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM, 'up');
 
               if (!results[0].length) {
-                _context2.next = 11;
+                _context3.next = 11;
                 break;
               }
 
               _this.props.popOneFromActiveSessionSongs();
 
-              _context2.next = 8;
+              _context3.next = 8;
               return _this.props.updateSessionBpm(_this.props.musicInfo.activeSession.collectionId, results[1]);
 
             case 8:
               _this.props.applySongsInRange(results[0]);
 
-              _context2.next = 13;
+              _context3.next = 13;
               break;
 
             case 11:
@@ -4444,11 +4514,11 @@ var App = /*#__PURE__*/function (_React$Component) {
               ;
 
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 1]) {
-                _context2.next = 19;
+                _context3.next = 19;
                 break;
               }
 
-              _context2.next = 18;
+              _context3.next = 18;
               return _this.props.incrementPlayIdx(_this.props.musicInfo.activeSession.id);
 
             case 18:
@@ -4470,23 +4540,23 @@ var App = /*#__PURE__*/function (_React$Component) {
 
             case 21:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     })));
 
-    _defineProperty(_assertThisInitialized(_this), "prevTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    _defineProperty(_assertThisInitialized(_this), "prevTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx - 1]) {
-                _context3.next = 3;
+                _context4.next = 3;
                 break;
               }
 
-              _context3.next = 3;
+              _context4.next = 3;
               return _this.props.decrementPlayIdx(_this.props.musicInfo.activeSession.id);
 
             case 3:
@@ -4494,10 +4564,10 @@ var App = /*#__PURE__*/function (_React$Component) {
 
             case 4:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     })));
 
     _this.state = {
@@ -4507,7 +4577,10 @@ var App = /*#__PURE__*/function (_React$Component) {
       addSongModal: false,
       collectionName: '',
       collectionArtURL: '',
-      noNextSong: false
+      noNextSong: false,
+      shareCollectionModal: false,
+      recipientEmail: '',
+      shareConfirmation: ''
     };
     _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this));
     _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
@@ -4519,6 +4592,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.addSongsFromModal = _this.addSongsFromModal.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleShare = _this.handleShare.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -4560,6 +4634,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       // console.log('CURR STATE', this.state)
       // console.log('!!!!!!', tempActiveCollectionSession)
       if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
+      if (prevState.recipientEmail !== this.state.recipientEmail) return;
 
       if (this.checkPlayerReady()) {
         this.checkIfListened();
@@ -4609,7 +4684,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       console.log('Props on App.js RENDER', this.props);
       console.log('STATE', this.state);
-      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Redirect, {
+      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Redirect, {
         to: "/login"
       });
 
@@ -4659,7 +4734,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         onClick: function onClick() {
           return _this2.props.changeScreen('CollectionSongs');
         }
-      }, "Songs") : null;
+      }, "View Songs") : null;
       var footerControls =
       /*this.checkPlayerReady() &&*/
       this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -4684,11 +4759,21 @@ var App = /*#__PURE__*/function (_React$Component) {
           }
         }, "Change Tempo");
       } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_7__.default, null);else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_8__.default, null);
+      var shareCollection;
+      if (this.props.screenStr === 'CollectionSongs') shareCollection = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: function onClick() {
+          return _this2.setState({
+            shareCollectionModal: true
+          });
+        }
+      }, "Share Collection");
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_2___default()), {
         isOpen: this.state.addCollectionModal,
         onRequestClose: function onRequestClose() {
           return _this2.setState({
-            addCollectionModal: false
+            addCollectionModal: false,
+            collectionName: '',
+            collectionArtURL: ''
           });
         },
         style: {
@@ -4749,9 +4834,9 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No more music in this BPM range!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Choose a different collection, or:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.changeTempoFromModal
-      }, "Change BPM")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }, "Change BPM")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.activeSession && this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionOwner === this.props.user.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.addSongsFromModal
-      }, "Add songs to collection")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }, "Add songs to collection") : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.resetInfo
       }, "Clear Listened")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
@@ -4759,11 +4844,45 @@ var App = /*#__PURE__*/function (_React$Component) {
             noNextSong: false
           });
         }
-      }, "Close")))), audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "Close")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_2___default()), {
+        isOpen: this.state.shareCollectionModal,
+        onRequestClose: function onRequestClose() {
+          return _this2.setState({
+            shareCollectionModal: false,
+            recipientEmail: ''
+          });
+        },
+        style: {
+          content: {
+            borderRadius: '8px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            // minHeight: '116px',
+            // maxHeight: '14vh',
+            height: '116px',
+            // maxHeight: '116px',
+            position: 'absolute',
+            width: '50vw',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            top: '28%'
+          }
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Enter the recipient's E-mail:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        onSubmit: this.handleShare
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        name: "recipientEmail",
+        onChange: this.handleChange,
+        value: this.state.recipientEmail
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.shareConfirmation), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        type: "submit"
+      }, "Share")))))), audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "topButtons"
       }, homeLogout, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"
-      }, navToCollectionSongs, changeTempo, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), footerControls);
+      }, navToCollectionSongs, changeTempo, shareCollection, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), footerControls);
     }
   }]);
 
@@ -5056,11 +5175,11 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
               top: '28%'
             }
           }
-        }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No songs in this collection yet!"), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No songs in this collection yet!"), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: function onClick() {
             return _this.props.changeScreen('BrowseSongs');
           }
-        }, "Add Songs")), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        }, "Add Songs") : null), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: function onClick() {
             return _this.props.dispatchSelectCollectionAndChangeScreen(null, 'Collections');
           }

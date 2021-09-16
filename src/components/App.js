@@ -14,6 +14,7 @@ import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurre
 import {changeScreenThunk, selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk, clearListenedThunk} from '../redux/userDispatchers'
 import songsInRange from '../components/songsInRange'
+import axios from 'axios';
 
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
@@ -27,7 +28,10 @@ class App extends React.Component {
           addSongModal: false,
           collectionName: '',
           collectionArtURL: '',
-          noNextSong: false
+          noNextSong: false,
+          shareCollectionModal: false,
+          recipientEmail: '',
+          shareConfirmation: ''
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
@@ -41,6 +45,7 @@ class App extends React.Component {
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleShare = this.handleShare.bind(this)
     };
 
     handleChange(evt) {
@@ -56,7 +61,23 @@ class App extends React.Component {
         await this.props.createCollection(this.state.collectionName, this.state.collectionArtURL)
         this.setState({collectionName: ''})
         this.setState({collectionArtURL: ''})
-    }
+    };
+
+    handleShare = async (evt) => {
+        evt.preventDefault();
+        if (this.state.recipientEmail === this.props.user.email) {
+            this.setState({shareConfirmation: `You can't share this with yourself!`});
+        } else {
+            try {
+                await axios.post('/api/shareCollection', {collectionId: this.props.selectedCollection, recipientEmail: this.state.recipientEmail})
+                this.setState({shareConfirmation: 'Shared successfully.'})
+            } catch (err) {
+                this.setState({shareConfirmation: `Recipient doesn't exist!`})
+            };
+        };
+        
+        this.setState({recipientEmail: ''});
+    };
 
     resetInfo() {
         console.log('RESETTING INFO')
@@ -80,6 +101,8 @@ class App extends React.Component {
         // console.log('CURR STATE', this.state)
         // console.log('!!!!!!', tempActiveCollectionSession)
         if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
+        if (prevState.recipientEmail !== this.state.recipientEmail) return;
+
         if (this.checkPlayerReady()) {
             this.checkIfListened();
         } else {
@@ -176,7 +199,7 @@ class App extends React.Component {
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
-        const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>Songs</button> : null
+        const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>View Songs</button> : null
         const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
@@ -187,12 +210,14 @@ class App extends React.Component {
             changeTempo = <button onClick={() => this.props.changeScreen('Tempo')}>Change Tempo</button>
         } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs />    
         else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs />
+        let shareCollection;
+        if (this.props.screenStr === 'CollectionSongs') shareCollection = <button onClick={() => this.setState({shareCollectionModal: true})}>Share Collection</button>
 
         return (
             <div>
                 <Modal 
                     isOpen={this.state.addCollectionModal} 
-                    onRequestClose={() => this.setState({addCollectionModal: false})}
+                    onRequestClose={() => this.setState({addCollectionModal: false, collectionName: '', collectionArtURL: ''})}
                     style={
                         {
                             content: {
@@ -267,7 +292,7 @@ class App extends React.Component {
                             <button onClick={this.changeTempoFromModal}>Change BPM</button>
                         </div>
                         <div>
-                            <button onClick={this.addSongsFromModal}>Add songs to collection</button>
+                            {this.props.musicInfo.activeSession && this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionOwner === this.props.user.id ? <button onClick={this.addSongsFromModal}>Add songs to collection</button> : null}
                         </div>
                         <div>
                             <button onClick={this.resetInfo}>Clear Listened</button>
@@ -277,9 +302,50 @@ class App extends React.Component {
                         </div>
                     </div>
                 </Modal>
+                <Modal 
+                    isOpen={this.state.shareCollectionModal} 
+                    onRequestClose={() => this.setState({shareCollectionModal: false, recipientEmail: ''})}
+                    style={
+                        {
+                            content: {
+                                borderRadius: '8px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                // minHeight: '116px',
+                                // maxHeight: '14vh',
+                                height: '116px',
+                                // maxHeight: '116px',
+                                position: 'absolute',
+                                width: '50vw',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                top: '28%',
+                            }
+                        }
+                    }
+                >
+                    <div>
+                        <div>Enter the recipient's E-mail:</div>
+                        <div>
+                            <form onSubmit={this.handleShare}>
+                                <div>
+                                    <input name='recipientEmail' onChange={this.handleChange} value={this.state.recipientEmail} />
+                                </div>
+                                <div>
+                                    {this.state.shareConfirmation}
+                                </div>
+                                <div>
+                                    <button type='submit'>Share</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </Modal>
                 {audio}
                 <div className='topButtons'>{homeLogout}{clearListened}</div>
-                <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{createOrAddToCollection}</div>
+                <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
                 <div>
                     {selectedScreen}
                 </div>             

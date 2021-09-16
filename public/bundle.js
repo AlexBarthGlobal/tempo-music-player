@@ -5511,12 +5511,12 @@ var Login = /*#__PURE__*/function (_React$Component) {
         placeholder: "Password",
         onChange: this.handleChange,
         value: pw
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.viewPw
-      }, this.state.viewPw ? 'Hide password' : 'View password'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "submit",
         value: "Submit"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.viewPw
+      }, this.state.viewPw ? 'Hide password' : 'View password')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.state.screen === 'login' ? function () {
           return _this2.setState({
             screen: 'signup',

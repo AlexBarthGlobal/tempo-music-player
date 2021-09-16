@@ -60,9 +60,9 @@ class Login extends React.Component {
                     <div>
                         <input type={this.state.viewPw ? 'text' : 'password'} name='pw' placeholder='Password' onChange={this.handleChange} value={pw}></input>
                     </div>
-                    <button onClick={this.viewPw}>{this.state.viewPw ? 'Hide password' : 'View password'}</button>
                     <div>{this.state.error}</div>
                     <input type="submit" value="Submit"></input>
+                    <button onClick={this.viewPw}>{this.state.viewPw ? 'Hide password' : 'View password'}</button>
                 </form>
                 <button onClick={this.state.screen === 'login' ? () => this.setState({screen: 'signup', error: null}) : () => this.setState({screen: 'login', error: null})}>{this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'}</button>
             </div>

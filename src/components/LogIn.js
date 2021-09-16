@@ -46,7 +46,7 @@ class Login extends React.Component {
     viewPw(evt) {
         evt.preventDefault()
         this.setState({viewPw: this.state.viewPw ? false : true})
-    }
+    };
 
     render() {
         const { uname, pw } = this.state;

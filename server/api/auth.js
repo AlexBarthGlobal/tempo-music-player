@@ -53,6 +53,18 @@ router.get('/', (req, res, next) => {
 
 router.post('/register', async (req, res, next) => {
   try {
+
+    const userExists = await User.findOne({
+      where: {
+        email: req.body.uname
+      }
+    });
+
+    if (userExists) {
+      res.redirect('/login');
+      // throw new Error('Email already exists.')
+    }
+
     const saltHash = genPassword(req.body.pw);
 
     const salt = saltHash.salt;
@@ -77,6 +89,8 @@ router.post('/register', async (req, res, next) => {
 
     const listened = await Listened.create()
     await newUser.setListened(listened)
+
+    // Put any pre-made collections here
 
     res.redirect('/');
   } catch (error) {

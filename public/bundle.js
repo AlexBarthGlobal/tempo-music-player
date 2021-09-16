@@ -4556,9 +4556,9 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      console.log('PREV STATE', prevState);
-      console.log('CURR STATE', this.state);
-      console.log('!!!!!!', tempActiveCollectionSession);
+      // console.log('PREV STATE', prevState)
+      // console.log('CURR STATE', this.state)
+      // console.log('!!!!!!', tempActiveCollectionSession)
       if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
 
       if (this.checkPlayerReady()) {
@@ -4632,9 +4632,11 @@ var App = /*#__PURE__*/function (_React$Component) {
             addCollectionModal: true
           });
         }
-      }, "Create Collection") :
-      /*this.props.screenStr === 'PlayerScreen' ||*/
-      this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add Songs") : null;
+      }, "Create Collection") : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: function onClick() {
+          return _this2.props.changeScreen('BrowseSongs');
+        }
+      }, "Add Songs") : null;
       var audio;
       audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null,
@@ -4887,6 +4889,7 @@ var BrowseSongs = /*#__PURE__*/function (_React$Component) {
   _createClass(BrowseSongs, [{
     key: "render",
     value: function render() {
+      console.log('Props on BrowseSongs Render', this.props);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "BrowseSongs page");
     }
   }]);
@@ -4898,7 +4901,9 @@ var BrowseSongs = /*#__PURE__*/function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   console.log('STATE from BROWSESONGS', state);
-  return {};
+  return {
+    selectedCollection: state.screenReducer.selectedCollection
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {

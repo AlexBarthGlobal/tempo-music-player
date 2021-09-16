@@ -12,7 +12,7 @@ class BrowseSongs extends React.Component {
     
 
     render() {
-
+        console.log('Props on BrowseSongs Render', this.props)
         return (
             <div>
                 BrowseSongs page
@@ -24,7 +24,7 @@ class BrowseSongs extends React.Component {
 const mapStateToProps = (state) => {
     console.log('STATE from BROWSESONGS', state)
     return {
-
+        selectedCollection: state.screenReducer.selectedCollection,
     };
 };
   

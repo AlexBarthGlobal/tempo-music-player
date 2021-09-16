@@ -76,9 +76,9 @@ class App extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('PREV STATE', prevState)
-        console.log('CURR STATE', this.state)
-        console.log('!!!!!!', tempActiveCollectionSession)
+        // console.log('PREV STATE', prevState)
+        // console.log('CURR STATE', this.state)
+        // console.log('!!!!!!', tempActiveCollectionSession)
         if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
         if (this.checkPlayerReady()) {
             this.checkIfListened();
@@ -170,8 +170,8 @@ class App extends React.Component {
         // // change collection, or clear listened
 
         const homeLogout = this.props.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.props.changeScreen('Collections')}>Home</button>
-        const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button onClick={() => this.setState({addCollectionModal: true})}>Create Collection</button> :
-        /*this.props.screenStr === 'PlayerScreen' ||*/ this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs' ? <button>Add Songs</button> : null;
+        const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button onClick={() => this.setState({addCollectionModal: true})}>Create Collection</button> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && 
+        /*this.props.screenStr === 'PlayerScreen' ||*/ (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null;
         let audio;
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;

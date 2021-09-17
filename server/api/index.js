@@ -2,7 +2,6 @@ const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
 const {Song, User, Collection, CollectionSession, Listened, SessionSong, ListenedSong, UserCollection} = require('../db/index');
 const { Op } = require('Sequelize');
-// const {Sequelize} = require('Sequelize');
 
 router.put('/clearSessions', async (req, res, next) => {
     try {
@@ -20,40 +19,51 @@ router.put('/clearSessions', async (req, res, next) => {
 
 router.put('/searchSongs', async (req, res, next) => {
 
-    const searchInputAndBPMInput = {where: {    //searchInput and BPMInput are filled
-        [Op.or]: [ 
-            { 
-                songName: {
-                    [Op.iLike]: `%${req.body.searchInput}%`
+    const searchInputAndBPMInput = {
+        where: {    //searchInput and BPMInput are filled
+            [Op.or]: [ 
+                { 
+                    songName: {
+                        [Op.iLike]: `%${req.body.searchInput}%`
+                    },
                 },
-            },
-            { 
-                artistName: {
-                    [Op.iLike]: `%${req.body.searchInput}%`
+                { 
+                    artistName: {
+                        [Op.iLike]: `%${req.body.searchInput}%`
+                    }
+                },
+            ],
+            [Op.and]: [
+                {
+                    BPM: {
+                    [Op.gte]: req.body.BPMInput-2,
+                    [Op.lte]: req.body.BPMInput+3
+                    }
                 }
-            },
-            {
-                BPM: {
-                    [Op.iLike]: `%N${Number(req.body.BPMInput)}%`
-                }
-            }
-        ]
-    }};
+            ]
+        },
+        limit: 15,
+        order: [['plays', 'DESC']]
+    };
 
-    const searchInput = {where: { //Only searchInput is filled and no bpm is specified //BPMInput should be null
-        [Op.or]: [ 
-            { 
-                songName: {
-                    [Op.iLike]: `%${req.body.searchInput}%`
+    const searchInput = {
+        where: { //Only searchInput is filled and no bpm is specified. BPMInput will be null in this scenario
+            [Op.or]: [ 
+                { 
+                    songName: {
+                        [Op.iLike]: `%${req.body.searchInput}%`
+                    },
                 },
-            },
-            { 
-                artistName: {
-                    [Op.iLike]: `%${req.body.searchInput}%`
-                }
-            },
-        ]
-    }};
+                { 
+                    artistName: {
+                        [Op.iLike]: `%${req.body.searchInput}%`
+                    }
+                },
+            ]
+        },
+        limit: 15,
+        order: [['plays', 'DESC']]
+    };
 
     const BPMInput = {where: {  //Only BPMInput is specified
         BPM: {
@@ -62,7 +72,7 @@ router.put('/searchSongs', async (req, res, next) => {
         }
     }};
 
-    const noInput = {
+    const noInput = {   //Neither searchInput or BPMInput are specified, so simply query 15 most played songs.
         limit: 15,
         order: [['plays', 'DESC']]
     }

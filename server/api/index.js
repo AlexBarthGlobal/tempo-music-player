@@ -79,7 +79,6 @@ router.put('/searchSongs', async (req, res, next) => {
 
     try {
         let condition = req.body.searchInput && req.body.BPMInput ? searchInputAndBPMInput : req.body.searchInput ? searchInput : req.body.BPMInput ? BPMInput : noInput;
-        // if (!req.body.searchInput && !req.body.BPMInput) console.log('Guac')
         const foundSongs = await Song.findAll(condition)
         res.json(foundSongs)
         

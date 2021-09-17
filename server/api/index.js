@@ -20,7 +20,7 @@ router.put('/clearSessions', async (req, res, next) => {
 
 router.put('/searchSongs', async (req, res, next) => {
 
-    const condition = { 
+    const searchInputAndBPMInput = {where: {    //searchInput and BPMInput are filled
         [Op.or]: [ 
             { 
                 songName: {
@@ -34,27 +34,43 @@ router.put('/searchSongs', async (req, res, next) => {
             },
             {
                 BPM: {
-                    [Op.iLike]: `%N${Number(req.body.searchInput)}%`
+                    [Op.iLike]: `%N${Number(req.body.BPMInput)}%`
                 }
             }
         ]
+    }};
+
+    const searchInput = {where: { //Only searchInput is filled and no bpm is specified //BPMInput should be null
+        [Op.or]: [ 
+            { 
+                songName: {
+                    [Op.iLike]: `%${req.body.searchInput}%`
+                },
+            },
+            { 
+                artistName: {
+                    [Op.iLike]: `%${req.body.searchInput}%`
+                }
+            },
+        ]
+    }};
+
+    const BPMInput = {where: {  //Only BPMInput is specified
+        BPM: {
+            [Op.gte]: req.body.BPMInput-2,
+            [Op.lte]: req.body.BPMInput+3
+        }
+    }};
+
+    const noInput = {
+        limit: 15,
+        order: [['plays', 'DESC']]
     }
 
     try {
-        // const foundSongs = await Song.findAll({
-        //     where: {
-        //         songName: {
-        //             [Op.iLike]: `%${req.body.songName}%`
-        //         },
-        //         artistName: {
-        //             [Op.iLike]: `%${req.body.artistName}%`
-        //         }
-        //     }
-        // })
-
-        const foundSongs = await Song.findAll({
-            where: condition
-        })
+        let condition = req.body.searchInput && req.body.BPMInput ? searchInputAndBPMInput : req.body.searchInput ? searchInput : req.body.BPMInput ? BPMInput : noInput;
+        // if (!req.body.searchInput && !req.body.BPMInput) console.log('Guac')
+        const foundSongs = await Song.findAll(condition)
         res.json(foundSongs)
         
     } catch(err) {

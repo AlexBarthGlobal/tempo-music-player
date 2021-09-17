@@ -242,6 +242,13 @@ export const setCurrentSongThunk = (song) => {
     }
 }
 
+export const dispatchSearchSongs = (searchInput) => {
+    return async dispatch => {
+        const res = await axios.put('/api/searchSongs', {searchInput});
+        console.log('SEARCH RESULT', res)
+    }
+}
+
 
 const initialState = {
     // musicInfo: {

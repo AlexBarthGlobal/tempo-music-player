@@ -4965,6 +4965,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4990,6 +4991,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var BrowseSongs = /*#__PURE__*/function (_React$Component) {
   _inherits(BrowseSongs, _React$Component);
 
@@ -5009,7 +5011,17 @@ var BrowseSongs = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       console.log('Props on BrowseSongs Render', this.props);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "BrowseSongs page");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "centerThis"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "screenTitle"
+      }, "Add Songs"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "text",
+        placeholder: "Search for songs or artists"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "number",
+        placeholder: "BPM"
+      })));
     }
   }]);
 
@@ -5021,7 +5033,8 @@ var BrowseSongs = /*#__PURE__*/function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   console.log('STATE from BROWSESONGS', state);
   return {
-    selectedCollection: state.screenReducer.selectedCollection
+    selectedCollection: state.screenReducer.selectedCollection,
+    searchedSongs: state.musicReducer.searchedSongs
   };
 };
 
@@ -6231,6 +6244,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "incrementPlayIdxThunk": () => (/* binding */ incrementPlayIdxThunk),
 /* harmony export */   "decrementPlayIdxThunk": () => (/* binding */ decrementPlayIdxThunk),
 /* harmony export */   "setCurrentSongThunk": () => (/* binding */ setCurrentSongThunk),
+/* harmony export */   "dispatchSearchSongs": () => (/* binding */ dispatchSearchSongs),
 /* harmony export */   "default": () => (/* binding */ musicReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -6822,6 +6836,36 @@ var setCurrentSongThunk = function setCurrentSongThunk(song) {
   return function (dispatch) {
     dispatch(dispatchSetCurrentSong(song));
   };
+};
+var dispatchSearchSongs = function dispatchSearchSongs(searchInput) {
+  return /*#__PURE__*/function () {
+    var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(dispatch) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee10$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+              _context10.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/searchSongs', {
+                searchInput: searchInput
+              });
+
+            case 2:
+              res = _context10.sent;
+              console.log('SEARCH RESULT', res);
+
+            case 4:
+            case "end":
+              return _context10.stop();
+          }
+        }
+      }, _callee10);
+    }));
+
+    return function (_x10) {
+      return _ref10.apply(this, arguments);
+    };
+  }();
 };
 var initialState = {
   // musicInfo: {

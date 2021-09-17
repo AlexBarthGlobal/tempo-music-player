@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
 const {Song, User, Collection, CollectionSession, Listened, SessionSong, ListenedSong, UserCollection} = require('../db/index');
 const { Op } = require('Sequelize');
+// const {Sequelize} = require('Sequelize');
 
 router.put('/clearSessions', async (req, res, next) => {
     try {
@@ -16,6 +17,50 @@ router.put('/clearSessions', async (req, res, next) => {
         next(err);
     }
 });
+
+router.put('/searchSongs', async (req, res, next) => {
+
+    const condition = { 
+        [Op.or]: [ 
+            { 
+                songName: {
+                    [Op.iLike]: `%${req.body.searchInput}%`
+                },
+            },
+            { 
+                artistName: {
+                    [Op.iLike]: `%${req.body.searchInput}%`
+                }
+            },
+            {
+                BPM: {
+                    [Op.iLike]: `%N${Number(req.body.searchInput)}%`
+                }
+            }
+        ]
+    }
+
+    try {
+        // const foundSongs = await Song.findAll({
+        //     where: {
+        //         songName: {
+        //             [Op.iLike]: `%${req.body.songName}%`
+        //         },
+        //         artistName: {
+        //             [Op.iLike]: `%${req.body.artistName}%`
+        //         }
+        //     }
+        // })
+
+        const foundSongs = await Song.findAll({
+            where: condition
+        })
+        res.json(foundSongs)
+        
+    } catch(err) {
+        next(err)
+    }
+})
 
 router.post('/shareCollection', async (req, res, next) => {
     try {

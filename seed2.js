@@ -66,7 +66,8 @@ const seed = async () => {
             albumName: '6 Hours 2',
             BPM: 145,
             duration: 149,
-            songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CProud%E2%80%9D+(6+Hours+2).mp3"
+            songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CProud%E2%80%9D+(6+Hours+2).mp3",
+            plays: 20
         });
 
         const lost = await Song.create({
@@ -75,7 +76,8 @@ const seed = async () => {
             albumName: '6 Hours 2',
             BPM: 145,
             duration: 152,
-            songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CLost%E2%80%9D+(6+Hours+2).mp3"
+            songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CLost%E2%80%9D+(6+Hours+2).mp3",
+            plays: 14
         });
 
         const LLC = await Song.create({
@@ -83,7 +85,18 @@ const seed = async () => {
             artistName: 'Money Man',
             BPM: 162,
             duration: 148,
-            songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CLLC%E2%80%9D.mp3"
+            songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CLLC%E2%80%9D.mp3",
+            plays: 10
+        });
+
+        const aura = await Song.create({
+            songName: 'Aura',
+            artistName: 'Money Man',
+            albumName: '6 Hours 2',
+            BPM: 144,
+            duration: 140,
+            songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CAura%E2%80%9D+(6+Hours+2).mp3",
+            plays: 8
         });
 
         const woah = await Song.create({
@@ -95,14 +108,6 @@ const seed = async () => {
             songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Lil+Baby+-+Woah+(Official+Music+Video).mp3"
         });
 
-        const aura = await Song.create({
-            songName: 'Aura',
-            artistName: 'Money Man',
-            albumName: '6 Hours 2',
-            BPM: 144,
-            duration: 140,
-            songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CAura%E2%80%9D+(6+Hours+2).mp3"
-        });
 
         await firstCollection.addSong(fastLane);
         await firstCollection.addSong(boomIt);

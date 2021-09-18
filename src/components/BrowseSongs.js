@@ -1,37 +1,52 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {connect} from 'react-redux'
-import {dispatchSearchSongs} from '../redux/musicDispatchers'
+import {searchSongsThunk} from '../redux/musicDispatchers'
+import BrowseSongsSingleSong from './BrowseSongsSingleSong'
 
-class BrowseSongs extends React.Component {
-    constructor() {
-        super()
-        this.state = {
+const BrowseSongs = (props) => {
+    const [searchInput, setSearchInput] = useState('')
+    const [BPMInput, setBPMInput] = useState('')
 
+    const handleChange = (evt) => {
+        evt.target.name === 'searchInput' ? setSearchInput(evt.target.value) : setBPMInput(evt.target.value);
+    };
+
+    useEffect(() => {
+        props.searchSongs(searchInput, Number(BPMInput))
+    }, [searchInput, BPMInput])
+
+    const songs = [];
+    if (props.searchedSongs) {
+        let idx = 0;
+        for (const song of props.searchedSongs) {
+            songs.push(<BrowseSongsSingleSong key={idx} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} />)
+            idx++;
         };
     };
-    
-    
 
-    render() {
-        console.log('Props on BrowseSongs Render', this.props)
-        return (
+    console.log('Props from browseSongs', props)
+
+    return (
+        <div>
+            <div className='screenTitle'>
+                Add Songs
+            </div>
             <div className='centerThis'>
-                <div className='screenTitle'>
-                    Add Songs
+                <div>
+                    <input type='text' name='searchInput' placeholder='Search for songs or artists' value={searchInput} onChange={handleChange}></input>
                 </div>
                 <div>
-                    <input type='text' placeholder='Search for songs or artists'></input>
-                </div>
-                <div>
-                    <input type='number' placeholder='BPM'></input>
+                    <input type='number' name='BPMInput' placeholder='BPM' value={BPMInput} onChange={handleChange}></input>
                 </div>
             </div>
-        )
-    };
+            <ul style ={{listStyle:'none'}}>
+                    {songs}
+            </ul>
+        </div>
+    )
 };
 
 const mapStateToProps = (state) => {
-    console.log('STATE from BROWSESONGS', state)
     return {
         selectedCollection: state.screenReducer.selectedCollection,
         searchedSongs: state.musicReducer.searchedSongs
@@ -39,7 +54,7 @@ const mapStateToProps = (state) => {
 };
   
 const mapDispatchToProps = (dispatch) => ({
-
+    searchSongs: (searchInput, BPMInput) => dispatch(searchSongsThunk(searchInput, BPMInput))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BrowseSongs)

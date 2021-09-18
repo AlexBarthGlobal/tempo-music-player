@@ -1,13 +1,13 @@
 import React from 'react'
 
-const SingleSong = (props) => {
+const BrowseSongsSingleSong = (props) => {
     const {songName, artistName, albumName, BPM, duration, artURL} = props
     //convert duration into minutes & seconds
         return (
-            <ol>
+            <li>
                 {songName} {artistName} {albumName} {BPM} {duration}
-            </ol>
+            </li>
         )
 };
 
-export default SingleSong
+export default BrowseSongsSingleSong

@@ -15,6 +15,7 @@ const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
 const CLEAR_SESSIONS = 'CLEAR_SESSIONS'
 const CREATE_COLLECTION = 'CREATE_COLLECTION'
 const CLEAR_ACTIVE_SESSION = 'CLEAR_ACTIVE_SESSION'
+const DISPATCH_SEARCHED_SONGS = 'DISPATCH_SEARCHED_SONGS'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -82,6 +83,11 @@ const clearActiveSession = () => ({
 const createCollection = (newCollection) => ({
     type: CREATE_COLLECTION,
     newCollection
+})
+
+const dispatchSearchedSongs = (searchedSongs) => ({
+    type: DISPATCH_SEARCHED_SONGS,
+    searchedSongs
 })
 
 export const createCollectionThunk = (collectionName, collectionArtURL) => {
@@ -242,12 +248,16 @@ export const setCurrentSongThunk = (song) => {
     }
 }
 
-export const dispatchSearchSongs = (searchInput) => {
+export const searchSongsThunk = (searchInput, BPMInput) => {
     return async dispatch => {
-        const res = await axios.put('/api/searchSongs', {searchInput});
-        console.log('SEARCH RESULT', res)
-    }
-}
+        try {
+            const songs = await axios.put('/api/searchSongs', {searchInput, BPMInput});
+            dispatch(dispatchSearchedSongs(songs.data));
+        } catch(err) {
+            console.log(err)
+        };
+    };
+};
 
 
 const initialState = {
@@ -370,7 +380,12 @@ export default function musicReducer (state = initialState, action) {
             return {
                 ...state,
                 collections: collectionCopy
-            }
+            };
+        case DISPATCH_SEARCHED_SONGS:
+            return {
+                ...state,
+                searchedSongs: action.searchedSongs
+            };
         case SET_FETCHING_STATUS:
             return {
                 ...state,

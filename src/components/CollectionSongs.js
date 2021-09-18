@@ -2,7 +2,7 @@ import React from 'React'
 import {connect} from 'react-redux'
 import {fetchActiveCollectionSongs} from '../redux/musicDispatchers';
 import {changeScreenThunk} from '../redux/screenDispatchers'
-import SingleSong from './SingleSong'
+import CollectionSingleSong from './CollectionSingleSong'
 import Modal from 'react-modal'
 import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 
@@ -24,7 +24,7 @@ class CollectionSongs extends React.Component {
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
             let idx = 0;
             for (const song of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-                songList.push(<SingleSong key={idx} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} />)
+                songList.push(<CollectionSingleSong key={idx} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} />)
                 idx++;
             };
         };
@@ -95,7 +95,7 @@ class CollectionSongs extends React.Component {
                         <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button>
                     </div>
                 </div>
-                <ul>
+                <ul style ={{listStyle:'none'}}>
                     {songList}
                 </ul>
             </div>

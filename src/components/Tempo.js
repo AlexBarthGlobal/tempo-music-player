@@ -10,7 +10,7 @@ class Tempo extends React.Component {
         console.log('PROPS from Constructor',props)
         super()
         this.state = {
-            BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : 0,
+            BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : '',
             noMoreMusic: false
         };
 

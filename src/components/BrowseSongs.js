@@ -29,7 +29,7 @@ const BrowseSongs = (props) => {
     return (
         <div>
             <div className='screenTitle'>
-                Add Songs
+                Add Songs to {props.selectedCollectionInfo.collectionName}
             </div>
             <div className='centerThis'>
                 <div>
@@ -49,7 +49,8 @@ const BrowseSongs = (props) => {
 const mapStateToProps = (state) => {
     return {
         selectedCollection: state.screenReducer.selectedCollection,
-        searchedSongs: state.musicReducer.searchedSongs
+        searchedSongs: state.musicReducer.searchedSongs,
+        selectedCollectionInfo: state.musicReducer.collections[state.screenReducer.selectedCollection]
     };
 };
   

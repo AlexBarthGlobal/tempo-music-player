@@ -5039,7 +5039,7 @@ var BrowseSongs = function BrowseSongs(props) {
   console.log('Props from browseSongs', props);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "screenTitle"
-  }, "Add Songs"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, "Add Songs to ", props.selectedCollectionInfo.collectionName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "centerThis"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     type: "text",
@@ -5063,7 +5063,8 @@ var BrowseSongs = function BrowseSongs(props) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     selectedCollection: state.screenReducer.selectedCollection,
-    searchedSongs: state.musicReducer.searchedSongs
+    searchedSongs: state.musicReducer.searchedSongs,
+    selectedCollectionInfo: state.musicReducer.collections[state.screenReducer.selectedCollection]
   };
 };
 

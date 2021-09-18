@@ -5004,6 +5004,9 @@ var BrowseSongs = function BrowseSongs(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.searchSongs(searchInput, Number(BPMInput));
   }, [searchInput, BPMInput]);
+
+  var checkIfInCollection = function checkIfInCollection() {};
+
   var songs = [];
 
   if (props.searchedSongs) {
@@ -5023,6 +5026,8 @@ var BrowseSongs = function BrowseSongs(props) {
           BPM: song.BPM,
           duration: song.duration,
           artURL: song.artURL
+          /*inCollection={checkIfInCollection(song.id)*/
+
         }));
         idx++;
       }
@@ -5102,7 +5107,7 @@ var BrowseSongsSingleSong = function BrowseSongsSingleSong(props) {
       duration = props.duration,
       artURL = props.artURL; //convert duration into minutes & seconds
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, songName, " ", artistName, " ", albumName, " ", BPM, " ", duration);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, songName, " ", artistName, " ", albumName, " ", BPM, " ", duration, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add"));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BrowseSongsSingleSong);

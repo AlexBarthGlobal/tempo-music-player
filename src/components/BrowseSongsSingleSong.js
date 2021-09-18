@@ -6,7 +6,9 @@ const BrowseSongsSingleSong = (props) => {
         return (
             <li>
                 {songName} {artistName} {albumName} {BPM} {duration}
+                <button>Add</button>
             </li>
+            
         )
 };
 

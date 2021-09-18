@@ -15,11 +15,15 @@ const BrowseSongs = (props) => {
         props.searchSongs(searchInput, Number(BPMInput))
     }, [searchInput, BPMInput])
 
+    const checkIfInCollection = () => {
+
+    }
+
     const songs = [];
     if (props.searchedSongs) {
         let idx = 0;
         for (const song of props.searchedSongs) {
-            songs.push(<BrowseSongsSingleSong key={idx} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} />)
+            songs.push(<BrowseSongsSingleSong key={idx} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} /*inCollection={checkIfInCollection(song.id)*/ />)
             idx++;
         };
     };

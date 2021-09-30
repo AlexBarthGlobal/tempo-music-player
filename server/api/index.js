@@ -37,7 +37,7 @@ router.put('/searchSongs', async (req, res, next) => {
                 {
                     BPM: {
                         [Op.gte]: req.body.BPMInput-2,
-                        [Op.lte]: req.body.BPMInput+3
+                         [Op.lte]: req.body.BPMInput+3
                     }
                 }
             ]

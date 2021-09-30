@@ -19,6 +19,10 @@ const BrowseSongs = (props) => {
 
     }
 
+    const addOrRemoveSongFromCollection = (songId) => {
+
+    }
+
     const songs = [];
     if (props.searchedSongs) {
         let idx = 0;

@@ -4823,7 +4823,7 @@ var App = /*#__PURE__*/function (_React$Component) {
             textAlign: 'center',
             // minHeight: '116px',
             // maxHeight: '14vh',
-            height: '140px',
+            height: '142px',
             // maxHeight: '126px',
             position: 'absolute',
             width: '50vw',
@@ -5006,6 +5006,8 @@ var BrowseSongs = function BrowseSongs(props) {
   }, [searchInput, BPMInput]);
 
   var checkIfInCollection = function checkIfInCollection() {};
+
+  var addOrRemoveSongFromCollection = function addOrRemoveSongFromCollection(songId) {};
 
   var songs = [];
 

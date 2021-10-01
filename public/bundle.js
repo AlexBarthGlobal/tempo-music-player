@@ -4967,7 +4967,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _BrowseSongsSingleSong__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BrowseSongsSingleSong */ "./src/components/BrowseSongsSingleSong.js");
+/* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -4980,6 +4985,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -5011,10 +5017,47 @@ var BrowseSongs = function BrowseSongs(props) {
   // }
 
 
-  var addSongToCollection = function addSongToCollection(songId) {
-    props.addSongToCollection(props.selectedCollection, songId);
-    console.log('Selected Collection', props.selectedCollection, 'SongId', songId);
-  };
+  var addSongToCollection = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(songId) {
+      var results;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return props.addSongToCollection(props.selectedCollection, songId);
+
+            case 2:
+              // console.log('Selected Collection', props.selectedCollection, 'SongId', songId)
+              if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
+                //If the session is active
+                results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
+                console.log('PASSING THIS IN');
+                console.log(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
+
+                if (results[0].length) {
+                  props.popOneFromActiveSessionSongs();
+                  console.log('RESULTS HERE', results);
+                  props.applySongsInRange(results[0]);
+                }
+
+                ;
+              }
+
+              ;
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function addSongToCollection(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
 
   var removeSongFromCollection = function removeSongFromCollection(songId) {
     console.log('removing song');
@@ -5083,10 +5126,11 @@ var BrowseSongs = function BrowseSongs(props) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    musicInfo: state.musicReducer.collections,
+    musicInfo: state.musicReducer,
     selectedCollection: state.screenReducer.selectedCollection,
     searchedSongs: state.musicReducer.searchedSongs,
-    selectedCollectionInfo: state.musicReducer.collections[state.screenReducer.selectedCollection]
+    selectedCollectionInfo: state.musicReducer.collections[state.screenReducer.selectedCollection],
+    user: state.userReducer.user
   };
 };
 
@@ -5097,6 +5141,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     addSongToCollection: function addSongToCollection(collectionId, songId) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.addSongToCollectionThunk)(collectionId, songId));
+    },
+    popOneFromActiveSessionSongs: function popOneFromActiveSessionSongs() {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.popOneFromActiveSessionSongsThunk)());
+    },
+    applySongsInRange: function applySongsInRange(songs) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.applySongsInRange)(songs));
     }
   };
 };
@@ -7272,7 +7322,7 @@ function musicReducer() {
             ;
 
             if (BPM >= newSong.BPM) {
-              newCollectionSongs.set(newSong.id, newSong.BPM);
+              newCollectionSongs.set(newSong.id, newSong);
               set = true;
             }
 
@@ -7286,7 +7336,7 @@ function musicReducer() {
         }
 
         ;
-        if (!set) newCollectionSongs.set(newSong.id, newSong.BPM);
+        if (!set) newCollectionSongs.set(newSong.id, newSong);
       } else newCollectionSongs.set(newSong.id, newSong);
 
       collectionCopy = _objectSpread({}, state.collections);

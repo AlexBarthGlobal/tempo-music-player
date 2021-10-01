@@ -426,12 +426,12 @@ export default function musicReducer (state = initialState, action) {
                         continue;
                     };
                     if (BPM >= newSong.BPM) {
-                        newCollectionSongs.set(newSong.id, newSong.BPM);
+                        newCollectionSongs.set(newSong.id, newSong);
                         set = true;
                     };
                     newCollectionSongs.set(songId, song)
                 };
-                if (!set) newCollectionSongs.set(newSong.id, newSong.BPM);
+                if (!set) newCollectionSongs.set(newSong.id, newSong);
             } else newCollectionSongs.set(newSong.id, newSong);
             
             collectionCopy = {...state.collections};

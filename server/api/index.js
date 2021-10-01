@@ -508,7 +508,28 @@ router.get('/findCollection', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-})
+});
+
+router.post('/addSongToCollection', async (req, res, next) => {
+    try {
+              
+        const collection = await Collection.findOne({
+            where: {
+                collectionOwner: req.session.passport.user,
+                id: req.body.collectionId
+            }
+        });
+
+        if (collection === null) res.status('403').send(`You don't own this collection or collection doesn't exist.`)
+
+        const song = await Song.findByPk(req.body.songId);
+        collection.addSong(song);
+        res.status('201').send('Song has been successfully added to the collection.');
+
+    } catch (error) {
+        next(error);
+    };
+});
 
 
 module.exports = router;

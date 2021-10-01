@@ -261,6 +261,16 @@ export const searchSongsThunk = (searchInput, BPMInput) => {
     };
 };
 
+export const addSongThunk = (collectionId, songId) => {
+    return async dispatch => {
+        try {
+            await axios.post('/api/addSongToCollection', {collectionId, songId})
+        } catch(err) {
+            console.log(err)
+        };
+    };
+};
+
 
 const initialState = {
     // musicInfo: {

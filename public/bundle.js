@@ -6343,6 +6343,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "decrementPlayIdxThunk": () => (/* binding */ decrementPlayIdxThunk),
 /* harmony export */   "setCurrentSongThunk": () => (/* binding */ setCurrentSongThunk),
 /* harmony export */   "searchSongsThunk": () => (/* binding */ searchSongsThunk),
+/* harmony export */   "addSongThunk": () => (/* binding */ addSongThunk),
 /* harmony export */   "default": () => (/* binding */ musicReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -6998,6 +6999,45 @@ var searchSongsThunk = function searchSongsThunk(searchInput, BPMInput) {
 
     return function (_x10) {
       return _ref10.apply(this, arguments);
+    };
+  }();
+};
+var addSongThunk = function addSongThunk(collectionId, songId) {
+  return /*#__PURE__*/function () {
+    var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(dispatch) {
+      return regeneratorRuntime.wrap(function _callee11$(_context11) {
+        while (1) {
+          switch (_context11.prev = _context11.next) {
+            case 0:
+              _context11.prev = 0;
+              _context11.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/addSongToCollection', {
+                collectionId: collectionId,
+                songId: songId
+              });
+
+            case 3:
+              _context11.next = 8;
+              break;
+
+            case 5:
+              _context11.prev = 5;
+              _context11.t0 = _context11["catch"](0);
+              console.log(_context11.t0);
+
+            case 8:
+              ;
+
+            case 9:
+            case "end":
+              return _context11.stop();
+          }
+        }
+      }, _callee11, null, [[0, 5]]);
+    }));
+
+    return function (_x11) {
+      return _ref11.apply(this, arguments);
     };
   }();
 };

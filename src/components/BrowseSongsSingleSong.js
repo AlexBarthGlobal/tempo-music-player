@@ -1,12 +1,12 @@
 import React from 'react'
 
 const BrowseSongsSingleSong = (props) => {
-    const {songName, artistName, albumName, BPM, duration, artURL} = props
+    const {songId, songName, artistName, albumName, BPM, duration, artURL, addSongToCollection} = props
     //convert duration into minutes & seconds
         return (
             <li>
                 {songName} {artistName} {albumName} {BPM} {duration}
-                <button>Add</button>
+                <button onClick={() => addSongToCollection(songId)}>Add</button>
             </li>
             
         )

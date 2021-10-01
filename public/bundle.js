@@ -5003,11 +5003,15 @@ var BrowseSongs = function BrowseSongs(props) {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.searchSongs(searchInput, Number(BPMInput));
-  }, [searchInput, BPMInput]);
+  }, [searchInput, BPMInput]); // const checkIfInCollection = () => {
+  // }
+  // const addOrRemoveSongFromCollection = (songId) => {
+  // }
 
-  var checkIfInCollection = function checkIfInCollection() {};
-
-  var addOrRemoveSongFromCollection = function addOrRemoveSongFromCollection(songId) {};
+  var addSongToCollection = function addSongToCollection(songId) {
+    props.addSongToCollection(props.selectedCollection, songId);
+    console.log('Selected Collection', props.selectedCollection, 'SongId', songId);
+  };
 
   var songs = [];
 
@@ -5022,12 +5026,14 @@ var BrowseSongs = function BrowseSongs(props) {
         var song = _step.value;
         songs.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongsSingleSong__WEBPACK_IMPORTED_MODULE_3__.default, {
           key: idx,
+          songId: song.id,
           songName: song.songName,
           artistName: song.artistName,
           albumName: song.albumName,
           BPM: song.BPM,
           duration: song.duration,
-          artURL: song.artURL
+          artURL: song.artURL,
+          addSongToCollection: addSongToCollection
           /*inCollection={checkIfInCollection(song.id)*/
 
         }));
@@ -5079,6 +5085,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     searchSongs: function searchSongs(searchInput, BPMInput) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.searchSongsThunk)(searchInput, BPMInput));
+    },
+    addSongToCollection: function addSongToCollection(collectionId, songId) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.addSongToCollectionThunk)(collectionId, songId));
     }
   };
 };
@@ -5102,14 +5111,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var BrowseSongsSingleSong = function BrowseSongsSingleSong(props) {
-  var songName = props.songName,
+  var songId = props.songId,
+      songName = props.songName,
       artistName = props.artistName,
       albumName = props.albumName,
       BPM = props.BPM,
       duration = props.duration,
-      artURL = props.artURL; //convert duration into minutes & seconds
+      artURL = props.artURL,
+      addSongToCollection = props.addSongToCollection; //convert duration into minutes & seconds
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, songName, " ", artistName, " ", albumName, " ", BPM, " ", duration, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Add"));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, songName, " ", artistName, " ", albumName, " ", BPM, " ", duration, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    onClick: function onClick() {
+      return addSongToCollection(songId);
+    }
+  }, "Add"));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BrowseSongsSingleSong);
@@ -5238,7 +5253,6 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
       var songList = [];
 
       if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-        console.log('YOOOOOOOOOOOO!!');
         console.log(this.props.musicInfo.collections[this.props.selectedCollection].songs);
         var idx = 0;
 
@@ -6343,11 +6357,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "decrementPlayIdxThunk": () => (/* binding */ decrementPlayIdxThunk),
 /* harmony export */   "setCurrentSongThunk": () => (/* binding */ setCurrentSongThunk),
 /* harmony export */   "searchSongsThunk": () => (/* binding */ searchSongsThunk),
-/* harmony export */   "addSongThunk": () => (/* binding */ addSongThunk),
+/* harmony export */   "addSongToCollectionThunk": () => (/* binding */ addSongToCollectionThunk),
 /* harmony export */   "default": () => (/* binding */ musicReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -6362,7 +6384,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -6389,6 +6411,7 @@ var CLEAR_SESSIONS = 'CLEAR_SESSIONS';
 var CREATE_COLLECTION = 'CREATE_COLLECTION';
 var CLEAR_ACTIVE_SESSION = 'CLEAR_ACTIVE_SESSION';
 var DISPATCH_SEARCHED_SONGS = 'DISPATCH_SEARCHED_SONGS';
+var ADD_SONG_TO_COLLECTION = 'ADD_SONG_TO_COLLECTION';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -6492,6 +6515,13 @@ var dispatchSearchedSongs = function dispatchSearchedSongs(searchedSongs) {
   return {
     type: DISPATCH_SEARCHED_SONGS,
     searchedSongs: searchedSongs
+  };
+};
+
+var addSongToCollection = function addSongToCollection(addedSongAndCollectionId) {
+  return {
+    type: ADD_SONG_TO_COLLECTION,
+    addedSongAndCollectionId: addedSongAndCollectionId
   };
 };
 
@@ -7002,9 +7032,10 @@ var searchSongsThunk = function searchSongsThunk(searchInput, BPMInput) {
     };
   }();
 };
-var addSongThunk = function addSongThunk(collectionId, songId) {
+var addSongToCollectionThunk = function addSongToCollectionThunk(collectionId, songId) {
   return /*#__PURE__*/function () {
     var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(dispatch) {
+      var addedSong;
       return regeneratorRuntime.wrap(function _callee11$(_context11) {
         while (1) {
           switch (_context11.prev = _context11.next) {
@@ -7017,23 +7048,28 @@ var addSongThunk = function addSongThunk(collectionId, songId) {
               });
 
             case 3:
-              _context11.next = 8;
+              addedSong = _context11.sent;
+              dispatch(addSongToCollection({
+                addedSong: addedSong.data,
+                collectionId: collectionId
+              }));
+              _context11.next = 10;
               break;
 
-            case 5:
-              _context11.prev = 5;
+            case 7:
+              _context11.prev = 7;
               _context11.t0 = _context11["catch"](0);
               console.log(_context11.t0);
 
-            case 8:
+            case 10:
               ;
 
-            case 9:
+            case 11:
             case "end":
               return _context11.stop();
           }
         }
-      }, _callee11, null, [[0, 5]]);
+      }, _callee11, null, [[0, 7]]);
     }));
 
     return function (_x11) {
@@ -7190,6 +7226,59 @@ function musicReducer() {
     case SET_FETCHING_STATUS:
       return _objectSpread(_objectSpread({}, state), {}, {
         isFetching: action.isFetching
+      });
+
+    case ADD_SONG_TO_COLLECTION:
+      console.log('Blackberry', action.addedSongAndCollectionId);
+      var newSong = action.addedSongAndCollectionId.addedSong;
+      var collectionId = action.addedSongAndCollectionId.collectionId;
+      console.log('destructured');
+      var originalCollectionSongs = new Map(state.collections[collectionId].songs);
+      var newCollectionSongs = new Map();
+
+      if (originalCollectionSongs.size) {
+        var set = false;
+
+        var _iterator3 = _createForOfIteratorHelper(originalCollectionSongs),
+            _step3;
+
+        try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+            var _step3$value = _slicedToArray(_step3.value, 2),
+                songId = _step3$value[0],
+                song = _step3$value[1];
+
+            var BPM = song.BPM;
+
+            if (set) {
+              newCollectionSongs.set(songId, song);
+              continue;
+            }
+
+            ;
+
+            if (BPM >= newSong.BPM) {
+              newCollectionSongs.set(newSong.id, newSong.BPM);
+              set = true;
+            }
+
+            ;
+            newCollectionSongs.set(songId, song);
+          }
+        } catch (err) {
+          _iterator3.e(err);
+        } finally {
+          _iterator3.f();
+        }
+
+        ;
+        if (!set) newCollectionSongs.set(newSong.id, newSong.BPM);
+      } else newCollectionSongs.set(newSong.id, newSong);
+
+      collectionCopy = _objectSpread({}, state.collections);
+      collectionCopy[collectionId].songs = newCollectionSongs;
+      return _objectSpread(_objectSpread({}, state), {}, {
+        collections: collectionCopy
       });
 
     default:

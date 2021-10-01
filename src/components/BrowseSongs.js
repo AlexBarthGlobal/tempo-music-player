@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {connect} from 'react-redux'
-import {searchSongsThunk} from '../redux/musicDispatchers'
+import {searchSongsThunk, addSongToCollectionThunk} from '../redux/musicDispatchers'
 import BrowseSongsSingleSong from './BrowseSongsSingleSong'
 
 const BrowseSongs = (props) => {
@@ -15,19 +15,24 @@ const BrowseSongs = (props) => {
         props.searchSongs(searchInput, Number(BPMInput))
     }, [searchInput, BPMInput])
 
-    const checkIfInCollection = () => {
+    // const checkIfInCollection = () => {
 
-    }
+    // }
 
-    const addOrRemoveSongFromCollection = (songId) => {
+    // const addOrRemoveSongFromCollection = (songId) => {
 
-    }
+    // }
+
+    const addSongToCollection = (songId) => {
+        props.addSongToCollection(props.selectedCollection, songId);
+        console.log('Selected Collection', props.selectedCollection, 'SongId', songId)
+    };
 
     const songs = [];
     if (props.searchedSongs) {
         let idx = 0;
         for (const song of props.searchedSongs) {
-            songs.push(<BrowseSongsSingleSong key={idx} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} /*inCollection={checkIfInCollection(song.id)*/ />)
+            songs.push(<BrowseSongsSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} addSongToCollection={addSongToCollection} /*inCollection={checkIfInCollection(song.id)*/ />)
             idx++;
         };
     };
@@ -63,7 +68,8 @@ const mapStateToProps = (state) => {
 };
   
 const mapDispatchToProps = (dispatch) => ({
-    searchSongs: (searchInput, BPMInput) => dispatch(searchSongsThunk(searchInput, BPMInput))
+    searchSongs: (searchInput, BPMInput) => dispatch(searchSongsThunk(searchInput, BPMInput)),
+    addSongToCollection: (collectionId, songId) => dispatch(addSongToCollectionThunk(collectionId, songId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BrowseSongs)

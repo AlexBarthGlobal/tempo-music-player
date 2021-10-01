@@ -22,7 +22,6 @@ class CollectionSongs extends React.Component {
         const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
         let songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-            console.log('YOOOOOOOOOOOO!!')
             console.log(this.props.musicInfo.collections[this.props.selectedCollection].songs)
             let idx = 0;
             for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {

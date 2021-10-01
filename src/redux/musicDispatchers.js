@@ -16,6 +16,7 @@ const CLEAR_SESSIONS = 'CLEAR_SESSIONS'
 const CREATE_COLLECTION = 'CREATE_COLLECTION'
 const CLEAR_ACTIVE_SESSION = 'CLEAR_ACTIVE_SESSION'
 const DISPATCH_SEARCHED_SONGS = 'DISPATCH_SEARCHED_SONGS'
+const ADD_SONG_TO_COLLECTION = 'ADD_SONG_TO_COLLECTION'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -88,7 +89,12 @@ const createCollection = (newCollection) => ({
 const dispatchSearchedSongs = (searchedSongs) => ({
     type: DISPATCH_SEARCHED_SONGS,
     searchedSongs
-})
+});
+
+const addSongToCollection = (addedSongAndCollectionId) => ({
+    type: ADD_SONG_TO_COLLECTION,
+    addedSongAndCollectionId
+});
 
 export const createCollectionThunk = (collectionName, collectionArtURL) => {
     return async dispatch => {
@@ -261,10 +267,11 @@ export const searchSongsThunk = (searchInput, BPMInput) => {
     };
 };
 
-export const addSongThunk = (collectionId, songId) => {
+export const addSongToCollectionThunk = (collectionId, songId) => {
     return async dispatch => {
         try {
-            await axios.post('/api/addSongToCollection', {collectionId, songId})
+            const addedSong = await axios.post('/api/addSongToCollection', {collectionId, songId});
+            dispatch(addSongToCollection({addedSong: addedSong.data, collectionId}));
         } catch(err) {
             console.log(err)
         };
@@ -402,6 +409,36 @@ export default function musicReducer (state = initialState, action) {
             return {
                 ...state,
                 isFetching: action.isFetching
+            };
+        case ADD_SONG_TO_COLLECTION:
+            console.log('Blackberry', action.addedSongAndCollectionId)
+            const newSong = action.addedSongAndCollectionId.addedSong
+            const collectionId = action.addedSongAndCollectionId.collectionId
+            console.log('destructured')
+            let originalCollectionSongs = new Map(state.collections[collectionId].songs);
+            let newCollectionSongs = new Map();
+            if (originalCollectionSongs.size) {
+                let set = false;
+                for (const [songId, song] of originalCollectionSongs) {
+                    const BPM = song.BPM
+                    if (set) {
+                        newCollectionSongs.set(songId, song)
+                        continue;
+                    };
+                    if (BPM >= newSong.BPM) {
+                        newCollectionSongs.set(newSong.id, newSong.BPM);
+                        set = true;
+                    };
+                    newCollectionSongs.set(songId, song)
+                };
+                if (!set) newCollectionSongs.set(newSong.id, newSong.BPM);
+            } else newCollectionSongs.set(newSong.id, newSong);
+            
+            collectionCopy = {...state.collections};
+            collectionCopy[collectionId].songs = newCollectionSongs
+            return {
+                ...state,
+                collections: collectionCopy
             };
     default:
         return state

@@ -512,7 +512,7 @@ router.get('/findCollection', async (req, res, next) => {
 
 router.post('/addSongToCollection', async (req, res, next) => {
     try {
-              
+
         const collection = await Collection.findOne({
             where: {
                 collectionOwner: req.session.passport.user,
@@ -524,7 +524,7 @@ router.post('/addSongToCollection', async (req, res, next) => {
 
         const song = await Song.findByPk(req.body.songId);
         collection.addSong(song);
-        res.status('201').send('Song has been successfully added to the collection.');
+        res.status('201').json(song);
 
     } catch (error) {
         next(error);

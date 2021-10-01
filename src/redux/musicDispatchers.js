@@ -147,11 +147,13 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
         try {
             const activeCollectionSongs = await axios.post('/api/fetchCurrentcollectionAndSongs', {data: activeCollectionId})
             let data = {};
-            if (activeCollectionSongs && activeCollectionSongs.data.collections[0].songs) {
-                data.activeCollectionSongs = activeCollectionSongs.data.collections[0].songs;
-            } else data.activeCollectionSongs = [];
-
             data.activeCollectionId = activeCollectionId
+            data.activeCollectionSongs = new Map();
+            if (activeCollectionSongs && activeCollectionSongs.data.collections[0].songs) {
+                for (const song of activeCollectionSongs.data.collections[0].songs) {
+                    data.activeCollectionSongs.set(song.id, song)
+                };
+            };
             dispatch(setActiveCollectionSongs(data))
         } catch (error) {
             console.error(error)

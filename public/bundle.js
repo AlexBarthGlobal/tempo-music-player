@@ -4785,7 +4785,7 @@ var App = /*#__PURE__*/function (_React$Component) {
             textAlign: 'center',
             // minHeight: '116px',
             // maxHeight: '14vh',
-            height: '116px',
+            height: '118px',
             // maxHeight: '116px',
             position: 'absolute',
             width: '50vw',
@@ -5165,7 +5165,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -5219,7 +5227,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
     //     };
     // };
     function componentDidMount() {
-      this.props.dispatchFetchActiveCollectionSongs(this.props.selectedCollection);
+      this.props.fetchActiveCollectionSongs(this.props.selectedCollection);
     }
   }, {
     key: "render",
@@ -5230,6 +5238,8 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
       var songList = [];
 
       if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
+        console.log('YOOOOOOOOOOOO!!');
+        console.log(this.props.musicInfo.collections[this.props.selectedCollection].songs);
         var idx = 0;
 
         var _iterator = _createForOfIteratorHelper(this.props.musicInfo.collections[this.props.selectedCollection].songs),
@@ -5237,7 +5247,10 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
 
         try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var song = _step.value;
+            var _step$value = _slicedToArray(_step.value, 2),
+                id = _step$value[0],
+                song = _step$value[1];
+
             songList.push( /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSingleSong__WEBPACK_IMPORTED_MODULE_4__.default, {
               key: idx,
               songName: song.songName,
@@ -5331,7 +5344,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    dispatchFetchActiveCollectionSongs: function dispatchFetchActiveCollectionSongs(collectionId) {
+    fetchActiveCollectionSongs: function fetchActiveCollectionSongs(collectionId) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.fetchActiveCollectionSongs)(collectionId));
     },
     changeScreen: function changeScreen(screen) {
@@ -6200,7 +6213,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -6233,7 +6254,10 @@ var songsInRange = function songsInRange(listened, collectionSongs, BPM, checkNe
 
     try {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var currSong = _step.value;
+        var _step$value = _slicedToArray(_step.value, 2),
+            id = _step$value[0],
+            currSong = _step$value[1];
+
         if (currSong.BPM < BPM - 2) continue;
         if (listened[currSong.id]) continue;
         if (currSong.BPM > BPM + 3) break;
@@ -6616,7 +6640,8 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
 var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeCollectionId) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
-      var activeCollectionSongs, data;
+      var activeCollectionSongs, data, _iterator2, _step2, song;
+
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -6630,31 +6655,46 @@ var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeColle
             case 3:
               activeCollectionSongs = _context3.sent;
               data = {};
+              data.activeCollectionId = activeCollectionId;
+              data.activeCollectionSongs = new Map();
 
               if (activeCollectionSongs && activeCollectionSongs.data.collections[0].songs) {
-                data.activeCollectionSongs = activeCollectionSongs.data.collections[0].songs;
-              } else data.activeCollectionSongs = [];
+                _iterator2 = _createForOfIteratorHelper(activeCollectionSongs.data.collections[0].songs);
 
-              data.activeCollectionId = activeCollectionId;
+                try {
+                  for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                    song = _step2.value;
+                    data.activeCollectionSongs.set(song.id, song);
+                  }
+                } catch (err) {
+                  _iterator2.e(err);
+                } finally {
+                  _iterator2.f();
+                }
+
+                ;
+              }
+
+              ;
               dispatch(setActiveCollectionSongs(data));
-              _context3.next = 13;
+              _context3.next = 15;
               break;
 
-            case 10:
-              _context3.prev = 10;
+            case 12:
+              _context3.prev = 12;
               _context3.t0 = _context3["catch"](0);
               console.error(_context3.t0);
 
-            case 13:
-              _context3.prev = 13;
-              return _context3.finish(13);
-
             case 15:
+              _context3.prev = 15;
+              return _context3.finish(15);
+
+            case 17:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 10, 13, 15]]);
+      }, _callee3, null, [[0, 12, 15, 17]]);
     }));
 
     return function (_x3) {
@@ -57551,7 +57591,7 @@ var Main = /*#__PURE__*/function (_React$Component) {
 
               case 8:
                 // Put all active collection songs onto redux.
-                if (this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
+                if (this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.size) {
                   results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_9__.default)(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM); //Run this when updating BPM
 
                   this.props.applySongsInRange(results[0]);

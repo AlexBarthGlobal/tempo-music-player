@@ -18,7 +18,7 @@ const Main = class extends React.Component {
       if (this.props.user.id) await this.props.fetchCollectionsAndSessions();
       if (this.props.musicInfo.activeSession) {
         await this.props.fetchActiveCollectionSongs(this.props.musicInfo.activeSession.collectionId); // Put all active collection songs onto redux.
-        if (this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
+        if (this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.size) {
           const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM)  //Run this when updating BPM
           this.props.applySongsInRange(results[0]);
         }

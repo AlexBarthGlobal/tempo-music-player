@@ -15,7 +15,7 @@ const shuffle = (array) => {   // Fisher-Yates (aka Knuth) Shuffle
 const songsInRange = (listened, collectionSongs, BPM, checkNearbyRange) => {
     const newSongs = [];
     const checkForSongs = () => {
-        for (const currSong of collectionSongs) {
+        for (const [id, currSong] of collectionSongs) {
             if (currSong.BPM < BPM - 2) continue;
             if (listened[currSong.id]) continue;
             if (currSong.BPM > BPM + 3) break;

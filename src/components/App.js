@@ -228,7 +228,7 @@ class App extends React.Component {
                                 textAlign: 'center',
                                 // minHeight: '116px',
                                 // maxHeight: '14vh',
-                                height: '116px',
+                                height: '118px',
                                 // maxHeight: '116px',
                                 position: 'absolute',
                                 width: '50vw',

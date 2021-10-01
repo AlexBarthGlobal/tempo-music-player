@@ -15,15 +15,17 @@ class CollectionSongs extends React.Component {
     // };
 
     componentDidMount() {
-        this.props.dispatchFetchActiveCollectionSongs(this.props.selectedCollection)
+        this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
     };
     
     render() {
         const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
         let songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
+            console.log('YOOOOOOOOOOOO!!')
+            console.log(this.props.musicInfo.collections[this.props.selectedCollection].songs)
             let idx = 0;
-            for (const song of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
+            for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
                 songList.push(<CollectionSingleSong key={idx} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} />)
                 idx++;
             };
@@ -114,7 +116,7 @@ const mapStateToProps = (state) => {
 };
   
 const mapDispatchToProps = (dispatch) => ({
-    dispatchFetchActiveCollectionSongs: (collectionId) => dispatch(fetchActiveCollectionSongs(collectionId)),
+    fetchActiveCollectionSongs: (collectionId) => dispatch(fetchActiveCollectionSongs(collectionId)),
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
     dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen))
 });

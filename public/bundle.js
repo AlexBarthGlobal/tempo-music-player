@@ -5003,19 +5003,27 @@ var BrowseSongs = function BrowseSongs(props) {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.searchSongs(searchInput, Number(BPMInput));
-  }, [searchInput, BPMInput]); // const checkIfInCollection = () => {
+  }, [searchInput, BPMInput]);
+
+  var checkIfInCollection = function checkIfInCollection(songId) {
+    return props.selectedCollectionInfo.songs.has(songId);
+  }; // const addOrRemoveSongFromCollection = (songId) => {
   // }
-  // const addOrRemoveSongFromCollection = (songId) => {
-  // }
+
 
   var addSongToCollection = function addSongToCollection(songId) {
     props.addSongToCollection(props.selectedCollection, songId);
     console.log('Selected Collection', props.selectedCollection, 'SongId', songId);
   };
 
+  var removeSongFromCollection = function removeSongFromCollection(songId) {
+    console.log('removing song');
+  };
+
   var songs = [];
 
   if (props.searchedSongs) {
+    console.log('LOOPING AGAIN');
     var idx = 0;
 
     var _iterator = _createForOfIteratorHelper(props.searchedSongs),
@@ -5033,9 +5041,9 @@ var BrowseSongs = function BrowseSongs(props) {
           BPM: song.BPM,
           duration: song.duration,
           artURL: song.artURL,
-          addSongToCollection: addSongToCollection
-          /*inCollection={checkIfInCollection(song.id)*/
-
+          addSongToCollection: addSongToCollection,
+          removeSongFromCollection: removeSongFromCollection,
+          inCollection: checkIfInCollection(song.id)
         }));
         idx++;
       }
@@ -5075,6 +5083,7 @@ var BrowseSongs = function BrowseSongs(props) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
+    musicInfo: state.musicReducer.collections,
     selectedCollection: state.screenReducer.selectedCollection,
     searchedSongs: state.musicReducer.searchedSongs,
     selectedCollectionInfo: state.musicReducer.collections[state.screenReducer.selectedCollection]
@@ -5118,13 +5127,18 @@ var BrowseSongsSingleSong = function BrowseSongsSingleSong(props) {
       BPM = props.BPM,
       duration = props.duration,
       artURL = props.artURL,
-      addSongToCollection = props.addSongToCollection; //convert duration into minutes & seconds
+      addSongToCollection = props.addSongToCollection,
+      removeSongFromCollection = props.removeSongFromCollection,
+      inCollection = props.inCollection; //convert duration into minutes & seconds
 
+  console.log('Song in collection?', songName, inCollection);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, songName, " ", artistName, " ", albumName, " ", BPM, " ", duration, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    onClick: function onClick() {
+    onClick: !inCollection ? function () {
       return addSongToCollection(songId);
+    } : function () {
+      return removeSongFromCollection(songId);
     }
-  }, "Add"));
+  }, !inCollection ? 'Add' : 'Remove'));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BrowseSongsSingleSong);

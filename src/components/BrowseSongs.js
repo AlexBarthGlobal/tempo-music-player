@@ -15,9 +15,9 @@ const BrowseSongs = (props) => {
         props.searchSongs(searchInput, Number(BPMInput))
     }, [searchInput, BPMInput])
 
-    // const checkIfInCollection = () => {
-
-    // }
+    const checkIfInCollection = (songId) => {
+        return props.selectedCollectionInfo.songs.has(songId);
+    }
 
     // const addOrRemoveSongFromCollection = (songId) => {
 
@@ -28,11 +28,16 @@ const BrowseSongs = (props) => {
         console.log('Selected Collection', props.selectedCollection, 'SongId', songId)
     };
 
+    const removeSongFromCollection = (songId) => {
+        console.log('removing song')
+    }
+
     const songs = [];
     if (props.searchedSongs) {
+        console.log('LOOPING AGAIN')
         let idx = 0;
         for (const song of props.searchedSongs) {
-            songs.push(<BrowseSongsSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} addSongToCollection={addSongToCollection} /*inCollection={checkIfInCollection(song.id)*/ />)
+            songs.push(<BrowseSongsSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} addSongToCollection={addSongToCollection} removeSongFromCollection={removeSongFromCollection} inCollection={checkIfInCollection(song.id)} />)
             idx++;
         };
     };
@@ -61,6 +66,7 @@ const BrowseSongs = (props) => {
 
 const mapStateToProps = (state) => {
     return {
+        musicInfo: state.musicReducer.collections,
         selectedCollection: state.screenReducer.selectedCollection,
         searchedSongs: state.musicReducer.searchedSongs,
         selectedCollectionInfo: state.musicReducer.collections[state.screenReducer.selectedCollection]

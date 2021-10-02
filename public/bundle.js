@@ -5028,17 +5028,23 @@ var BrowseSongs = function BrowseSongs(props) {
               return props.addSongToCollection(props.selectedCollection, songId);
 
             case 2:
-              // console.log('Selected Collection', props.selectedCollection, 'SongId', songId)
+              // if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) { //If the session is active
+              //     const results = songsInRange(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM)
+              //     if (results[0].length) {
+              //         props.popOneFromActiveSessionSongs();
+              //         props.applySongsInRange(results[0])
+              //     };
+              // };
               if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
-                //If the session is active
                 results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
-                console.log('PASSING THIS IN');
-                console.log(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
 
                 if (results[0].length) {
-                  props.popOneFromActiveSessionSongs();
-                  console.log('RESULTS HERE', results);
-                  props.applySongsInRange(results[0]);
+                  if (!props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx + 1]) {
+                    props.popOneFromActiveSessionSongs();
+                    props.addSongsInRange(results[0]);
+                  }
+
+                  ;
                 }
 
                 ;
@@ -5147,6 +5153,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     applySongsInRange: function applySongsInRange(songs) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.applySongsInRange)(songs));
+    },
+    addSongsInRange: function addSongsInRange(songs) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.addSongsInRangeThunk)(songs));
+    },
+    enqueueSong: function enqueueSong() {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.enqueueSongThunk)());
     }
   };
 };
@@ -6351,7 +6363,8 @@ var songsInRange = function songsInRange(listened, collectionSongs, BPM, checkNe
   };
 
   if (checkNearbyRange) {
-    var inc = 1;
+    BPM -= 1;
+    var inc = 0;
 
     while (!newSongs.length && inc <= 3) {
       checkNearbyRange === 'up' ? BPM++ : BPM--;
@@ -6416,6 +6429,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "clearActiveSessionThunk": () => (/* binding */ clearActiveSessionThunk),
 /* harmony export */   "popOneFromActiveSessionSongsThunk": () => (/* binding */ popOneFromActiveSessionSongsThunk),
 /* harmony export */   "applySongsInRange": () => (/* binding */ applySongsInRange),
+/* harmony export */   "addSongsInRangeThunk": () => (/* binding */ addSongsInRangeThunk),
 /* harmony export */   "enqueueSongThunk": () => (/* binding */ enqueueSongThunk),
 /* harmony export */   "incrementPlayIdxThunk": () => (/* binding */ incrementPlayIdxThunk),
 /* harmony export */   "decrementPlayIdxThunk": () => (/* binding */ decrementPlayIdxThunk),
@@ -6988,6 +7002,12 @@ var applySongsInRange = function applySongsInRange(songs) {
     dispatch(enqueueSongInitial());
   };
 };
+var addSongsInRangeThunk = function addSongsInRangeThunk(songs) {
+  return function (dispatch) {
+    dispatch(addSongsInRange(songs));
+    dispatch(enqueueSong());
+  };
+};
 var enqueueSongThunk = function enqueueSongThunk() {
   return function (dispatch) {
     dispatch(enqueueSong());
@@ -7293,10 +7313,8 @@ function musicReducer() {
       });
 
     case ADD_SONG_TO_COLLECTION:
-      console.log('Blackberry', action.addedSongAndCollectionId);
       var newSong = action.addedSongAndCollectionId.addedSong;
       var collectionId = action.addedSongAndCollectionId.collectionId;
-      console.log('destructured');
       var originalCollectionSongs = new Map(state.collections[collectionId].songs);
       var newCollectionSongs = new Map();
 

@@ -24,7 +24,8 @@ const songsInRange = (listened, collectionSongs, BPM, checkNearbyRange) => {
     };
 
     if (checkNearbyRange) {
-        let inc = 1;
+        BPM-=1
+        let inc = 0;
         while (!newSongs.length && inc <= 3) {
             checkNearbyRange === 'up' ? BPM++ : BPM--;
             checkForSongs();

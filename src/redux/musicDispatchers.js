@@ -230,6 +230,13 @@ export const applySongsInRange = (songs) => {
     };
 };
 
+export const addSongsInRangeThunk = (songs) => {
+    return dispatch => {
+        dispatch(addSongsInRange(songs))
+        dispatch(enqueueSong())
+    };
+};
+
 export const enqueueSongThunk = () => {
     return dispatch => {
         dispatch(enqueueSong())
@@ -411,10 +418,8 @@ export default function musicReducer (state = initialState, action) {
                 isFetching: action.isFetching
             };
         case ADD_SONG_TO_COLLECTION:
-            console.log('Blackberry', action.addedSongAndCollectionId)
             const newSong = action.addedSongAndCollectionId.addedSong
             const collectionId = action.addedSongAndCollectionId.collectionId
-            console.log('destructured')
             let originalCollectionSongs = new Map(state.collections[collectionId].songs);
             let newCollectionSongs = new Map();
             if (originalCollectionSongs.size) {

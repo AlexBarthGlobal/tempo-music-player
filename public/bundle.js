@@ -4472,9 +4472,7 @@ var App = /*#__PURE__*/function (_React$Component) {
                 break;
               }
 
-              if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 2]
-              /*|| !this.props.musicInfo.activeSession.songs[this.props.playIdx+1]*/
-              ) _this.props.enqueueSong();
+              if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 2]) _this.props.enqueueSong();
 
               if (_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 1]) {
                 _context3.next = 14;
@@ -4528,15 +4526,7 @@ var App = /*#__PURE__*/function (_React$Component) {
               ;
 
             case 20:
-              ; // if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
-              //     // this.pause();
-              //     // First check for music at slightly higher bpm
-              //     } else {
-              //     // Then still if no more songs, in DB and Redux:
-              // tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
-              //         // await this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
-              //     };
-              // }
+              ;
 
             case 21:
             case "end":
@@ -4630,17 +4620,13 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      // console.log('PREV STATE', prevState)
-      // console.log('CURR STATE', this.state)
-      // console.log('!!!!!!', tempActiveCollectionSession)
       if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
       if (prevState.recipientEmail !== this.state.recipientEmail) return;
 
       if (this.checkPlayerReady()) {
         this.checkIfListened();
       } else {
-        // if (!this.state.playing && this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && !this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
-        this.rap.src = null; // }
+        this.rap.src = null;
       }
     }
   }, {
@@ -4649,7 +4635,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       this.rap.play();
       this.setState({
         playing: true
-      }); // this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
+      });
     }
   }, {
     key: "pause",
@@ -4898,8 +4884,7 @@ var mapStateToProps = function mapStateToProps(state) {
     musicInfo: state.musicReducer,
     screenStr: state.screenReducer.screenStr,
     selectedCollection: state.screenReducer.selectedCollection,
-    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null //currentSong: state.musicReducer.activeSession ? state.musicReducer.currentSong : null
-
+    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
   };
 };
 
@@ -4920,7 +4905,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     addToListenedAndSession: function addToListenedAndSession(song, collectionSessionId) {
       return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_11__.addToListenedAndSessionThunk)(song, collectionSessionId));
     },
-    // setCurrentSong: (song) => dispatch(setCurrentSongThunk(song)),
     clearListened: function clearListened(listenedId) {
       return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_11__.clearListenedThunk)(listenedId));
     },

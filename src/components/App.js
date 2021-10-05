@@ -97,18 +97,13 @@ class App extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // console.log('PREV STATE', prevState)
-        // console.log('CURR STATE', this.state)
-        // console.log('!!!!!!', tempActiveCollectionSession)
         if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
         if (prevState.recipientEmail !== this.state.recipientEmail) return;
 
         if (this.checkPlayerReady()) {
             this.checkIfListened();
         } else {
-            // if (!this.state.playing && this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && !this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
             this.rap.src = null;
-            // }
         }
     };
 
@@ -117,7 +112,6 @@ class App extends React.Component {
         this.setState({
             playing: true
         })
-        // this.props.setCurrentSong(this.props.musicInfo.activeSession.songs[this.props.playIdx])
     };
     
     pause() {
@@ -129,7 +123,7 @@ class App extends React.Component {
 
     nextTrack = async () => {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
-            if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2] /*|| !this.props.musicInfo.activeSession.songs[this.props.playIdx+1]*/) this.props.enqueueSong();
+            if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
             if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+1]) {
                 const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs, this.props.musicInfo.activeSession.currBPM, 'up')
                 if (results[0].length) {
@@ -147,19 +141,6 @@ class App extends React.Component {
                 this.play();
             };
         };
-
-        // if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
-        //     // this.pause();
-        //     // First check for music at slightly higher bpm
-            
-            
-        //     } else {
-        //     // Then still if no more songs, in DB and Redux:
-        // tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
-        //         // await this.props.clearActiveSession(this.props.musicInfo.activeSession.id)
-                
-        //     };
-        // }
     };
     
     prevTrack = async () => {
@@ -363,8 +344,7 @@ const mapStateToProps = (state) => {
         musicInfo: state.musicReducer,
         screenStr: state.screenReducer.screenStr,
         selectedCollection: state.screenReducer.selectedCollection,
-        playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null,
-        //currentSong: state.musicReducer.activeSession ? state.musicReducer.currentSong : null
+        playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
     }
 }
   
@@ -374,7 +354,6 @@ const mapDispatchToProps = (dispatch) => ({
     decrementPlayIdx: (sessionId) => dispatch(decrementPlayIdxThunk(sessionId)),
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
     addToListenedAndSession: (song, collectionSessionId) => dispatch(addToListenedAndSessionThunk(song, collectionSessionId)),
-    // setCurrentSong: (song) => dispatch(setCurrentSongThunk(song)),
     clearListened: (listenedId) => dispatch(clearListenedThunk(listenedId)),
     clearSessions: () => dispatch(clearSessionsThunk()),
     createCollection: (collectionName, collectionArtURL) => dispatch(createCollectionThunk(collectionName, collectionArtURL)),

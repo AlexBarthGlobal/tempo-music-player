@@ -180,6 +180,7 @@ class App extends React.Component {
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
+        const playPauseBool = this.state.playing;
         const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr ==='Tempo' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>View Songs</button> : null
         const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
@@ -189,7 +190,7 @@ class App extends React.Component {
         else if (this.props.screenStr === 'PlayerScreen') {
             selectedScreen = <PlayerScreen />
             changeTempo = <button onClick={() => this.props.changeScreen('Tempo')}>Change Tempo</button>
-        } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs next={this.nextTrack} prev={this.prevTrack} />    
+        } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs next={this.nextTrack} prev={this.prevTrack} play={this.play} pause={this.pause} playPauseBool={playPauseBool}/>    
         else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs />
         let shareCollection;
         if (this.props.screenStr === 'CollectionSongs') shareCollection = <button onClick={() => this.setState({shareCollectionModal: true})}>Share Collection</button>

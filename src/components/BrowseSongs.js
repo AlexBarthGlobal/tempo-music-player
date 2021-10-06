@@ -3,10 +3,37 @@ import {connect} from 'react-redux'
 import {searchSongsThunk, addSongToCollectionThunk, removeSongFromCollectionThunk, popOneFromActiveSessionSongsThunk, applySongsInRange, addSongsInRangeThunk, enqueueSongThunk} from '../redux/musicDispatchers'
 import BrowseSongsSingleSong from './BrowseSongsSingleSong'
 import songsInRange from '../components/songsInRange'
+import PreviewPlayer from '../components/PreviewPlayer'
 
 const BrowseSongs = (props) => {
     const [searchInput, setSearchInput] = useState('')
     const [BPMInput, setBPMInput] = useState('')
+    const [playing, setPlaying] = useState(false)
+    const [songURL, setSongURL] = useState(null)
+
+    useEffect(() => {
+        if (props.playPauseBool) {
+            setSongURL(null);
+            setPlaying(false);
+        };
+    }, [props.playPauseBool])
+
+    const selectSong = (selectedSongURL) => {
+        props.pause();
+        console.log('SelectedURL', selectedSongURL, 'playingURL', songURL)
+        if (playing && selectedSongURL === songURL) {
+            setSongURL(null);
+            setPlaying(false);
+        } else {
+            setSongURL(selectedSongURL);
+            setPlaying(true);
+        };  
+    };
+
+    const previewEnded = () => {
+        setPlaying(false);
+        setSongURL(null);
+    };
 
     const handleChange = (evt) => {
         evt.target.name === 'searchInput' ? setSearchInput(evt.target.value) : setBPMInput(evt.target.value);
@@ -42,7 +69,7 @@ const BrowseSongs = (props) => {
         console.log('LOOPING AGAIN')
         let idx = 0;
         for (const song of props.searchedSongs) {
-            songs.push(<BrowseSongsSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} addSongToCollection={addSongToCollection} removeSongFromCollection={removeSongFromCollection} inCollection={checkIfInCollection(song.id)} />)
+            songs.push(<BrowseSongsSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} songURL={song.songURL} artURL={song.artURL} addSongToCollection={addSongToCollection} removeSongFromCollection={removeSongFromCollection} inCollection={checkIfInCollection(song.id)} selectSong={selectSong} playingStatus={playing} playingURL={songURL} />)
             idx++;
         };
     };
@@ -51,6 +78,7 @@ const BrowseSongs = (props) => {
 
     return (
         <div>
+            <PreviewPlayer songURL={songURL} previewEnded={previewEnded} />
             <div className='screenTitle'>
                 Add Songs to {props.selectedCollectionInfo.collectionName}
             </div>

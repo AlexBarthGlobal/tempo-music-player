@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {connect} from 'react-redux'
-import {searchSongsThunk, addSongToCollectionThunk, popOneFromActiveSessionSongsThunk, applySongsInRange, addSongsInRangeThunk, enqueueSongThunk} from '../redux/musicDispatchers'
+import {searchSongsThunk, addSongToCollectionThunk, removeSongFromCollectionThunk, popOneFromActiveSessionSongsThunk, applySongsInRange, addSongsInRangeThunk, enqueueSongThunk} from '../redux/musicDispatchers'
 import BrowseSongsSingleSong from './BrowseSongsSingleSong'
 import songsInRange from '../components/songsInRange'
 
@@ -26,14 +26,6 @@ const BrowseSongs = (props) => {
 
     const addSongToCollection = async (songId) => {
         await props.addSongToCollection(props.selectedCollection, songId);
-        // if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) { //If the session is active
-        //     const results = songsInRange(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM)
-        //     if (results[0].length) {
-        //         props.popOneFromActiveSessionSongs();
-        //         props.applySongsInRange(results[0])
-        //     };
-        // };
-
         if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
             const results = songsInRange(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
             if (results[0].length) {
@@ -45,9 +37,10 @@ const BrowseSongs = (props) => {
         };
     };
 
-    const removeSongFromCollection = (songId) => {
+    const removeSongFromCollection = async (songId) => {
         console.log('removing song')
-    }
+        await props.removeSongFromCollection(props.selectedCollection, songId)
+    };
 
     const songs = [];
     if (props.searchedSongs) {
@@ -94,6 +87,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     searchSongs: (searchInput, BPMInput) => dispatch(searchSongsThunk(searchInput, BPMInput)),
     addSongToCollection: (collectionId, songId) => dispatch(addSongToCollectionThunk(collectionId, songId)),
+    removeSongFromCollection: (collectionId, songId) => dispatch(removeSongFromCollectionThunk(collectionId, songId)),
     popOneFromActiveSessionSongs: () => dispatch(popOneFromActiveSessionSongsThunk()),
     applySongsInRange: (songs) => dispatch(applySongsInRange(songs)),
     addSongsInRange: (songs) => dispatch(addSongsInRangeThunk(songs)),

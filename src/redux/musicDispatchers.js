@@ -157,7 +157,7 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
     return async dispatch => {
         // dispatch(setFetchingStatus(true))
         try {
-            const activeCollectionSongs = await axios.post('/api/fetchCurrentcollectionAndSongs', {data: activeCollectionId})
+            const activeCollectionSongs = await axios.post('/api/fetchCurrentCollectionAndSongs', {data: activeCollectionId})
             let data = {};
             data.activeCollectionId = activeCollectionId
             data.activeCollectionSongs = new Map();
@@ -338,6 +338,7 @@ export default function musicReducer (state = initialState, action) {
                 activeSession: action.sessionAndSessionSongs
             }
         case SET_ACTIVE_COLLECTION_SONGS:
+            //loop over session here and rename songs to 'S'
             const collectionsCopy = {...state.collections}
             collectionsCopy[action.data.activeCollectionId].songs = action.data.activeCollectionSongs
             return {
@@ -470,18 +471,34 @@ export default function musicReducer (state = initialState, action) {
         case REMOVE_SONG_FROM_COLLECTION:
             const removedSong = action.removedSongAndCollectionId.removedSong
             collectionId = action.removedSongAndCollectionId.collectionId
-            originalCollectionSongs = new Map(state.collections[collectionId].songs);
-            originalCollectionSongs.delete(removedSong.id);
+            newCollectionSongs = new Map(state.collections[collectionId].songs);
+            newCollectionSongs.delete(removedSong.id);
 
-            // if (state.activeSession)
+            collectionCopy = {...state.collections};
+            collectionCopy[collectionId].songs = newCollectionSongs
 
+            if (state.activeSession.collectionId === collectionId) {
+                songsCopy = [...state.activeSession.songs]
 
-            // collectionCopy = {...state.collections};
-            // collectionCopy[collectionId].songs = originalCollectionSongs
-            return {
+                if (songsCopy.length) {
+                    for (let i = 0; i < songsCopy.length; i++) {
+                        const currSong = songsCopy[i];
+                        console.log(currSong)
+                        if (currSong === 'S' || currSong === undefined) continue;
+                        if (!newCollectionSongs.has(currSong.id)) {
+                            songsCopy[i] = 'S' //indicating skip the song
+                        };
+                    };
+                };
+                return {
+                    ...state,
+                    collections: collectionCopy,
+                    activeSession: {...state.activeSession, songs: songsCopy}
+                };
+            } else return {
                 ...state,
                 collections: collectionCopy
-            }
+            };
     default:
         return state
     }

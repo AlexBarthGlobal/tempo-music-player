@@ -34,7 +34,7 @@ class Tempo extends React.Component {
             this.props.applySongsInRange(results[0]);
             this.props.changeScreen('PlayerScreen')
             let idx = this.props.musicInfo.activeSession.playIdx
-            while (this.props.musicInfo.activeSession.songs[idx].BPM < this.props.musicInfo.activeSession.currBPM-2 || this.props.musicInfo.activeSession.songs[idx].BPM > this.props.musicInfo.activeSession.currBPM+3 || this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[idx].id] || this.props.musicInfo.activeSession.songs[idx] === 'S') {
+            while (this.props.musicInfo.activeSession.songs[idx] === 'S' || this.props.musicInfo.activeSession.songs[idx].BPM < this.props.musicInfo.activeSession.currBPM-2 || this.props.musicInfo.activeSession.songs[idx].BPM > this.props.musicInfo.activeSession.currBPM+3 || this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[idx].id]) {
                 idx++;
                 await this.props.next();
             };

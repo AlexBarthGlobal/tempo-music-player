@@ -6149,7 +6149,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
                 idx = _this.props.musicInfo.activeSession.playIdx;
 
               case 14:
-                if (!(_this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id] || _this.props.musicInfo.activeSession.songs[idx] === 'S')) {
+                if (!(_this.props.musicInfo.activeSession.songs[idx] === 'S' || _this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id])) {
                   _context.next = 20;
                   break;
                 }
@@ -6765,7 +6765,7 @@ var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeColle
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchCurrentcollectionAndSongs', {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchCurrentCollectionAndSongs', {
                 data: activeCollectionId
               });
 
@@ -7252,6 +7252,7 @@ function musicReducer() {
       });
 
     case SET_ACTIVE_COLLECTION_SONGS:
+      //loop over session here and rename songs to 'S'
       var collectionsCopy = _objectSpread({}, state.collections);
 
       collectionsCopy[action.data.activeCollectionId].songs = action.data.activeCollectionSongs;
@@ -7426,12 +7427,38 @@ function musicReducer() {
     case REMOVE_SONG_FROM_COLLECTION:
       var removedSong = action.removedSongAndCollectionId.removedSong;
       collectionId = action.removedSongAndCollectionId.collectionId;
-      originalCollectionSongs = new Map(state.collections[collectionId].songs);
-      originalCollectionSongs["delete"](removedSong.id); // if (state.activeSession)
-      // collectionCopy = {...state.collections};
-      // collectionCopy[collectionId].songs = originalCollectionSongs
+      newCollectionSongs = new Map(state.collections[collectionId].songs);
+      newCollectionSongs["delete"](removedSong.id);
+      collectionCopy = _objectSpread({}, state.collections);
+      collectionCopy[collectionId].songs = newCollectionSongs;
 
-      return _objectSpread(_objectSpread({}, state), {}, {
+      if (state.activeSession.collectionId === collectionId) {
+        songsCopy = _toConsumableArray(state.activeSession.songs);
+
+        if (songsCopy.length) {
+          for (var i = 0; i < songsCopy.length; i++) {
+            var currSong = songsCopy[i];
+            console.log(currSong);
+            if (currSong === 'S' || currSong === undefined) continue;
+
+            if (!newCollectionSongs.has(currSong.id)) {
+              songsCopy[i] = 'S'; //indicating skip the song
+            }
+
+            ;
+          }
+
+          ;
+        }
+
+        ;
+        return _objectSpread(_objectSpread({}, state), {}, {
+          collections: collectionCopy,
+          activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
+            songs: songsCopy
+          })
+        });
+      } else return _objectSpread(_objectSpread({}, state), {}, {
         collections: collectionCopy
       });
 

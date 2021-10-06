@@ -4570,7 +4570,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       noNextSong: false,
       shareCollectionModal: false,
       recipientEmail: '',
-      shareConfirmation: ''
+      shareConfirmation: '',
+      editCollection: false,
+      editCollections: false
     };
     _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this));
     _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
@@ -4622,8 +4624,18 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
+      console.log('UPDATED HERE');
       if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
       if (prevState.recipientEmail !== this.state.recipientEmail) return;
+
+      if (prevProps.screenStr !== this.props.screenStr && (this.state.editCollection || this.state.editCollections)) {
+        this.setState({
+          editCollection: false,
+          editCollections: false
+        });
+      }
+
+      ;
 
       if (this.checkPlayerReady()) {
         this.checkIfListened();
@@ -4700,6 +4712,35 @@ var App = /*#__PURE__*/function (_React$Component) {
           return _this2.props.changeScreen('BrowseSongs');
         }
       }, "Add Songs") : null;
+      var editSongs = this.props.screenStr === 'CollectionSongs' ? this.state.editCollection ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        className: "toTheRight",
+        onClick: function onClick() {
+          return _this2.setState({
+            editCollection: false
+          });
+        }
+      }, "Done") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        className: "toTheRight",
+        onClick: function onClick() {
+          return _this2.setState({
+            editCollection: true
+          });
+        }
+      }, "Edit Collection") : this.props.screenStr === 'Collections' ? this.state.editCollections ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        className: "toTheRight",
+        onClick: function onClick() {
+          return _this2.setState({
+            editCollections: false
+          });
+        }
+      }, "Done") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        className: "toTheRight",
+        onClick: function onClick() {
+          return _this2.setState({
+            editCollections: true
+          });
+        }
+      }, "Edit Collections") : null;
       var audio;
       audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null,
@@ -4753,7 +4794,9 @@ var App = /*#__PURE__*/function (_React$Component) {
         play: this.play,
         pause: this.pause,
         playPauseBool: playPauseBool
-      });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_8__.default, null);
+      });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_8__.default, {
+        editMode: this.state.editCollection
+      });
       var shareCollection;
       if (this.props.screenStr === 'CollectionSongs') shareCollection = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
@@ -4875,7 +4918,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         type: "submit"
       }, "Share")))))), audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "topButtons"
-      }, homeLogout, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, homeLogout, editSongs, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"
       }, navToCollectionSongs, changeTempo, shareCollection, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), footerControls);
     }
@@ -18818,7 +18861,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}\n\n.centerWithMargin {\n  margin-left: auto;\n  margin-right: auto;\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;EACjB;mCACiC;AACnC;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,eAAe;AACjB;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE;;cAEY;EACZ,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;EACjB,kBAAkB;AACpB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}\n\n.centerWithMargin {\n  margin-left: auto;\n  margin-right: auto;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}\n\n.centerWithMargin {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.toTheRight {\n  margin-left: auto;\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;EACjB;mCACiC;AACnC;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,eAAe;AACjB;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE;;cAEY;EACZ,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;AACnB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}\n\n.centerWithMargin {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.toTheRight {\n  margin-left: auto;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -31,7 +31,9 @@ class App extends React.Component {
           noNextSong: false,
           shareCollectionModal: false,
           recipientEmail: '',
-          shareConfirmation: ''
+          shareConfirmation: '',
+          editCollection: false,
+          editCollections: false,
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
@@ -97,8 +99,15 @@ class App extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log('UPDATED HERE')
         if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
         if (prevState.recipientEmail !== this.state.recipientEmail) return;
+        if (prevProps.screenStr !== this.props.screenStr && (this.state.editCollection || this.state.editCollections)) {
+            this.setState({
+                editCollection: false,
+                editCollections: false
+            })
+        };
 
         if (this.checkPlayerReady()) {
             this.checkIfListened();
@@ -176,6 +185,7 @@ class App extends React.Component {
         const homeLogout = this.props.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.props.changeScreen('Collections')}>Home</button>
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button onClick={() => this.setState({addCollectionModal: true})}>Create Collection</button> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && 
         /*this.props.screenStr === 'PlayerScreen' ||*/ (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null;
+        const editSongs = this.props.screenStr === 'CollectionSongs' ? this.state.editCollection ? <button className="toTheRight" onClick={() => this.setState({editCollection: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollection: true})}>Edit Collection</button> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <button className="toTheRight" onClick={() => this.setState({editCollections: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollections: true})}>Edit Collections</button> : null;
         let audio;
         audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
         const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;
@@ -191,7 +201,7 @@ class App extends React.Component {
             selectedScreen = <PlayerScreen />
             changeTempo = <button onClick={() => this.props.changeScreen('Tempo')}>Change Tempo</button>
         } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs next={this.nextTrack} prev={this.prevTrack} play={this.play} pause={this.pause} playPauseBool={playPauseBool}/>    
-        else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs />
+        else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs editMode={this.state.editCollection} />
         let shareCollection;
         if (this.props.screenStr === 'CollectionSongs') shareCollection = <button onClick={() => this.setState({shareCollectionModal: true})}>Share Collection</button>
 
@@ -326,7 +336,7 @@ class App extends React.Component {
                     </div>
                 </Modal>
                 {audio}
-                <div className='topButtons'>{homeLogout}{clearListened}</div>
+                <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
                 <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
                 <div>
                     {selectedScreen}

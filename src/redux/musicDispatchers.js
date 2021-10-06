@@ -476,7 +476,7 @@ export default function musicReducer (state = initialState, action) {
             collectionCopy = {...state.collections};
             collectionCopy[collectionId].songs = newCollectionSongs
 
-            if (state.activeSession.collectionId === collectionId) {
+            if (state.activeSession && state.activeSession.collectionId === collectionId) {
                 let newSongs = [];
                 if (state.activeSession.songs.length) {
                     for (let i = 0; i < state.activeSession.songs.length; i++) {

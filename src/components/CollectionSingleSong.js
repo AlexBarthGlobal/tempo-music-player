@@ -1,11 +1,14 @@
 import React from 'react'
 
 const CollectionSingleSong = (props) => {
-    const {songName, artistName, albumName, BPM, duration, artURL} = props
+    const {songId, songName, artistName, albumName, BPM, duration, artURL, editMode, removeSongFromCollection} = props
     //convert duration into minutes & seconds
+
+
+
         return (
             <li>
-                {songName} {artistName} {albumName} {BPM} {duration}
+                {songName} {artistName} {albumName} {BPM} {duration} {editMode ? <button onClick={() => removeSongFromCollection(songId)}>Remove</button> : null}
             </li>
         )
 };

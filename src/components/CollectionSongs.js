@@ -1,6 +1,6 @@
 import React from 'React'
 import {connect} from 'react-redux'
-import {fetchActiveCollectionSongs} from '../redux/musicDispatchers';
+import {fetchActiveCollectionSongs, removeSongFromCollectionThunk} from '../redux/musicDispatchers';
 import {changeScreenThunk} from '../redux/screenDispatchers'
 import CollectionSingleSong from './CollectionSingleSong'
 import Modal from 'react-modal'
@@ -9,23 +9,28 @@ import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 class CollectionSongs extends React.Component {
     // constructor() {
     //     super()
-    //     this.state = {
-    //         emptyCollectionModal: true
-    //     };
+        
+    //     this.removeSongFromCollection = this.removeSongFromCollection.bind(this)
     // };
 
     componentDidMount() {
         this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
     };
+
+    removeSongFromCollection = async (songId) => {
+        console.log('REMOVED', songId)
+        await this.props.removeSongFromCollection(this.props.selectedCollection, songId, !!this.props.user.listened.songs[songId]);
+    };
     
     render() {
+        console.log('FROM COLLECTIONSONGS', this.props.editMode)
         const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
         let songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
             console.log(this.props.musicInfo.collections[this.props.selectedCollection].songs)
             let idx = 0;
             for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-                songList.push(<CollectionSingleSong key={idx} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} />)
+                songList.push(<CollectionSingleSong key={idx} songId={id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} />)
                 idx++;
             };
         };
@@ -117,7 +122,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     fetchActiveCollectionSongs: (collectionId) => dispatch(fetchActiveCollectionSongs(collectionId)),
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
-    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen))
+    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
+    removeSongFromCollection: (collectionId, songId, listenedBool) => dispatch(removeSongFromCollectionThunk(collectionId, songId, listenedBool)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionSongs)

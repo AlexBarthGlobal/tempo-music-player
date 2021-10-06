@@ -291,13 +291,11 @@ export const addSongToCollectionThunk = (collectionId, songId) => {
     };
 };
 
-export const removeSongFromCollectionThunk = (collectionId, songId) => {
+export const removeSongFromCollectionThunk = (collectionId, songId, listenedBool) => {
     return async dispatch => {
         try {
-            console.log(collectionId, songId)
             const removedSong = await axios.delete('/api/removeSongFromCollection', {data: {collectionId, songId}});
-            console.log('RESULT HERE:', removedSong)
-            dispatch(removeSongFromCollection({removedSong: removedSong.data, collectionId}));
+            dispatch(removeSongFromCollection({removedSong: removedSong.data, collectionId, listenedBool}));
         } catch(err) {
             console.log(err)
         };
@@ -471,6 +469,7 @@ export default function musicReducer (state = initialState, action) {
         case REMOVE_SONG_FROM_COLLECTION:
             const removedSong = action.removedSongAndCollectionId.removedSong
             collectionId = action.removedSongAndCollectionId.collectionId
+            const listenedBool = action.removedSongAndCollectionId.listenedBool
             newCollectionSongs = new Map(state.collections[collectionId].songs);
             newCollectionSongs.delete(removedSong.id);
 
@@ -478,16 +477,15 @@ export default function musicReducer (state = initialState, action) {
             collectionCopy[collectionId].songs = newCollectionSongs
 
             if (state.activeSession.collectionId === collectionId) {
-                songsCopy = [...state.activeSession.songs]
-
-                if (songsCopy.length) {
-                    for (let i = 0; i < songsCopy.length; i++) {
-                        const currSong = songsCopy[i];
-                        console.log(currSong)
-                        if (currSong === 'S' || currSong === undefined) continue;
-                        if (!newCollectionSongs.has(currSong.id)) {
-                            songsCopy[i] = 'S' //indicating skip the song
+                let newSongs = [];
+                if (state.activeSession.songs.length) {
+                    for (let i = 0; i < state.activeSession.songs.length; i++) {
+                        const currSong = state.activeSession.songs[i];
+                        if (currSong === undefined) continue;
+                        if (currSong.id === removedSong.id) {
+                            if (!listenedBool) continue;
                         };
+                        newSongs.push(state.activeSession.songs[i])
                     };
                 };
                 songsInRangeCopy = [];
@@ -497,7 +495,7 @@ export default function musicReducer (state = initialState, action) {
                 return {
                     ...state,
                     collections: collectionCopy,
-                    activeSession: {...state.activeSession, songs: songsCopy, songsInRange: songsInRangeCopy}
+                    activeSession: {...state.activeSession, songs: newSongs, songsInRange: songsInRangeCopy}
                 };
             } else return {
                 ...state,

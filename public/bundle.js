@@ -5002,9 +5002,7 @@ var BrowseSongs = function BrowseSongs(props) {
 
   var checkIfInCollection = function checkIfInCollection(songId) {
     return props.selectedCollectionInfo.songs.has(songId);
-  }; // const addOrRemoveSongFromCollection = (songId) => {
-  // }
-
+  };
 
   var addSongToCollection = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(songId) {
@@ -5049,35 +5047,14 @@ var BrowseSongs = function BrowseSongs(props) {
 
   var removeSongFromCollection = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(songId) {
-      var bool, results;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return props.removeSongFromCollection(props.selectedCollection, songId);
+              return props.removeSongFromCollection(props.selectedCollection, songId, !!props.user.listened.songs[songId]);
 
             case 2:
-              if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
-                bool = props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx].id === songId;
-                results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
-
-                if (results[0].length) {
-                  if (!props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx + 1]) {
-                    props.popOneFromActiveSessionSongs();
-                    props.addSongsInRange(results[0]);
-                  }
-
-                  ;
-                }
-
-                ;
-                if (bool) props.next();
-              }
-
-              ;
-
-            case 4:
             case "end":
               return _context2.stop();
           }
@@ -5169,8 +5146,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     addSongToCollection: function addSongToCollection(collectionId, songId) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.addSongToCollectionThunk)(collectionId, songId));
     },
-    removeSongFromCollection: function removeSongFromCollection(collectionId, songId) {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.removeSongFromCollectionThunk)(collectionId, songId));
+    removeSongFromCollection: function removeSongFromCollection(collectionId, songId, listenedBool) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.removeSongFromCollectionThunk)(collectionId, songId, listenedBool));
     },
     popOneFromActiveSessionSongs: function popOneFromActiveSessionSongs() {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.popOneFromActiveSessionSongsThunk)());
@@ -7194,7 +7171,7 @@ var addSongToCollectionThunk = function addSongToCollectionThunk(collectionId, s
     };
   }();
 };
-var removeSongFromCollectionThunk = function removeSongFromCollectionThunk(collectionId, songId) {
+var removeSongFromCollectionThunk = function removeSongFromCollectionThunk(collectionId, songId, listenedBool) {
   return /*#__PURE__*/function () {
     var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(dispatch) {
       var removedSong;
@@ -7203,8 +7180,7 @@ var removeSongFromCollectionThunk = function removeSongFromCollectionThunk(colle
           switch (_context12.prev = _context12.next) {
             case 0:
               _context12.prev = 0;
-              console.log(collectionId, songId);
-              _context12.next = 4;
+              _context12.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().delete('/api/removeSongFromCollection', {
                 data: {
                   collectionId: collectionId,
@@ -7212,30 +7188,30 @@ var removeSongFromCollectionThunk = function removeSongFromCollectionThunk(colle
                 }
               });
 
-            case 4:
+            case 3:
               removedSong = _context12.sent;
-              console.log('RESULT HERE:', removedSong);
               dispatch(removeSongFromCollection({
                 removedSong: removedSong.data,
-                collectionId: collectionId
+                collectionId: collectionId,
+                listenedBool: listenedBool
               }));
-              _context12.next = 12;
+              _context12.next = 10;
               break;
 
-            case 9:
-              _context12.prev = 9;
+            case 7:
+              _context12.prev = 7;
               _context12.t0 = _context12["catch"](0);
               console.log(_context12.t0);
 
-            case 12:
+            case 10:
               ;
 
-            case 13:
+            case 11:
             case "end":
               return _context12.stop();
           }
         }
-      }, _callee12, null, [[0, 9]]);
+      }, _callee12, null, [[0, 7]]);
     }));
 
     return function (_x12) {
@@ -7452,25 +7428,26 @@ function musicReducer() {
     case REMOVE_SONG_FROM_COLLECTION:
       var removedSong = action.removedSongAndCollectionId.removedSong;
       collectionId = action.removedSongAndCollectionId.collectionId;
+      var listenedBool = action.removedSongAndCollectionId.listenedBool;
       newCollectionSongs = new Map(state.collections[collectionId].songs);
       newCollectionSongs["delete"](removedSong.id);
       collectionCopy = _objectSpread({}, state.collections);
       collectionCopy[collectionId].songs = newCollectionSongs;
 
       if (state.activeSession.collectionId === collectionId) {
-        songsCopy = _toConsumableArray(state.activeSession.songs);
+        var newSongs = [];
 
-        if (songsCopy.length) {
-          for (var i = 0; i < songsCopy.length; i++) {
-            var currSong = songsCopy[i];
-            console.log(currSong);
-            if (currSong === 'S' || currSong === undefined) continue;
+        if (state.activeSession.songs.length) {
+          for (var i = 0; i < state.activeSession.songs.length; i++) {
+            var currSong = state.activeSession.songs[i];
+            if (currSong === undefined) continue;
 
-            if (!newCollectionSongs.has(currSong.id)) {
-              songsCopy[i] = 'S'; //indicating skip the song
+            if (currSong.id === removedSong.id) {
+              if (!listenedBool) continue;
             }
 
             ;
+            newSongs.push(state.activeSession.songs[i]);
           }
 
           ;
@@ -7497,7 +7474,7 @@ function musicReducer() {
         return _objectSpread(_objectSpread({}, state), {}, {
           collections: collectionCopy,
           activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
-            songs: songsCopy,
+            songs: newSongs,
             songsInRange: songsInRangeCopy
           })
         });

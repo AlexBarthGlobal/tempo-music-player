@@ -20,10 +20,6 @@ const BrowseSongs = (props) => {
         return props.selectedCollectionInfo.songs.has(songId);
     };
 
-    // const addOrRemoveSongFromCollection = (songId) => {
-
-    // }
-
     const addSongToCollection = async (songId) => {
         await props.addSongToCollection(props.selectedCollection, songId);
         if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
@@ -38,18 +34,7 @@ const BrowseSongs = (props) => {
     };
 
     const removeSongFromCollection = async (songId) => {
-        await props.removeSongFromCollection(props.selectedCollection, songId);
-        if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
-            const bool = props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx].id === songId;
-            const results = songsInRange(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
-            if (results[0].length) {
-                if (!props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx+1]) {
-                    props.popOneFromActiveSessionSongs();
-                    props.addSongsInRange(results[0])
-                };
-            };
-            if (bool) props.next();
-        };
+        await props.removeSongFromCollection(props.selectedCollection, songId, !!props.user.listened.songs[songId]);
     };
 
     const songs = [];
@@ -97,7 +82,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     searchSongs: (searchInput, BPMInput) => dispatch(searchSongsThunk(searchInput, BPMInput)),
     addSongToCollection: (collectionId, songId) => dispatch(addSongToCollectionThunk(collectionId, songId)),
-    removeSongFromCollection: (collectionId, songId) => dispatch(removeSongFromCollectionThunk(collectionId, songId)),
+    removeSongFromCollection: (collectionId, songId, listenedBool) => dispatch(removeSongFromCollectionThunk(collectionId, songId, listenedBool)),
     popOneFromActiveSessionSongs: () => dispatch(popOneFromActiveSessionSongsThunk()),
     applySongsInRange: (songs) => dispatch(applySongsInRange(songs)),
     addSongsInRange: (songs) => dispatch(addSongsInRangeThunk(songs)),

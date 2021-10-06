@@ -490,10 +490,14 @@ export default function musicReducer (state = initialState, action) {
                         };
                     };
                 };
+                songsInRangeCopy = [];
+                for (const song of state.activeSession.songsInRange) {
+                    if (song.id !== removedSong.id) songsInRangeCopy.push(song);
+                };
                 return {
                     ...state,
                     collections: collectionCopy,
-                    activeSession: {...state.activeSession, songs: songsCopy}
+                    activeSession: {...state.activeSession, songs: songsCopy, songsInRange: songsInRangeCopy}
                 };
             } else return {
                 ...state,

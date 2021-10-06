@@ -5044,15 +5044,33 @@ var BrowseSongs = function BrowseSongs(props) {
 
   var removeSongFromCollection = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(songId) {
+      var results;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              console.log('removing song');
-              _context2.next = 3;
+              _context2.next = 2;
               return props.removeSongFromCollection(props.selectedCollection, songId);
 
-            case 3:
+            case 2:
+              if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
+                results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
+
+                if (results[0].length) {
+                  if (!props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx + 1]) {
+                    props.popOneFromActiveSessionSongs();
+                    props.addSongsInRange(results[0]);
+                  }
+
+                  ;
+                }
+
+                ;
+              }
+
+              ;
+
+            case 4:
             case "end":
               return _context2.stop();
           }
@@ -7452,10 +7470,28 @@ function musicReducer() {
         }
 
         ;
+        songsInRangeCopy = [];
+
+        var _iterator4 = _createForOfIteratorHelper(state.activeSession.songsInRange),
+            _step4;
+
+        try {
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var _song = _step4.value;
+            if (_song.id !== removedSong.id) songsInRangeCopy.push(_song);
+          }
+        } catch (err) {
+          _iterator4.e(err);
+        } finally {
+          _iterator4.f();
+        }
+
+        ;
         return _objectSpread(_objectSpread({}, state), {}, {
           collections: collectionCopy,
           activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
-            songs: songsCopy
+            songs: songsCopy,
+            songsInRange: songsInRangeCopy
           })
         });
       } else return _objectSpread(_objectSpread({}, state), {}, {

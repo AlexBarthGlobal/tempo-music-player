@@ -38,8 +38,16 @@ const BrowseSongs = (props) => {
     };
 
     const removeSongFromCollection = async (songId) => {
-        console.log('removing song')
         await props.removeSongFromCollection(props.selectedCollection, songId)
+        if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
+            const results = songsInRange(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
+            if (results[0].length) {
+                if (!props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx+1]) {
+                    props.popOneFromActiveSessionSongs();
+                    props.addSongsInRange(results[0])
+                };
+            };
+        };
     };
 
     const songs = [];

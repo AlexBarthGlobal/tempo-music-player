@@ -4606,7 +4606,9 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function checkPlayerReady() {
       return this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange &&
       /*this.props.musicInfo.activeSession.songsInRange &&*/
-      this.props.musicInfo.activeSession.songs[this.props.playIdx];
+      this.props.musicInfo.activeSession.songs[this.props.playIdx]
+      /*&& this.props.musicInfo.activeSession.songs[this.props.playIdx] !== 'S'*/
+      ;
     }
   }, {
     key: "checkIfListened",
@@ -4744,7 +4746,10 @@ var App = /*#__PURE__*/function (_React$Component) {
             return _this2.props.changeScreen('Tempo');
           }
         }, "Change Tempo");
-      } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_7__.default, null);else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_8__.default, null);
+      } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_7__.default, {
+        next: this.nextTrack,
+        prev: this.prevTrack
+      });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_8__.default, null);
       var shareCollection;
       if (this.props.screenStr === 'CollectionSongs') shareCollection = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
@@ -5044,7 +5049,7 @@ var BrowseSongs = function BrowseSongs(props) {
 
   var removeSongFromCollection = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(songId) {
-      var results;
+      var bool, results;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -5054,6 +5059,7 @@ var BrowseSongs = function BrowseSongs(props) {
 
             case 2:
               if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
+                bool = props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx].id === songId;
                 results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
 
                 if (results[0].length) {
@@ -5066,6 +5072,7 @@ var BrowseSongs = function BrowseSongs(props) {
                 }
 
                 ;
+                if (bool) props.next();
               }
 
               ;

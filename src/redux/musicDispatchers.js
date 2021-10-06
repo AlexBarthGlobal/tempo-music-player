@@ -17,6 +17,7 @@ const CREATE_COLLECTION = 'CREATE_COLLECTION'
 const CLEAR_ACTIVE_SESSION = 'CLEAR_ACTIVE_SESSION'
 const DISPATCH_SEARCHED_SONGS = 'DISPATCH_SEARCHED_SONGS'
 const ADD_SONG_TO_COLLECTION = 'ADD_SONG_TO_COLLECTION'
+const REMOVE_SONG_FROM_COLLECTION = 'REMOVE_SONG_FROM_COLLECTION'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -96,6 +97,11 @@ const addSongToCollection = (addedSongAndCollectionId) => ({
     addedSongAndCollectionId
 });
 
+const removeSongFromCollection = (removedSongAndCollectionId) => ({
+    type: REMOVE_SONG_FROM_COLLECTION,
+    removedSongAndCollectionId
+})
+
 export const createCollectionThunk = (collectionName, collectionArtURL) => {
     return async dispatch => {
         try {
@@ -151,7 +157,7 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
     return async dispatch => {
         // dispatch(setFetchingStatus(true))
         try {
-            const activeCollectionSongs = await axios.post('/api/fetchCurrentcollectionAndSongs', {data: activeCollectionId})
+            const activeCollectionSongs = await axios.post('/api/fetchCurrentCollectionAndSongs', {data: activeCollectionId})
             let data = {};
             data.activeCollectionId = activeCollectionId
             data.activeCollectionSongs = new Map();
@@ -285,6 +291,17 @@ export const addSongToCollectionThunk = (collectionId, songId) => {
     };
 };
 
+export const removeSongFromCollectionThunk = (collectionId, songId, listenedBool) => {
+    return async dispatch => {
+        try {
+            const removedSong = await axios.delete('/api/removeSongFromCollection', {data: {collectionId, songId}});
+            dispatch(removeSongFromCollection({removedSong: removedSong.data, collectionId, listenedBool}));
+        } catch(err) {
+            console.log(err)
+        };
+    };
+};
+
 
 const initialState = {
     // musicInfo: {
@@ -297,6 +314,9 @@ let songsCopy;
 let songsInRangeCopy;
 let newPlayIdx;
 let collectionCopy;
+let originalCollectionSongs
+let newCollectionSongs
+let collectionId
 
 export default function musicReducer (state = initialState, action) {
     switch (action.type) {
@@ -316,6 +336,7 @@ export default function musicReducer (state = initialState, action) {
                 activeSession: action.sessionAndSessionSongs
             }
         case SET_ACTIVE_COLLECTION_SONGS:
+            //loop over session here and rename songs to 'S'
             const collectionsCopy = {...state.collections}
             collectionsCopy[action.data.activeCollectionId].songs = action.data.activeCollectionSongs
             return {
@@ -419,9 +440,9 @@ export default function musicReducer (state = initialState, action) {
             };
         case ADD_SONG_TO_COLLECTION:
             const newSong = action.addedSongAndCollectionId.addedSong
-            const collectionId = action.addedSongAndCollectionId.collectionId
-            let originalCollectionSongs = new Map(state.collections[collectionId].songs);
-            let newCollectionSongs = new Map();
+            collectionId = action.addedSongAndCollectionId.collectionId
+            originalCollectionSongs = new Map(state.collections[collectionId].songs);
+            newCollectionSongs = new Map();
             if (originalCollectionSongs.size) {
                 let set = false;
                 for (const [songId, song] of originalCollectionSongs) {
@@ -442,6 +463,41 @@ export default function musicReducer (state = initialState, action) {
             collectionCopy = {...state.collections};
             collectionCopy[collectionId].songs = newCollectionSongs
             return {
+                ...state,
+                collections: collectionCopy
+            };
+        case REMOVE_SONG_FROM_COLLECTION:
+            const removedSong = action.removedSongAndCollectionId.removedSong
+            collectionId = action.removedSongAndCollectionId.collectionId
+            const listenedBool = action.removedSongAndCollectionId.listenedBool
+            newCollectionSongs = new Map(state.collections[collectionId].songs);
+            newCollectionSongs.delete(removedSong.id);
+
+            collectionCopy = {...state.collections};
+            collectionCopy[collectionId].songs = newCollectionSongs
+
+            if (state.activeSession.collectionId === collectionId) {
+                let newSongs = [];
+                if (state.activeSession.songs.length) {
+                    for (let i = 0; i < state.activeSession.songs.length; i++) {
+                        const currSong = state.activeSession.songs[i];
+                        if (currSong === undefined) continue;
+                        if (currSong.id === removedSong.id) {
+                            if (!listenedBool) continue;
+                        };
+                        newSongs.push(state.activeSession.songs[i])
+                    };
+                };
+                songsInRangeCopy = [];
+                for (const song of state.activeSession.songsInRange) {
+                    if (song.id !== removedSong.id) songsInRangeCopy.push(song);
+                };
+                return {
+                    ...state,
+                    collections: collectionCopy,
+                    activeSession: {...state.activeSession, songs: newSongs, songsInRange: songsInRangeCopy}
+                };
+            } else return {
                 ...state,
                 collections: collectionCopy
             };

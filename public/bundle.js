@@ -4606,7 +4606,9 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function checkPlayerReady() {
       return this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange &&
       /*this.props.musicInfo.activeSession.songsInRange &&*/
-      this.props.musicInfo.activeSession.songs[this.props.playIdx];
+      this.props.musicInfo.activeSession.songs[this.props.playIdx]
+      /*&& this.props.musicInfo.activeSession.songs[this.props.playIdx] !== 'S'*/
+      ;
     }
   }, {
     key: "checkIfListened",
@@ -4744,7 +4746,10 @@ var App = /*#__PURE__*/function (_React$Component) {
             return _this2.props.changeScreen('Tempo');
           }
         }, "Change Tempo");
-      } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_7__.default, null);else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_8__.default, null);
+      } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_7__.default, {
+        next: this.nextTrack,
+        prev: this.prevTrack
+      });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_8__.default, null);
       var shareCollection;
       if (this.props.screenStr === 'CollectionSongs') shareCollection = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
@@ -4997,9 +5002,7 @@ var BrowseSongs = function BrowseSongs(props) {
 
   var checkIfInCollection = function checkIfInCollection(songId) {
     return props.selectedCollectionInfo.songs.has(songId);
-  }; // const addOrRemoveSongFromCollection = (songId) => {
-  // }
-
+  };
 
   var addSongToCollection = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(songId) {
@@ -5012,13 +5015,6 @@ var BrowseSongs = function BrowseSongs(props) {
               return props.addSongToCollection(props.selectedCollection, songId);
 
             case 2:
-              // if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) { //If the session is active
-              //     const results = songsInRange(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM)
-              //     if (results[0].length) {
-              //         props.popOneFromActiveSessionSongs();
-              //         props.applySongsInRange(results[0])
-              //     };
-              // };
               if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
                 results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
 
@@ -5049,9 +5045,27 @@ var BrowseSongs = function BrowseSongs(props) {
     };
   }();
 
-  var removeSongFromCollection = function removeSongFromCollection(songId) {
-    console.log('removing song');
-  };
+  var removeSongFromCollection = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(songId) {
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return props.removeSongFromCollection(props.selectedCollection, songId, !!props.user.listened.songs[songId]);
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function removeSongFromCollection(_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
 
   var songs = [];
 
@@ -5131,6 +5145,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     addSongToCollection: function addSongToCollection(collectionId, songId) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.addSongToCollectionThunk)(collectionId, songId));
+    },
+    removeSongFromCollection: function removeSongFromCollection(collectionId, songId, listenedBool) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.removeSongFromCollectionThunk)(collectionId, songId, listenedBool));
     },
     popOneFromActiveSessionSongs: function popOneFromActiveSessionSongs() {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.popOneFromActiveSessionSongsThunk)());
@@ -6134,7 +6151,7 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
                 idx = _this.props.musicInfo.activeSession.playIdx;
 
               case 14:
-                if (!(_this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id])) {
+                if (!(_this.props.musicInfo.activeSession.songs[idx] === 'S' || _this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id])) {
                   _context.next = 20;
                   break;
                 }
@@ -6420,6 +6437,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "setCurrentSongThunk": () => (/* binding */ setCurrentSongThunk),
 /* harmony export */   "searchSongsThunk": () => (/* binding */ searchSongsThunk),
 /* harmony export */   "addSongToCollectionThunk": () => (/* binding */ addSongToCollectionThunk),
+/* harmony export */   "removeSongFromCollectionThunk": () => (/* binding */ removeSongFromCollectionThunk),
 /* harmony export */   "default": () => (/* binding */ musicReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -6474,6 +6492,7 @@ var CREATE_COLLECTION = 'CREATE_COLLECTION';
 var CLEAR_ACTIVE_SESSION = 'CLEAR_ACTIVE_SESSION';
 var DISPATCH_SEARCHED_SONGS = 'DISPATCH_SEARCHED_SONGS';
 var ADD_SONG_TO_COLLECTION = 'ADD_SONG_TO_COLLECTION';
+var REMOVE_SONG_FROM_COLLECTION = 'REMOVE_SONG_FROM_COLLECTION';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -6584,6 +6603,13 @@ var addSongToCollection = function addSongToCollection(addedSongAndCollectionId)
   return {
     type: ADD_SONG_TO_COLLECTION,
     addedSongAndCollectionId: addedSongAndCollectionId
+  };
+};
+
+var removeSongFromCollection = function removeSongFromCollection(removedSongAndCollectionId) {
+  return {
+    type: REMOVE_SONG_FROM_COLLECTION,
+    removedSongAndCollectionId: removedSongAndCollectionId
   };
 };
 
@@ -6741,7 +6767,7 @@ var fetchActiveCollectionSongs = function fetchActiveCollectionSongs(activeColle
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchCurrentcollectionAndSongs', {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/fetchCurrentCollectionAndSongs', {
                 data: activeCollectionId
               });
 
@@ -7145,6 +7171,54 @@ var addSongToCollectionThunk = function addSongToCollectionThunk(collectionId, s
     };
   }();
 };
+var removeSongFromCollectionThunk = function removeSongFromCollectionThunk(collectionId, songId, listenedBool) {
+  return /*#__PURE__*/function () {
+    var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(dispatch) {
+      var removedSong;
+      return regeneratorRuntime.wrap(function _callee12$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              _context12.prev = 0;
+              _context12.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().delete('/api/removeSongFromCollection', {
+                data: {
+                  collectionId: collectionId,
+                  songId: songId
+                }
+              });
+
+            case 3:
+              removedSong = _context12.sent;
+              dispatch(removeSongFromCollection({
+                removedSong: removedSong.data,
+                collectionId: collectionId,
+                listenedBool: listenedBool
+              }));
+              _context12.next = 10;
+              break;
+
+            case 7:
+              _context12.prev = 7;
+              _context12.t0 = _context12["catch"](0);
+              console.log(_context12.t0);
+
+            case 10:
+              ;
+
+            case 11:
+            case "end":
+              return _context12.stop();
+          }
+        }
+      }, _callee12, null, [[0, 7]]);
+    }));
+
+    return function (_x12) {
+      return _ref12.apply(this, arguments);
+    };
+  }();
+};
 var initialState = {
   // musicInfo: {
   //     isFetching: true,
@@ -7155,6 +7229,9 @@ var songsCopy;
 var songsInRangeCopy;
 var newPlayIdx;
 var collectionCopy;
+var originalCollectionSongs;
+var newCollectionSongs;
+var collectionId;
 function musicReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -7176,6 +7253,7 @@ function musicReducer() {
       });
 
     case SET_ACTIVE_COLLECTION_SONGS:
+      //loop over session here and rename songs to 'S'
       var collectionsCopy = _objectSpread({}, state.collections);
 
       collectionsCopy[action.data.activeCollectionId].songs = action.data.activeCollectionSongs;
@@ -7298,9 +7376,9 @@ function musicReducer() {
 
     case ADD_SONG_TO_COLLECTION:
       var newSong = action.addedSongAndCollectionId.addedSong;
-      var collectionId = action.addedSongAndCollectionId.collectionId;
-      var originalCollectionSongs = new Map(state.collections[collectionId].songs);
-      var newCollectionSongs = new Map();
+      collectionId = action.addedSongAndCollectionId.collectionId;
+      originalCollectionSongs = new Map(state.collections[collectionId].songs);
+      newCollectionSongs = new Map();
 
       if (originalCollectionSongs.size) {
         var set = false;
@@ -7344,6 +7422,63 @@ function musicReducer() {
       collectionCopy = _objectSpread({}, state.collections);
       collectionCopy[collectionId].songs = newCollectionSongs;
       return _objectSpread(_objectSpread({}, state), {}, {
+        collections: collectionCopy
+      });
+
+    case REMOVE_SONG_FROM_COLLECTION:
+      var removedSong = action.removedSongAndCollectionId.removedSong;
+      collectionId = action.removedSongAndCollectionId.collectionId;
+      var listenedBool = action.removedSongAndCollectionId.listenedBool;
+      newCollectionSongs = new Map(state.collections[collectionId].songs);
+      newCollectionSongs["delete"](removedSong.id);
+      collectionCopy = _objectSpread({}, state.collections);
+      collectionCopy[collectionId].songs = newCollectionSongs;
+
+      if (state.activeSession.collectionId === collectionId) {
+        var newSongs = [];
+
+        if (state.activeSession.songs.length) {
+          for (var i = 0; i < state.activeSession.songs.length; i++) {
+            var currSong = state.activeSession.songs[i];
+            if (currSong === undefined) continue;
+
+            if (currSong.id === removedSong.id) {
+              if (!listenedBool) continue;
+            }
+
+            ;
+            newSongs.push(state.activeSession.songs[i]);
+          }
+
+          ;
+        }
+
+        ;
+        songsInRangeCopy = [];
+
+        var _iterator4 = _createForOfIteratorHelper(state.activeSession.songsInRange),
+            _step4;
+
+        try {
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var _song = _step4.value;
+            if (_song.id !== removedSong.id) songsInRangeCopy.push(_song);
+          }
+        } catch (err) {
+          _iterator4.e(err);
+        } finally {
+          _iterator4.f();
+        }
+
+        ;
+        return _objectSpread(_objectSpread({}, state), {}, {
+          collections: collectionCopy,
+          activeSession: _objectSpread(_objectSpread({}, state.activeSession), {}, {
+            songs: newSongs,
+            songsInRange: songsInRangeCopy
+          })
+        });
+      } else return _objectSpread(_objectSpread({}, state), {}, {
         collections: collectionCopy
       });
 

@@ -87,7 +87,7 @@ class App extends React.Component {
     }
 
     checkPlayerReady() {
-        return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && /*this.props.musicInfo.activeSession.songsInRange &&*/ this.props.musicInfo.activeSession.songs[this.props.playIdx]);
+        return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && /*this.props.musicInfo.activeSession.songsInRange &&*/ this.props.musicInfo.activeSession.songs[this.props.playIdx] /*&& this.props.musicInfo.activeSession.songs[this.props.playIdx] !== 'S'*/);
     };
 
     checkIfListened() {
@@ -189,7 +189,7 @@ class App extends React.Component {
         else if (this.props.screenStr === 'PlayerScreen') {
             selectedScreen = <PlayerScreen />
             changeTempo = <button onClick={() => this.props.changeScreen('Tempo')}>Change Tempo</button>
-        } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs />    
+        } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs next={this.nextTrack} prev={this.prevTrack} />    
         else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs />
         let shareCollection;
         if (this.props.screenStr === 'CollectionSongs') shareCollection = <button onClick={() => this.setState({shareCollectionModal: true})}>Share Collection</button>

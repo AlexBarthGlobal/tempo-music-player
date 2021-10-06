@@ -512,7 +512,6 @@ router.get('/findCollection', async (req, res, next) => {
 
 router.post('/addSongToCollection', async (req, res, next) => {
     try {
-
         const collection = await Collection.findOne({
             where: {
                 collectionOwner: req.session.passport.user,
@@ -523,11 +522,32 @@ router.post('/addSongToCollection', async (req, res, next) => {
         if (collection === null) res.status('403').send(`You don't own this collection or collection doesn't exist.`)
 
         const song = await Song.findByPk(req.body.songId);
-        collection.addSong(song);
+        await collection.addSong(song);
         res.status('201').json(song);
 
     } catch (error) {
         next(error);
+    };
+});
+
+router.delete('/removeSongFromCollection', async (req, res, next) => {
+    console.log('MANGO', req.body.songId)
+    try {
+        const collection = await Collection.findOne({
+            where: {
+                collectionOwner: req.session.passport.user,
+                id: req.body.collectionId
+            }
+        });
+
+        if (collection === null) res.status('403').send(`You don't own this collection or collection doesn't exist.`)
+
+        const song = await Song.findByPk(req.body.songId);
+        await collection.removeSong(song)
+        res.status('201').json(song)
+
+    } catch (error) {
+        next(error)
     };
 });
 

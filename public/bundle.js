@@ -5420,16 +5420,23 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(CollectionSongs);
 
-  function CollectionSongs() {
+  function CollectionSongs(props) {
     var _this;
 
     _classCallCheck(this, CollectionSongs);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    console.log('PROPS from COLLECTIONSONGS CONSTRUCTOR', props.musicInfo.collections[props.selectedCollection].collectionName);
+    _this = _super.call(this);
 
-    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "handleChange", function (evt) {
+      _this.setState(_defineProperty({}, evt.target.name, evt.target.value));
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "clearNameOnFocus", function () {
+      _this.setState({
+        collectionName: ''
+      });
+    });
 
     _defineProperty(_assertThisInitialized(_this), "removeSongFromCollection", /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(songId) {
@@ -5454,17 +5461,32 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
       };
     }());
 
+    _this.state = {
+      collectionName: props.musicInfo.collections[props.selectedCollection].collectionName
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.clearNameOnFocus = _this.clearNameOnFocus.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(CollectionSongs, [{
     key: "componentDidMount",
-    value: // constructor() {
-    //     super()
-    //     this.removeSongFromCollection = this.removeSongFromCollection.bind(this)
-    // };
-    function componentDidMount() {
+    value: function componentDidMount() {
       this.props.fetchActiveCollectionSongs(this.props.selectedCollection);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.editMode && !this.props.editMode) {
+        if (this.state.collectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName) {
+          console.log('UPDATE COLLECTION NAME IN DB'); //call to DB update name
+          //this.setState({collectionName: this.props.musicInfo.collections[this.props.selectedCollection].collectionName})
+        }
+
+        ;
+      }
+
+      ;
     }
   }, {
     key: "render",
@@ -5472,6 +5494,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       console.log('FROM COLLECTIONSONGS', this.props.editMode);
+      console.log('Collection name', this.state.collectionName);
       var buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play';
       var songList = [];
 
@@ -5557,7 +5580,12 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
         }, buttonLabel))));
       } else return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle"
-      }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.selectedCollection].collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.editMode ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        name: "collectionName",
+        onFocus: this.clearNameOnFocus,
+        value: this.state.collectionName,
+        onChange: this.handleChange
+      }) : this.props.musicInfo.collections[this.props.selectedCollection].collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
           return _this2.props.changeScreen('Tempo');
         }

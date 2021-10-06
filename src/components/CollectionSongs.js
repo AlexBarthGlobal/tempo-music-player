@@ -7,15 +7,39 @@ import Modal from 'react-modal'
 import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 
 class CollectionSongs extends React.Component {
-    // constructor() {
-    //     super()
-        
-    //     this.removeSongFromCollection = this.removeSongFromCollection.bind(this)
-    // };
+    constructor(props) {
+        console.log('PROPS from COLLECTIONSONGS CONSTRUCTOR',props.musicInfo.collections[props.selectedCollection].collectionName)
+        super()
+        this.state = {
+            collectionName: props.musicInfo.collections[props.selectedCollection].collectionName
+        }
+
+        this.handleChange = this.handleChange.bind(this)
+        this.clearNameOnFocus = this.clearNameOnFocus.bind(this)
+    };
 
     componentDidMount() {
         this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
     };
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.editMode && !this.props.editMode) {
+            if (this.state.collectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName) {
+                console.log('UPDATE COLLECTION NAME IN DB') //call to DB update name
+                //this.setState({collectionName: this.props.musicInfo.collections[this.props.selectedCollection].collectionName})
+            };
+        };
+    };
+
+    handleChange = (evt) => {
+        this.setState({
+            [evt.target.name]: evt.target.value
+        });
+    };
+
+    clearNameOnFocus = () => {
+        this.setState({collectionName: ''})
+    }
 
     removeSongFromCollection = async (songId) => {
         console.log('REMOVED', songId)
@@ -24,6 +48,7 @@ class CollectionSongs extends React.Component {
     
     render() {
         console.log('FROM COLLECTIONSONGS', this.props.editMode)
+        console.log('Collection name', this.state.collectionName)
         const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
         let songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
@@ -95,7 +120,7 @@ class CollectionSongs extends React.Component {
             <div>
                 <div className='screenTitle'>
                     <div>
-                        {this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
+                        {this.props.editMode ? <input name='collectionName' onFocus={this.clearNameOnFocus} value={this.state.collectionName} onChange={this.handleChange}></input> : this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
                     </div>
                     <div>
                         <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button>

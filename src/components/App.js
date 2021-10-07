@@ -195,7 +195,7 @@ class App extends React.Component {
         const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
-        let selectedScreen = <Collections />
+        let selectedScreen = <Collections editMode={this.state.editCollections}/>
         if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo play={this.play} next={this.nextTrack} player={this.rap} />
         else if (this.props.screenStr === 'PlayerScreen') {
             selectedScreen = <PlayerScreen />

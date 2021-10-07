@@ -4776,7 +4776,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       })) : null; //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
 
       var changeTempo;
-      var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_3__.default, null);
+      var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_3__.default, {
+        editMode: this.state.editCollections
+      });
       if (this.props.screenStr === 'Tempo') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_4__.default, {
         play: this.play,
         next: this.nextTrack,
@@ -5677,7 +5679,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _SingleCollection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SingleCollection */ "./src/components/SingleCollection.js");
 /* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
+/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5699,6 +5708,10 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
 
 
 
@@ -5709,32 +5722,139 @@ var Collections = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(Collections);
 
-  function Collections() {
+  function Collections(props) {
+    var _this;
+
     _classCallCheck(this, Collections);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "deleteCollection", /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(evt) {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                evt.preventDefault();
+                /*await*/
+
+                console.log('deleting collection', _this.state.tempSelectedCollection); //call thunk
+
+                _context.next = 4;
+                return _this.props.deleteCollection(_this.state.tempSelectedCollection, !!(_this.props.activeSession && _this.props.activeSession.collectionId === _this.state.tempSelectedCollection));
+
+              case 4:
+                _this.setState({
+                  confirmDelete: false,
+                  tempSelectedCollection: '',
+                  tempSelectedCollectionName: '',
+                  confirmYes: ''
+                });
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "removeCollection", /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(evt) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                evt.preventDefault();
+                /*await*/
+
+                console.log('removing collection', _this.state.tempSelectedCollection); //call thunk
+
+                _context2.next = 4;
+                return _this.props.removeCollection(_this.state.tempSelectedCollection, !!(_this.props.activeSession && _this.props.activeSession.collectionId === _this.state.tempSelectedCollection));
+
+              case 4:
+                _this.setState({
+                  confirmRemove: false,
+                  tempSelectedCollection: '',
+                  tempSelectedCollectionName: ''
+                });
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "selectForRemove", function (collectionId) {
+      _this.setState({
+        confirmRemove: true,
+        tempSelectedCollection: collectionId,
+        tempSelectedCollectionName: _this.props.musicInfo.collections[collectionId].collectionName
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "selectForDelete", function (collectionId) {
+      _this.setState({
+        confirmDelete: true,
+        tempSelectedCollection: collectionId,
+        tempSelectedCollectionName: _this.props.musicInfo.collections[collectionId].collectionName
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleChange", function (evt) {
+      _this.setState({
+        confirmYes: evt.target.value
+      });
+    });
+
+    _this.state = {
+      confirmRemove: false,
+      confirmDelete: false,
+      tempSelectedCollection: '',
+      tempSelectedCollectionName: '',
+      confirmYes: ''
+    };
+    _this.removeCollection = _this.removeCollection.bind(_assertThisInitialized(_this));
+    _this.deleteCollection = _this.deleteCollection.bind(_assertThisInitialized(_this));
+    _this.selectForRemove = _this.selectForRemove.bind(_assertThisInitialized(_this));
+    _this.selectForDelete = _this.selectForDelete.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(Collections, [{
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
       console.log('PROPS FROM COLLECTIONS', this.props);
       var collections = this.props.musicInfo.collections;
 
       var isActive = function isActive(collectionId) {
-        return _this.props.musicInfo.activeSession && _this.props.musicInfo.activeSession.collectionId === collectionId;
+        return _this2.props.musicInfo.activeSession && _this2.props.musicInfo.activeSession.collectionId === collectionId;
       };
 
       var hasSession = function hasSession(collectionId) {
-        return _this.props.musicInfo.collections[collectionId] && _this.props.musicInfo.collections[collectionId].collectionSessions.length;
+        return _this2.props.musicInfo.collections[collectionId] && _this2.props.musicInfo.collections[collectionId].collectionSessions.length;
       };
 
       var selectCollectionAndChangeScreen = function selectCollectionAndChangeScreen(collectionId) {
         if (isActive(collectionId)) {
-          _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen');
-        } else _this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'CollectionSongs');
+          _this2.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen');
+        } else _this2.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'CollectionSongs');
       };
 
       var noCollections = 'No collections yet. Create a new one!';
@@ -5751,12 +5871,87 @@ var Collections = /*#__PURE__*/function (_React$Component) {
           collectionName: collection.collectionName,
           collectionArt: collection.collectionArtUrl,
           BPM: hasSession(collection.id) ? this.props.musicInfo.collections[collection.id].collectionSessions[0].currBPM : null,
+          editMode: this.props.editMode,
+          removeCollection: this.selectForRemove,
+          deleteCollection: this.selectForDelete,
+          userOwns: collection.collectionOwner === this.props.user.id,
           key: key
         }));
       }
 
       ;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      var removeCollectionModal = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_5___default()), {
+        isOpen: this.state.confirmRemove,
+        onRequestClose: function onRequestClose() {
+          return _this2.setState({
+            confirmRemove: false,
+            tempSelectedCollection: '',
+            tempSelectedCollectionName: '',
+            confirmYes: ''
+          });
+        },
+        style: {
+          content: {
+            borderRadius: '8px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            // minHeight: '116px',
+            // maxHeight: '14vh',
+            height: '118px',
+            // maxHeight: '116px',
+            position: 'absolute',
+            width: '50vw',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            top: '28%'
+          }
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        onSubmit: this.removeCollection
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Are you sure you want to remove ", this.state.tempSelectedCollectionName, " from your collections?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        type: "submit"
+      }, "Remove"))));
+      var deleteCollectionModal = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_5___default()), {
+        isOpen: this.state.confirmDelete,
+        onRequestClose: function onRequestClose() {
+          return _this2.setState({
+            confirmDelete: false,
+            tempSelectedCollection: '',
+            tempSelectedCollectionName: '',
+            confirmYes: ''
+          });
+        },
+        style: {
+          content: {
+            borderRadius: '8px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            // minHeight: '116px',
+            // maxHeight: '14vh',
+            height: '118px',
+            // maxHeight: '116px',
+            position: 'absolute',
+            width: '50vw',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            top: '28%'
+          }
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Are you sure you want to delete ", this.state.tempSelectedCollectionName, "?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "This will also remove it for users that have this collection shared with them."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        onSubmit: this.deleteCollection
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Enter \"CONFIRM\":"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        name: "confirmYes",
+        value: this.state.confirmYes,
+        onChange: this.handleChange
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        type: "submit",
+        disabled: this.state.confirmYes !== 'CONFIRM'
+      }, "Delete")))));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, removeCollectionModal, deleteCollectionModal, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle"
       }, "Collections"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "collections"
@@ -5766,6 +5961,8 @@ var Collections = /*#__PURE__*/function (_React$Component) {
 
   return Collections;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+;
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -5780,6 +5977,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     dispatchSelectCollectionAndChangeScreen: function dispatchSelectCollectionAndChangeScreen(collectionId, screen) {
       return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_3__.selectCollectionAndChangeScreenThunk)(collectionId, screen));
+    },
+    deleteCollection: function deleteCollection(collectionId, isActiveBool) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_4__.deleteCollectionThunk)(collectionId, isActiveBool));
+    },
+    removeCollection: function removeCollection(collectionId, isActiveBool) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_4__.removeCollectionThunk)(collectionId, isActiveBool));
     }
   };
 };
@@ -6310,11 +6513,15 @@ var SingleCollection = function SingleCollection(props) {
       selectCollectionAndChangeScreen = props.selectCollectionAndChangeScreen,
       isActive = props.isActive,
       hasSession = props.hasSession,
-      BPM = props.BPM; // console.log(selectCollection)
+      BPM = props.BPM,
+      editMode = props.editMode,
+      removeCollection = props.removeCollection,
+      deleteCollection = props.deleteCollection,
+      userOwns = props.userOwns; // console.log(selectCollection)
 
   var sessionStatus = null;
   if (isActive(collectionId)) sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Playing at ", BPM, " BPM");else if (hasSession(collectionId)) sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Resume at ", BPM, " BPM");else sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Start new session!");
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     onClick: function onClick() {
       return selectCollectionAndChangeScreen(collectionId);
     }
@@ -6323,7 +6530,15 @@ var SingleCollection = function SingleCollection(props) {
     src: collectionArt
     /*onLoad={}*/
 
-  })), collectionName, sessionStatus);
+  })), collectionName, sessionStatus), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, props.editMode ? userOwns ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    onClick: function onClick() {
+      return deleteCollection(collectionId);
+    }
+  }, "Delete") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    onClick: function onClick() {
+      return removeCollection(collectionId);
+    }
+  }, "Remove") : null));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleCollection);
@@ -6731,6 +6946,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "addSongToCollectionThunk": () => (/* binding */ addSongToCollectionThunk),
 /* harmony export */   "removeSongFromCollectionThunk": () => (/* binding */ removeSongFromCollectionThunk),
 /* harmony export */   "updateCollectionNameThunk": () => (/* binding */ updateCollectionNameThunk),
+/* harmony export */   "deleteCollectionThunk": () => (/* binding */ deleteCollectionThunk),
+/* harmony export */   "removeCollectionThunk": () => (/* binding */ removeCollectionThunk),
 /* harmony export */   "default": () => (/* binding */ musicReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -6787,6 +7004,8 @@ var DISPATCH_SEARCHED_SONGS = 'DISPATCH_SEARCHED_SONGS';
 var ADD_SONG_TO_COLLECTION = 'ADD_SONG_TO_COLLECTION';
 var REMOVE_SONG_FROM_COLLECTION = 'REMOVE_SONG_FROM_COLLECTION';
 var UPDATE_COLLECTION_NAME = 'UPDATE_COLLECTION_NAME';
+var DELETE_COLLECTION = 'DELETE_COLLECTION';
+var REMOVE_COLLECTION = 'REMOVE_COLLECTION';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -6911,6 +7130,20 @@ var updateCollectionName = function updateCollectionName(newCollectionNameAndCol
   return {
     type: UPDATE_COLLECTION_NAME,
     newCollectionNameAndCollectionId: newCollectionNameAndCollectionId
+  };
+};
+
+var deleteCollection = function deleteCollection(deletedCollectionAndBool) {
+  return {
+    type: DELETE_COLLECTION,
+    deletedCollectionAndBool: deletedCollectionAndBool
+  };
+};
+
+var removeCollection = function removeCollection(removedCollectionAndBool) {
+  return {
+    type: REMOVE_COLLECTION,
+    removedCollectionAndBool: removedCollectionAndBool
   };
 };
 
@@ -7563,6 +7796,97 @@ var updateCollectionNameThunk = function updateCollectionNameThunk(newCollection
     };
   }();
 };
+var deleteCollectionThunk = function deleteCollectionThunk(collectionId, isActiveBool) {
+  return /*#__PURE__*/function () {
+    var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(dispatch) {
+      return regeneratorRuntime.wrap(function _callee14$(_context14) {
+        while (1) {
+          switch (_context14.prev = _context14.next) {
+            case 0:
+              _context14.prev = 0;
+              console.log('THUNK PARAMS', collectionId, isActiveBool);
+              _context14.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().delete('/api/deleteCollection', {
+                data: {
+                  collectionId: collectionId
+                }
+              });
+
+            case 4:
+              console.log('COLLECTION DELETED from Thunk');
+              dispatch(deleteCollection({
+                collectionId: collectionId,
+                isActiveBool: isActiveBool
+              }));
+              _context14.next = 11;
+              break;
+
+            case 8:
+              _context14.prev = 8;
+              _context14.t0 = _context14["catch"](0);
+              console.log(_context14.t0);
+
+            case 11:
+              ;
+
+            case 12:
+            case "end":
+              return _context14.stop();
+          }
+        }
+      }, _callee14, null, [[0, 8]]);
+    }));
+
+    return function (_x14) {
+      return _ref14.apply(this, arguments);
+    };
+  }();
+};
+var removeCollectionThunk = function removeCollectionThunk(collectionId, isActiveBool) {
+  return /*#__PURE__*/function () {
+    var _ref15 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(dispatch) {
+      return regeneratorRuntime.wrap(function _callee15$(_context15) {
+        while (1) {
+          switch (_context15.prev = _context15.next) {
+            case 0:
+              _context15.prev = 0;
+              console.log('THUNK PARAMS', collectionId, isActiveBool);
+              _context15.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().delete('/api/removeCollection', {
+                data: {
+                  collectionId: collectionId
+                }
+              });
+
+            case 4:
+              dispatch(removeCollection({
+                collectionId: collectionId,
+                isActiveBool: isActiveBool
+              }));
+              _context15.next = 10;
+              break;
+
+            case 7:
+              _context15.prev = 7;
+              _context15.t0 = _context15["catch"](0);
+              console.log(_context15.t0);
+
+            case 10:
+              ;
+
+            case 11:
+            case "end":
+              return _context15.stop();
+          }
+        }
+      }, _callee15, null, [[0, 7]]);
+    }));
+
+    return function (_x15) {
+      return _ref15.apply(this, arguments);
+    };
+  }();
+};
 var initialState = {
   // musicInfo: {
   //     isFetching: true,
@@ -7576,6 +7900,7 @@ var collectionCopy;
 var originalCollectionSongs;
 var newCollectionSongs;
 var collectionId;
+var isActive;
 function musicReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -7832,6 +8157,36 @@ function musicReducer() {
       collectionCopy = _objectSpread({}, state.collections);
       collectionCopy[collectionId].collectionName = newCollectionName;
       return _objectSpread(_objectSpread({}, state), {}, {
+        collections: collectionCopy
+      });
+
+    case DELETE_COLLECTION:
+      collectionId = action.deletedCollectionAndBool.collectionId;
+      isActive = action.deletedCollectionAndBool.isActiveBool;
+      collectionCopy = _objectSpread({}, state.collections);
+      delete collectionCopy[collectionId];
+
+      if (isActive) {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          collections: collectionCopy,
+          activeSession: undefined
+        });
+      } else return _objectSpread(_objectSpread({}, state), {}, {
+        collections: collectionCopy
+      });
+
+    case REMOVE_COLLECTION:
+      collectionId = action.removedCollectionAndBool.collectionId;
+      isActive = action.removedCollectionAndBool.isActiveBool;
+      collectionCopy = _objectSpread({}, state.collections);
+      delete collectionCopy[collectionId];
+
+      if (isActive) {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          collections: collectionCopy,
+          activeSession: undefined
+        });
+      } else return _objectSpread(_objectSpread({}, state), {}, {
         collections: collectionCopy
       });
 

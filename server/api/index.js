@@ -551,5 +551,20 @@ router.delete('/removeSongFromCollection', async (req, res, next) => {
     };
 });
 
+router.put('/updateCollectionName', async (req, res, next) => {
+    try {
+        await Collection.update(
+            {collectionName: req.body.newCollectionName},
+            {where: {
+                collectionOwner: req.session.passport.user,
+                id: req.body.collectionId
+            }}
+        );
+
+        res.status('201').json('Done')
+    } catch (error) {
+        next(error)
+    };
+});
 
 module.exports = router;

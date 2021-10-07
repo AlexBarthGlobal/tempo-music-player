@@ -18,6 +18,7 @@ const CLEAR_ACTIVE_SESSION = 'CLEAR_ACTIVE_SESSION'
 const DISPATCH_SEARCHED_SONGS = 'DISPATCH_SEARCHED_SONGS'
 const ADD_SONG_TO_COLLECTION = 'ADD_SONG_TO_COLLECTION'
 const REMOVE_SONG_FROM_COLLECTION = 'REMOVE_SONG_FROM_COLLECTION'
+const UPDATE_COLLECTION_NAME = 'UPDATE_COLLECTION_NAME'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -100,6 +101,11 @@ const addSongToCollection = (addedSongAndCollectionId) => ({
 const removeSongFromCollection = (removedSongAndCollectionId) => ({
     type: REMOVE_SONG_FROM_COLLECTION,
     removedSongAndCollectionId
+})
+
+const updateCollectionName = (newCollectionNameAndCollectionId) => ({
+    type: UPDATE_COLLECTION_NAME,
+    newCollectionNameAndCollectionId
 })
 
 export const createCollectionThunk = (collectionName, collectionArtURL) => {
@@ -302,6 +308,17 @@ export const removeSongFromCollectionThunk = (collectionId, songId, listenedBool
     };
 };
 
+export const updateCollectionNameThunk = (newCollectionName, collectionId) => {
+    return async dispatch => {
+        try {
+            await axios.put('/api/updateCollectionName', {newCollectionName, collectionId})
+            dispatch(updateCollectionName({newCollectionName, collectionId}));
+        } catch(err) {
+            console.log(err)
+        };
+    };
+};
+
 
 const initialState = {
     // musicInfo: {
@@ -498,6 +515,15 @@ export default function musicReducer (state = initialState, action) {
                     activeSession: {...state.activeSession, songs: newSongs, songsInRange: songsInRangeCopy}
                 };
             } else return {
+                ...state,
+                collections: collectionCopy
+            };
+        case UPDATE_COLLECTION_NAME:
+            const newCollectionName = action.newCollectionNameAndCollectionId.newCollectionName
+            collectionId = action.newCollectionNameAndCollectionId.collectionId
+            collectionCopy = {...state.collections};
+            collectionCopy[collectionId].collectionName = newCollectionName;
+            return {
                 ...state,
                 collections: collectionCopy
             };

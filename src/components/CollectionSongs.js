@@ -1,6 +1,6 @@
 import React from 'React'
 import {connect} from 'react-redux'
-import {fetchActiveCollectionSongs, removeSongFromCollectionThunk} from '../redux/musicDispatchers';
+import {fetchActiveCollectionSongs, removeSongFromCollectionThunk, updateCollectionNameThunk} from '../redux/musicDispatchers';
 import {changeScreenThunk} from '../redux/screenDispatchers'
 import CollectionSingleSong from './CollectionSingleSong'
 import Modal from 'react-modal'
@@ -22,10 +22,11 @@ class CollectionSongs extends React.Component {
         this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
     };
 
-    componentDidUpdate(prevProps) {
+    async componentDidUpdate(prevProps) {
         if (prevProps.editMode && !this.props.editMode) {
             if (this.state.collectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName) {
-                console.log('UPDATE COLLECTION NAME IN DB') //call to DB update name
+                console.log('UPDATE COLLECTION NAME IN DB')
+                await this.props.updateCollectionName(this.state.collectionName, this.props.selectedCollection)
                 //this.setState({collectionName: this.props.musicInfo.collections[this.props.selectedCollection].collectionName})
             };
         };
@@ -120,7 +121,7 @@ class CollectionSongs extends React.Component {
             <div>
                 <div className='screenTitle'>
                     <div>
-                        {this.props.editMode ? <input name='collectionName' onFocus={this.clearNameOnFocus} value={this.state.collectionName} onChange={this.handleChange}></input> : this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
+                        {this.props.editMode ? <input name='collectionName' onFocus={this.clearNameOnFocus} value={this.state.collectionName} onChange={this.handleChange}></input> : this.state.collectionName}
                     </div>
                     <div>
                         <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button>
@@ -149,6 +150,7 @@ const mapDispatchToProps = (dispatch) => ({
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
     dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
     removeSongFromCollection: (collectionId, songId, listenedBool) => dispatch(removeSongFromCollectionThunk(collectionId, songId, listenedBool)),
+    updateCollectionName: (newCollectionName, collectionId) => dispatch(updateCollectionNameThunk(newCollectionName, collectionId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionSongs)

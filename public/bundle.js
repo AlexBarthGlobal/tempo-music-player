@@ -5476,18 +5476,46 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (prevProps.editMode && !this.props.editMode) {
-        if (this.state.collectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName) {
-          console.log('UPDATE COLLECTION NAME IN DB'); //call to DB update name
-          //this.setState({collectionName: this.props.musicInfo.collections[this.props.selectedCollection].collectionName})
-        }
+    value: function () {
+      var _componentDidUpdate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(prevProps) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(prevProps.editMode && !this.props.editMode)) {
+                  _context2.next = 6;
+                  break;
+                }
 
-        ;
+                if (!(this.state.collectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName)) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                console.log('UPDATE COLLECTION NAME IN DB');
+                _context2.next = 5;
+                return this.props.updateCollectionName(this.state.collectionName, this.props.selectedCollection);
+
+              case 5:
+                ;
+
+              case 6:
+                ;
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function componentDidUpdate(_x2) {
+        return _componentDidUpdate.apply(this, arguments);
       }
 
-      ;
-    }
+      return componentDidUpdate;
+    }()
   }, {
     key: "render",
     value: function render() {
@@ -5585,7 +5613,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
         onFocus: this.clearNameOnFocus,
         value: this.state.collectionName,
         onChange: this.handleChange
-      }) : this.props.musicInfo.collections[this.props.selectedCollection].collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }) : this.state.collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
           return _this2.props.changeScreen('Tempo');
         }
@@ -5623,6 +5651,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     removeSongFromCollection: function removeSongFromCollection(collectionId, songId, listenedBool) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.removeSongFromCollectionThunk)(collectionId, songId, listenedBool));
+    },
+    updateCollectionName: function updateCollectionName(newCollectionName, collectionId) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.updateCollectionNameThunk)(newCollectionName, collectionId));
     }
   };
 };
@@ -6699,6 +6730,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "searchSongsThunk": () => (/* binding */ searchSongsThunk),
 /* harmony export */   "addSongToCollectionThunk": () => (/* binding */ addSongToCollectionThunk),
 /* harmony export */   "removeSongFromCollectionThunk": () => (/* binding */ removeSongFromCollectionThunk),
+/* harmony export */   "updateCollectionNameThunk": () => (/* binding */ updateCollectionNameThunk),
 /* harmony export */   "default": () => (/* binding */ musicReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -6754,6 +6786,7 @@ var CLEAR_ACTIVE_SESSION = 'CLEAR_ACTIVE_SESSION';
 var DISPATCH_SEARCHED_SONGS = 'DISPATCH_SEARCHED_SONGS';
 var ADD_SONG_TO_COLLECTION = 'ADD_SONG_TO_COLLECTION';
 var REMOVE_SONG_FROM_COLLECTION = 'REMOVE_SONG_FROM_COLLECTION';
+var UPDATE_COLLECTION_NAME = 'UPDATE_COLLECTION_NAME';
 
 var setFetchingStatus = function setFetchingStatus(isFetching) {
   return {
@@ -6871,6 +6904,13 @@ var removeSongFromCollection = function removeSongFromCollection(removedSongAndC
   return {
     type: REMOVE_SONG_FROM_COLLECTION,
     removedSongAndCollectionId: removedSongAndCollectionId
+  };
+};
+
+var updateCollectionName = function updateCollectionName(newCollectionNameAndCollectionId) {
+  return {
+    type: UPDATE_COLLECTION_NAME,
+    newCollectionNameAndCollectionId: newCollectionNameAndCollectionId
   };
 };
 
@@ -7480,6 +7520,49 @@ var removeSongFromCollectionThunk = function removeSongFromCollectionThunk(colle
     };
   }();
 };
+var updateCollectionNameThunk = function updateCollectionNameThunk(newCollectionName, collectionId) {
+  return /*#__PURE__*/function () {
+    var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(dispatch) {
+      return regeneratorRuntime.wrap(function _callee13$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              _context13.prev = 0;
+              _context13.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/updateCollectionName', {
+                newCollectionName: newCollectionName,
+                collectionId: collectionId
+              });
+
+            case 3:
+              dispatch(updateCollectionName({
+                newCollectionName: newCollectionName,
+                collectionId: collectionId
+              }));
+              _context13.next = 9;
+              break;
+
+            case 6:
+              _context13.prev = 6;
+              _context13.t0 = _context13["catch"](0);
+              console.log(_context13.t0);
+
+            case 9:
+              ;
+
+            case 10:
+            case "end":
+              return _context13.stop();
+          }
+        }
+      }, _callee13, null, [[0, 6]]);
+    }));
+
+    return function (_x13) {
+      return _ref13.apply(this, arguments);
+    };
+  }();
+};
 var initialState = {
   // musicInfo: {
   //     isFetching: true,
@@ -7740,6 +7823,15 @@ function musicReducer() {
           })
         });
       } else return _objectSpread(_objectSpread({}, state), {}, {
+        collections: collectionCopy
+      });
+
+    case UPDATE_COLLECTION_NAME:
+      var newCollectionName = action.newCollectionNameAndCollectionId.newCollectionName;
+      collectionId = action.newCollectionNameAndCollectionId.collectionId;
+      collectionCopy = _objectSpread({}, state.collections);
+      collectionCopy[collectionId].collectionName = newCollectionName;
+      return _objectSpread(_objectSpread({}, state), {}, {
         collections: collectionCopy
       });
 

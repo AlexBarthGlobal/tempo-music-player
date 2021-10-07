@@ -19,6 +19,8 @@ const DISPATCH_SEARCHED_SONGS = 'DISPATCH_SEARCHED_SONGS'
 const ADD_SONG_TO_COLLECTION = 'ADD_SONG_TO_COLLECTION'
 const REMOVE_SONG_FROM_COLLECTION = 'REMOVE_SONG_FROM_COLLECTION'
 const UPDATE_COLLECTION_NAME = 'UPDATE_COLLECTION_NAME'
+const DELETE_COLLECTION = 'DELETE_COLLECTION'
+const REMOVE_COLLECTION = 'REMOVE_COLLECTION'
 
 const setFetchingStatus = isFetching => ({
     type: SET_FETCHING_STATUS,
@@ -106,6 +108,16 @@ const removeSongFromCollection = (removedSongAndCollectionId) => ({
 const updateCollectionName = (newCollectionNameAndCollectionId) => ({
     type: UPDATE_COLLECTION_NAME,
     newCollectionNameAndCollectionId
+})
+
+const deleteCollection = (deletedCollectionAndBool) => ({
+    type: DELETE_COLLECTION,
+    deletedCollectionAndBool
+})
+
+const removeCollection = (removedCollectionAndBool) => ({
+    type: REMOVE_COLLECTION,
+    removedCollectionAndBool
 })
 
 export const createCollectionThunk = (collectionName, collectionArtURL) => {
@@ -319,6 +331,31 @@ export const updateCollectionNameThunk = (newCollectionName, collectionId) => {
     };
 };
 
+export const deleteCollectionThunk = (collectionId, isActiveBool) => {
+    return async dispatch => {
+        try {
+            console.log('THUNK PARAMS', collectionId, isActiveBool)
+            await axios.delete('/api/deleteCollection', {data:{collectionId}})
+            console.log('COLLECTION DELETED from Thunk')
+            dispatch(deleteCollection({collectionId, isActiveBool}))
+        } catch(err) {
+            console.log(err)
+        };
+    };
+};
+
+export const removeCollectionThunk = (collectionId, isActiveBool) => {
+    return async dispatch => {
+        try {
+            console.log('THUNK PARAMS', collectionId, isActiveBool)
+            await axios.delete('/api/removeCollection', {data:{collectionId}})
+            dispatch(removeCollection({collectionId, isActiveBool}))
+        } catch(err) {
+            console.log(err)
+        };
+    };
+};
+
 
 const initialState = {
     // musicInfo: {
@@ -334,6 +371,7 @@ let collectionCopy;
 let originalCollectionSongs
 let newCollectionSongs
 let collectionId
+let isActive
 
 export default function musicReducer (state = initialState, action) {
     switch (action.type) {
@@ -524,6 +562,36 @@ export default function musicReducer (state = initialState, action) {
             collectionCopy = {...state.collections};
             collectionCopy[collectionId].collectionName = newCollectionName;
             return {
+                ...state,
+                collections: collectionCopy
+            };
+        case DELETE_COLLECTION:
+            collectionId = action.deletedCollectionAndBool.collectionId;
+            isActive = action.deletedCollectionAndBool.isActiveBool
+            collectionCopy = {...state.collections};
+            delete collectionCopy[collectionId];
+            if (isActive) {
+                return {
+                    ...state,
+                    collections: collectionCopy,
+                    activeSession: undefined
+                }
+            } else return {
+                ...state,
+                collections: collectionCopy
+            };
+        case REMOVE_COLLECTION:
+            collectionId = action.removedCollectionAndBool.collectionId;
+            isActive = action.removedCollectionAndBool.isActiveBool
+            collectionCopy = {...state.collections};
+            delete collectionCopy[collectionId];
+            if (isActive) {
+                return {
+                    ...state,
+                    collections: collectionCopy,
+                    activeSession: undefined
+                }
+            } else return {
                 ...state,
                 collections: collectionCopy
             };

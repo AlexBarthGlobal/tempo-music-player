@@ -156,19 +156,19 @@ router.post('/createCollection', async (req, res, next) => {
     };
 });
 
-router.delete('/deleteCollection', async (req, res, next) => {
-    try {
-        await Collection.destroy({
-            where: {
-                id: req.body.collectionId
-            }
-        })
+// router.delete('/deleteCollection', async (req, res, next) => {
+//     try {
+//         await Collection.destroy({
+//             where: {
+//                 id: req.body.collectionId
+//             }
+//         })
 
-        res.status(200).send('Done')
-    } catch(err) {
-        next(err)
-    }
-})
+//         res.status(200).send('Done')
+//     } catch(err) {
+//         next(err)
+//     }
+// })
 
 router.put('/clearListened', async (req, res, next) => {
     try {
@@ -531,7 +531,6 @@ router.post('/addSongToCollection', async (req, res, next) => {
 });
 
 router.delete('/removeSongFromCollection', async (req, res, next) => {
-    console.log('MANGO', req.body.songId)
     try {
         const collection = await Collection.findOne({
             where: {
@@ -560,6 +559,58 @@ router.put('/updateCollectionName', async (req, res, next) => {
                 id: req.body.collectionId
             }}
         );
+
+        res.status('201').json('Done')
+    } catch (error) {
+        next(error)
+    };
+});
+
+router.delete('/deleteCollection', async (req, res, next) => {
+    console.log('Tux')
+    try {
+        await CollectionSession.destroy({
+            where: {
+                userId: req.session.passport.user,
+                collectionId: req.body.collectionId 
+            }
+        });
+
+        await Collection.destroy({
+            where: {
+                collectionOwner: req.session.passport.user,
+                id: req.body.collectionId
+            }
+        });
+
+        res.status('201').json('Done')
+    } catch (error) {
+        next(error)
+    };
+});
+
+router.delete('/removeCollection', async (req, res, next) => {
+    try {
+        const user = await User.findOne({
+            where: {
+                id: req.session.passport.user
+            }
+        });
+
+        await CollectionSession.destroy({
+            where: {
+                userId: req.session.passport.user,
+                collectionId: req.body.collectionId 
+            }
+        });
+
+        const collection = await Collection.findOne({
+            where: {
+                id: req.body.collectionId
+            }
+        });
+
+        await user.removeCollection(collection)
 
         res.status('201').json('Done')
     } catch (error) {

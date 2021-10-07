@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import SingleCollection from './SingleCollection'
 import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
+import {deleteCollectionThunk, removeCollectionThunk} from '../redux/musicDispatchers'
 import Modal from 'react-modal'
 
 class Collections extends React.Component {
@@ -28,16 +29,18 @@ class Collections extends React.Component {
     //     };
     // };
 
-    removeCollection = async (evt) => {
-        evt.preventDefault();
-        /*await*/ console.log('removing collection', this.state.tempSelectedCollection) //call thunk
-        this.setState({confirmRemove: false, tempSelectedCollection: '', tempSelectedCollectionName: ''})
-    };
-
     deleteCollection = async (evt) => {
         evt.preventDefault();
         /*await*/ console.log('deleting collection', this.state.tempSelectedCollection) //call thunk
+        await this.props.deleteCollection(this.state.tempSelectedCollection, !!(this.props.activeSession && this.props.activeSession.collectionId === this.state.tempSelectedCollection));
         this.setState({confirmDelete: false, tempSelectedCollection: '', tempSelectedCollectionName: '', confirmYes: ''})
+    };
+
+    removeCollection = async (evt) => {
+        evt.preventDefault();
+        /*await*/ console.log('removing collection', this.state.tempSelectedCollection) //call thunk
+        await this.props.removeCollection(this.state.tempSelectedCollection, !!(this.props.activeSession && this.props.activeSession.collectionId === this.state.tempSelectedCollection));
+        this.setState({confirmRemove: false, tempSelectedCollection: '', tempSelectedCollectionName: ''})
     };
 
     selectForRemove = (collectionId) => {
@@ -172,7 +175,9 @@ const mapStateToProps = (state) => {
   }
   
   const mapDispatchToProps = dispatch => ({
-    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen))
+    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
+    deleteCollection: (collectionId, isActiveBool) => dispatch(deleteCollectionThunk(collectionId, isActiveBool)),
+    removeCollection: (collectionId, isActiveBool) => dispatch(removeCollectionThunk(collectionId, isActiveBool))
   })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Collections)

@@ -57,7 +57,6 @@ class Collections extends React.Component {
 
     render() {
         console.log('PROPS FROM COLLECTIONS', this.props)
-        const {collections} = this.props.musicInfo;
         const isActive = (collectionId) => {
             return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === collectionId)
         };
@@ -70,13 +69,24 @@ class Collections extends React.Component {
             } else this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'CollectionSongs')
         };
         
-
+        const {collections} = this.props.musicInfo;
         const noCollections = 'No collections yet. Create a new one!'
         const collectionComponents = [];
         for (const key in collections) {
-            const collection = collections[key];
-            if (!collection.collectionName) break;
-            collectionComponents.push(<SingleCollection selectCollectionAndChangeScreen={selectCollectionAndChangeScreen} isActive={isActive} hasSession={hasSession} collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} BPM={hasSession(collection.id) ? this.props.musicInfo.collections[collection.id].collectionSessions[0].currBPM : null} editMode={this.props.editMode} removeCollection={this.selectForRemove} deleteCollection={this.selectForDelete} userOwns={collection.collectionOwner === this.props.user.id} key={key}/>)
+            collectionComponents.push(collections[key]);
+        };
+        collectionComponents.sort((a,b) => {
+            a = new Date(a.userCollections ? a.userCollections.createdAt : a.createdAt);
+            b = new Date(b.userCollections ? b.userCollections.createdAt: b.createdAt);
+            if (a > b) return -1;
+            if (a < b) return 1;
+            return 0;
+        });
+        let i = 0;
+        for (const collection of collectionComponents) {
+            // if (!collection.collectionName) break;
+            collectionComponents[i] = <SingleCollection selectCollectionAndChangeScreen={selectCollectionAndChangeScreen} isActive={isActive} hasSession={hasSession} collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} BPM={hasSession(collection.id) ? this.props.musicInfo.collections[collection.id].collectionSessions[0].currBPM : null} editMode={this.props.editMode} removeCollection={this.selectForRemove} deleteCollection={this.selectForDelete} userOwns={collection.collectionOwner === this.props.user.id} key={collection.id}/>   
+            i++;
         };
 
         const removeCollectionModal = <Modal 

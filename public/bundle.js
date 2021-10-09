@@ -5841,7 +5841,6 @@ var Collections = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       console.log('PROPS FROM COLLECTIONS', this.props);
-      var collections = this.props.musicInfo.collections;
 
       var isActive = function isActive(collectionId) {
         return _this2.props.musicInfo.activeSession && _this2.props.musicInfo.activeSession.collectionId === collectionId;
@@ -5857,13 +5856,28 @@ var Collections = /*#__PURE__*/function (_React$Component) {
         } else _this2.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'CollectionSongs');
       };
 
+      var collections = this.props.musicInfo.collections;
       var noCollections = 'No collections yet. Create a new one!';
       var collectionComponents = [];
 
       for (var key in collections) {
-        var collection = collections[key];
-        if (!collection.collectionName) break;
-        collectionComponents.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
+        collectionComponents.push(collections[key]);
+      }
+
+      ;
+      collectionComponents.sort(function (a, b) {
+        a = new Date(a.userCollections ? a.userCollections.createdAt : a.createdAt);
+        b = new Date(b.userCollections ? b.userCollections.createdAt : b.createdAt);
+        if (a > b) return -1;
+        if (a < b) return 1;
+        return 0;
+      });
+      var i = 0;
+
+      for (var _i = 0, _collectionComponents = collectionComponents; _i < _collectionComponents.length; _i++) {
+        var collection = _collectionComponents[_i];
+        // if (!collection.collectionName) break;
+        collectionComponents[i] = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SingleCollection__WEBPACK_IMPORTED_MODULE_2__.default, {
           selectCollectionAndChangeScreen: selectCollectionAndChangeScreen,
           isActive: isActive,
           hasSession: hasSession,
@@ -5875,8 +5889,9 @@ var Collections = /*#__PURE__*/function (_React$Component) {
           removeCollection: this.selectForRemove,
           deleteCollection: this.selectForDelete,
           userOwns: collection.collectionOwner === this.props.user.id,
-          key: key
-        }));
+          key: collection.id
+        });
+        i++;
       }
 
       ;

@@ -87,6 +87,25 @@ a {
   width: 47%;
   margin-left: auto;
   margin-right: auto;
+  height: 40px;
+}
+
+.exampleTrack {
+  /* margin-left: auto;
+  margin-right: auto; */
+  height: 20px;
+  width: 47%;
+  background: green;
+  border-radius: 20px;
+  position: absolute;
+  margin: 0 auto;
+  transform: translate(0, 50%)
+}
+
+.inner {
+  position: absolute;
+  margin: 0 auto;
+  height: 40px;
 }
 
 .exampleThumb {
@@ -95,14 +114,9 @@ a {
   border: 2px solid black;
   background: green;
   border-radius: 10px;
-}
-
-.exampleTrack {
-  margin-left: auto;
-  margin-right: auto;
-  height: 50px;
-  width: 50px;
-  background: green;
+  position: absolute;
+  margin: 0 auto;
+  transform: translate(0, 25%);
 }
 
 .spaceAbove {

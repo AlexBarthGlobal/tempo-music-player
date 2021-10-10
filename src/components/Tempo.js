@@ -115,7 +115,7 @@ class Tempo extends React.Component {
                     <div>
                         <BPMSlider BPM={this.state.BPM} changeBPM={this.changeBPM} />
                     </div>
-                    <div className='spaceAbove'>
+                    <div >
                         <button onClick={this.handleSubmit}>Play</button>
                     </div>
                 </div>

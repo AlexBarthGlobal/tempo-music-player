@@ -5336,9 +5336,10 @@ var CollectionSingleSong = function CollectionSingleSong(props) {
       duration = props.duration,
       artURL = props.artURL,
       editMode = props.editMode,
-      removeSongFromCollection = props.removeSongFromCollection; //convert duration into minutes & seconds
+      removeSongFromCollection = props.removeSongFromCollection,
+      listenedBool = props.listenedBool; //convert duration into minutes & seconds
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, songName, " ", artistName, " ", albumName, " ", BPM, " ", duration, " ", editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, songName, " ", artistName, " ", albumName, " ", BPM, " ", duration, " ", editMode ? null : listenedBool ? 'Listened' : null, " ", editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     onClick: function onClick() {
       return removeSongFromCollection(songId);
     }
@@ -5551,7 +5552,8 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
               duration: song.duration,
               artURL: song.artURL,
               editMode: this.props.editMode,
-              removeSongFromCollection: this.removeSongFromCollection
+              removeSongFromCollection: this.removeSongFromCollection,
+              listenedBool: !!this.props.user.listened.songs[id]
             }));
             idx++;
           }

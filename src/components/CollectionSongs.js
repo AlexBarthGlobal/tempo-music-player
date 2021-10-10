@@ -56,7 +56,7 @@ class CollectionSongs extends React.Component {
             console.log(this.props.musicInfo.collections[this.props.selectedCollection].songs)
             let idx = 0;
             for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-                songList.push(<CollectionSingleSong key={idx} songId={id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} />)
+                songList.push(<CollectionSingleSong key={idx} songId={id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[id]} />)
                 idx++;
             };
         };

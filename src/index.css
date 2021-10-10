@@ -97,6 +97,14 @@ a {
   border-radius: 10px;
 }
 
+.exampleTrack {
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+  width: 50px;
+  background: green;
+}
+
 .spaceAbove {
   margin-top: 30px;
 }
@@ -104,3 +112,4 @@ a {
 .BPMText {
   font-size: 36px;
 }
+

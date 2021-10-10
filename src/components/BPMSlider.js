@@ -5,14 +5,14 @@ export default class BPMSlider extends React.Component {
     constructor(props) {
         super()
         this.state = {
-            localBPM: props.BPM
+            sliderBPM: props.localBPM
         };
     };
 
     render() {
         return (
             <div>
-                <div className='BPMText'>{`${this.state.localBPM}`}</div>
+                <div className='BPMText'>{`${this.state.sliderBPM}`}</div>
                 <div className='horizontalSlider'>
                     <div className='exampleTrack'></div>
                         <ReactSlider
@@ -22,10 +22,10 @@ export default class BPMSlider extends React.Component {
                             renderThumb={(props, state) => <div {...props}></div>}
                             min={80}
                             max={200}
-                            value={this.props.BPM}
+                            value={this.props.localBPM}
                             // step={1}
-                            onChange={(value) => this.setState({localBPM: value})}
-                            onAfterChange={(value) => this.props.changeBPM(value)}
+                            onChange={(value) => this.setState({sliderBPM: value})}
+                            onAfterChange={(value) => this.props.setLocalBPM(value)}
                             // withTracks={true}
                         />
                 </div>

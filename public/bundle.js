@@ -4782,6 +4782,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       if (this.props.screenStr === 'Tempo') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Tempo__WEBPACK_IMPORTED_MODULE_4__.default, {
         play: this.play,
         next: this.nextTrack,
+        playing: this.state.playing,
         player: this.rap
       });else if (this.props.screenStr === 'PlayerScreen') {
         selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_5__.default, null);
@@ -5040,7 +5041,7 @@ var BPMSlider = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
     _this.state = {
-      localBPM: props.BPM
+      sliderBPM: props.localBPM
     };
     return _this;
   }
@@ -5052,7 +5053,7 @@ var BPMSlider = /*#__PURE__*/function (_React$Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "BPMText"
-      }, "".concat(this.state.localBPM)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "".concat(this.state.sliderBPM)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "horizontalSlider"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "exampleTrack"
@@ -5065,15 +5066,15 @@ var BPMSlider = /*#__PURE__*/function (_React$Component) {
         },
         min: 80,
         max: 200,
-        value: this.props.BPM // step={1}
+        value: this.props.localBPM // step={1}
         ,
         onChange: function onChange(value) {
           return _this2.setState({
-            localBPM: value
+            sliderBPM: value
           });
         },
         onAfterChange: function onAfterChange(value) {
-          return _this2.props.changeBPM(value);
+          return _this2.props.setLocalBPM(value);
         } // withTracks={true}
 
       })));
@@ -5085,6 +5086,118 @@ var BPMSlider = /*#__PURE__*/function (_React$Component) {
 
 
 ;
+
+/***/ }),
+
+/***/ "./src/components/BPMTap.js":
+/*!**********************************!*\
+  !*** ./src/components/BPMTap.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+var BPMTap = function BPMTap(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState2 = _slicedToArray(_useState, 2),
+      timeAverage = _useState2[0],
+      setTimeAverage = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      clicks = _useState4[0],
+      setClicks = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState6 = _slicedToArray(_useState5, 2),
+      showText = _useState6[0],
+      setShowText = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState8 = _slicedToArray(_useState7, 2),
+      counter = _useState8[0],
+      setCounter = _useState8[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (clicks >= 2) {//calculate a new BPM
+      // props.setLocalBPM()
+    }
+  }, [clicks]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var timer;
+
+    if (clicks >= 2) {
+      timer = setTimeout(function () {
+        return setCounter(counter + 1);
+      }, 1000);
+    }
+
+    ;
+
+    if (counter >= 3) {
+      setClicks(0);
+      setCounter(0);
+      setShowText(true); //props.setLocalBPM
+    }
+
+    ;
+    return function () {
+      return clearTimeout(timer);
+    };
+  }, [counter, clicks >= 2]);
+
+  var startCounter = function startCounter() {
+    return setCounter(counter + 1);
+  };
+
+  var stopCounter = function stopCounter() {
+    return setCounter(0);
+  };
+
+  function mouseDown() {
+    setShowText(false);
+    setClicks(clicks + 1);
+    stopCounter(); // wait2Seconds();
+  }
+
+  ;
+  console.log('TAPPER');
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    onClick: function onClick() {
+      return stopCounter();
+    }
+  }, "Stop"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "BPMTapPad",
+    onMouseDown: function onMouseDown() {
+      return mouseDown();
+    },
+    onMouseUp: function onMouseUp() {
+      return console.log('Up');
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, counter), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    className: "BPMTapPadText"
+  }, showText ? 'Tap' : null)));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BPMTap);
 
 /***/ }),
 
@@ -6412,6 +6525,101 @@ var Login = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
+/***/ "./src/components/ManageBPMSliderAndTap.js":
+/*!*************************************************!*\
+  !*** ./src/components/ManageBPMSliderAndTap.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ManageBPMSliderAndTap)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _BPMSlider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BPMSlider */ "./src/components/BPMSlider.js");
+/* harmony import */ var _BPMTap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BPMTap */ "./src/components/BPMTap.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
+  _inherits(ManageBPMSliderAndTap, _React$Component);
+
+  var _super = _createSuper(ManageBPMSliderAndTap);
+
+  function ManageBPMSliderAndTap(props) {
+    var _this;
+
+    _classCallCheck(this, ManageBPMSliderAndTap);
+
+    _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "setLocalBPM", function (newBPM) {
+      _this.setState({
+        localBPM: newBPM
+      });
+    });
+
+    _this.state = {
+      localBPM: props.BPM
+    };
+    return _this;
+  }
+
+  _createClass(ManageBPMSliderAndTap, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      // console.log('PLAYING OR NOT', this.props.playing)
+      // console.log('Metronome sound', this.props.metronomeSound)
+      // console.log('handleSubmit', this.props.handleSubmit)
+      console.log(this.state.localBPM);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMSlider__WEBPACK_IMPORTED_MODULE_1__.default, {
+        localBPM: this.state.localBPM,
+        setLocalBPM: this.setLocalBPM
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMTap__WEBPACK_IMPORTED_MODULE_2__.default, {
+        setLocalBPM: this.setLocalBPM
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: function onClick() {
+          return _this2.props.handleSubmit(_this2.state.localBPM);
+        }
+      }, "Play"));
+    }
+  }]);
+
+  return ManageBPMSliderAndTap;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+
+/***/ }),
+
 /***/ "./src/components/PlayerScreen.js":
 /*!****************************************!*\
   !*** ./src/components/PlayerScreen.js ***!
@@ -6678,7 +6886,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _BPMSlider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./BPMSlider */ "./src/components/BPMSlider.js");
+/* harmony import */ var _ManageBPMSliderAndTap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ManageBPMSliderAndTap */ "./src/components/ManageBPMSliderAndTap.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -6733,39 +6941,39 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleSubmit", /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(evt) {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(selectedBPM) {
         var results, idx;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                evt.preventDefault();
-                results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.selectedCollection].songs, _this.state.BPM); //Run this when updating BPM
+                // evt.preventDefault();
+                results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.selectedCollection].songs, selectedBPM); //Run this when updating BPM
 
                 if (!results[0].length) {
-                  _context.next = 24;
+                  _context.next = 23;
                   break;
                 }
 
                 if (_this.isActive(_this.props.selectedCollection)) _this.props.popOneFromActiveSessionSongs();
 
                 if (!_this.isActive(_this.props.selectedCollection)) {
-                  _context.next = 9;
+                  _context.next = 8;
                   break;
                 }
 
-                _context.next = 7;
-                return _this.props.updateSessionBpm(_this.props.selectedCollection, _this.state.BPM);
+                _context.next = 6;
+                return _this.props.updateSessionBpm(_this.props.selectedCollection, selectedBPM);
 
-              case 7:
-                _context.next = 11;
+              case 6:
+                _context.next = 10;
                 break;
 
-              case 9:
-                _context.next = 11;
-                return _this.props.fetchOnTempoChange(_this.props.selectedCollection, _this.state.BPM);
+              case 8:
+                _context.next = 10;
+                return _this.props.fetchOnTempoChange(_this.props.selectedCollection, selectedBPM);
 
-              case 11:
+              case 10:
                 //load the session and its sessionSongs 
                 // if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
                 _this.props.applySongsInRange(results[0]);
@@ -6774,37 +6982,37 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
                 idx = _this.props.musicInfo.activeSession.playIdx;
 
-              case 14:
+              case 13:
                 if (!(_this.props.musicInfo.activeSession.songs[idx] === 'S' || _this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id])) {
-                  _context.next = 20;
+                  _context.next = 19;
                   break;
                 }
 
                 idx++;
-                _context.next = 18;
+                _context.next = 17;
                 return _this.props.next();
 
-              case 18:
-                _context.next = 14;
+              case 17:
+                _context.next = 13;
                 break;
 
-              case 20:
+              case 19:
                 ;
 
                 _this.props.play(); // }
 
 
-                _context.next = 26;
+                _context.next = 25;
                 break;
 
-              case 24:
+              case 23:
                 _this.setState({
                   noMoreMusic: true
                 });
 
                 console.log('No more music');
 
-              case 26:
+              case 25:
               case "end":
                 return _context.stop();
             }
@@ -6830,10 +7038,9 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
     });
 
     _this.state = {
-      BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : 140,
       noMoreMusic: false
-    };
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    }; // this.handleSubmit = this.handleSubmit.bind(this)
+
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.isActive = _this.isActive.bind(_assertThisInitialized(_this));
     return _this;
@@ -6875,12 +7082,12 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
         className: "screenTitle"
       }, "Tempo Screen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "centerThis"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Confirm BPM:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMSlider__WEBPACK_IMPORTED_MODULE_6__.default, {
-        BPM: this.state.BPM,
-        changeBPM: this.changeBPM
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.handleSubmit
-      }, "Play"))));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Confirm BPM:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ManageBPMSliderAndTap__WEBPACK_IMPORTED_MODULE_6__.default, {
+        BPM: this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : 140,
+        metronomeSound: this.props.user.metronomeSound,
+        playing: this.props.playing,
+        handleSubmit: this.handleSubmit
+      }))));
     }
   }]);
 
@@ -19508,7 +19715,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\n/* disable blue highlight (especially on mobile) */\ninput,\ntextarea,\nbutton,\nselect,\ndiv,\na {\n  outline: none;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}\n\n.centerWithMargin {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.toTheRight {\n  margin-left: auto;\n}\n\n.horizontalSlider {\n  width: 47%;\n  /* padding:10px; */\n  margin-left: auto;\n  margin-right: auto;\n  height: 40px;\n}\n\n.exampleTrack {\n  /* margin-left: auto;\n  margin-right: auto; */\n  height: 20px;\n  width: 47%;\n  background: grey;\n  border-radius: 20px;\n  position: absolute;\n  margin: 0 auto;\n  transform: translate(0, 50%)\n}\n\n.inner {\n  position: absolute;\n  margin: 0 auto;\n  height: 40px;\n}\n\n.exampleThumb {\n  height: 24px;\n  width: 24px;\n  border: 2px solid black;\n  background: black;\n  border-radius: 10px;\n  position: absolute;\n  margin: 0 auto;\n  transform: translate(0, 25%);\n}\n\n.spaceAbove {\n  margin-top: 30px;\n}\n\n.BPMText {\n  font-size: 36px;\n}\n\n", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA,kDAAkD;AAClD;;;;;;EAME,aAAa;AACf;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;EACjB;mCACiC;AACnC;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,eAAe;AACjB;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE;;cAEY;EACZ,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,UAAU;EACV,kBAAkB;EAClB,iBAAiB;EACjB,kBAAkB;EAClB,YAAY;AACd;;AAEA;EACE;uBACqB;EACrB,YAAY;EACZ,UAAU;EACV,gBAAgB;EAChB,mBAAmB;EACnB,kBAAkB;EAClB,cAAc;EACd;AACF;;AAEA;EACE,kBAAkB;EAClB,cAAc;EACd,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,WAAW;EACX,uBAAuB;EACvB,iBAAiB;EACjB,mBAAmB;EACnB,kBAAkB;EAClB,cAAc;EACd,4BAA4B;AAC9B;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,eAAe;AACjB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\n/* disable blue highlight (especially on mobile) */\ninput,\ntextarea,\nbutton,\nselect,\ndiv,\na {\n  outline: none;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}\n\n.centerWithMargin {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.toTheRight {\n  margin-left: auto;\n}\n\n.horizontalSlider {\n  width: 47%;\n  /* padding:10px; */\n  margin-left: auto;\n  margin-right: auto;\n  height: 40px;\n}\n\n.exampleTrack {\n  /* margin-left: auto;\n  margin-right: auto; */\n  height: 20px;\n  width: 47%;\n  background: grey;\n  border-radius: 20px;\n  position: absolute;\n  margin: 0 auto;\n  transform: translate(0, 50%)\n}\n\n.inner {\n  position: absolute;\n  margin: 0 auto;\n  height: 40px;\n}\n\n.exampleThumb {\n  height: 24px;\n  width: 24px;\n  border: 2px solid black;\n  background: black;\n  border-radius: 10px;\n  position: absolute;\n  margin: 0 auto;\n  transform: translate(0, 25%);\n}\n\n.spaceAbove {\n  margin-top: 30px;\n}\n\n.BPMText {\n  font-size: 36px;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\n/* disable blue highlight (especially on mobile) */\ninput,\ntextarea,\nbutton,\nselect,\ndiv,\na {\n  outline: none;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}\n\n.centerWithMargin {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.toTheRight {\n  margin-left: auto;\n}\n\n.horizontalSlider {\n  width: 47%;\n  /* padding:10px; */\n  margin-left: auto;\n  margin-right: auto;\n  height: 40px;\n}\n\n.exampleTrack {\n  /* margin-left: auto;\n  margin-right: auto; */\n  height: 20px;\n  width: 47%;\n  background: grey;\n  border-radius: 20px;\n  position: absolute;\n  margin: 0 auto;\n  transform: translate(0, 50%)\n}\n\n.inner {\n  position: absolute;\n  margin: 0 auto;\n  height: 40px;\n}\n\n.exampleThumb {\n  height: 24px;\n  width: 24px;\n  border: 2px solid black;\n  background: black;\n  border-radius: 10px;\n  position: absolute;\n  margin: 0 auto;\n  transform: translate(0, 25%);\n}\n\n.spaceAbove {\n  margin-top: 30px;\n}\n\n.BPMText {\n  font-size: 36px;\n}\n\n.BPMTapPad {\n  margin: 0 auto;\n  height: 136px;\n  width: 136px;\n  border: 2px solid black;\n  border-radius: 12px;\n  background-color: rgb(175, 175, 175)\n}\n\n.BPMTapPad:active {\n  background-color: rgb(128, 123, 123);\n}\n\n.BPMTapPadText {\n  padding: 25%;\n  font-size: 17px;\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT;;cAEY;EACZ,mCAAmC;EACnC,kCAAkC;EAClC,sCAAsC;;AAExC;;AAEA,kDAAkD;AAClD;;;;;;EAME,aAAa;AACf;;AAEA;EACE;aACW;AACb;;AAEA;EACE,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,+BAA+B;EAC/B,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,iBAAiB;EACjB;mCACiC;AACnC;;AAEA;EACE,eAAe;EACf,2BAA2B;EAC3B,SAAS;EACT,WAAW;EACX,YAAY;EACZ,sCAAsC;AACxC;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,eAAe;AACjB;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE;;cAEY;EACZ,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,UAAU;EACV,kBAAkB;EAClB,iBAAiB;EACjB,kBAAkB;EAClB,YAAY;AACd;;AAEA;EACE;uBACqB;EACrB,YAAY;EACZ,UAAU;EACV,gBAAgB;EAChB,mBAAmB;EACnB,kBAAkB;EAClB,cAAc;EACd;AACF;;AAEA;EACE,kBAAkB;EAClB,cAAc;EACd,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,WAAW;EACX,uBAAuB;EACvB,iBAAiB;EACjB,mBAAmB;EACnB,kBAAkB;EAClB,cAAc;EACd,4BAA4B;AAC9B;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,cAAc;EACd,aAAa;EACb,YAAY;EACZ,uBAAuB;EACvB,mBAAmB;EACnB;AACF;;AAEA;EACE,oCAAoC;AACtC;;AAEA;EACE,YAAY;EACZ,eAAe;AACjB","sourcesContent":["body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  /* background-color: rgb(26, 24, 24) */\n\n}\n\n/* disable blue highlight (especially on mobile) */\ninput,\ntextarea,\nbutton,\nselect,\ndiv,\na {\n  outline: none;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\na {\n  display: inherit;\n  text-decoration: none;\n}\n\n.screenTitle {\n  /* color: rgb(255, 255, 255); */\n  font-size: 2em;\n  text-align: center;\n}\n\n.topButtons {\n  display: flex;\n  justify-content: space-between;\n}\n\n.secondButtons {\n  text-align: right;\n  /* display: flex;\n  justify-content: space-between; */\n}\n\n.footer {\n  position: fixed;\n  padding: 10px 10px 0px 10px;\n  bottom: 0;\n  width: 100%;\n  height: 40px;\n  background: rgba(128, 128, 128, 0.473);\n}\n\n.collections {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n\n.collectionImage {\n  max-width: 21vw;\n  max-height: 21vh;\n  border-radius: 17px;\n}\n\n.centerThis {\n  /* margin-left: auto;\n  margin-right: auto;\n  width: 8em */\n  text-align: center;\n}\n\n.centerWithMargin {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.toTheRight {\n  margin-left: auto;\n}\n\n.horizontalSlider {\n  width: 47%;\n  /* padding:10px; */\n  margin-left: auto;\n  margin-right: auto;\n  height: 40px;\n}\n\n.exampleTrack {\n  /* margin-left: auto;\n  margin-right: auto; */\n  height: 20px;\n  width: 47%;\n  background: grey;\n  border-radius: 20px;\n  position: absolute;\n  margin: 0 auto;\n  transform: translate(0, 50%)\n}\n\n.inner {\n  position: absolute;\n  margin: 0 auto;\n  height: 40px;\n}\n\n.exampleThumb {\n  height: 24px;\n  width: 24px;\n  border: 2px solid black;\n  background: black;\n  border-radius: 10px;\n  position: absolute;\n  margin: 0 auto;\n  transform: translate(0, 25%);\n}\n\n.spaceAbove {\n  margin-top: 30px;\n}\n\n.BPMText {\n  font-size: 36px;\n}\n\n.BPMTapPad {\n  margin: 0 auto;\n  height: 136px;\n  width: 136px;\n  border: 2px solid black;\n  border-radius: 12px;\n  background-color: rgb(175, 175, 175)\n}\n\n.BPMTapPad:active {\n  background-color: rgb(128, 123, 123);\n}\n\n.BPMTapPadText {\n  padding: 25%;\n  font-size: 17px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

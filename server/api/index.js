@@ -618,4 +618,26 @@ router.delete('/removeCollection', async (req, res, next) => {
     };
 });
 
+router.delete('/removeFromListened', async (req, res, next) => {
+    try {
+        const listened = await Listened.findOne({
+            where: {
+                userId: req.session.passport.user
+            }
+        });
+
+        const song = await Song.findOne({
+            where: {
+                id: req.body.songId
+            }
+        });
+
+        await listened.removeSong(song)
+
+        res.status('201').json('Done')
+    } catch (error) {
+        next(error)
+    };
+});
+
 module.exports = router;

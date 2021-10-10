@@ -96,7 +96,14 @@ class App extends React.Component {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx] && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
             this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
         };
-    }
+    };
+
+    componentDidMount() {
+        if (this.props.musicInfo && this.props.musicInfo.activeSession) {
+            console.log('CHECKING IF LISTENED')
+            this.checkIfListened();
+        }
+    };
 
     componentDidUpdate(prevProps, prevState) {
         console.log('UPDATED HERE')
@@ -110,18 +117,20 @@ class App extends React.Component {
             })
         };
 
-        if (this.checkPlayerReady()) {
-            this.checkIfListened();
-        } else {
-            this.rap.src = null;
-        }
+        // if (this.checkPlayerReady()) {
+        //     this.checkIfListened();
+        // } else {
+        //     this.rap.src = null;
+        // }
+        if (!this.checkPlayerReady()) this.rap.src = null;
     };
 
     play() {
         this.rap.play();
         this.setState({
             playing: true
-        })
+        });
+        this.checkIfListened();
     };
     
     pause() {
@@ -156,6 +165,7 @@ class App extends React.Component {
     prevTrack = async () => {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
            await this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+           this.play();
         };
     };
 

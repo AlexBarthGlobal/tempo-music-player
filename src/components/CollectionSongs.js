@@ -1,11 +1,12 @@
 import React from 'React'
 import {connect} from 'react-redux'
-import {fetchActiveCollectionSongs, removeSongFromCollectionThunk, updateCollectionNameThunk} from '../redux/musicDispatchers';
+import {fetchActiveCollectionSongs, removeSongFromCollectionThunk, updateCollectionNameThunk, popOneFromActiveSessionSongsThunk, addSongsInRangeThunk} from '../redux/musicDispatchers';
 import {changeScreenThunk} from '../redux/screenDispatchers'
 import CollectionSingleSong from './CollectionSingleSong'
 import Modal from 'react-modal'
 import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {removeSongFromListenedThunk} from '../redux/userDispatchers'
+import songsInRange from '../components/songsInRange'
 
 class CollectionSongs extends React.Component {
     constructor(props) {
@@ -51,6 +52,17 @@ class CollectionSongs extends React.Component {
     removeSongFromListened = async (songId) => {
         console.log('Removing', songId)
         await this.props.removeSongFromListened(songId)
+
+        if (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection) {
+            const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.selectedCollection].songs, this.props.musicInfo.activeSession.currBPM);
+            if (results[0].length) {
+                console.log('ENQUEING')
+                if (!this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx+1]) {
+                    this.props.popOneFromActiveSessionSongs();
+                    this.props.addSongsInRange(results[0])
+                };
+            };
+        };
     };
     
     render() {
@@ -157,7 +169,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
     removeSongFromCollection: (collectionId, songId, listenedBool) => dispatch(removeSongFromCollectionThunk(collectionId, songId, listenedBool)),
     updateCollectionName: (newCollectionName, collectionId) => dispatch(updateCollectionNameThunk(newCollectionName, collectionId)),
-    removeSongFromListened: (songId) => dispatch(removeSongFromListenedThunk(songId))
+    removeSongFromListened: (songId) => dispatch(removeSongFromListenedThunk(songId)),
+    popOneFromActiveSessionSongs: () => dispatch(popOneFromActiveSessionSongsThunk()),
+    addSongsInRange: (songs) => dispatch(addSongsInRangeThunk(songs)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollectionSongs)

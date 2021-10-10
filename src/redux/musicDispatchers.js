@@ -154,6 +154,7 @@ export const fetchCollectionsAndSessions = () => {
             if (activeSession) {
                 // get all songs from the session descending order so you get most recent songs first
                 const sessionSongs = await axios.post('/api/fetchSongsFromSession', {data: activeSession.id});
+                console.log('SESSION SONGS,', sessionSongs)
                 // console.log('SESSIONSONGS THUNK', sessionSongs)
                 activeSession.songs = [];
                 if (sessionSongs) {

@@ -7253,7 +7253,7 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
               response.data.collections = collectionsObj; // console.log('THIS IS THE ACTIVE SESSION', activeSession)
 
               if (!activeSession) {
-                _context2.next = 16;
+                _context2.next = 17;
                 break;
               }
 
@@ -7264,7 +7264,8 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
 
             case 13:
               sessionSongs = _context2.sent;
-              // console.log('SESSIONSONGS THUNK', sessionSongs)
+              console.log('SESSION SONGS,', sessionSongs); // console.log('SESSIONSONGS THUNK', sessionSongs)
+
               activeSession.songs = [];
 
               if (sessionSongs) {
@@ -7273,33 +7274,33 @@ var fetchCollectionsAndSessions = function fetchCollectionsAndSessions() {
                 }
               }
 
-            case 16:
+            case 17:
               dispatch(gotCollectionsAndSessions({
                 collectionsAndSessions: response.data.collections,
                 activeSession: activeSession
               }));
-              _context2.next = 22;
+              _context2.next = 23;
               break;
 
-            case 19:
-              _context2.prev = 19;
+            case 20:
+              _context2.prev = 20;
               _context2.t0 = _context2["catch"](1);
               console.error(_context2.t0);
 
-            case 22:
-              _context2.prev = 22;
+            case 23:
+              _context2.prev = 23;
               dispatch(setFetchingStatus(false));
-              return _context2.finish(22);
-
-            case 25:
-              ;
+              return _context2.finish(23);
 
             case 26:
+              ;
+
+            case 27:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 19, 22, 25]]);
+      }, _callee2, null, [[1, 20, 23, 26]]);
     }));
 
     return function (_x2) {

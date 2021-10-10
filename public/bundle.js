@@ -4619,6 +4619,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     key: "checkIfListened",
     value: function checkIfListened() {
       if (this.props.musicInfo.activeSession.songs[this.props.playIdx] && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
+        console.log('ADDING TO DB');
         this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
       }
 

@@ -1,5 +1,5 @@
 const axios = require('axios')
-const {db, Song, User, Collection, CollectionSession, Listened, UserCollection} = require ('./server/db/index')
+const {db, Song, User, Collection, CollectionSession, Listened, UserCollection, Duplicate, SessionSong} = require ('./server/db/index')
 
 const seed = async () => {
     try {   
@@ -119,29 +119,40 @@ const seed = async () => {
         await firstCollection.addSong(woah);
         await firstCollection.addSong(aura);
 
-        // await firstListened.addSong(diorInstrumental);
-        // await firstListened.addSong(boomIt);
-        // await firstListened.addSong(fastLane);  // most recent
+        await firstListened.addSong(diorInstrumental);
+        await firstListened.addSong(boomIt);
+        await firstListened.addSong(fastLane);  // most recent
         
-        // const firstSession = await CollectionSession.create({
-        //     active: true,
-        //     currBPM: 142,
-        //     playIdx: 3
-        // });
+        const firstSession = await CollectionSession.create({
+            active: true,
+            currBPM: 142,
+            playIdx: 3
+        });
 
-        // await setTimeout(() => {  firstSession.addSong(boomIt) }, 1000);
-        // await setTimeout(() => {  firstSession.addSong(diorInstrumental); }, 1000);
-        // await setTimeout(() => {  firstSession.addSong(fastLane); }, 1000);     // most recent
+        await firstSession.addSong(boomIt)
+        await firstSession.addSong(diorInstrumental)
+        await firstSession.addSong(fastLane)    // most recent
 
         // // const firstS = await CollectionSession.findByPk(1)
         // // const fastLa = await Song.findByPk(1)
         // // await setTimeout(() => {  firstS.addSong(fastLa); }, 1000);
 
-        // firstCollection.addCollectionSession(firstSession);   // Previously listened songs from that specific collection. (previous songs)
-        // alex.addCollectionSession(firstSession);
+        await firstCollection.addCollectionSession(firstSession);   // Previously listened songs from that specific collection. (previous songs)
+        await alex.addCollectionSession(firstSession);
 
 
+        const songFromSession = await SessionSong.findOne({
+            where: {
+                collectionSessionId: 1,
+                songId: 2
+            }
+        });
 
+        const duplicate = await Duplicate.create({})
+        const anotherDuplicate = await Duplicate.create({})
+
+        await songFromSession.addDuplicate(duplicate)
+        await songFromSession.addDuplicate(anotherDuplicate)
 
 
 

@@ -9,18 +9,6 @@ export default class BPMSlider extends React.Component {
         };
     };
 
-
-
-
-
-
-
-
-
-
-
-
-
     render() {
         return (
             <div>

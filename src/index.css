@@ -96,7 +96,7 @@ a {
   margin-right: auto; */
   height: 20px;
   width: 47%;
-  background: green;
+  background: grey;
   border-radius: 20px;
   position: absolute;
   margin: 0 auto;
@@ -113,7 +113,7 @@ a {
   height: 24px;
   width: 24px;
   border: 2px solid black;
-  background: green;
+  background: black;
   border-radius: 10px;
   position: absolute;
   margin: 0 auto;

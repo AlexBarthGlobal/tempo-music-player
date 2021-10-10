@@ -4626,7 +4626,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     value: function componentDidUpdate(prevProps, prevState) {
       console.log('UPDATED HERE');
       if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
-      if (prevState.recipientEmail !== this.state.recipientEmail) return;
+      if (prevState.recipientEmail !== this.state.recipientEmail) return; // if (prevProps.listened)
 
       if (prevProps.screenStr !== this.props.screenStr && (this.state.editCollection || this.state.editCollections)) {
         this.setState({
@@ -5337,11 +5337,12 @@ var CollectionSingleSong = function CollectionSingleSong(props) {
       artURL = props.artURL,
       editMode = props.editMode,
       listenedBool = props.listenedBool,
-      removeSongFromCollection = props.removeSongFromCollection; //convert duration into minutes & seconds
+      removeSongFromCollection = props.removeSongFromCollection,
+      removeSongFromListened = props.removeSongFromListened; //convert duration into minutes & seconds
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, songName, " ", artistName, " ", albumName, " ", BPM, " ", duration, " ", editMode ? null : listenedBool ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     onClick: function onClick() {
-      return console.log('Remove from listened');
+      return removeSongFromListened(songId);
     }
   }, "Listened") : null, " ", editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     onClick: function onClick() {
@@ -5372,6 +5373,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CollectionSingleSong__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CollectionSingleSong */ "./src/components/CollectionSingleSong.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -5413,6 +5415,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -5468,6 +5471,29 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
       };
     }());
 
+    _defineProperty(_assertThisInitialized(_this), "removeSongFromListened", /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(songId) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                console.log('Removing', songId);
+                _context2.next = 3;
+                return _this.props.removeSongFromListened(songId);
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+
     _this.state = {
       collectionName: props.musicInfo.collections[props.selectedCollection].collectionName
     };
@@ -5484,23 +5510,23 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function () {
-      var _componentDidUpdate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(prevProps) {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      var _componentDidUpdate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(prevProps) {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 if (!(prevProps.editMode && !this.props.editMode)) {
-                  _context2.next = 6;
+                  _context3.next = 6;
                   break;
                 }
 
                 if (!(this.state.collectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName)) {
-                  _context2.next = 5;
+                  _context3.next = 5;
                   break;
                 }
 
                 console.log('UPDATE COLLECTION NAME IN DB');
-                _context2.next = 5;
+                _context3.next = 5;
                 return this.props.updateCollectionName(this.state.collectionName, this.props.selectedCollection);
 
               case 5:
@@ -5511,13 +5537,13 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
 
               case 7:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
-      function componentDidUpdate(_x2) {
+      function componentDidUpdate(_x3) {
         return _componentDidUpdate.apply(this, arguments);
       }
 
@@ -5556,8 +5582,9 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
               duration: song.duration,
               artURL: song.artURL,
               editMode: this.props.editMode,
+              removeSongFromCollection: this.removeSongFromCollection,
               listenedBool: !!this.props.user.listened.songs[id],
-              removeSongFromCollection: this.removeSongFromCollection
+              removeSongFromListened: this.removeSongFromListened
             }));
             idx++;
           }
@@ -5662,6 +5689,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     updateCollectionName: function updateCollectionName(newCollectionName, collectionId) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.updateCollectionNameThunk)(newCollectionName, collectionId));
+    },
+    removeSongFromListened: function removeSongFromListened(songId) {
+      return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_6__.removeSongFromListenedThunk)(songId));
     }
   };
 };
@@ -8335,6 +8365,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "fetchUser": () => (/* binding */ fetchUser),
 /* harmony export */   "addToListenedAndSessionThunk": () => (/* binding */ addToListenedAndSessionThunk),
+/* harmony export */   "removeSongFromListenedThunk": () => (/* binding */ removeSongFromListenedThunk),
 /* harmony export */   "logout": () => (/* binding */ logout),
 /* harmony export */   "clearListenedThunk": () => (/* binding */ clearListenedThunk),
 /* harmony export */   "default": () => (/* binding */ userReducer)
@@ -8357,15 +8388,13 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-// import {createStore, applyMiddleware} from 'redux'
-// import loggerMiddleware from 'redux-logger'
-// import thunkMiddleware from 'redux-thunk'
 
 var GET_USER = 'GET_USER';
 var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 var LOGOUT_USER = 'LOGOUT_USER';
 var ADD_SONG_TO_LISTENED = 'ADD_SONG_TO_LISTENED';
 var SET_UPDATED_LISTENED = 'SET_UPDATED_LISTENED';
+var REMOVE_SONG_FROM_LISTENED = 'REMOVE_SONG_FROM_LISTENED';
 
 var gotMe = function gotMe(user) {
   return {
@@ -8398,6 +8427,13 @@ var setUpdatedListened = function setUpdatedListened(updatedListened) {
   return {
     type: SET_UPDATED_LISTENED,
     updatedListened: updatedListened
+  };
+};
+
+var removeSongFromListened = function removeSongFromListened(songId) {
+  return {
+    type: REMOVE_SONG_FROM_LISTENED,
+    songId: songId
   };
 };
 
@@ -8511,6 +8547,47 @@ var addToListenedAndSessionThunk = function addToListenedAndSessionThunk(song, c
       return _ref2.apply(this, arguments);
     };
   }();
+};
+var removeSongFromListenedThunk = function removeSongFromListenedThunk(songId) {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _context3.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().delete('/api/removeSongFromListened', {
+                data: {
+                  songId: songId
+                }
+              });
+
+            case 3:
+              dispatch(removeSongFromListened(songId));
+              _context3.next = 9;
+              break;
+
+            case 6:
+              _context3.prev = 6;
+              _context3.t0 = _context3["catch"](0);
+              console.log(_context3.t0);
+
+            case 9:
+              ;
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[0, 6]]);
+    }));
+
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
 }; // export const signUp = credentials => {
 //   return async dispatch => {
 //     try {
@@ -8524,78 +8601,78 @@ var addToListenedAndSessionThunk = function addToListenedAndSessionThunk(song, c
 
 var logout = function logout() {
   return /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth/logout');
-
-            case 3:
-              dispatch(logoutUser()); // history.push('/login')
-
-              _context3.next = 9;
-              break;
-
-            case 6:
-              _context3.prev = 6;
-              _context3.t0 = _context3["catch"](0);
-              console.error(_context3.t0);
-
-            case 9:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[0, 6]]);
-    }));
-
-    return function (_x3) {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-};
-var clearListenedThunk = function clearListenedThunk(listenedId) {
-  return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch) {
-      var updatedListened;
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
               _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth/logout');
+
+            case 3:
+              dispatch(logoutUser()); // history.push('/login')
+
+              _context4.next = 9;
+              break;
+
+            case 6:
+              _context4.prev = 6;
+              _context4.t0 = _context4["catch"](0);
+              console.error(_context4.t0);
+
+            case 9:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0, 6]]);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+};
+var clearListenedThunk = function clearListenedThunk(listenedId) {
+  return /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dispatch) {
+      var updatedListened;
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.prev = 0;
+              _context5.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/clearListened', {
                 data: listenedId
               });
 
             case 3:
-              updatedListened = _context4.sent;
+              updatedListened = _context5.sent;
               updatedListened.data.songs = {};
               dispatch(setUpdatedListened(updatedListened.data));
-              _context4.next = 11;
+              _context5.next = 11;
               break;
 
             case 8:
-              _context4.prev = 8;
-              _context4.t0 = _context4["catch"](0);
-              console.log(_context4.t0);
+              _context5.prev = 8;
+              _context5.t0 = _context5["catch"](0);
+              console.log(_context5.t0);
 
             case 11:
               ;
 
             case 12:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4, null, [[0, 8]]);
+      }, _callee5, null, [[0, 8]]);
     }));
 
-    return function (_x4) {
-      return _ref4.apply(this, arguments);
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
     };
   }();
 }; // export const login = credentials => {
@@ -8665,6 +8742,15 @@ function userReducer() {
       return {
         user: _objectSpread(_objectSpread({}, state.user), {}, {
           listened: action.updatedListened
+        })
+      };
+
+    case REMOVE_SONG_FROM_LISTENED:
+      listenedCopy = _objectSpread({}, state.user.listened);
+      delete listenedCopy.songs[action.songId];
+      return {
+        user: _objectSpread(_objectSpread({}, state.user), {}, {
+          listened: listenedCopy
         })
       };
 

@@ -102,6 +102,7 @@ class App extends React.Component {
         console.log('UPDATED HERE')
         if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
         if (prevState.recipientEmail !== this.state.recipientEmail) return;
+        // if (prevProps.listened)
         if (prevProps.screenStr !== this.props.screenStr && (this.state.editCollection || this.state.editCollections)) {
             this.setState({
                 editCollection: false,

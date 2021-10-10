@@ -618,7 +618,7 @@ router.delete('/removeCollection', async (req, res, next) => {
     };
 });
 
-router.delete('/removeFromListened', async (req, res, next) => {
+router.delete('/removeSongFromListened', async (req, res, next) => {
     try {
         const listened = await Listened.findOne({
             where: {

@@ -1,6 +1,3 @@
-// import {createStore, applyMiddleware} from 'redux'
-// import loggerMiddleware from 'redux-logger'
-// import thunkMiddleware from 'redux-thunk'
 import axios from 'axios'
 
 const GET_USER = 'GET_USER';
@@ -8,6 +5,7 @@ const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 const LOGOUT_USER = 'LOGOUT_USER'
 const ADD_SONG_TO_LISTENED = 'ADD_SONG_TO_LISTENED'
 const SET_UPDATED_LISTENED = 'SET_UPDATED_LISTENED'
+const REMOVE_SONG_FROM_LISTENED = 'REMOVE_SONG_FROM_LISTENED'
 
 const gotMe = user => ({
   type: GET_USER,
@@ -31,6 +29,11 @@ const dispatchAddSongToListened = song => ({
 const setUpdatedListened = updatedListened => ({
   type: SET_UPDATED_LISTENED,
   updatedListened
+})
+
+const removeSongFromListened = (songId) => ({
+  type: REMOVE_SONG_FROM_LISTENED,
+  songId
 })
 
 export const fetchUser = () => {
@@ -62,12 +65,23 @@ export const fetchUser = () => {
 export const addToListenedAndSessionThunk = (song, collectionSessionId) => {
   return async dispatch => {
       try {
-          const songId = song.id
-          await axios.post('/api/addSongToListenedAndSession', {data: {songId, collectionSessionId}})
-          dispatch(dispatchAddSongToListened(song));
+        const songId = song.id
+        await axios.post('/api/addSongToListenedAndSession', {data: {songId, collectionSessionId}})
+        dispatch(dispatchAddSongToListened(song));
       } catch (err) {
           console.log(err)
-      };
+    };
+  };
+};
+
+export const removeSongFromListenedThunk = (songId) => {
+  return async dispatch => {
+    try {
+      await axios.delete('/api/removeSongFromListened', {data: {songId}});
+      dispatch(removeSongFromListened(songId));
+    } catch (err) {
+      console.log(err)
+    };
   };
 };
 
@@ -167,7 +181,13 @@ export default function userReducer (state = initialState, action) {
       console.log('DISPATCH LISTENED', action.updatedListened)
       return {
         user: {...state.user, listened: action.updatedListened}
-      }
+      };
+    case REMOVE_SONG_FROM_LISTENED:
+      listenedCopy = {...state.user.listened};
+      delete listenedCopy.songs[action.songId];
+      return {
+        user: {...state.user, listened: listenedCopy}
+      };
     default:
       return state
   }

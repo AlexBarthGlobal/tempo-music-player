@@ -4,13 +4,14 @@ import {changeScreenThunk} from '../redux/screenDispatchers'
 import {updateSessionBpmThunk, popOneFromActiveSessionSongsThunk, applySongsInRange, fetchOnTempoChangeThunk} from '../redux/musicDispatchers'
 import songsInRange from '../components/songsInRange'
 import Modal from 'react-modal'
+import BPMSlider from './BPMSlider'
 
 class Tempo extends React.Component {
     constructor (props) {
         console.log('PROPS from Constructor',props)
         super()
         this.state = {
-            BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : '',
+            BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : 140,
             noMoreMusic: false
         };
 
@@ -50,6 +51,13 @@ class Tempo extends React.Component {
         this.setState({
           [evt.target.name]: Number(evt.target.value)
         })
+    };
+
+    changeBPM = (newBPM) => {
+        console.log('CHANGE BPM', newBPM)
+        this.setState({
+            BPM: Number(newBPM)
+        });
     };
 
     render() {
@@ -94,15 +102,22 @@ class Tempo extends React.Component {
                     Tempo Screen
                 </div>
                 <div className='centerThis'>
-                    <div>Confirm BPM {BPM}</div>
-                    <form onSubmit={this.handleSubmit}>
+                    <div>Confirm BPM:</div>
+                    {/* <div className='BPMText'>{`${BPM}`}</div> */}
+                    {/* <form onSubmit={this.handleSubmit}>
                         <div>
                             <input name='BPM' onChange={this.handleChange} value={BPM}/>
                         </div>
                         <div>
                             <button type='submit'>Play</button>
                         </div>
-                    </form>
+                    </form> */}
+                    <div>
+                        <BPMSlider BPM={this.state.BPM} changeBPM={this.changeBPM} />
+                    </div>
+                    <div className='spaceAbove'>
+                        <button onClick={this.handleSubmit}>Play</button>
+                    </div>
                 </div>
             </div>
         )

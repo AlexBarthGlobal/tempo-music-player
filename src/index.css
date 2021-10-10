@@ -9,6 +9,16 @@ body {
 
 }
 
+/* disable blue highlight (especially on mobile) */
+input,
+textarea,
+button,
+select,
+div,
+a {
+  outline: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -71,4 +81,26 @@ a {
 
 .toTheRight {
   margin-left: auto;
+}
+
+.horizontalSlider {
+  width: 47%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.exampleThumb {
+  height: 24px;
+  width: 24px;
+  border: 2px solid black;
+  background: green;
+  border-radius: 10px;
+}
+
+.spaceAbove {
+  margin-top: 30px;
+}
+
+.BPMText {
+  font-size: 36px;
 }

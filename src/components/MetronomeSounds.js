@@ -1,5 +1,6 @@
 import React from 'react'
 
+let interval;
 export default class MetronomeSound extends React.Component {
     constructor(props) {
         super()
@@ -15,16 +16,28 @@ export default class MetronomeSound extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.props.metronomeSound !== this.state.metronomeSound) this.setState({metronomeSound: this.props.metronomeSound});
         if (this.props.playing !== this.state.playing) this.setState({playing: this.props.playing});
-        if (this.props.localBPM !== this.state.localBPM) this.setState({localBPM: this.props.localBPM})
-        console.log('UPDATED')
+        if (this.props.localBPM !== this.state.localBPM) this.setState({localBPM: this.props.localBPM});
+
+        clearInterval(interval);
+        this.playMetronome();
+
+        console.log('UPDATED metronomesounds')
         return;
+    };
+
+    componentDidMount() {
+        this.playMetronome();
+    };
+
+    componentWillUnmount() {
+        clearInterval(interval)
     };
 
     playMetronome = () => {
         const sounds = [this.topMetronome, this.metronomeBottom, this.metronomeBottom, this.metronomeBottom]
         let i = 0;
         if (!this.props.playing && this.props.metronomeSound && this.props.localBPM !== Infinity && this.props.localBPM !== 0) {
-            setInterval(() => {
+            interval = setInterval(() => {
                 if (i > 3) i = 0;
                 sounds[i].play()
                 i++;
@@ -42,7 +55,6 @@ export default class MetronomeSound extends React.Component {
                 {metronomeBottom}
                 Metronome Sound:
                 <input name='Metronome Sound' type='checkbox' checked={this.state.metronomeSound} onChange={() => this.props.setMetronomeSoundOption(this.props.metronomeSound ? false : true)}/>
-                <button onClick={this.playMetronome}>Test metronome</button>
             </label>
         )
     };

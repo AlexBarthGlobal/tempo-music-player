@@ -6653,6 +6653,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+var interval;
 
 var MetronomeSound = /*#__PURE__*/function (_React$Component) {
   _inherits(MetronomeSound, _React$Component);
@@ -6671,7 +6672,7 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
       var i = 0;
 
       if (!_this.props.playing && _this.props.metronomeSound && _this.props.localBPM !== Infinity && _this.props.localBPM !== 0) {
-        setInterval(function () {
+        interval = setInterval(function () {
           if (i > 3) i = 0;
           sounds[i].play();
           i++;
@@ -6701,8 +6702,20 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
       if (this.props.localBPM !== this.state.localBPM) this.setState({
         localBPM: this.props.localBPM
       });
-      console.log('UPDATED');
+      clearInterval(interval);
+      this.playMetronome();
+      console.log('UPDATED metronomesounds');
       return;
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.playMetronome();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(interval);
     }
   }, {
     key: "render",
@@ -6736,9 +6749,7 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
         onChange: function onChange() {
           return _this2.props.setMetronomeSoundOption(_this2.props.metronomeSound ? false : true);
         }
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.playMetronome
-      }, "Test metronome"));
+      }));
     }
   }]);
 

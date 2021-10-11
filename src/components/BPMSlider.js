@@ -5,7 +5,8 @@ const BPMSlider = (props) => {
     const [sliderBPM, setSliderBPM] = useState(sliderBPM ? sliderBPM : props.localBPM)
 
     useEffect(() => {
-        setSliderBPM(props.localBPM)
+        setSliderBPM(props.localBPM);
+        return;
     }, [props.localBPM])
     
     return (

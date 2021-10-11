@@ -5027,6 +5027,7 @@ var BPMSlider = function BPMSlider(props) {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setSliderBPM(props.localBPM);
+    return;
   }, [props.localBPM]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "BPMText"

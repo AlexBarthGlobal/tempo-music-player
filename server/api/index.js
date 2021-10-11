@@ -618,4 +618,25 @@ router.delete('/removeCollection', async (req, res, next) => {
     };
 });
 
+router.put('/setMetronomeSoundOption', async (req, res, next) => {
+    try {
+        // await User.update({
+        //     metronomeSound: req.body.boolean,
+        //     where: {
+        //         id: req.session.passport.user
+        //     }
+        // });
+        await CollectionSession.update(
+            {metronomeSound: false},
+            {where: {
+                userId: req.session.passport.user,
+            }}
+        );
+
+        res.status('201').json('Done')
+    } catch (error) {
+        next(error)
+    };
+});
+
 module.exports = router;

@@ -2,7 +2,7 @@ import React from 'react'
 import BPMSlider from './BPMSlider'
 import BPMTap from './BPMTap'
 // import BPMLight from './BPMLight'
-// import MetronomeSound from './MetronomeSound'
+import MetronomeSounds from './MetronomeSounds'
 
 export default class ManageBPMSliderAndTap extends React.Component {
     constructor(props) {
@@ -18,9 +18,6 @@ export default class ManageBPMSliderAndTap extends React.Component {
     };
 
     resetTapPadTrigger = () => {
-        // if (!this.state.resetTapPadTrigger) this.setState({resetTapPadTrigger: true})
-        console.log('TRIGGERED!!!!!!!!!!')
-
         this.setState({resetTapPadTrigger: this.state.resetTapPadTrigger ? false : true})
     };
 
@@ -33,6 +30,9 @@ export default class ManageBPMSliderAndTap extends React.Component {
         console.log(this.state.localBPM)
         return (
             <div>
+                <div>
+                    <MetronomeSounds localBPM={this.state.localBPM} playing={this.props.playing} metronomeSound={this.props.metronomeSound} setMetronomeSoundOption={this.props.setMetronomeSoundOption}/>
+                </div>
                 {/* <div>
                     <BPMLight localBPM={this.state.localBPM} />
                 </div> */}

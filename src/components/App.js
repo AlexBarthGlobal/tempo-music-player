@@ -12,7 +12,7 @@ import CollectionSongs from './CollectionSongs'
 import {Redirect} from 'react-router-dom'
 import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk, clearActiveSessionThunk, popOneFromActiveSessionSongsThunk, updateSessionBpmThunk, applySongsInRange} from '../redux/musicDispatchers'
 import {changeScreenThunk, selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
-import {addToListenedAndSessionThunk, clearListenedThunk} from '../redux/userDispatchers'
+import {addToListenedAndSessionThunk, clearListenedThunk, setMetronomeSoundOptionThunk} from '../redux/userDispatchers'
 import songsInRange from '../components/songsInRange'
 import axios from 'axios';
 
@@ -196,7 +196,7 @@ class App extends React.Component {
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
         let selectedScreen = <Collections editMode={this.state.editCollections}/>
-        if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo play={this.play} next={this.nextTrack} playing={this.state.playing} player={this.rap} />
+        if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo play={this.play} next={this.nextTrack} playing={this.state.playing} setMetronomeSoundOption={this.props.setMetronomeSoundOption} player={this.rap} />
         else if (this.props.screenStr === 'PlayerScreen') {
             selectedScreen = <PlayerScreen />
             changeTempo = <button onClick={() => this.props.changeScreen('Tempo')}>Change Tempo</button>
@@ -373,6 +373,7 @@ const mapDispatchToProps = (dispatch) => ({
     popOneFromActiveSessionSongs: () => dispatch(popOneFromActiveSessionSongsThunk()),
     updateSessionBpm: (selectedCollectionId, newBPM) => dispatch(updateSessionBpmThunk(selectedCollectionId, newBPM)),
     applySongsInRange: (songs) => dispatch(applySongsInRange(songs)),
+    setMetronomeSoundOption: (boolean) => dispatch(setMetronomeSoundOptionThunk(boolean))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -4783,6 +4783,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         play: this.play,
         next: this.nextTrack,
         playing: this.state.playing,
+        setMetronomeSoundOption: this.props.setMetronomeSoundOption,
         player: this.rap
       });else if (this.props.screenStr === 'PlayerScreen') {
         selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PlayerScreen__WEBPACK_IMPORTED_MODULE_5__.default, null);
@@ -4983,6 +4984,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     applySongsInRange: function applySongsInRange(songs) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_9__.applySongsInRange)(songs));
+    },
+    setMetronomeSoundOption: function setMetronomeSoundOption(_boolean) {
+      return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_11__.setMetronomeSoundOptionThunk)(_boolean));
     }
   };
 };
@@ -6514,6 +6518,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _BPMSlider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BPMSlider */ "./src/components/BPMSlider.js");
 /* harmony import */ var _BPMTap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BPMTap */ "./src/components/BPMTap.js");
+/* harmony import */ var _MetronomeSounds__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MetronomeSounds */ "./src/components/MetronomeSounds.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6541,7 +6546,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
  // import BPMLight from './BPMLight'
-// import MetronomeSound from './MetronomeSound'
+
+
 
 var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
   _inherits(ManageBPMSliderAndTap, _React$Component);
@@ -6562,9 +6568,6 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "resetTapPadTrigger", function () {
-      // if (!this.state.resetTapPadTrigger) this.setState({resetTapPadTrigger: true})
-      console.log('TRIGGERED!!!!!!!!!!');
-
       _this.setState({
         resetTapPadTrigger: _this.state.resetTapPadTrigger ? false : true
       });
@@ -6586,7 +6589,12 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
       // console.log('Metronome sound', this.props.metronomeSound)
       // console.log('handleSubmit', this.props.handleSubmit)
       console.log(this.state.localBPM);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMSlider__WEBPACK_IMPORTED_MODULE_1__.default, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MetronomeSounds__WEBPACK_IMPORTED_MODULE_3__.default, {
+        localBPM: this.state.localBPM,
+        playing: this.props.playing,
+        metronomeSound: this.props.metronomeSound,
+        setMetronomeSoundOption: this.props.setMetronomeSoundOption
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMSlider__WEBPACK_IMPORTED_MODULE_1__.default, {
         localBPM: this.state.localBPM,
         setLocalBPM: this.setLocalBPM,
         resetTapPadTrigger: this.resetTapPadTrigger
@@ -6605,6 +6613,122 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 
+
+/***/ }),
+
+/***/ "./src/components/MetronomeSounds.js":
+/*!*******************************************!*\
+  !*** ./src/components/MetronomeSounds.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MetronomeSound)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var MetronomeSound = /*#__PURE__*/function (_React$Component) {
+  _inherits(MetronomeSound, _React$Component);
+
+  var _super = _createSuper(MetronomeSound);
+
+  function MetronomeSound(props) {
+    var _this;
+
+    _classCallCheck(this, MetronomeSound);
+
+    _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "playMetronome", function () {
+      if (!_this.props.playing) {}
+    });
+
+    _this.state = {
+      metronomeSound: props.metronomeSound ? true : false,
+      playing: props.playing ? true : false
+    };
+    return _this;
+  }
+
+  _createClass(MetronomeSound, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (this.props.metronomeSound !== this.state.metronomeSound) this.setState({
+        metronomeSound: this.props.metronomeSound
+      });
+      if (this.props.playing !== this.state.playing) this.setState({
+        playing: this.props.playing
+      });
+      return;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var topMetronome = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
+        src: 'https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TopMetronome.mp3',
+        preload: "auto",
+        autoPlay: false
+        /*onEnded={}*/
+        ,
+        ref: function ref(element) {
+          _this2.topMetronome = element;
+        }
+      });
+      var metronomeBottom = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
+        src: 'https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/MetronomeBottom.mp3',
+        preload: "auto",
+        autoPlay: false
+        /*onEnded={}*/
+        ,
+        ref: function ref(element) {
+          _this2.metronomeBottom = element;
+        }
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, topMetronome, metronomeBottom, "Metronome Sound:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        name: "Metronome Sound",
+        type: "checkbox",
+        checked: this.state.metronomeSound,
+        onChange: function onChange() {
+          return _this2.props.setMetronomeSoundOption(_this2.props.metronomeSound ? false : true);
+        }
+      }));
+    }
+  }]);
+
+  return MetronomeSound;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+
+;
 
 /***/ }),
 
@@ -7074,7 +7198,8 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
         BPM: this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : 140,
         metronomeSound: this.props.user.metronomeSound,
         playing: this.props.playing,
-        handleSubmit: this.handleSubmit
+        handleSubmit: this.handleSubmit,
+        setMetronomeSoundOption: this.props.setMetronomeSoundOption
       }))));
     }
   }]);
@@ -8634,6 +8759,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "addToListenedAndSessionThunk": () => (/* binding */ addToListenedAndSessionThunk),
 /* harmony export */   "logout": () => (/* binding */ logout),
 /* harmony export */   "clearListenedThunk": () => (/* binding */ clearListenedThunk),
+/* harmony export */   "setMetronomeSoundOptionThunk": () => (/* binding */ setMetronomeSoundOptionThunk),
 /* harmony export */   "default": () => (/* binding */ userReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -8663,6 +8789,7 @@ var SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 var LOGOUT_USER = 'LOGOUT_USER';
 var ADD_SONG_TO_LISTENED = 'ADD_SONG_TO_LISTENED';
 var SET_UPDATED_LISTENED = 'SET_UPDATED_LISTENED';
+var SET_METRONOME_SOUND_OPTION = 'SET_METRONOME_SOUND_OPTION';
 
 var gotMe = function gotMe(user) {
   return {
@@ -8695,6 +8822,13 @@ var setUpdatedListened = function setUpdatedListened(updatedListened) {
   return {
     type: SET_UPDATED_LISTENED,
     updatedListened: updatedListened
+  };
+};
+
+var setMetronomeSoundOption = function setMetronomeSoundOption(_boolean) {
+  return {
+    type: SET_METRONOME_SOUND_OPTION,
+    "boolean": _boolean
   };
 };
 
@@ -8895,6 +9029,48 @@ var clearListenedThunk = function clearListenedThunk(listenedId) {
       return _ref4.apply(this, arguments);
     };
   }();
+};
+var setMetronomeSoundOptionThunk = function setMetronomeSoundOptionThunk(_boolean2) {
+  console.log('Called thunk');
+  return /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dispatch) {
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.prev = 0;
+              _context5.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/setMetronomeSoundOption', {
+                data: {
+                  "boolean": _boolean2
+                }
+              });
+
+            case 3:
+              dispatch(setMetronomeSoundOption(_boolean2));
+              _context5.next = 9;
+              break;
+
+            case 6:
+              _context5.prev = 6;
+              _context5.t0 = _context5["catch"](0);
+              console.log(_context5.t0);
+
+            case 9:
+              ;
+
+            case 10:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[0, 6]]);
+    }));
+
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
 }; // export const login = credentials => {
 //   return async dispatch => {
 //     try {
@@ -8962,6 +9138,13 @@ function userReducer() {
       return {
         user: _objectSpread(_objectSpread({}, state.user), {}, {
           listened: action.updatedListened
+        })
+      };
+
+    case SET_METRONOME_SOUND_OPTION:
+      return {
+        user: _objectSpread(_objectSpread({}, state.user), {}, {
+          metronomeSound: action["boolean"]
         })
       };
 

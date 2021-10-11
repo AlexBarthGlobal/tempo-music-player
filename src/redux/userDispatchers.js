@@ -8,6 +8,7 @@ const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS';
 const LOGOUT_USER = 'LOGOUT_USER'
 const ADD_SONG_TO_LISTENED = 'ADD_SONG_TO_LISTENED'
 const SET_UPDATED_LISTENED = 'SET_UPDATED_LISTENED'
+const SET_METRONOME_SOUND_OPTION = 'SET_METRONOME_SOUND_OPTION'
 
 const gotMe = user => ({
   type: GET_USER,
@@ -31,6 +32,11 @@ const dispatchAddSongToListened = song => ({
 const setUpdatedListened = updatedListened => ({
   type: SET_UPDATED_LISTENED,
   updatedListened
+})
+
+const setMetronomeSoundOption = boolean => ({
+  type: SET_METRONOME_SOUND_OPTION,
+  boolean
 })
 
 export const fetchUser = () => {
@@ -106,6 +112,18 @@ export const clearListenedThunk = (listenedId) => {
   };
 };
 
+export const setMetronomeSoundOptionThunk = (boolean) => {
+  console.log('Called thunk')
+  return async dispatch => {
+    try {
+      await axios.put('/api/setMetronomeSoundOption', {data:{boolean}})
+      dispatch(setMetronomeSoundOption(boolean))
+    } catch (err) {
+      console.log(err)
+    };
+  };
+};
+
 // export const login = credentials => {
 //   return async dispatch => {
 //     try {
@@ -167,7 +185,11 @@ export default function userReducer (state = initialState, action) {
       console.log('DISPATCH LISTENED', action.updatedListened)
       return {
         user: {...state.user, listened: action.updatedListened}
-      }
+      };
+    case SET_METRONOME_SOUND_OPTION:
+      return {
+        user: {...state.user, metronomeSound: action.boolean}
+      };
     default:
       return state
   }

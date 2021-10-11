@@ -5116,7 +5116,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var BPMTap = function BPMTap(props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState2 = _slicedToArray(_useState, 2),
       timeAverage = _useState2[0],
       setTimeAverage = _useState2[1];
@@ -5136,11 +5136,11 @@ var BPMTap = function BPMTap(props) {
       counter = _useState8[0],
       setCounter = _useState8[1];
 
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (clicks >= 2) {//calculate a new BPM
-      // props.setLocalBPM()
-    }
-  }, [clicks]);
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState10 = _slicedToArray(_useState9, 2),
+      recentClickDate = _useState10[0],
+      setRecentClickDate = _useState10[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var timer;
 
@@ -5155,7 +5155,9 @@ var BPMTap = function BPMTap(props) {
     if (counter >= 3) {
       setClicks(0);
       setCounter(0);
-      setShowText(true); //props.setLocalBPM
+      setShowText(true);
+      setRecentClickDate(null);
+      setTimeAverage(0);
     }
 
     ;
@@ -5164,27 +5166,28 @@ var BPMTap = function BPMTap(props) {
     };
   }, [counter, clicks >= 2]);
 
-  var startCounter = function startCounter() {
-    return setCounter(counter + 1);
-  };
-
   var stopCounter = function stopCounter() {
     return setCounter(0);
   };
 
   function mouseDown() {
-    setShowText(false);
+    var currDate = new Date().getTime();
     setClicks(clicks + 1);
-    stopCounter(); // wait2Seconds();
+
+    if (recentClickDate) {
+      var difference = currDate - recentClickDate;
+      if (!timeAverage) setTimeAverage(difference);else setTimeAverage((timeAverage * (clicks - 1) + difference) / clicks);
+      props.setLocalBPM(Math.round(60000 / timeAverage));
+    }
+
+    ;
+    setRecentClickDate(currDate);
+    setShowText(false);
+    stopCounter();
   }
 
   ;
-  console.log('TAPPER');
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    onClick: function onClick() {
-      return stopCounter();
-    }
-  }, "Stop"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "BPMTapPad",
     onMouseDown: function onMouseDown() {
       return mouseDown();
@@ -5192,7 +5195,7 @@ var BPMTap = function BPMTap(props) {
     onMouseUp: function onMouseUp() {
       return console.log('Up');
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, counter), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     className: "BPMTapPadText"
   }, showText ? 'Tap' : null)));
 };

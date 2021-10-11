@@ -1,17 +1,11 @@
 import React, {useState, useEffect} from 'react'
 
 const BPMTap = (props) => {
-    const [timeAverage, setTimeAverage] = useState(0)
+    const [timeAverage, setTimeAverage] = useState(null)
     const [clicks, setClicks] = useState(0)
     const [showText, setShowText] = useState(true)
     const [counter, setCounter] = useState(0)
-
-    useEffect(() => {
-        if (clicks >= 2) {
-            //calculate a new BPM
-            // props.setLocalBPM()
-        }
-    }, [clicks])
+    const [recentClickDate, setRecentClickDate] = useState(null)
 
     useEffect(() => {
         let timer;
@@ -22,28 +16,31 @@ const BPMTap = (props) => {
             setClicks(0)
             setCounter(0)
             setShowText(true)
-            //props.setLocalBPM
+            setRecentClickDate(null)
+            setTimeAverage(0)
         };
         return () => clearTimeout(timer)
     }, [counter, clicks >= 2]);
 
-    const startCounter = () => setCounter(counter+1)
     const stopCounter = () => setCounter(0);
 
     function mouseDown() {
-        setShowText(false)
+        const currDate = (new Date()).getTime()
         setClicks(clicks + 1);
+        if (recentClickDate) {
+            const difference = currDate - recentClickDate;
+            if (!timeAverage) setTimeAverage(difference);
+            else setTimeAverage(((timeAverage * (clicks-1)) + difference) / clicks);
+            props.setLocalBPM(Math.round(60000/timeAverage))
+        };
+        setRecentClickDate(currDate);
+        setShowText(false)
         stopCounter()
-        // wait2Seconds();
     };
 
-    console.log('TAPPER')
     return (
         <div>
-        <button onClick={() => stopCounter()}>Stop</button>
         <div className='BPMTapPad' onMouseDown={() => mouseDown()} onMouseUp={() => console.log('Up')}>
-            <p>{counter}</p>
-            
             <p className='BPMTapPadText'>{showText ? 'Tap' : null}</p>
         </div>
         </div>

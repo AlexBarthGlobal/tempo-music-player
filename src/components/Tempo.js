@@ -4,17 +4,17 @@ import {changeScreenThunk} from '../redux/screenDispatchers'
 import {updateSessionBpmThunk, popOneFromActiveSessionSongsThunk, applySongsInRange, fetchOnTempoChangeThunk} from '../redux/musicDispatchers'
 import songsInRange from '../components/songsInRange'
 import Modal from 'react-modal'
+import ManageBPMSliderAndTap from './ManageBPMSliderAndTap'
 
 class Tempo extends React.Component {
     constructor (props) {
         console.log('PROPS from Constructor',props)
         super()
         this.state = {
-            BPM: props.musicInfo.collections[props.selectedCollection] && props.musicInfo.collections[props.selectedCollection].collectionSessions.length ? props.musicInfo.collections[props.selectedCollection].collectionSessions[0].currBPM : '',
             noMoreMusic: false
         };
 
-    this.handleSubmit = this.handleSubmit.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.isActive = this.isActive.bind(this)
     };
@@ -23,13 +23,13 @@ class Tempo extends React.Component {
         return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === collectionId)
     };
 
-    handleSubmit = async (evt) => {
-        evt.preventDefault();
-        const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.selectedCollection].songs, this.state.BPM)  //Run this when updating BPM
+    handleSubmit = async (selectedBPM) => {
+        // evt.preventDefault();
+        const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.selectedCollection].songs, selectedBPM)  //Run this when updating BPM
         if (results[0].length) {
             if (this.isActive(this.props.selectedCollection)) this.props.popOneFromActiveSessionSongs();     
-            if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, this.state.BPM) //update the BPM of the already activeSession or create new session
-            else await this.props.fetchOnTempoChange(this.props.selectedCollection, this.state.BPM); //load the session and its sessionSongs 
+            if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, selectedBPM) //update the BPM of the already activeSession or create new session
+            else await this.props.fetchOnTempoChange(this.props.selectedCollection, selectedBPM); //load the session and its sessionSongs 
             // if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
             this.props.applySongsInRange(results[0]);
             this.props.changeScreen('PlayerScreen')
@@ -50,6 +50,13 @@ class Tempo extends React.Component {
         this.setState({
           [evt.target.name]: Number(evt.target.value)
         })
+    };
+
+    changeBPM = (newBPM) => {
+        console.log('CHANGE BPM', newBPM)
+        this.setState({
+            BPM: Number(newBPM)
+        });
     };
 
     render() {
@@ -94,15 +101,10 @@ class Tempo extends React.Component {
                     Tempo Screen
                 </div>
                 <div className='centerThis'>
-                    <div>Confirm BPM {BPM}</div>
-                    <form onSubmit={this.handleSubmit}>
-                        <div>
-                            <input name='BPM' onChange={this.handleChange} value={BPM}/>
-                        </div>
-                        <div>
-                            <button type='submit'>Play</button>
-                        </div>
-                    </form>
+                    <div>Confirm BPM:</div>
+                    <div>
+                        <ManageBPMSliderAndTap BPM={this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : 140} metronomeSound={this.props.user.metronomeSound} playing={this.props.playing} handleSubmit={this.handleSubmit}/>
+                    </div>
                 </div>
             </div>
         )

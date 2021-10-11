@@ -7,18 +7,25 @@ const BPMTap = (props) => {
     const [counter, setCounter] = useState(0)
     const [recentClickDate, setRecentClickDate] = useState(null)
 
+
+    const resetTapPad = () => {
+        setClicks(0)
+        setCounter(0)
+        setShowText(true)
+        setRecentClickDate(null)
+        setTimeAverage(0)
+    }
+
+    useEffect(() => {
+        resetTapPad();
+    }, [props.resetTapPadTrigger])
+
     useEffect(() => {
         let timer;
         if (clicks >= 2) {
             timer = setTimeout(() => setCounter(counter + 1), 1000);
         };
-        if (counter >= 3) {
-            setClicks(0)
-            setCounter(0)
-            setShowText(true)
-            setRecentClickDate(null)
-            setTimeAverage(0)
-        };
+        if (counter >= 3) resetTapPad();
         return () => clearTimeout(timer)
     }, [counter, clicks >= 2]);
 

@@ -8,12 +8,20 @@ export default class ManageBPMSliderAndTap extends React.Component {
     constructor(props) {
         super()
         this.state = {
-            localBPM: props.BPM
+            localBPM: props.BPM,
+            resetTapPadTrigger: false
         };
     };
 
     setLocalBPM = (newBPM) => {
         this.setState({localBPM: newBPM})
+    };
+
+    resetTapPadTrigger = () => {
+        // if (!this.state.resetTapPadTrigger) this.setState({resetTapPadTrigger: true})
+        console.log('TRIGGERED!!!!!!!!!!')
+
+        this.setState({resetTapPadTrigger: this.state.resetTapPadTrigger ? false : true})
     };
 
 
@@ -29,10 +37,10 @@ export default class ManageBPMSliderAndTap extends React.Component {
                     <BPMLight localBPM={this.state.localBPM} />
                 </div> */}
                 <div>
-                    <BPMSlider localBPM={this.state.localBPM} setLocalBPM={this.setLocalBPM}/>
+                    <BPMSlider localBPM={this.state.localBPM} setLocalBPM={this.setLocalBPM} resetTapPadTrigger={this.resetTapPadTrigger}/>
                 </div>
                 <div>
-                    <BPMTap setLocalBPM={this.setLocalBPM} />
+                    <BPMTap setLocalBPM={this.setLocalBPM} resetTapPadTrigger={this.state.resetTapPadTrigger} />
                 </div>
                 <div>
 

@@ -23,8 +23,12 @@ const BPMSlider = (props) => {
                         max={200}
                         value={props.localBPM}
                         // step={1}
+                        // onSliderClick={() => console.log('Yo')}
+                        onBeforeChange={() => props.resetTapPadTrigger()}
                         onChange={(value) => setSliderBPM(value)}
-                        onAfterChange={(value) => props.setLocalBPM(value)}
+                        onAfterChange={(value) => {
+                            props.setLocalBPM(value);
+                        }}
                         // withTracks={true}
                     />
             </div>

@@ -5045,12 +5045,16 @@ var BPMSlider = function BPMSlider(props) {
     min: 80,
     max: 200,
     value: props.localBPM // step={1}
+    // onSliderClick={() => console.log('Yo')}
     ,
+    onBeforeChange: function onBeforeChange() {
+      return props.resetTapPadTrigger();
+    },
     onChange: function onChange(value) {
       return setSliderBPM(value);
     },
     onAfterChange: function onAfterChange(value) {
-      return props.setLocalBPM(value);
+      props.setLocalBPM(value);
     } // withTracks={true}
 
   })));
@@ -5112,6 +5116,17 @@ var BPMTap = function BPMTap(props) {
       recentClickDate = _useState10[0],
       setRecentClickDate = _useState10[1];
 
+  var resetTapPad = function resetTapPad() {
+    setClicks(0);
+    setCounter(0);
+    setShowText(true);
+    setRecentClickDate(null);
+    setTimeAverage(0);
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    resetTapPad();
+  }, [props.resetTapPadTrigger]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var timer;
 
@@ -5122,16 +5137,7 @@ var BPMTap = function BPMTap(props) {
     }
 
     ;
-
-    if (counter >= 3) {
-      setClicks(0);
-      setCounter(0);
-      setShowText(true);
-      setRecentClickDate(null);
-      setTimeAverage(0);
-    }
-
-    ;
+    if (counter >= 3) resetTapPad();
     return function () {
       return clearTimeout(timer);
     };
@@ -6555,8 +6561,18 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "resetTapPadTrigger", function () {
+      // if (!this.state.resetTapPadTrigger) this.setState({resetTapPadTrigger: true})
+      console.log('TRIGGERED!!!!!!!!!!');
+
+      _this.setState({
+        resetTapPadTrigger: _this.state.resetTapPadTrigger ? false : true
+      });
+    });
+
     _this.state = {
-      localBPM: props.BPM
+      localBPM: props.BPM,
+      resetTapPadTrigger: false
     };
     return _this;
   }
@@ -6572,9 +6588,11 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
       console.log(this.state.localBPM);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMSlider__WEBPACK_IMPORTED_MODULE_1__.default, {
         localBPM: this.state.localBPM,
-        setLocalBPM: this.setLocalBPM
+        setLocalBPM: this.setLocalBPM,
+        resetTapPadTrigger: this.resetTapPadTrigger
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMTap__WEBPACK_IMPORTED_MODULE_2__.default, {
-        setLocalBPM: this.setLocalBPM
+        setLocalBPM: this.setLocalBPM,
+        resetTapPadTrigger: this.state.resetTapPadTrigger
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
           return _this2.props.handleSubmit(_this2.state.localBPM);

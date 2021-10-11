@@ -6667,19 +6667,25 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
 
     _defineProperty(_assertThisInitialized(_this), "playMetronome", function () {
-      if (!_this.props.playing) {// setInterval(() => {
-        //     this.topMetronome.play();
-        // }, 2000)
-        // setInterval(() => {
-        //     this.metronomeBottom.play();
-        // }, 1000)
+      var sounds = [_this.topMetronome, _this.metronomeBottom, _this.metronomeBottom, _this.metronomeBottom];
+      var i = 0;
+
+      if (!_this.props.playing && _this.props.metronomeSound && _this.props.localBPM !== Infinity && _this.props.localBPM !== 0) {
+        setInterval(function () {
+          if (i > 3) i = 0;
+          sounds[i].play();
+          i++;
+          console.log(_this.props.localBPM);
+        }, Math.round(60 / _this.props.localBPM * 1000));
       }
     });
 
     _this.state = {
       metronomeSound: props.metronomeSound ? true : false,
-      playing: props.playing ? true : false
+      playing: props.playing ? true : false,
+      localBPM: props.localBPM
     };
+    _this.playMetronome = _this.playMetronome.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -6692,6 +6698,10 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
       if (this.props.playing !== this.state.playing) this.setState({
         playing: this.props.playing
       });
+      if (this.props.localBPM !== this.state.localBPM) this.setState({
+        localBPM: this.props.localBPM
+      });
+      console.log('UPDATED');
       return;
     }
   }, {
@@ -6726,7 +6736,9 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
         onChange: function onChange() {
           return _this2.props.setMetronomeSoundOption(_this2.props.metronomeSound ? false : true);
         }
-      }));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.playMetronome
+      }, "Test metronome"));
     }
   }]);
 

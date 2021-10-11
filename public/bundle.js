@@ -6667,7 +6667,13 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
 
     _defineProperty(_assertThisInitialized(_this), "playMetronome", function () {
-      if (!_this.props.playing) {}
+      if (!_this.props.playing) {
+        setInterval(function () {
+          _this.topMetronome.play();
+        }, 2000); // setInterval(() => {
+        //     this.metronomeBottom.play();
+        // }, 1000)
+      }
     });
 
     _this.state = {

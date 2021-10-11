@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 
 export default class MetronomeSound extends React.Component {
     constructor(props) {
@@ -15,10 +15,14 @@ export default class MetronomeSound extends React.Component {
         return;
     };
 
-    //props.playing
     playMetronome = () => {
         if (!this.props.playing) {
-
+            setInterval(() => {
+                this.topMetronome.play();
+            }, 2000)
+            // setInterval(() => {
+            //     this.metronomeBottom.play();
+            // }, 1000)
         }
     }
 

@@ -17,9 +17,9 @@ export default class MetronomeSound extends React.Component {
 
     playMetronome = () => {
         if (!this.props.playing) {
-            setInterval(() => {
-                this.topMetronome.play();
-            }, 2000)
+            // setInterval(() => {
+            //     this.topMetronome.play();
+            // }, 2000)
             // setInterval(() => {
             //     this.metronomeBottom.play();
             // }, 1000)

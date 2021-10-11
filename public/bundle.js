@@ -5177,7 +5177,7 @@ var BPMTap = function BPMTap(props) {
     if (recentClickDate) {
       var difference = currDate - recentClickDate;
       if (!timeAverage) setTimeAverage(difference);else setTimeAverage((timeAverage * (clicks - 1) + difference) / clicks);
-      props.setLocalBPM(Math.round(60000 / timeAverage));
+      props.setLocalBPM(Math.round(60000 / (timeAverage ? timeAverage : difference)));
     }
 
     ;
@@ -6568,7 +6568,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
+ // import BPMLight from './BPMLight'
+// import MetronomeSound from './MetronomeSound'
 
 var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
   _inherits(ManageBPMSliderAndTap, _React$Component);

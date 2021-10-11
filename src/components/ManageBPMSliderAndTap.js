@@ -1,6 +1,8 @@
 import React from 'react'
 import BPMSlider from './BPMSlider'
 import BPMTap from './BPMTap'
+// import BPMLight from './BPMLight'
+// import MetronomeSound from './MetronomeSound'
 
 export default class ManageBPMSliderAndTap extends React.Component {
     constructor(props) {
@@ -23,6 +25,9 @@ export default class ManageBPMSliderAndTap extends React.Component {
         console.log(this.state.localBPM)
         return (
             <div>
+                {/* <div>
+                    <BPMLight localBPM={this.state.localBPM} />
+                </div> */}
                 <div>
                     <BPMSlider localBPM={this.state.localBPM} setLocalBPM={this.setLocalBPM}/>
                 </div>

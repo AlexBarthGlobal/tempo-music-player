@@ -31,7 +31,7 @@ const BPMTap = (props) => {
             const difference = currDate - recentClickDate;
             if (!timeAverage) setTimeAverage(difference);
             else setTimeAverage(((timeAverage * (clicks-1)) + difference) / clicks);
-            props.setLocalBPM(Math.round(60000/timeAverage))
+            props.setLocalBPM(Math.round(60000/(timeAverage ? timeAverage : difference)))
         };
         setRecentClickDate(currDate);
         setShowText(false)

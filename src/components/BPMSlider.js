@@ -1,35 +1,34 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactSlider from 'react-slider'
 
-export default class BPMSlider extends React.Component {
-    constructor(props) {
-        super()
-        this.state = {
-            sliderBPM: props.localBPM
-        };
-    };
+const BPMSlider = (props) => {
+    const [sliderBPM, setSliderBPM] = useState(sliderBPM ? sliderBPM : props.localBPM)
 
-    render() {
-        return (
-            <div>
-                <div className='BPMText'>{`${this.state.sliderBPM}`}</div>
-                <div className='horizontalSlider'>
-                    <div className='exampleTrack'></div>
-                        <ReactSlider
-                            className="inner"
-                            thumbClassName="exampleThumb"
-                            // trackClassName="exampleTrack"
-                            renderThumb={(props, state) => <div {...props}></div>}
-                            min={80}
-                            max={200}
-                            value={this.props.localBPM}
-                            // step={1}
-                            onChange={(value) => this.setState({sliderBPM: value})}
-                            onAfterChange={(value) => this.props.setLocalBPM(value)}
-                            // withTracks={true}
-                        />
-                </div>
+    useEffect(() => {
+        setSliderBPM(props.localBPM)
+    }, [props.localBPM])
+    
+    return (
+        <div>
+            <div className='BPMText'>{`${sliderBPM}`}</div>
+            <div className='horizontalSlider'>
+                <div className='exampleTrack'></div>
+                    <ReactSlider
+                        className="inner"
+                        thumbClassName="exampleThumb"
+                        // trackClassName="exampleTrack"
+                        renderThumb={(props, state) => <div {...props}></div>}
+                        min={80}
+                        max={200}
+                        value={props.localBPM}
+                        // step={1}
+                        onChange={(value) => setSliderBPM(value)}
+                        onAfterChange={(value) => props.setLocalBPM(value)}
+                        // withTracks={true}
+                    />
             </div>
-        )
-    }
-}; 
+        </div>
+    )
+}
+
+export default BPMSlider

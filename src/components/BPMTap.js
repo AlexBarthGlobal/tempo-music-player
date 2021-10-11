@@ -40,8 +40,8 @@ const BPMTap = (props) => {
 
     return (
         <div>
-        <div className='BPMTapPad' onMouseDown={() => mouseDown()} onMouseUp={() => console.log('Up')}>
-            <p className='BPMTapPadText'>{showText ? 'Tap' : null}</p>
+        <div className='BPMTapPad' onMouseDown={mouseDown}>
+            <p className='BPMTapPadText noSelect'>{showText ? 'Tap' : null}</p>
         </div>
         </div>
     )

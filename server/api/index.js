@@ -620,16 +620,10 @@ router.delete('/removeCollection', async (req, res, next) => {
 
 router.put('/setMetronomeSoundOption', async (req, res, next) => {
     try {
-        // await User.update({
-        //     metronomeSound: req.body.boolean,
-        //     where: {
-        //         id: req.session.passport.user
-        //     }
-        // });
-        await CollectionSession.update(
-            {metronomeSound: false},
+        await User.update(
+            {metronomeSound: req.body.data.boolean},
             {where: {
-                userId: req.session.passport.user,
+                id: req.session.passport.user,
             }}
         );
 

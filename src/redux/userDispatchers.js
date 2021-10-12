@@ -116,6 +116,7 @@ export const setMetronomeSoundOptionThunk = (boolean) => {
   console.log('Called thunk')
   return async dispatch => {
     try {
+      console.log('METRONOME BOOLEAN', boolean)
       await axios.put('/api/setMetronomeSoundOption', {data:{boolean}})
       dispatch(setMetronomeSoundOption(boolean))
     } catch (err) {

@@ -11,6 +11,8 @@ export default class MetronomeSound extends React.Component {
         }
         
         this.playMetronome = this.playMetronome.bind(this)
+        this.oscillator = this.oscillator.bind(this)
+        this.audioCtx = this.audioCtx.bind(this)
     };
 
     componentDidUpdate(prevProps, prevState) {
@@ -25,8 +27,17 @@ export default class MetronomeSound extends React.Component {
         return;
     };
 
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    oscillator = this.audioCtx.createOscillator();
+
     componentDidMount() {
         this.playMetronome();
+        
+        // create Oscillator node
+        this.oscillator.type = 'square';
+        this.oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // value in hertz
+        this.oscillator.start();
+        // oscillator.connect(audioCtx.destination);
     };
 
     componentWillUnmount() {
@@ -39,9 +50,14 @@ export default class MetronomeSound extends React.Component {
         if (!this.props.playing && this.props.metronomeSound && this.props.localBPM !== Infinity && this.props.localBPM !== 0) {
             interval = setInterval(() => {
                 if (i > 3) i = 0;
-                sounds[i].play()
-                i++;
-                console.log(this.props.localBPM)
+                // sounds[i].play()
+                // i++;
+                // console.log(this.props.localBPM)]
+                this.oscillator.connect(this.audioCtx.destination);
+                
+                setTimeout(() => {
+                    this.oscillator.disconnect(this.audioCtx.destination);
+                }, 200)
             }, Math.round((60/this.props.localBPM)*1000))
         }
     };

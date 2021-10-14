@@ -6667,16 +6667,25 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
 
+    _defineProperty(_assertThisInitialized(_this), "audioCtx", new (window.AudioContext || window.webkitAudioContext)());
+
+    _defineProperty(_assertThisInitialized(_this), "oscillator", _this.audioCtx.createOscillator());
+
     _defineProperty(_assertThisInitialized(_this), "playMetronome", function () {
       var sounds = [_this.topMetronome, _this.metronomeBottom, _this.metronomeBottom, _this.metronomeBottom];
       var i = 0;
 
       if (!_this.props.playing && _this.props.metronomeSound && _this.props.localBPM !== Infinity && _this.props.localBPM !== 0) {
         interval = setInterval(function () {
-          if (i > 3) i = 0;
-          sounds[i].play();
-          i++;
-          console.log(_this.props.localBPM);
+          if (i > 3) i = 0; // sounds[i].play()
+          // i++;
+          // console.log(this.props.localBPM)]
+
+          _this.oscillator.connect(_this.audioCtx.destination);
+
+          setTimeout(function () {
+            _this.oscillator.disconnect(_this.audioCtx.destination);
+          }, 200);
         }, Math.round(60 / _this.props.localBPM * 1000));
       }
     });
@@ -6687,6 +6696,8 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
       localBPM: props.localBPM
     };
     _this.playMetronome = _this.playMetronome.bind(_assertThisInitialized(_this));
+    _this.oscillator = _this.oscillator.bind(_assertThisInitialized(_this));
+    _this.audioCtx = _this.audioCtx.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -6710,7 +6721,12 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.playMetronome();
+      this.playMetronome(); // create Oscillator node
+
+      this.oscillator.type = 'square';
+      this.oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // value in hertz
+
+      this.oscillator.start(); // oscillator.connect(audioCtx.destination);
     }
   }, {
     key: "componentWillUnmount",

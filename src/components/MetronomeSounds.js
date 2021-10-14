@@ -1,4 +1,6 @@
 import React from 'react'
+import {SetIntervalMetronome} from './BaseMetronome';
+import { isBrowser, isMobile } from 'react-device-detect';
 
 let interval;
 export default class MetronomeSound extends React.Component {
@@ -7,18 +9,23 @@ export default class MetronomeSound extends React.Component {
         this.state = {
             metronomeSound: props.metronomeSound ? true : false,
             playing: props.playing ? true : false,
-            localBPM: props.localBPM
+            localBPM: props.localBPM,
+            mobileMetronome: null
         }
         
         this.playMetronome = this.playMetronome.bind(this)
-        this.oscillator = this.oscillator.bind(this)
-        this.audioCtx = this.audioCtx.bind(this)
     };
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.metronomeSound !== this.state.metronomeSound) this.setState({metronomeSound: this.props.metronomeSound});
+        if (this.props.metronomeSound !== this.state.metronomeSound) {
+            this.setState({metronomeSound: this.props.metronomeSound});
+            if (this.state.mobileMetronome) this.state.mobileMetronome.stop();
+        }
         if (this.props.playing !== this.state.playing) this.setState({playing: this.props.playing});
-        if (this.props.localBPM !== this.state.localBPM) this.setState({localBPM: this.props.localBPM});
+        if (this.props.localBPM !== this.state.localBPM) {
+            this.setState({localBPM: this.props.localBPM});
+            if (this.state.mobileMetronome) this.state.mobileMetronome.changeTempo(this.props.localBPM);
+        };
 
         clearInterval(interval);
         this.playMetronome();
@@ -27,38 +34,34 @@ export default class MetronomeSound extends React.Component {
         return;
     };
 
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    oscillator = this.audioCtx.createOscillator();
-
     componentDidMount() {
+        if (isMobile) {
+            if (!this.state.mobileMetronome) this.setState({mobileMetronome: new SetIntervalMetronome(this.props.localBPM)});
+        };
         this.playMetronome();
-        
-        // create Oscillator node
-        this.oscillator.type = 'square';
-        this.oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // value in hertz
-        this.oscillator.start();
-        // oscillator.connect(audioCtx.destination);
     };
 
     componentWillUnmount() {
         clearInterval(interval)
+        if (this.state.mobileMetronome) this.state.mobileMetronome.stop();
+        // this.setState({mobileMetronome: null})
     };
 
     playMetronome = () => {
         const sounds = [this.topMetronome, this.metronomeBottom, this.metronomeBottom, this.metronomeBottom]
         let i = 0;
         if (!this.props.playing && this.props.metronomeSound && this.props.localBPM !== Infinity && this.props.localBPM !== 0) {
-            interval = setInterval(() => {
-                if (i > 3) i = 0;
-                // sounds[i].play()
-                // i++;
-                // console.log(this.props.localBPM)]
-                this.oscillator.connect(this.audioCtx.destination);
-                
-                setTimeout(() => {
-                    this.oscillator.disconnect(this.audioCtx.destination);
-                }, 200)
-            }, Math.round((60/this.props.localBPM)*1000))
+            if (isBrowser) {
+                interval = setInterval(() => {
+                    if (i > 3) i = 0;
+                    sounds[i].play()
+                    i++;
+                }, Math.round((60/this.props.localBPM)*1000))
+            } else if (isMobile) {
+                if (this.state.mobileMetronome) {
+                    if (!this.state.mobileMetronome.playing) this.state.mobileMetronome.start();
+                }
+            }
         }
     };
 

@@ -19,12 +19,22 @@ export default class MetronomeSound extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.props.metronomeSound !== this.state.metronomeSound) {
             this.setState({metronomeSound: this.props.metronomeSound});
-            if (this.state.mobileMetronome) this.state.mobileMetronome.stop();
-        }
-        if (this.props.playing !== this.state.playing) this.setState({playing: this.props.playing});
+            if (this.state.mobileMetronome) {
+                if (this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();
+            };
+        };
+        if (this.props.playing !== this.state.playing) {
+            this.setState({playing: this.props.playing});
+            if (this.state.mobileMetronome) {
+                if (this.props.playing && this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();
+                else if (!this.props.playing && !this.state.mobileMetronome.playing) this.state.mobileMetronome.start();
+            };
+        };
         if (this.props.localBPM !== this.state.localBPM) {
             this.setState({localBPM: this.props.localBPM});
-            if (this.state.mobileMetronome) this.state.mobileMetronome.changeTempo(this.props.localBPM);
+            if (this.state.mobileMetronome) {
+                this.state.mobileMetronome.changeTempo(this.props.localBPM);
+            }
         };
 
         clearInterval(interval);
@@ -44,7 +54,6 @@ export default class MetronomeSound extends React.Component {
     componentWillUnmount() {
         clearInterval(interval)
         if (this.state.mobileMetronome) this.state.mobileMetronome.stop();
-        // this.setState({mobileMetronome: null})
     };
 
     playMetronome = () => {

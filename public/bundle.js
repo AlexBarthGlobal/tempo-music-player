@@ -5313,9 +5313,11 @@ var SetIntervalMetronome = /*#__PURE__*/function (_BaseMetronome) {
   }, {
     key: "changeTempo",
     value: function changeTempo(newTempo) {
-      this.stop();
-      this.tempo = newTempo;
-      this.start();
+      if (this.playing) {
+        this.stop();
+        this.tempo = newTempo;
+        this.start();
+      } else this.tempo = newTempo;
     }
   }, {
     key: "playing",
@@ -6862,18 +6864,38 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
         this.setState({
           metronomeSound: this.props.metronomeSound
         });
-        if (this.state.mobileMetronome) this.state.mobileMetronome.stop();
+
+        if (this.state.mobileMetronome) {
+          if (this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();
+        }
+
+        ;
       }
 
-      if (this.props.playing !== this.state.playing) this.setState({
-        playing: this.props.playing
-      });
+      ;
+
+      if (this.props.playing !== this.state.playing) {
+        this.setState({
+          playing: this.props.playing
+        });
+
+        if (this.state.mobileMetronome) {
+          if (this.props.playing && this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();else if (!this.props.playing && !this.state.mobileMetronome.playing) this.state.mobileMetronome.start();
+        }
+
+        ;
+      }
+
+      ;
 
       if (this.props.localBPM !== this.state.localBPM) {
         this.setState({
           localBPM: this.props.localBPM
         });
-        if (this.state.mobileMetronome) this.state.mobileMetronome.changeTempo(this.props.localBPM);
+
+        if (this.state.mobileMetronome) {
+          this.state.mobileMetronome.changeTempo(this.props.localBPM);
+        }
       }
 
       ;
@@ -6898,7 +6920,7 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       clearInterval(interval);
-      if (this.state.mobileMetronome) this.state.mobileMetronome.stop(); // this.setState({mobileMetronome: null})
+      if (this.state.mobileMetronome) this.state.mobileMetronome.stop();
     }
   }, {
     key: "render",

@@ -71,10 +71,11 @@ class SetIntervalMetronome extends BaseMetronome {
     }
 
     changeTempo(newTempo) {
-      if (this.playing) {
+      if (this.playing && this.tempo !== newTempo) {
         this.stop();
         this.tempo = (newTempo);
         this.start();
+        console.log('CHANGING TEMPO')
       } else this.tempo = (newTempo);
     }
 

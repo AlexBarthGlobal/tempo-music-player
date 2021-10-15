@@ -4599,6 +4599,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       console.log('RESETTING INFO');
       this.props.clearSessions();
       this.props.clearListened(this.props.user.listened.id);
+      this.setState({
+        playing: false
+      });
       if (this.state.noNextSong) this.setState({
         noNextSong: false
       });
@@ -5048,7 +5051,7 @@ var BPMSlider = function BPMSlider(props) {
     },
     min: 80,
     max: 200,
-    value: props.localBPM // step={1}
+    value: sliderBPM // step={1}
     // onSliderClick={() => console.log('Yo')}
     ,
     onBeforeChange: function onBeforeChange() {
@@ -5313,10 +5316,11 @@ var SetIntervalMetronome = /*#__PURE__*/function (_BaseMetronome) {
   }, {
     key: "changeTempo",
     value: function changeTempo(newTempo) {
-      if (this.playing) {
+      if (this.playing && this.tempo !== newTempo) {
         this.stop();
         this.tempo = newTempo;
         this.start();
+        console.log('CHANGING TEMPO');
       } else this.tempo = newTempo;
     }
   }, {
@@ -6841,7 +6845,9 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
           }, Math.round(60 / _this.props.localBPM * 1000));
         } else if (react_device_detect__WEBPACK_IMPORTED_MODULE_2__.isMobile) {
           if (_this.state.mobileMetronome) {
-            if (!_this.state.mobileMetronome.playing) _this.state.mobileMetronome.start();
+            if (!_this.state.mobileMetronome.playing) {
+              _this.state.mobileMetronome.start();
+            }
           }
         }
       }
@@ -6880,7 +6886,9 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
         });
 
         if (this.state.mobileMetronome) {
-          if (this.props.playing && this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();else if (!this.props.playing && !this.state.mobileMetronome.playing) this.state.mobileMetronome.start();
+          if (this.props.playing && this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();else if (!this.props.playing && !this.state.mobileMetronome.playing) {
+            this.state.mobileMetronome.start();
+          }
         }
 
         ;

@@ -146,6 +146,24 @@ a {
   font-size: 17px;
 }
 
+.BPMLight {
+  height: 60px;
+  width: 60px;
+  border: 1px solid grey;
+  margin: auto;
+  background-color: grey;
+  border-radius:12px;
+}
+
+.BPMLightActive {
+  height: 60px;
+  width: 60px;
+  border: 1px solid grey;
+  margin: auto;
+  background-color:Yellow;
+  border-radius:12px;
+}
+
 .noSelect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

@@ -5027,13 +5027,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var BPMSlider = function BPMSlider(props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(sliderBPM ? sliderBPM : props.localBPM),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(sliderBPM),
       _useState2 = _slicedToArray(_useState, 2),
       sliderBPM = _useState2[0],
       setSliderBPM = _useState2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setSliderBPM(props.localBPM);
+    if (props.localBPM !== sliderBPM) setSliderBPM(props.localBPM);
     return;
   }, [props.localBPM]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5061,7 +5061,9 @@ var BPMSlider = function BPMSlider(props) {
       return setSliderBPM(value);
     },
     onAfterChange: function onAfterChange(value) {
-      props.setLocalBPM(value);
+      // setSliderBPM(value);
+      console.log('ONAFTERCHANGE');
+      props.setLocalBPM(sliderBPM);
     } // withTracks={true}
 
   })));
@@ -5322,6 +5324,8 @@ var SetIntervalMetronome = /*#__PURE__*/function (_BaseMetronome) {
         this.start();
         console.log('CHANGING TEMPO');
       } else this.tempo = newTempo;
+
+      return;
     }
   }, {
     key: "playing",
@@ -6887,7 +6891,7 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
 
         if (this.state.mobileMetronome) {
           if (this.props.playing && this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();else if (!this.props.playing && !this.state.mobileMetronome.playing) {
-            this.state.mobileMetronome.start();
+            this.playMetronome();
           }
         }
 
@@ -6928,7 +6932,7 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       clearInterval(interval);
-      if (this.state.mobileMetronome) this.state.mobileMetronome.stop();
+      if (this.state.mobileMetronome && this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();
     }
   }, {
     key: "render",

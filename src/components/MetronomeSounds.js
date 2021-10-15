@@ -23,15 +23,17 @@ export default class MetronomeSound extends React.Component {
                 if (this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();
             };
         };
+
         if (this.props.playing !== this.state.playing) {
             this.setState({playing: this.props.playing});
             if (this.state.mobileMetronome) {
                 if (this.props.playing && this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();
                 else if (!this.props.playing && !this.state.mobileMetronome.playing) {
-                    this.state.mobileMetronome.start();
+                    this.playMetronome();
                 }
             };
         };
+        
         if (this.props.localBPM !== this.state.localBPM) {
             this.setState({localBPM: this.props.localBPM});
             if (this.state.mobileMetronome) {
@@ -55,7 +57,7 @@ export default class MetronomeSound extends React.Component {
 
     componentWillUnmount() {
         clearInterval(interval)
-        if (this.state.mobileMetronome) this.state.mobileMetronome.stop();
+        if (this.state.mobileMetronome && this.state.mobileMetronome.playing) this.state.mobileMetronome.stop();
     };
 
     playMetronome = () => {

@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react';
 import ReactSlider from 'react-slider'
 
 const BPMSlider = (props) => {
-    const [sliderBPM, setSliderBPM] = useState(sliderBPM ? sliderBPM : props.localBPM)
+    const [sliderBPM, setSliderBPM] = useState(sliderBPM)
 
     useEffect(() => {
-        setSliderBPM(props.localBPM);
+        if (props.localBPM !== sliderBPM) setSliderBPM(props.localBPM);
         return;
     }, [props.localBPM])
     
@@ -27,7 +27,9 @@ const BPMSlider = (props) => {
                         onBeforeChange={() => props.resetTapPadTrigger()}
                         onChange={(value) => setSliderBPM(value)}
                         onAfterChange={(value) => {
-                            props.setLocalBPM(value)
+                            // setSliderBPM(value);
+                            console.log('ONAFTERCHANGE')
+                            props.setLocalBPM(sliderBPM)
                         }}
                         // withTracks={true}
                     />

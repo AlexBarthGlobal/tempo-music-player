@@ -22,12 +22,12 @@ const BPMTap = (props) => {
 
     useEffect(() => {
         let timer;
-        if (clicks >= 2) {
+        if (clicks >= 1) {
             timer = setTimeout(() => setCounter(counter + 1), 1000);
         };
         if (counter >= 3) resetTapPad();
         return () => clearTimeout(timer)
-    }, [counter, clicks >= 2]);
+    }, [counter, clicks >= 1]);
 
     const stopCounter = () => setCounter(0);
 
@@ -47,9 +47,9 @@ const BPMTap = (props) => {
 
     return (
         <div>
-        <div className='BPMTapPad' onMouseDown={mouseDown}>
-            <p className='BPMTapPadText noSelect'>{showText ? 'Tap' : null}</p>
-        </div>
+            <div className='BPMTapPad' onMouseDown={mouseDown}>
+                <p className='BPMTapPadText noSelect'>{showText ? 'Tap' : null}</p>
+            </div>
         </div>
     )
 }

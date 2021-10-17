@@ -85,6 +85,7 @@ class App extends React.Component {
         console.log('RESETTING INFO')
         this.props.clearSessions()
         this.props.clearListened(this.props.user.listened.id)
+        this.setState({playing: false})
         if (this.state.noNextSong) this.setState({noNextSong: false})
     }
 

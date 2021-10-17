@@ -5248,7 +5248,7 @@ var BPMTap = function BPMTap(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var timer;
 
-    if (clicks >= 2) {
+    if (clicks >= 1) {
       timer = setTimeout(function () {
         return setCounter(counter + 1);
       }, 1000);
@@ -5259,7 +5259,7 @@ var BPMTap = function BPMTap(props) {
     return function () {
       return clearTimeout(timer);
     };
-  }, [counter, clicks >= 2]);
+  }, [counter, clicks >= 1]);
 
   var stopCounter = function stopCounter() {
     return setCounter(0);

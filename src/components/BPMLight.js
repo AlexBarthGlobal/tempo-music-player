@@ -5,17 +5,21 @@ const BPMLight = (props) => {
     const [blink, setBlink] = useState(false)
 
     useEffect (() => {
-        if (props.metronomeSound && !props.playing) {
+        if (!props.playing) {
             clearInterval(interval)
             blinkPace();
-            return;
+            return () => {
+                clearInterval(interval)
+            }
         }
     }, [props.metronomeSound, props.playing])
 
     useEffect (() => {
         clearInterval(interval)
         blinkPace();
-        return;
+        return () => {
+            clearInterval(interval);
+        }
     }, [props.localBPM])
 
     const blinkPace = () => {

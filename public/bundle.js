@@ -5032,16 +5032,20 @@ var BPMLight = function BPMLight(props) {
       setBlink = _useState2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (props.metronomeSound && !props.playing) {
+    if (!props.playing) {
       clearInterval(interval);
       blinkPace();
-      return;
+      return function () {
+        clearInterval(interval);
+      };
     }
   }, [props.metronomeSound, props.playing]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     clearInterval(interval);
     blinkPace();
-    return;
+    return function () {
+      clearInterval(interval);
+    };
   }, [props.localBPM]);
 
   var blinkPace = function blinkPace() {

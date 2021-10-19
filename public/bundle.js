@@ -5420,6 +5420,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BrowseSongsSingleSong__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BrowseSongsSingleSong */ "./src/components/BrowseSongsSingleSong.js");
 /* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 /* harmony import */ var _components_PreviewPlayer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/PreviewPlayer */ "./src/components/PreviewPlayer.js");
+/* harmony import */ var _components_BPMSlider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/BPMSlider */ "./src/components/BPMSlider.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5445,13 +5446,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var BrowseSongs = function BrowseSongs(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       searchInput = _useState2[0],
       setSearchInput = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.musicInfo.activeSession ? props.musicInfo.activeSession.currBPM : 140),
       _useState4 = _slicedToArray(_useState3, 2),
       BPMInput = _useState4[0],
       setBPMInput = _useState4[1];
@@ -5625,12 +5627,12 @@ var BrowseSongs = function BrowseSongs(props) {
     placeholder: "Search for songs or artists",
     value: searchInput,
     onChange: handleChange
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-    type: "number",
-    name: "BPMInput",
-    placeholder: "BPM",
-    value: BPMInput,
-    onChange: handleChange
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_BPMSlider__WEBPACK_IMPORTED_MODULE_6__.default, {
+    localBPM: BPMInput,
+    setLocalBPM: setBPMInput,
+    resetTapPadTrigger: function resetTapPadTrigger() {
+      return console.log('Hi');
+    }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
     style: {
       listStyle: 'none'

@@ -4,10 +4,11 @@ import {searchSongsThunk, addSongToCollectionThunk, removeSongFromCollectionThun
 import BrowseSongsSingleSong from './BrowseSongsSingleSong'
 import songsInRange from '../components/songsInRange'
 import PreviewPlayer from '../components/PreviewPlayer'
+import BPMSlider from '../components/BPMSlider'
 
 const BrowseSongs = (props) => {
     const [searchInput, setSearchInput] = useState('')
-    const [BPMInput, setBPMInput] = useState('')
+    const [BPMInput, setBPMInput] = useState(props.musicInfo.activeSession ? props.musicInfo.activeSession.currBPM : 140)
     const [playing, setPlaying] = useState(false)
     const [songURL, setSongURL] = useState(null)
 
@@ -87,7 +88,7 @@ const BrowseSongs = (props) => {
                     <input type='text' name='searchInput' placeholder='Search for songs or artists' value={searchInput} onChange={handleChange}></input>
                 </div>
                 <div>
-                    <input type='number' name='BPMInput' placeholder='BPM' value={BPMInput} onChange={handleChange}></input>
+                    <BPMSlider localBPM={BPMInput} setLocalBPM={setBPMInput} resetTapPadTrigger={() => console.log('Hi')}/>
                 </div>
             </div>
             <ul style ={{listStyle:'none'}}>

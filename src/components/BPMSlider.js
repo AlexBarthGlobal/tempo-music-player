@@ -1,18 +1,32 @@
 import React, {useState, useEffect} from 'react';
-import ReactSlider from 'react-slider'
+// import ReactSlider from 'react-slider'
+import { Slider } from '@mui/material';
 
 const BPMSlider = (props) => {
-    const [sliderBPM, setSliderBPM] = useState(sliderBPM)
+    const [sliderBPM, setSliderBPM] = useState(props.localBPM)
 
-    useEffect(() => {
-        if (props.localBPM !== sliderBPM) setSliderBPM(props.localBPM);
-        return;
-    }, [props.localBPM])
+    // useEffect(() => {
+    //     if (props.localBPM !== sliderBPM) setSliderBPM(props.localBPM);
+    //     return;
+    // }, [props.localBPM])
+
+    const onChange = (evt) => {
+        setSliderBPM(evt.target.value)
+    }
     
     return (
         <div>
             <div className='BPMText'>{`${sliderBPM}`}</div>
             <div className='horizontalSlider'>
+            <Slider
+                min={80}
+                max={200}
+                value={sliderBPM}
+                onChange={onChange}
+                onChangeCommitted={() => props.setLocalBPM(sliderBPM)}
+            />
+            </div>
+            {/* <div className='horizontalSlider'>
                 <div className='exampleTrack'></div>
                     <ReactSlider
                         className="inner"
@@ -33,7 +47,7 @@ const BPMSlider = (props) => {
                         }}
                         // withTracks={true}
                     />
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -5032,21 +5032,12 @@ var BPMLight = function BPMLight(props) {
       setBlink = _useState2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!props.playing) {
-      clearInterval(interval);
-      blinkPace();
-      return function () {
-        clearInterval(interval);
-      };
-    }
-  }, [props.metronomeSound, props.playing]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     clearInterval(interval);
     blinkPace();
     return function () {
       clearInterval(interval);
     };
-  }, [props.localBPM]);
+  }, [props.metronomeSound, props.playing, props.localBPM]);
 
   var blinkPace = function blinkPace() {
     interval = setInterval(function () {
@@ -5062,48 +5053,7 @@ var BPMLight = function BPMLight(props) {
   });
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BPMLight); // let interval;
-// export default class BPMLight extends React.Component {
-//     constructor(props) {
-//         super()
-//         this.state = {
-//             blink: false,
-//             blinkBPM: props.localBPM
-//         };
-//         this.blinkPace = this.blinkPace.bind(this)
-//     };
-//     blinkPace() {
-//         interval = setInterval(() => {
-//             this.setState({blink: true});
-//             setTimeout(() => this.setState({blink: false}), 100)
-//         }, Math.round((60/this.state.blinkBPM)*1000))
-//     }
-//     componentDidUpdate() {
-//         // if ((this.props.metronomeSound && !this.props.playing)) {
-//         //     clearInterval(interval);
-//         //     this.blinkPace();
-//         // };
-//         console.log('THIS.PROPS.LOCALBPM', this.props.localBPM)
-//         if (this.props.localBPM !== this.state.blinkBPM) {
-//             clearInterval(interval)
-//             this.setState({blinkBPM: this.props.localBPM})
-//             this.blinkPace();
-//         };
-//     };
-//     componentDidMount() {
-//         this.blinkPace();
-//         console.log('BPMLIGHT', this.state.blinkBPM)
-//     }
-//     componentWillUnmount() {
-//         clearInterval(interval)
-//     }
-//     render() {
-//         return (
-//             <div className={this.state.blink ? 'BPMLightActive' : 'BPMLight'}>
-//             </div>
-//         )
-//     };
-// };
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BPMLight);
 
 /***/ }),
 

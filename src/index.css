@@ -103,6 +103,10 @@ a {
   transform: translate(0, 50%)
 }
 
+span.sc-jOVcOr.eJEGwo { /* hides the value next to the slider */
+  display: none;
+}
+
 .inner {
   position: absolute;
   margin: 0 auto;

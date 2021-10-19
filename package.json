@@ -34,6 +34,7 @@
     "react-device-detect": "^2.0.1",
     "react-dom": "^17.0.2",
     "react-modal": "^3.14.3",
+    "react-rainbow-components": "^1.27.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",

@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux'
 import previousTrack from '../icons/previousTrack.svg'
 
+{/* <div><img className='footerIcon' src={previousTrack}/></div> */}
+
 class FooterControls extends React.Component {
     constructor() {
       super()
@@ -22,11 +24,30 @@ class FooterControls extends React.Component {
         // </div>
 
         <div /*FooterControls*/className='footerControls'>
-          <div /*controlsTop*/className='controlsMainBox'>
-            controlsTop
+          <div /*controlsTop*/className='controlsTop'>
+            <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
+            <div className='songNameAndArtist' /*songName&Artist*/>
+              <div>songName</div>
+              <div>Artist</div>
+            </div>
+            <div className='controlsBPM'>
+              <div>BPM</div>
+              <div>140</div>
+            </div>
+            <div>Player</div>
           </div>
-          <div /*controlsLower*/className='controlsMainBox'>
-            <div><img className='footerIcon' src={previousTrack}/></div>
+          <div /*controlsLower*/className='controlsBottom'>
+            <div className='controlButton'>Prev</div>
+            <div className='controlButton'>Loop</div>
+            <div className='trackpadAndDuration'/* trackpadAndDuration*/>
+              <div className='controlsDurations' /*TOP, for duration*/>
+                <div>0:00</div>
+                <div>3:21</div>
+              </div>
+              <div /*BOTTOM Trackpad*/>Slider</div>
+            </div>
+            <div className='controlButton'>Play</div>
+            <div className='controlButton'>Next</div>
           </div>
         </div>
       )

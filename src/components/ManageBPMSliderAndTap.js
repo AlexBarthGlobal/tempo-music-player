@@ -3,14 +3,19 @@ import BPMSlider from './BPMSlider'
 import BPMTap from './BPMTap'
 import BPMLight from './BPMLight'
 import MetronomeSounds from './MetronomeSounds'
+import { Slider } from '@mui/material';
 
 export default class ManageBPMSliderAndTap extends React.Component {
     constructor(props) {
         super()
         this.state = {
             localBPM: props.BPM,
-            resetTapPadTrigger: false
+            resetTapPadTrigger: false,
+            // sliderBPM: props.BPM
         };
+
+        // this.onChange = this.onChange.bind(this)
+        // this.onChangeCommitted = this.onChangeCommitted.bind(this)
     };
 
     setLocalBPM = (newBPM) => {
@@ -20,6 +25,17 @@ export default class ManageBPMSliderAndTap extends React.Component {
     resetTapPadTrigger = () => {
         this.setState({resetTapPadTrigger: this.state.resetTapPadTrigger ? false : true})
     };
+
+    // onChange = (evt) => {
+    //     if (evt.target.value === this.state.localBPM || evt.target.value === this.state.sliderBPM) return;
+    //     // setSliderBPM(Number(evt.target.value))
+    //     // props.setLocalBPM(Number(evt.target.value))
+    //     this.setState({sliderBPM: evt.target.value})
+    // };
+
+    // onChangeCommitted = () => {
+    //     this.setState({localBPM: this.state.sliderBPM})
+    // }
 
 
     render() {
@@ -33,9 +49,9 @@ export default class ManageBPMSliderAndTap extends React.Component {
                 <div>
                     <MetronomeSounds localBPM={this.state.localBPM} playing={this.props.playing} metronomeSound={this.props.metronomeSound} setMetronomeSoundOption={this.props.setMetronomeSoundOption}/>
                 </div>
-                <div>
+                {/* <div>
                     <BPMLight localBPM={this.state.localBPM} playing={this.props.playing} metronomeSound={this.props.metronomeSound}/>
-                </div>
+                </div> */}
                 <div>
                     <BPMSlider localBPM={this.state.localBPM} setLocalBPM={this.setLocalBPM} resetTapPadTrigger={this.resetTapPadTrigger}/>
                 </div>

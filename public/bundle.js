@@ -15129,26 +15129,14 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
 
     _this.state = {
       localBPM: props.BPM,
-      resetTapPadTrigger: false // sliderBPM: props.BPM
-
-    }; // this.onChange = this.onChange.bind(this)
-    // this.onChangeCommitted = this.onChangeCommitted.bind(this)
-
+      resetTapPadTrigger: false
+    };
     return _this;
   }
 
   _createClass(ManageBPMSliderAndTap, [{
     key: "render",
-    value: // onChange = (evt) => {
-    //     if (evt.target.value === this.state.localBPM || evt.target.value === this.state.sliderBPM) return;
-    //     // setSliderBPM(Number(evt.target.value))
-    //     // props.setLocalBPM(Number(evt.target.value))
-    //     this.setState({sliderBPM: evt.target.value})
-    // };
-    // onChangeCommitted = () => {
-    //     this.setState({localBPM: this.state.sliderBPM})
-    // }
-    function render() {
+    value: function render() {
       var _this2 = this;
 
       // console.log('PLAYING OR NOT', this.props.playing)

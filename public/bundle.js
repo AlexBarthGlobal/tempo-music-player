@@ -13392,7 +13392,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -13417,25 +13416,14 @@ var BPMSlider = function BPMSlider(props) {
   //     if (props.localBPM !== sliderBPM) setSliderBPM(props.localBPM);
   //     return;
   // }, [props.localBPM])
+  // const onChange = (evt) => {
+  //     if (evt.target.value === sliderBPM) return;
+  //     // setSliderBPM(Number(evt.target.value))
+  //     props.setLocalBPM(Number(evt.target.value))
+  // }
 
 
-  var onChange = function onChange(evt) {
-    setSliderBPM(evt.target.value);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "BPMText"
-  }, "".concat(sliderBPM)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "horizontalSlider"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__.default, {
-    min: 80,
-    max: 200,
-    value: sliderBPM,
-    onChange: onChange,
-    onChangeCommitted: function onChangeCommitted() {
-      return props.setLocalBPM(sliderBPM);
-    }
-  })));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BPMSlider);
@@ -15055,6 +15043,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BPMTap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BPMTap */ "./src/components/BPMTap.js");
 /* harmony import */ var _BPMLight__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BPMLight */ "./src/components/BPMLight.js");
 /* harmony import */ var _MetronomeSounds__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MetronomeSounds */ "./src/components/MetronomeSounds.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -15078,6 +15067,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -15109,10 +15099,28 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "onChange", function (evt) {
+      if (evt.target.value === _this.state.localBPM || evt.target.value === _this.state.sliderBPM) return; // setSliderBPM(Number(evt.target.value))
+      // props.setLocalBPM(Number(evt.target.value))
+
+      _this.setState({
+        sliderBPM: evt.target.value
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onChangeCommitted", function () {
+      _this.setState({
+        localBPM: _this.state.sliderBPM
+      });
+    });
+
     _this.state = {
       localBPM: props.BPM,
-      resetTapPadTrigger: false
+      resetTapPadTrigger: false,
+      sliderBPM: props.BPM
     };
+    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
+    _this.onChangeCommitted = _this.onChangeCommitted.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -15130,10 +15138,16 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
         playing: this.props.playing,
         metronomeSound: this.props.metronomeSound,
         setMetronomeSoundOption: this.props.setMetronomeSoundOption
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMSlider__WEBPACK_IMPORTED_MODULE_1__.default, {
-        localBPM: this.state.localBPM,
-        setLocalBPM: this.setLocalBPM,
-        resetTapPadTrigger: this.resetTapPadTrigger
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "BPMText"
+      }, "".concat(this.state.sliderBPM)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "horizontalSlider"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__.default, {
+        min: 80,
+        max: 200,
+        value: this.state.sliderBPM,
+        onChange: this.onChange,
+        onChangeCommitted: this.onChangeCommitted
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMTap__WEBPACK_IMPORTED_MODULE_2__.default, {
         setLocalBPM: this.setLocalBPM,
         resetTapPadTrigger: this.state.resetTapPadTrigger

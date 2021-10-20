@@ -10,22 +10,26 @@ const BPMSlider = (props) => {
     //     return;
     // }, [props.localBPM])
 
-    const onChange = (evt) => {
-        setSliderBPM(evt.target.value)
-    }
+  
+
+    // const onChange = (evt) => {
+    //     if (evt.target.value === sliderBPM) return;
+    //     // setSliderBPM(Number(evt.target.value))
+    //     props.setLocalBPM(Number(evt.target.value))
+    // }
     
     return (
         <div>
-            <div className='BPMText'>{`${sliderBPM}`}</div>
+            {/* <div className='BPMText'>{`${sliderBPM}`}</div>
             <div className='horizontalSlider'>
             <Slider
                 min={80}
                 max={200}
-                value={sliderBPM}
+                value={props.localBPM}
                 onChange={onChange}
-                onChangeCommitted={() => props.setLocalBPM(sliderBPM)}
+                // onChangeCommitted={() => props.setLocalBPM(sliderBPM)}
             />
-            </div>
+            </div> */}
             {/* <div className='horizontalSlider'>
                 <div className='exampleTrack'></div>
                     <ReactSlider

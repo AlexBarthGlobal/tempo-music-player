@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import previousTrack from '../icons/previousTrack.svg'
 
 class FooterControls extends React.Component {
     constructor() {
       super()
       this.state = {
-        idx: 0
+
       };
     };
   
@@ -13,11 +14,21 @@ class FooterControls extends React.Component {
       const {playPause, nextTrack, prevTrack} = this.props;
       
       return (
-        <div>
-          {playPause}
-          <button onClick={prevTrack} disabled={!this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Prev</button>
-          <button onClick={nextTrack}>Next</button>
-          <span>{this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songName : null}</span>
+        // <div>
+        //   {playPause}
+        //   <button onClick={prevTrack} disabled={!this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Prev</button>
+        //   <button onClick={nextTrack}>Next</button>
+        //   <span>{this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songName : null}</span>
+        // </div>
+
+        <div /*FooterControls*/className='footerControls'>
+          <div /*controlsTop*/className='controlsMainBox'>
+            controlsTop
+          </div>
+          <div /*controlsLower*/className='controlsMainBox'>
+            {/* <div><img src="../icons/previous-track.svg"/></div> */}
+            <div><img src={previousTrack}/></div>
+          </div>
         </div>
       )
     };

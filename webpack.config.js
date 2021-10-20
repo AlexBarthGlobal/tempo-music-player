@@ -27,6 +27,24 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
+      },
+      // {
+      //   test: /\.(png|jp(e*)g|svg|gif)$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         name: 'images/[hash]-[name].[ext]',
+      //       },
+      //     },
+      //   ],
+      // },
+      {
+        loader: require.resolve('file-loader'),
+        exclude:[/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
+        options: {
+          name: 'src/icons/[name].[hash:8].[ext]',
+        }
       }
     ]
   },

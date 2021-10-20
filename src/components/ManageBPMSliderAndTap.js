@@ -11,11 +11,11 @@ export default class ManageBPMSliderAndTap extends React.Component {
         this.state = {
             localBPM: props.BPM,
             resetTapPadTrigger: false,
-            sliderBPM: props.BPM
+            // sliderBPM: props.BPM
         };
 
-        this.onChange = this.onChange.bind(this)
-        this.onChangeCommitted = this.onChangeCommitted.bind(this)
+        // this.onChange = this.onChange.bind(this)
+        // this.onChangeCommitted = this.onChangeCommitted.bind(this)
     };
 
     setLocalBPM = (newBPM) => {
@@ -26,16 +26,16 @@ export default class ManageBPMSliderAndTap extends React.Component {
         this.setState({resetTapPadTrigger: this.state.resetTapPadTrigger ? false : true})
     };
 
-    onChange = (evt) => {
-        if (evt.target.value === this.state.localBPM || evt.target.value === this.state.sliderBPM) return;
-        // setSliderBPM(Number(evt.target.value))
-        // props.setLocalBPM(Number(evt.target.value))
-        this.setState({sliderBPM: evt.target.value})
-    };
+    // onChange = (evt) => {
+    //     if (evt.target.value === this.state.localBPM || evt.target.value === this.state.sliderBPM) return;
+    //     // setSliderBPM(Number(evt.target.value))
+    //     // props.setLocalBPM(Number(evt.target.value))
+    //     this.setState({sliderBPM: evt.target.value})
+    // };
 
-    onChangeCommitted = () => {
-        this.setState({localBPM: this.state.sliderBPM})
-    }
+    // onChangeCommitted = () => {
+    //     this.setState({localBPM: this.state.sliderBPM})
+    // }
 
 
     render() {
@@ -52,19 +52,9 @@ export default class ManageBPMSliderAndTap extends React.Component {
                 {/* <div>
                     <BPMLight localBPM={this.state.localBPM} playing={this.props.playing} metronomeSound={this.props.metronomeSound}/>
                 </div> */}
-                {/* <div>
+                <div>
                     <BPMSlider localBPM={this.state.localBPM} setLocalBPM={this.setLocalBPM} resetTapPadTrigger={this.resetTapPadTrigger}/>
-                </div> */}
-                <div className='BPMText'>{`${this.state.sliderBPM}`}</div>
-                <div className='horizontalSlider'>
-                    <Slider
-                        min={80}
-                        max={200}
-                        value={this.state.sliderBPM}
-                        onChange={this.onChange}
-                onChangeCommitted={this.onChangeCommitted}
-                    />
-            </div>
+                </div>
                 <div>
                     <BPMTap setLocalBPM={this.setLocalBPM} resetTapPadTrigger={this.state.resetTapPadTrigger} />
                 </div>

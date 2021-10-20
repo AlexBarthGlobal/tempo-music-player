@@ -186,3 +186,8 @@ a {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+.footerIcon {
+  height: 22px;
+  width: 22px
+}

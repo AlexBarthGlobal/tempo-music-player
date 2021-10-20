@@ -26,8 +26,7 @@ class FooterControls extends React.Component {
             controlsTop
           </div>
           <div /*controlsLower*/className='controlsMainBox'>
-            {/* <div><img src="../icons/previous-track.svg"/></div> */}
-            <div><img src={previousTrack}/></div>
+            <div><img className='footerIcon' src={previousTrack}/></div>
           </div>
         </div>
       )

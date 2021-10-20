@@ -29,23 +29,21 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jp(e*)g|svg|gif)$/,
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      },
+      {
+        test: /\.svg$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'svg-url-loader',
             options: {
-              name: 'src/icons/[hash]-[name].[ext]',
+              limit: 10000,
             },
           },
         ],
       },
-      // {
-      //   loader: require.resolve('file-loader'),
-      //   exclude:[/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
-      //   options: {
-      //     name: 'src/icons/[name].[hash:8].[ext]',
-      //   }
-      // }
     ]
   },
 }

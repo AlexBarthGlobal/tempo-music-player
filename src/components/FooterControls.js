@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import previousTrack from '../icons/previousTrack.svg'
+import { Slider } from '@mui/material';
 
 {/* <div><img className='footerIcon' src={previousTrack}/></div> */}
 
@@ -25,28 +26,46 @@ class FooterControls extends React.Component {
 
         <div /*FooterControls*/className='footerControls'>
           <div /*controlsTop*/className='controlsTop'>
-            <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
-            <div className='songNameAndArtist' /*songName&Artist*/>
-              <div>songName</div>
-              <div>Artist</div>
+            <div className='footerTopLeft enablePointerEvents' /*Footer TOPLEFT*/>
+              <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
+              <div className='songNameAndArtist' /*songName&Artist*/>
+                <div>songName</div>
+                <div>Artist</div>
+              </div>
             </div>
-            <div className='controlsBPM'>
+            <div /*Footer TOPRIGHT*/ className='controlsBPM enablePointerEvents'>
               <div>BPM</div>
               <div>140</div>
             </div>
-            <div>Player</div>
           </div>
-          <div /*controlsLower*/className='controlsBottom'>
+          <div /*controlsLower*/className='controlsBottom enablePointerEvents'>
             <div className='controlButton'>Prev</div>
-            <div className='controlButton'>Loop</div>
+            <div className='controlButton'>Play</div>
             <div className='trackpadAndDuration'/* trackpadAndDuration*/>
               <div className='controlsDurations' /*TOP, for duration*/>
                 <div>0:00</div>
                 <div>3:21</div>
               </div>
-              <div /*BOTTOM Trackpad*/>Slider</div>
+              <div /*BOTTOM Trackpad*/>
+                <Slider 
+                  sx={{
+                    color: 'black',
+                    '& .MuiSlider-thumb': {
+                      width: 24,
+                      height: 24,
+                      backgroundColor: '#fff',
+                      '&:before': {
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
+                      },
+                      // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
+                      //   boxShadow: 'none',
+                      // },
+                    },
+                  }}
+                />
+              </div>
             </div>
-            <div className='controlButton'>Play</div>
+            <div className='controlButton'>Loop</div>
             <div className='controlButton'>Next</div>
           </div>
         </div>

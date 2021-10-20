@@ -31,7 +31,18 @@ const BPMSlider = (props) => {
                 onChange={onChange}
                 onChangeCommitted={onChangeCommitted}
                 sx={{
-                    color: 'black'
+                    color: 'black',
+                    '& .MuiSlider-thumb': {
+                        width: 24,
+                        height: 24,
+                        backgroundColor: '#fff',
+                        '&:before': {
+                          boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
+                        },
+                        // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
+                        //   boxShadow: 'none',
+                        // },
+                    },
                 }}
             />
             </div>

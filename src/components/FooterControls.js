@@ -25,26 +25,26 @@ class FooterControls extends React.Component {
         // </div>
 
         <div /*FooterControls*/className='footerControls'>
-          <div /*controlsTop*/className='controlsTop'>
-            <div className='footerTopLeft enablePointerEvents' /*Footer TOPLEFT*/>
-              <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
-              <div className='songNameAndArtist' /*songName&Artist*/>
-                <div>songName</div>
-                <div>Artist</div>
-              </div>
-            </div>
-            <div /*Footer TOPRIGHT*/ className='controlsBPM enablePointerEvents'>
-              <div>BPM</div>
-              <div>140</div>
+          <div className='footerBox1'/* 1 */>
+            <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
+            <div className='footerText'>
+              <div className='footerText'>SongName</div>
+              <div className='footerText'>Money manasdadsadsdaddasdasdasdadsasdasdasdasdasa</div>
+              <div className='footerText'>Beach Chill</div>
             </div>
           </div>
-          <div /*controlsLower*/className='controlsBottom enablePointerEvents'>
-            <div className='controlButton'>Prev</div>
-            <div className='controlButton'>Play</div>
-            <div className='trackpadAndDuration'/* trackpadAndDuration*/>
-              <div className='controlButton'>0:00</div>
-              <div className='footerSlider' /*BOTTOM Trackpad*/>
-                <Slider 
+          <div className='footerBox2'/* 2 */>
+            <div className='footerCenterTop'/*center top*/>
+              <div>140</div>
+              <div>Prev</div>
+              <div>Play</div>
+              <div>Next</div>
+              <div>Loop</div>
+            </div>
+            <div className='footerRow'/*center bottom*/>
+              <div>0:23</div>
+              <div className='maxWidth'>
+              <Slider 
                   sx={{
                     color: 'black',
                     '& .MuiSlider-thumb': {
@@ -61,10 +61,11 @@ class FooterControls extends React.Component {
                   }}
                 />
               </div>
-              <div className='controlButton'>3:21</div>
+              <div>3:21</div>
             </div>
-            <div className='controlButton'>Loop</div>
-            <div className='controlButton'>Next</div>
+          </div>
+          <div className='footerBox3'/* 3 */>
+            <div>Audio</div>
           </div>
         </div>
       )

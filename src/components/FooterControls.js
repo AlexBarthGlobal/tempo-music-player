@@ -42,11 +42,8 @@ class FooterControls extends React.Component {
             <div className='controlButton'>Prev</div>
             <div className='controlButton'>Play</div>
             <div className='trackpadAndDuration'/* trackpadAndDuration*/>
-              <div className='controlsDurations' /*TOP, for duration*/>
-                <div>0:00</div>
-                <div>3:21</div>
-              </div>
-              <div /*BOTTOM Trackpad*/>
+              <div className='controlButton'>0:00</div>
+              <div className='footerSlider' /*BOTTOM Trackpad*/>
                 <Slider 
                   sx={{
                     color: 'black',
@@ -64,6 +61,7 @@ class FooterControls extends React.Component {
                   }}
                 />
               </div>
+              <div className='controlButton'>3:21</div>
             </div>
             <div className='controlButton'>Loop</div>
             <div className='controlButton'>Next</div>

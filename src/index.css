@@ -107,6 +107,17 @@ a {
   /* border: 1px black solid; */
 }
 
+.footerTextContainer {
+  /* max-width: 98%; */
+  /* width: 400px; */
+  width: 40vw;
+  min-width: 40px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  /* border: 1px red solid; */
+}
+
 .footerText {
   max-width: 98%;
   text-overflow: ellipsis;

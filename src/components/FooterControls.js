@@ -26,10 +26,9 @@ class FooterControls extends React.Component {
 
         <div /*FooterControls*/className='footerControls'>
           <div className='footerBox1'/* 1 */>
-            <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
+              <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
             <div className='footerTextContainer'>
               <div className='footerText'>SongName</div>
-              {/* <div className='footerText'>Money manasdadsadsdaddasdasdasdadsasdasdasdasdasa</div> */}
               <div className='footerText'>Money man</div>
               <div className='footerText'>Beach Chill</div>
             </div>

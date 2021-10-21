@@ -5,7 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-color: rgb(26, 24, 24) */
+  background-color: rgb(26, 24, 24);
+  /* background-color: #111111; */
+ 
 }
 
 /* disable blue highlight (especially on mobile) */
@@ -19,7 +21,7 @@ a {
 }
 
 div {
-  color: grey;
+  color: rgb(255, 255, 255);
 }
 
 code {
@@ -69,6 +71,7 @@ a {
   min-height: 40px;
   height: 10vh;
   padding: 10px 10px 10px 10px;
+  backdrop-filter: blur(5px);
 }
 
 .controlsTop {
@@ -76,13 +79,10 @@ a {
   justify-content: space-between;
   /* border: black solid 1px; */
   flex-direction: row;
-}
-
-.footerArt {
-  max-width: 44px;
-  max-height: 44px;
-  margin-left: 6px;
-  margin-right: 16px;
+  background-color: rgba(156, 155, 155, 0.521);
+  /* backdrop-filter: blur(5px); */
+  /* border-top-left-radius: 25px;
+  border-top-right-radius: 25px; */
 }
 
 .controlsBottom {
@@ -90,6 +90,17 @@ a {
   justify-content: space-between;
   /* border: black solid 1px; */
   flex-direction: row;
+  background-color: rgba(156, 155, 155, 0.521);
+  /* backdrop-filter: blur(5px); */
+  /* border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px; */
+}
+
+.footerArt {
+  max-width: 44px;
+  max-height: 44px;
+  margin-left: 6px;
+  margin-right: 16px;
 }
 
 .trackpadAndDuration {

@@ -72,6 +72,34 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  /* padding-left: 200px;
+  padding-right: 200px; */
+}
+
+.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */
+  margin-top: 5px;
+  margin-bottom: 5px;
+  /* margin-left: 8px;
+  margin-right: 8px; */
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.footerCenterTopLeft {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+.footerCenterItem {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.footerCenterTopRight {
+  margin-right: 0px;
+  margin-left: 10px;
 }
 
 .footerControls {
@@ -118,12 +146,19 @@ a {
   /* border: 1px red solid; */
 }
 
-.footerText {
+.footerTextContainer > div {
   max-width: 98%;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
+
+/* .footerText {
+  max-width: 98%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+} */
 
 .footerArt {
   max-width: 52px;
@@ -134,7 +169,6 @@ a {
   margin-left: 6px;
 }
 
-
 /* .footerCenterBottom {
   display: flex;
   justify-content: row;
@@ -142,6 +176,10 @@ a {
 
 .maxWidth {
   width: 100%
+}
+
+.playTimeEndTime {
+  padding-top: 2px;
 }
 
 .footerControlsMobile {
@@ -183,6 +221,11 @@ a {
   width: 80vw;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.centerVertical {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .footerSlider {

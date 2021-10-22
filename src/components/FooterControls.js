@@ -28,23 +28,23 @@ class FooterControls extends React.Component {
           <div className='footerBox1'/* 1 */>
               <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
             <div className='footerTextContainer'>
-              <div className='footerText'>SongName</div>
-              <div className='footerText'>Money man</div>
-              <div className='footerText'>Beach Chill</div>
+              <div>SongName</div>
+              <div>Money man</div>
+              <div>Beach Chill</div>
             </div>
           </div>
           <div className='footerBox2'/* 2 */>
             <div className='footerCenterTop'/*center top*/>
-              <div>140</div>
-              <div>Prev</div>
-              <div>Play</div>
-              <div>Next</div>
-              <div>Loop</div>
+              <div className='footerCenterTopLeft'>140</div>
+              <div className='footerCenterItem'>Pr</div>
+              <div className='footerCenterItem'>Pl</div>
+              <div className='footerCenterItem'>Ne</div>
+              <div className='footerCenterTopRight'>Lo</div>
             </div>
             <div className='footerRow'/*center bottom*/>
-              <div>0:23</div>
-              <div className='maxWidth'>
-              <Slider 
+              <div className='playTimeEndTime'>0:23</div>
+              <div className='footerSlider'>
+              <Slider
                   sx={{
                     color: 'black',
                     '& .MuiSlider-thumb': {
@@ -61,7 +61,7 @@ class FooterControls extends React.Component {
                   }}
                 />
               </div>
-              <div>3:21</div>
+              <div className='playTimeEndTime'>3:21</div>
             </div>
           </div>
           <div className='footerBox3'/* 3 */>

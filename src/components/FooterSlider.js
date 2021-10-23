@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react'
 import { Slider } from '@mui/material';
 
 const FooterSlider = (props) => {
+    const [currTime, setCurrTime] = useState(0)
+
     useEffect (() => {
+        setCurrTime(props.currTime)
     }, [props.currTime, props.endTime])
 
     return (
         <div className='footerRow'/*center bottom*/>
-              <div className='playTimeEndTime'>{props.currTime}</div>
+              <div className='playTimeEndTime'>{currTime}</div>
               <div className='footerSlider'>
                 <Slider
                   sx={{

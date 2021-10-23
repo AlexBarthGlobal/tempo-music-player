@@ -1,20 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import previousTrack from '../icons/previousTrack.svg'
-import { Slider } from '@mui/material';
+import FooterSlider from './FooterSlider'
 
 {/* <div><img className='footerIcon' src={previousTrack}/></div> */}
 
 class FooterControls extends React.Component {
-    constructor() {
-      super()
-      this.state = {
+    // constructor() {
+    //   super()
+    //   this.state = {
 
-      };
-    };
+    //   };
+    // };
   
     render() {
-      const {playPause, nextTrackButton, prevTrackButton} = this.props;
+      const {playPause, nextTrackButton, prevTrackButton, currTime, endTime, seekTime} = this.props;
       if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return (<div>Nothing Playing</div>) 
       return (
         <div /*FooterControls*/className='footerControls'>
@@ -34,28 +34,7 @@ class FooterControls extends React.Component {
               <div className='footerCenterItem'>{nextTrackButton}</div>
               <div className='footerCenterTopRight'>Lo</div>
             </div>
-            <div className='footerRow'/*center bottom*/>
-              <div className='playTimeEndTime'>0:23</div>
-              <div className='footerSlider'>
-                <Slider
-                  sx={{
-                    color: 'black',
-                    '& .MuiSlider-thumb': {
-                      width: 24,
-                      height: 24,
-                      backgroundColor: '#fff',
-                      '&:before': {
-                        boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
-                      },
-                      // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-                      //   boxShadow: 'none',
-                      // },
-                    },
-                  }}
-                />
-              </div>
-              <div className='playTimeEndTime'>3:21</div>
-            </div>
+            <FooterSlider currTime={currTime} endTime={endTime} seekTime={seekTime} end />
           </div>
           <div className='footerBox3'/* 3 */>
             <div>Audio</div>

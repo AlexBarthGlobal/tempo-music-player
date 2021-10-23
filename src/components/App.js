@@ -46,6 +46,7 @@ class App extends React.Component {
         this.resetInfo = this.resetInfo.bind(this);
         this.changeTempoFromModal = this.changeTempoFromModal.bind(this);
         this.addSongsFromModal = this.addSongsFromModal.bind(this);
+        this.seekTime = this.seekTime.bind(this)
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -112,6 +113,10 @@ class App extends React.Component {
             })
         };
 
+        if (this.rap) {
+            console.log(this.rap.duration)
+        }
+
         if (this.checkPlayerReady()) {
             this.checkIfListened();
         } else {
@@ -161,6 +166,10 @@ class App extends React.Component {
         };
     };
 
+    seekTime = (newTime) => {
+        this.rap.currentTime = newTime;
+    };
+
     changeTempoFromModal() {
         this.setState({noNextSong: false})
         this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'Tempo')
@@ -197,7 +206,7 @@ class App extends React.Component {
         const prevTrackButton = <button onClick={this.prevTrack} disabled={this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Pr</button>
         const playPauseBool = this.state.playing;
         const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr ==='Tempo' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>View Songs</button> : null
-        const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? isMobile ? <div className='footer'><FooterControlsMobile playPause={playPause} prevTrackButton={prevTrackButton} nextTrackButton={nextTrackButton} /></div> : <div className='footer'><FooterControls playPause={playPause} prevTrackButton={prevTrackButton} nextTrackButton={nextTrackButton} /></div> : null;
+        const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? isMobile ? <div className='footer'><FooterControlsMobile playPause={playPause} prevTrackButton={prevTrackButton} nextTrackButton={nextTrackButton} currTime={this.rap ? this.rap.currentTime : null} endTime={this.rap ? this.rap.duration : null} seekTime={() => this.seekTime} /></div> : <div className='footer'><FooterControls playPause={playPause} prevTrackButton={prevTrackButton} nextTrackButton={nextTrackButton} currTime={this.rap ? this.rap.currentTime : null} endTime={this.rap ? this.rap.duration : null} seekTime={() => this.seekTime} /></div> : null;
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
         let selectedScreen = <Collections editMode={this.state.editCollections}/>

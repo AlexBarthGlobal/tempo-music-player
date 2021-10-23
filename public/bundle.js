@@ -13029,6 +13029,10 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, _callee4);
     })));
 
+    _defineProperty(_assertThisInitialized(_this), "seekTime", function (newTime) {
+      _this.rap.currentTime = newTime;
+    });
+
     _this.state = {
       //Local player info
       playing: false,
@@ -13051,6 +13055,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.resetInfo = _this.resetInfo.bind(_assertThisInitialized(_this));
     _this.changeTempoFromModal = _this.changeTempoFromModal.bind(_assertThisInitialized(_this));
     _this.addSongsFromModal = _this.addSongsFromModal.bind(_assertThisInitialized(_this));
+    _this.seekTime = _this.seekTime.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleShare = _this.handleShare.bind(_assertThisInitialized(_this));
@@ -13108,6 +13113,10 @@ var App = /*#__PURE__*/function (_React$Component) {
       }
 
       ;
+
+      if (this.rap) {
+        console.log(this.rap.duration);
+      }
 
       if (this.checkPlayerReady()) {
         this.checkIfListened();
@@ -13251,13 +13260,23 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControlsMobile__WEBPACK_IMPORTED_MODULE_7__.default, {
         playPause: playPause,
         prevTrackButton: prevTrackButton,
-        nextTrackButton: nextTrackButton
+        nextTrackButton: nextTrackButton,
+        currTime: this.rap ? this.rap.currentTime : null,
+        endTime: this.rap ? this.rap.duration : null,
+        seekTime: function seekTime() {
+          return _this2.seekTime;
+        }
       })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_6__.default, {
         playPause: playPause,
         prevTrackButton: prevTrackButton,
-        nextTrackButton: nextTrackButton
+        nextTrackButton: nextTrackButton,
+        currTime: this.rap ? this.rap.currentTime : null,
+        endTime: this.rap ? this.rap.duration : null,
+        seekTime: function seekTime() {
+          return _this2.seekTime;
+        }
       })) : null; //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
 
       var changeTempo;
@@ -15718,7 +15737,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _icons_previousTrack_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../icons/previousTrack.svg */ "./src/icons/previousTrack.svg");
 /* harmony import */ var _icons_previousTrack_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_icons_previousTrack_svg__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
+/* harmony import */ var _FooterSlider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FooterSlider */ "./src/components/FooterSlider.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -15852,22 +15871,26 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(FooterControls);
 
   function FooterControls() {
-    var _this;
-
     _classCallCheck(this, FooterControls);
 
-    _this = _super.call(this);
-    _this.state = {};
-    return _this;
+    return _super.apply(this, arguments);
   }
 
   _createClass(FooterControls, [{
     key: "render",
-    value: function render() {
+    value: // constructor() {
+    //   super()
+    //   this.state = {
+    //   };
+    // };
+    function render() {
       var _this$props = this.props,
           playPause = _this$props.playPause,
           nextTrackButton = _this$props.nextTrackButton,
-          prevTrackButton = _this$props.prevTrackButton;
+          prevTrackButton = _this$props.prevTrackButton,
+          currTime = _this$props.currTime,
+          endTime = _this$props.endTime,
+          seekTime = _this$props.seekTime;
       if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Nothing Playing");
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         /*FooterControls*/
@@ -15899,32 +15922,12 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
         className: "footerCenterItem"
       }, nextTrackButton), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footerCenterTopRight"
-      }, "Lo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "footerRow"
-        /*center bottom*/
-
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "playTimeEndTime"
-      }, "0:23"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "footerSlider"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default, {
-        sx: {
-          color: 'black',
-          '& .MuiSlider-thumb': {
-            width: 24,
-            height: 24,
-            backgroundColor: '#fff',
-            '&:before': {
-              boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
-            } // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-            //   boxShadow: 'none',
-            // },
-
-          }
-        }
+      }, "Lo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterSlider__WEBPACK_IMPORTED_MODULE_3__.default, {
+        currTime: currTime,
+        endTime: endTime,
+        seekTime: seekTime,
+        end: true
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "playTimeEndTime"
-      }, "3:21"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footerBox3"
         /* 3 */
 
@@ -16194,6 +16197,56 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(FooterControlsMobile));
+
+/***/ }),
+
+/***/ "./src/components/FooterSlider.js":
+/*!****************************************!*\
+  !*** ./src/components/FooterSlider.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
+
+
+
+var FooterSlider = function FooterSlider(props) {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {}, [props.currTime, props.endTime]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "footerRow"
+    /*center bottom*/
+
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "playTimeEndTime"
+  }, props.currTime), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "footerSlider"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__.default, {
+    sx: {
+      color: 'black',
+      '& .MuiSlider-thumb': {
+        width: 24,
+        height: 24,
+        backgroundColor: '#fff',
+        '&:before': {
+          boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
+        } // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
+        //   boxShadow: 'none',
+        // },
+
+      }
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "playTimeEndTime"
+  }, props.endTime));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FooterSlider);
 
 /***/ }),
 

@@ -5,6 +5,7 @@ import Collections from './Collections'
 import Tempo from './Tempo'
 import PlayerScreen from './PlayerScreen'
 import FooterControls from './FooterControls'
+import FooterControlsMobile from './FooterControlsMobile'
 // import AddSongs from './AddSongs'
 import BrowseSongs from './BrowseSongs'
 import CollectionSongs from './CollectionSongs'
@@ -15,6 +16,7 @@ import {changeScreenThunk, selectCollectionAndChangeScreenThunk} from '../redux/
 import {addToListenedAndSessionThunk, clearListenedThunk, setMetronomeSoundOptionThunk} from '../redux/userDispatchers'
 import songsInRange from '../components/songsInRange'
 import axios from 'axios';
+import { isBrowser, isMobile } from 'react-device-detect';
 
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
@@ -193,7 +195,7 @@ class App extends React.Component {
         const playPause = this.state.playing ? <button onClick={this.pause}>Pause</button> : <button onClick={this.play}>Play</button>
         const playPauseBool = this.state.playing;
         const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr ==='Tempo' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>View Songs</button> : null
-        const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
+        const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? isMobile ? <div className='footer'><FooterControlsMobile playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : <div className='footer'><FooterControls playPause={playPause} prevTrack={this.prevTrack} nextTrack={this.nextTrack} /></div> : null;
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
         let selectedScreen = <Collections editMode={this.state.editCollections}/>

@@ -5,8 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-color: rgb(26, 24, 24) */
-
+  background-color: rgb(26, 24, 24);
+  /* background-color: #111111; */
+ 
 }
 
 /* disable blue highlight (especially on mobile) */
@@ -17,6 +18,10 @@ select,
 div,
 a {
   outline: none;
+}
+
+div {
+  color: rgb(255, 255, 255);
 }
 
 code {
@@ -46,13 +51,284 @@ a {
   justify-content: space-between; */
 }
 
+.enablePointerEvents {
+  pointer-events: all;
+}
+
 .footer {
   position: fixed;
-  padding: 10px 10px 0px 10px;
   bottom: 0;
   width: 100%;
-  height: 40px;
-  background: rgba(128, 128, 128, 0.473);
+  /* height: 10vh; */
+  /* background: rgba(128, 128, 128, 0.473); */
+  /* pointer-events: none; */
+}
+
+.footerRow {
+  display: flex;
+}
+
+.footerCenterTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* padding-left: 200px;
+  padding-right: 200px; */
+}
+
+.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */
+  margin-top: 5px;
+  margin-bottom: 5px;
+  /* margin-left: 8px;
+  margin-right: 8px; */
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.footerCenterTopLeft {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+.footerCenterItem {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.footerCenterTopRight {
+  margin-right: 0px;
+  margin-left: 10px;
+}
+
+.footerControls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* min-height: 40px; */
+  height: 70px;
+  padding: 10px 10px 10px 10px;
+  backdrop-filter: blur(5px);
+  background-color: rgba(156, 155, 155, 0.521);
+}
+
+.footerControlsMobile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* min-height: 40px; */
+  height: 52px;
+  /* padding: 10px 10px 10px 10px; */
+  backdrop-filter: blur(5px);
+  background-color: rgba(156, 155, 155, 0.521);
+}
+
+.footerBox1 {
+  display: flex;
+  width: 40vw;
+  min-width: 114px;
+  /* border: 1px black solid; */
+}
+
+.footerBox1Mobile {
+  display: flex;
+  width: 62vw;
+  min-width: 114px;
+  /* border: 1px black solid; */
+}
+
+.footerBox2 {
+  width: 100%;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.footerBox3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 40vw;
+  min-width: 114px;
+  /* border: 1px black solid; */
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.footerBox3Mobile {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 40vw;
+  min-width: 114px;
+  /* border: 1px black solid; */
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.footerItemCenterMobile {
+  margin-right: 18px;
+  margin-left: 18px;
+}
+
+.footerItemRightMobile {
+  margin-right: 12px;
+}
+
+.footerTextContainer {
+  /* max-width: 98%; */
+  /* width: 400px; */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
+  width: 40vw;
+  min-width: 40px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  /* border: 1px red solid; */
+}
+
+.footerTextContainer > div {
+  max-width: 98%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.footerTextContainerMobile {
+  /* max-width: 98%; */
+  /* width: 400px; */
+  letter-spacing: 0.6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 62vw;
+  min-width: 40px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  /* border: 1px red solid; */
+}
+
+.footerTextContainerMobile > div {
+  max-width: 98%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+/* .footerText {
+  max-width: 98%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+} */
+
+.footerArt {
+  max-width: 52px;
+  max-height: 52px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 16px;
+  margin-left: 6px;
+}
+
+.footerArtMobile {
+  max-width: 52px;
+  max-height: 52px;
+  /* margin-top: auto;
+  margin-bottom: auto; */
+  margin-right: 5px;
+  /* margin-left: 6px; */
+}
+
+/* .footerCenterBottom {
+  display: flex;
+  justify-content: row;
+} */
+
+.maxWidth {
+  width: 100%
+}
+
+.playTimeEndTime {
+  padding-top: 2px;
+}
+
+.controlsTop {
+  display: flex;
+  justify-content: space-between;
+  /* border: black solid 1px; */
+  flex-direction: row;
+  background-color: rgba(156, 155, 155, 0.521);
+  /* backdrop-filter: blur(5px); */
+  /* border-top-left-radius: 25px;
+  border-top-right-radius: 25px; */
+}
+
+.controlsBottom {
+  display: flex;
+  justify-content: space-between;
+  /* border: black solid 1px; */
+  flex-direction: row;
+  background-color: rgba(156, 155, 155, 0.521);
+  /* backdrop-filter: blur(5px); */
+  /* border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px; */
+}
+
+.trackpadAndDuration {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 80vw;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.centerVertical {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.footerSlider {
+  width: 100%;
+  margin-left: 18px;
+  margin-right: 18px;
+}
+
+.footerTopLeft {
+  display: flex;
+  flex-direction: row;
+}
+
+.songNameAndArtist {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.controlsBPM {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.controlsDurations {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footerIcon {
+  height: 22px;
+  width: 22px
+}
+
+.controlButton {
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .collections {

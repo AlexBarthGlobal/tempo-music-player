@@ -24,48 +24,20 @@ class FooterControlsMobile extends React.Component {
         //   <span>{this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songName : null}</span>
         // </div>
 
-        <div /*FooterControls*/className='footerControls'>
-          <div /*controlsTop*/className='controlsTop'>
-            <div className='footerTopLeft enablePointerEvents' /*Footer TOPLEFT*/>
-              <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
-              <div className='songNameAndArtist' /*songName&Artist*/>
-                <div>songName</div>
-                <div>Artist</div>
-              </div>
+        <div /*FooterControls*/className='footerControlsMobile'>
+            <div className='footerBox1Mobile'>
+                <img className='footerArtMobile' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
+                <div className='footerTextContainerMobile'>
+                    <div>SongName</div>
+                    <div>ArtistName</div>
+                    <div>Beach Chill</div>
+                </div>
             </div>
-            <div /*Footer TOPRIGHT*/ className='controlsBPM enablePointerEvents'>
-              <div>BPM</div>
-              <div>140</div>
+            <div className='footerBox3Mobile'>
+                <div>140</div>
+                <div className='footerItemCenterMobile'>Pl</div>
+                <div className='footerItemRightMobile'>Ne</div>
             </div>
-          </div>
-          <div /*controlsLower*/className='controlsBottom enablePointerEvents'>
-            <div className='controlButton'>Prev</div>
-            <div className='controlButton'>MOBILE</div>
-            <div className='trackpadAndDuration'/* trackpadAndDuration*/>
-              <div className='controlButton'>0:00</div>
-              <div className='footerSlider' /*BOTTOM Trackpad*/>
-                <Slider 
-                  sx={{
-                    color: 'black',
-                    '& .MuiSlider-thumb': {
-                      width: 24,
-                      height: 24,
-                      backgroundColor: '#fff',
-                      '&:before': {
-                        boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
-                      },
-                      // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-                      //   boxShadow: 'none',
-                      // },
-                    },
-                  }}
-                />
-              </div>
-              <div className='controlButton'>3:21</div>
-            </div>
-            <div className='controlButton'>Loop</div>
-            <div className='controlButton'>Next</div>
-          </div>
         </div>
       )
     };

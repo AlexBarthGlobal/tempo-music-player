@@ -14,31 +14,24 @@ class FooterControls extends React.Component {
     };
   
     render() {
-      const {playPause, nextTrack, prevTrack} = this.props;
-      
+      const {playPause, nextTrackButton, prevTrackButton} = this.props;
+      if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return (<div>Nothing Playing</div>) 
       return (
-        // <div>
-        //   {playPause}
-        //   <button onClick={prevTrack} disabled={!this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Prev</button>
-        //   <button onClick={nextTrack}>Next</button>
-        //   <span>{this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songName : null}</span>
-        // </div>
-
         <div /*FooterControls*/className='footerControls'>
           <div className='footerBox1'/* 1 */>
               <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
             <div className='footerTextContainer'>
-              <div>SongName</div>
-              <div>Money man</div>
-              <div>Beach Chill</div>
+              <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].songName}</div>
+              <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].artistName}</div>
+              <div>{this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionName}</div>
             </div>
           </div>
           <div className='footerBox2'/* 2 */>
             <div className='footerCenterTop'/*center top*/>
-              <div className='footerCenterTopLeft'>140</div>
-              <div className='footerCenterItem'>Pr</div>
-              <div className='footerCenterItem'>Pl</div>
-              <div className='footerCenterItem'>Ne</div>
+              <div className='footerCenterTopLeft'>{this.props.musicInfo.activeSession.currBPM}</div>
+              <div className='footerCenterItem'>{prevTrackButton}</div>
+              <div className='footerCenterItem'>{playPause}</div>
+              <div className='footerCenterItem'>{nextTrackButton}</div>
               <div className='footerCenterTopRight'>Lo</div>
             </div>
             <div className='footerRow'/*center bottom*/>

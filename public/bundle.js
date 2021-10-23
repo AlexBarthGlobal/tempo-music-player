@@ -13228,9 +13228,16 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, "Clear Listened") : null;
       var playPause = this.state.playing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.pause
-      }, "Pause") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }, "Pa") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.play
-      }, "Play");
+      }, "Pl");
+      var nextTrackButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.nextTrack
+      }, "Ne");
+      var prevTrackButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.prevTrack,
+        disabled: this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[this.props.playIdx - 1]
+      }, "Pr");
       var playPauseBool = this.state.playing;
       var navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
@@ -13243,14 +13250,14 @@ var App = /*#__PURE__*/function (_React$Component) {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControlsMobile__WEBPACK_IMPORTED_MODULE_7__.default, {
         playPause: playPause,
-        prevTrack: this.prevTrack,
-        nextTrack: this.nextTrack
+        prevTrackButton: prevTrackButton,
+        nextTrackButton: nextTrackButton
       })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_6__.default, {
         playPause: playPause,
-        prevTrack: this.prevTrack,
-        nextTrack: this.nextTrack
+        prevTrackButton: prevTrackButton,
+        nextTrackButton: nextTrackButton
       })) : null; //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
 
       var changeTempo;
@@ -15859,77 +15866,69 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           playPause = _this$props.playPause,
-          nextTrack = _this$props.nextTrack,
-          prevTrack = _this$props.prevTrack;
-      return (
-        /*#__PURE__*/
-        // <div>
-        //   {playPause}
-        //   <button onClick={prevTrack} disabled={!this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Prev</button>
-        //   <button onClick={nextTrack}>Next</button>
-        //   <span>{this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songName : null}</span>
-        // </div>
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          /*FooterControls*/
-          className: "footerControls"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerBox1"
-          /* 1 */
+          nextTrackButton = _this$props.nextTrackButton,
+          prevTrackButton = _this$props.prevTrackButton;
+      if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Nothing Playing");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        /*FooterControls*/
+        className: "footerControls"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerBox1"
+        /* 1 */
 
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-          className: "footerArt",
-          src: "https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg"
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerTextContainer"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "SongName"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Money man"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Beach Chill"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerBox2"
-          /* 2 */
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        className: "footerArt",
+        src: "https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerTextContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.activeSession.songs[this.props.playIdx].songName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.activeSession.songs[this.props.playIdx].artistName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionName))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerBox2"
+        /* 2 */
 
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerCenterTop"
-          /*center top*/
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerCenterTop"
+        /*center top*/
 
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerCenterTopLeft"
-        }, "140"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerCenterItem"
-        }, "Pr"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerCenterItem"
-        }, "Pl"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerCenterItem"
-        }, "Ne"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerCenterTopRight"
-        }, "Lo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerRow"
-          /*center bottom*/
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerCenterTopLeft"
+      }, this.props.musicInfo.activeSession.currBPM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerCenterItem"
+      }, prevTrackButton), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerCenterItem"
+      }, playPause), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerCenterItem"
+      }, nextTrackButton), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerCenterTopRight"
+      }, "Lo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerRow"
+        /*center bottom*/
 
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "playTimeEndTime"
-        }, "0:23"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerSlider"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default, {
-          sx: {
-            color: 'black',
-            '& .MuiSlider-thumb': {
-              width: 24,
-              height: 24,
-              backgroundColor: '#fff',
-              '&:before': {
-                boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
-              } // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-              //   boxShadow: 'none',
-              // },
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "playTimeEndTime"
+      }, "0:23"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerSlider"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default, {
+        sx: {
+          color: 'black',
+          '& .MuiSlider-thumb': {
+            width: 24,
+            height: 24,
+            backgroundColor: '#fff',
+            '&:before': {
+              boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
+            } // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
+            //   boxShadow: 'none',
+            // },
 
-            }
           }
-        })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "playTimeEndTime"
-        }, "3:21"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerBox3"
-          /* 3 */
+        }
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "playTimeEndTime"
+      }, "3:21"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footerBox3"
+        /* 3 */
 
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Audio")))
-      );
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Audio")));
     }
   }]);
 

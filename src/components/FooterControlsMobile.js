@@ -25,18 +25,52 @@ class FooterControlsMobile extends React.Component {
         // </div>
 
         <div /*FooterControls*/className='footerControlsMobile'>
-            <div className='footerBox1Mobile'>
-                <img className='footerArtMobile' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
-                <div className='footerTextContainerMobile'>
-                    <div>SongName</div>
-                    <div>ArtistName</div>
-                    <div>Beach Chill</div>
+            <div className='footerControlsMobileTop'>
+                <div className='footerBox1Mobile'>
+                    <img className='footerArtMobile' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
+                    <div className='footerTextContainerMobile'>
+                        <div>SongName</div>
+                        <div>ArtistName</div>
+                        <div>Beach Chill</div>
+                    </div>
+                </div>
+                <div className='footerBox3Mobile'>
+                    <div>140</div>
+                    <div className='footerItemCenterMobile'>Pl</div>
+                    <div className='footerItemRightMobile'>Ne</div>
                 </div>
             </div>
-            <div className='footerBox3Mobile'>
-                <div>140</div>
-                <div className='footerItemCenterMobile'>Pl</div>
-                <div className='footerItemRightMobile'>Ne</div>
+            <div className='footerSliderMobile'>
+                <Slider
+                //   disabled={true}
+                  size='small'
+                  defaultValue={70}
+                  sx={{
+                    padding: '0px !important',
+                    // color: 'black',
+                    // '& .MuiSlider-root': {
+                    //     paddingTop: '0px'
+                    // },
+                    '& .MuiSlider-thumb': {
+                        display: 'none',
+                    //   width: 24,
+                    //   height: 24,
+                    //   backgroundColor: '#fff',
+                      '&:before': {
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
+                      },
+                      // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
+                      //   boxShadow: 'none',
+                      // },
+                    },
+                    '& .MuiSlider-track': {
+                        color: 'orange',
+                    },
+                    '& .MuiSlider-rail': {
+                        color: 'gray',
+                    }
+                  }}
+                />
             </div>
         </div>
       )

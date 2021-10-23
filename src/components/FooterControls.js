@@ -44,7 +44,7 @@ class FooterControls extends React.Component {
             <div className='footerRow'/*center bottom*/>
               <div className='playTimeEndTime'>0:23</div>
               <div className='footerSlider'>
-              <Slider
+                <Slider
                   sx={{
                     color: 'black',
                     '& .MuiSlider-thumb': {

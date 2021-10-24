@@ -13,6 +13,7 @@ const FooterSlider = (props) => {
               <div className='playTimeEndTime'>{currTime}</div>
               <div className='footerSlider'>
                 <Slider
+                //   defaultValue={0}
                   sx={{
                     color: 'black',
                     '& .MuiSlider-thumb': {

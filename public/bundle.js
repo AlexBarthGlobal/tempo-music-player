@@ -16294,7 +16294,8 @@ var FooterSlider = function FooterSlider(props) {
     className: "playTimeEndTime"
   }, currTime), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "footerSlider"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__.default, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__.default //   defaultValue={0}
+  , {
     sx: {
       color: 'black',
       '& .MuiSlider-thumb': {

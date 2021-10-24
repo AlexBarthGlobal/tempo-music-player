@@ -17,6 +17,7 @@ import {addToListenedAndSessionThunk, clearListenedThunk, setMetronomeSoundOptio
 import songsInRange from '../components/songsInRange'
 import axios from 'axios';
 import { isBrowser, isMobile } from 'react-device-detect';
+import ListenToOne from './ListenToOne'
 
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
@@ -353,6 +354,7 @@ class App extends React.Component {
                 <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
                 <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
                 <div>
+                    <ListenToOne />
                     {selectedScreen}
                 </div>             
                     {footerControls}

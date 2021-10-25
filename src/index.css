@@ -232,6 +232,8 @@ a {
 } */
 
 .footerArt {
+  min-width: 52px;
+  min-height: 52px;
   max-width: 52px;
   max-height: 52px;
   margin-top: auto;
@@ -241,6 +243,8 @@ a {
 }
 
 .footerArtMobile {
+  min-width: 52px;
+  min-height: 52px;
   max-width: 52px;
   max-height: 52px;
   /* margin-top: auto;

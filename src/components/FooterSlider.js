@@ -3,20 +3,22 @@ import { Slider } from '@mui/material';
 import secondsToTimestamp from './secondsToTimestamp';
 
 const FooterSlider = (props) => {
-    const [currTime, setCurrTime] = useState('0:00')
+    const [currTime, setCurrTime] = useState(0)
+    const [seeking, setSeeking] = useState(false);
 
-    // useEffect (() => {
-    //     setCurrTime(props.currTime)
-    // }, [props.currTime])
+    useEffect (() => {
+        if (!seeking) setCurrTime(props.currTime);
+    }, [props.currTime])
 
     const onChange = (evt) => {
       setCurrTime(evt.target.value);
-      console.log(currTime)
+      setSeeking(true);
     }
 
     const onCommit = () => {
       console.log('SETTING NEW TIME', currTime)
       props.seekTime(currTime);
+      setSeeking(false);
     }
 
     return (
@@ -30,6 +32,10 @@ const FooterSlider = (props) => {
                 //   defaultValue={0}
                   onChange={onChange}
                   onChangeCommitted={onCommit}
+                  getAriaValueText={(val) => {
+                    return secondsToTimestamp(val)
+                  }}
+                  valueLabelDisplay='auto'
                   sx={{
                     color: 'black',
                     '& .MuiSlider-thumb': {

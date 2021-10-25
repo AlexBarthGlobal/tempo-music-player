@@ -55,12 +55,14 @@ class MainPlayer extends React.Component {
 
 
         const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? isMobile ? <div className='footer'><FooterControlsMobile playPause={playPause} prevTrackButton={prevTrackButton} nextTrackButton={nextTrackButton} currTime={this.rap ? this.rap.currentTime : null} endTime={this.rap ? this.rap.duration : null} seekTime={() => this.seekTime} /></div> : <div className='footer'><FooterControls playPause={playPause} prevTrackButton={() => console.log('Prev')} nextTrackButton={() => console.log('Next')} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} /></div> : null;
+        const mainPlayer = this.props.screenStr === 'PlayerScreen' ? <div>Main Player here</div> : null;
         return (
             <div>
                 {audio}
                 {/* <button onClick={this.props.play}>Play</button>
                 <button onClick={this.props.pause}>Pause</button> */}
                 {footerControls}
+                {mainPlayer}
             </div>
         )
     };

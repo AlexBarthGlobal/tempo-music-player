@@ -1,7 +1,7 @@
 const secondsToTimestamp = (timeInSeconds) => {
     const calc = timeInSeconds/60;
     const minutes = Math.floor(calc);
-    let seconds = Math.floor((calc % 1)*60)
+    let seconds = Math.round((calc % 1)*60);
     if (seconds < 10) seconds = '0' + seconds;
     return minutes + ':' + seconds
 };

@@ -16287,14 +16287,14 @@ var FooterSlider = function FooterSlider(props) {
     className: "footerSlider"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_2__.default, {
     min: 0,
-    max: props.duration,
-    value: currTime //   defaultValue={0}
+    max: Math.round(props.duration),
+    value: Math.round(currTime) //   defaultValue={0}
     ,
+    valueLabelFormat: function valueLabelFormat() {
+      return (0,_secondsToTimestamp__WEBPACK_IMPORTED_MODULE_1__.default)(currTime);
+    },
     onChange: onChange,
     onChangeCommitted: onCommit,
-    getAriaValueText: function getAriaValueText(val) {
-      return (0,_secondsToTimestamp__WEBPACK_IMPORTED_MODULE_1__.default)(val);
-    },
     valueLabelDisplay: "auto",
     sx: {
       color: 'black',
@@ -18394,7 +18394,7 @@ __webpack_require__.r(__webpack_exports__);
 var secondsToTimestamp = function secondsToTimestamp(timeInSeconds) {
   var calc = timeInSeconds / 60;
   var minutes = Math.floor(calc);
-  var seconds = Math.floor(calc % 1 * 60);
+  var seconds = Math.round(calc % 1 * 60);
   if (seconds < 10) seconds = '0' + seconds;
   return minutes + ':' + seconds;
 };

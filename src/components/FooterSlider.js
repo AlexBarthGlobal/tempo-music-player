@@ -27,14 +27,12 @@ const FooterSlider = (props) => {
               <div className='footerSlider'>
                 <Slider
                   min={0}
-                  max={props.duration}
-                  value={currTime}
+                  max={Math.round(props.duration)}
+                  value={Math.round(currTime)}
                 //   defaultValue={0}
+                  valueLabelFormat={() => secondsToTimestamp(currTime)}
                   onChange={onChange}
                   onChangeCommitted={onCommit}
-                  getAriaValueText={(val) => {
-                    return secondsToTimestamp(val)
-                  }}
                   valueLabelDisplay='auto'
                   sx={{
                     color: 'black',

@@ -14,7 +14,7 @@ class FooterControls extends React.Component {
     // };
   
     render() {
-      const {playPause, nextTrackButton, prevTrackButton, currTime, endTime, seekTime} = this.props;
+      const {playPause, nextTrackButton, prevTrackButton, currTime, duration, seekTime} = this.props;
       if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return (<div>Nothing Playing</div>) 
       return (
         <div /*FooterControls*/className='footerControls'>
@@ -34,7 +34,7 @@ class FooterControls extends React.Component {
               <div className='footerCenterItem'>{nextTrackButton}</div>
               <div className='footerCenterTopRight'>Lo</div>
             </div>
-            <FooterSlider currTime={currTime} endTime={endTime} seekTime={seekTime} end />
+            <FooterSlider currTime={currTime} duration={duration} seekTime={seekTime} end />
           </div>
           <div className='footerBox3'/* 3 */>
             <div>Audio</div>

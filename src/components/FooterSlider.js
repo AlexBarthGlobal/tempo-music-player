@@ -1,19 +1,35 @@
 import React, {useEffect, useState} from 'react'
 import { Slider } from '@mui/material';
+import secondsToTimestamp from './secondsToTimestamp';
 
 const FooterSlider = (props) => {
-    const [currTime, setCurrTime] = useState(0)
+    const [currTime, setCurrTime] = useState('0:00')
 
-    useEffect (() => {
-        setCurrTime(props.currTime)
-    }, [props.currTime, props.endTime])
+    // useEffect (() => {
+    //     setCurrTime(props.currTime)
+    // }, [props.currTime])
+
+    const onChange = (evt) => {
+      setCurrTime(evt.target.value);
+      console.log(currTime)
+    }
+
+    const onCommit = () => {
+      console.log('SETTING NEW TIME', currTime)
+      props.seekTime(currTime);
+    }
 
     return (
         <div className='footerRow'/*center bottom*/>
-              <div className='playTimeEndTime'>{currTime}</div>
+              <div className='playTimeEndTime'>{secondsToTimestamp(props.currTime)}</div>
               <div className='footerSlider'>
                 <Slider
+                  min={0}
+                  max={props.duration}
+                  value={currTime}
                 //   defaultValue={0}
+                  onChange={onChange}
+                  onChangeCommitted={onCommit}
                   sx={{
                     color: 'black',
                     '& .MuiSlider-thumb': {
@@ -30,7 +46,7 @@ const FooterSlider = (props) => {
                   }}
                 />
               </div>
-              <div className='playTimeEndTime'>{props.endTime}</div>
+              <div className='playTimeEndTime'>{secondsToTimestamp(props.duration)}</div>
         </div>
     )
 }

@@ -16075,22 +16075,24 @@ var FooterControlsMobile = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(FooterControlsMobile);
 
   function FooterControlsMobile() {
-    var _this;
-
     _classCallCheck(this, FooterControlsMobile);
 
-    _this = _super.call(this);
-    _this.state = {};
-    return _this;
+    return _super.apply(this, arguments);
   }
 
   _createClass(FooterControlsMobile, [{
     key: "render",
-    value: function render() {
+    value: // constructor() {
+    //   super()
+    //   this.state = {
+    //   };
+    // };
+    function render() {
       var _this$props = this.props,
           playPause = _this$props.playPause,
-          nextTrack = _this$props.nextTrack,
-          prevTrack = _this$props.prevTrack;
+          nextTrackButton = _this$props.nextTrackButton,
+          currTime = _this$props.currTime,
+          duration = _this$props.duration;
       return (
         /*#__PURE__*/
         // <div>
@@ -16115,12 +16117,15 @@ var FooterControlsMobile = /*#__PURE__*/function (_React$Component) {
           className: "footerBox3Mobile"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "140"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerItemCenterMobile"
-        }, "Pl"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        }, playPause), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerItemRightMobile"
         }, "Ne"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerSliderMobile"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default //   disabled={true}
-        , {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default, {
+          disabled: true,
+          min: 0,
+          max: Math.round(duration),
+          value: Math.round(currTime),
           size: "small",
           defaultValue: 70,
           sx: {
@@ -16950,13 +16955,11 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControlsMobile__WEBPACK_IMPORTED_MODULE_5__.default, {
         playPause: playPause,
-        prevTrackButton: prevTrackButton,
-        nextTrackButton: nextTrackButton,
-        currTime: this.rap ? this.rap.currentTime : null,
-        endTime: this.rap ? this.rap.duration : null,
-        seekTime: function seekTime() {
-          return _this2.seekTime;
-        }
+        prevTrackButton: function prevTrackButton() {
+          return console.log('Prev');
+        },
+        currTime: this.rap ? this.state.currentTime : null,
+        duration: this.rap ? this.state.duration : null
       })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_4__.default, {

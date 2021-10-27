@@ -6,15 +6,15 @@ import { Slider } from '@mui/material';
 {/* <div><img className='footerIcon' src={previousTrack}/></div> */}
 
 class FooterControlsMobile extends React.Component {
-    constructor() {
-      super()
-      this.state = {
+    // constructor() {
+    //   super()
+    //   this.state = {
 
-      };
-    };
+    //   };
+    // };
   
     render() {
-      const {playPause, nextTrack, prevTrack} = this.props;
+      const {playPause, nextTrackButton, currTime, duration} = this.props;
       
       return (
         // <div>
@@ -36,13 +36,16 @@ class FooterControlsMobile extends React.Component {
                 </div>
                 <div className='footerBox3Mobile'>
                     <div>140</div>
-                    <div className='footerItemCenterMobile'>Pl</div>
+                    <div className='footerItemCenterMobile'>{playPause}</div>
                     <div className='footerItemRightMobile'>Ne</div>
                 </div>
             </div>
             <div className='footerSliderMobile'>
                 <Slider
-                //   disabled={true}
+                  disabled={true}
+                  min={0}
+                  max={Math.round(duration)}
+                  value={Math.round(currTime)}
                   size='small'
                   defaultValue={70}
                   sx={{

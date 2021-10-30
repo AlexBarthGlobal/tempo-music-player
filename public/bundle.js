@@ -16257,7 +16257,7 @@ function _arrayWithHoles(arr) {
 
 
 var FooterSlider = function FooterSlider(props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.currTime ? props.currTime : 0),
       _useState2 = _slicedToArray(_useState, 2),
       currTime = _useState2[0],
       setCurrTime = _useState2[1];
@@ -16292,6 +16292,7 @@ var FooterSlider = function FooterSlider(props) {
     className: "footerSlider"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_2__.default, {
     min: 0,
+    defaultValue: currTime,
     max: Math.round(props.duration),
     value: Math.round(currTime) //   defaultValue={0}
     ,

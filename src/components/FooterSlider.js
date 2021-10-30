@@ -3,7 +3,7 @@ import { Slider } from '@mui/material';
 import secondsToTimestamp from './secondsToTimestamp';
 
 const FooterSlider = (props) => {
-    const [currTime, setCurrTime] = useState(0)
+    const [currTime, setCurrTime] = useState(props.currTime ? props.currTime : 0)
     const [seeking, setSeeking] = useState(false);
 
     useEffect (() => {
@@ -27,6 +27,7 @@ const FooterSlider = (props) => {
               <div className='footerSlider'>
                 <Slider
                   min={0}
+                  defaultValue={currTime}
                   max={Math.round(props.duration)}
                   value={Math.round(currTime)}
                 //   defaultValue={0}

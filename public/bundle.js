@@ -16949,10 +16949,10 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
         onClick: this.props.pause
       }, "Pa") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.props.play
-      }, "Pl");
-      var footerControls =
-      /*this.checkPlayerReady() &&*/
-      this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? react_device_detect__WEBPACK_IMPORTED_MODULE_3__.isMobile ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "Pl"); // const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? isMobile ? <div className='footer'><FooterControlsMobile playPause={playPause} prevTrackButton={() => console.log('Prev')} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} /></div> : <div className='footer'><FooterControls playPause={playPause} prevTrackButton={() => console.log('Prev')} nextTrackButton={() => console.log('Next')} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} /></div> : null;
+      // const mainPlayer = this.props.screenStr === 'PlayerScreen' ? <div>Main Player here</div> : null;
+
+      var player = this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Main Player here") : this.props.musicInfo.activeSession ? react_device_detect__WEBPACK_IMPORTED_MODULE_3__.isMobile ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControlsMobile__WEBPACK_IMPORTED_MODULE_5__.default, {
         playPause: playPause,
@@ -16975,8 +16975,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
         duration: this.rap ? this.state.duration : null,
         seekTime: this.seekTime
       })) : null;
-      var mainPlayer = this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Main Player here") : null;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, audio, footerControls, mainPlayer);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, audio, player);
     }
   }]);
 

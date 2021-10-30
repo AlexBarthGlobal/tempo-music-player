@@ -15,7 +15,6 @@ import {addToListenedAndSessionThunk, clearListenedThunk, setMetronomeSoundOptio
 import songsInRange from '../components/songsInRange'
 import axios from 'axios';
 import { isBrowser, isMobile } from 'react-device-detect';
-import ListenToOne from './ListenToOne'
 import MainPlayer from './MainPlayer'
 import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
 let tempActiveCollectionSession = null;
@@ -88,7 +87,7 @@ class App extends React.Component {
         console.log('RESETTING INFO')
         this.props.clearSessions()
         this.props.clearListened(this.props.user.listened.id)
-        this.setState({playing: false})
+        this.props.pause();
         if (this.state.noNextSong) this.setState({noNextSong: false})
     }
 
@@ -204,8 +203,8 @@ class App extends React.Component {
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button onClick={() => this.setState({addCollectionModal: true})}>Create Collection</button> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && 
         /*this.props.screenStr === 'PlayerScreen' ||*/ (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null;
         const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <button className="toTheRight" onClick={() => this.setState({editCollection: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollection: true})}>Edit Collection</button> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <button className="toTheRight" onClick={() => this.setState({editCollections: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollections: true})}>Edit Collections</button> : null;
-        let audio;
-        audio = <MainPlayer />
+        // let audio;
+        // audio = <MainPlayer />
         const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;
         // const playPause = this.props.playing ? <button onClick={this.pause}>Pa</button> : <button onClick={this.play}>Pl</button>
         const nextTrackButton = <button onClick={this.nextTrack}>Ne</button>
@@ -359,8 +358,7 @@ class App extends React.Component {
                 <div>
                     {selectedScreen}
                 </div>             
-                    {/* {footerControls} */}
-                    {audio}
+                    <MainPlayer />
             </div>
         );
     };

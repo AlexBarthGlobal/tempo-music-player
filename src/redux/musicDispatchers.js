@@ -357,7 +357,6 @@ export const removeCollectionThunk = (collectionId, isActiveBool) => {
     };
 };
 
-
 const initialState = {
     // musicInfo: {
     //     isFetching: true,

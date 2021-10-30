@@ -12602,18 +12602,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Collections__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Collections */ "./src/components/Collections.js");
 /* harmony import */ var _Tempo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Tempo */ "./src/components/Tempo.js");
 /* harmony import */ var _PlayerScreen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PlayerScreen */ "./src/components/PlayerScreen.js");
-/* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
-/* harmony import */ var _FooterControlsMobile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./FooterControlsMobile */ "./src/components/FooterControlsMobile.js");
-/* harmony import */ var _BrowseSongs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./BrowseSongs */ "./src/components/BrowseSongs.js");
-/* harmony import */ var _CollectionSongs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./CollectionSongs */ "./src/components/CollectionSongs.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
-/* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
-/* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
-/* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
+/* harmony import */ var _BrowseSongs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./BrowseSongs */ "./src/components/BrowseSongs.js");
+/* harmony import */ var _CollectionSongs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CollectionSongs */ "./src/components/CollectionSongs.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
+/* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
+/* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
+/* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
+/* harmony import */ var _ListenToOne__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ListenToOne */ "./src/components/ListenToOne.js");
+/* harmony import */ var _MainPlayer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./MainPlayer */ "./src/components/MainPlayer.js");
+/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -12789,12 +12790,13 @@ function _defineProperty(obj, key, value) {
 
 
 
-
-
  // import AddSongs from './AddSongs'
 
 
  // import {logout} from '../redux/isLogged'
+
+
+
 
 
 
@@ -12886,7 +12888,7 @@ var App = /*#__PURE__*/function (_React$Component) {
               case 5:
                 _context2.prev = 5;
                 _context2.next = 8;
-                return axios__WEBPACK_IMPORTED_MODULE_14___default().post('/api/shareCollection', {
+                return axios__WEBPACK_IMPORTED_MODULE_12___default().post('/api/shareCollection', {
                   collectionId: _this.props.selectedCollection,
                   recipientEmail: _this.state.recipientEmail
                 });
@@ -12948,7 +12950,7 @@ var App = /*#__PURE__*/function (_React$Component) {
                 break;
               }
 
-              results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_13__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM, 'up');
+              results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_11__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM, 'up');
 
               if (!results[0].length) {
                 _context3.next = 11;
@@ -12989,7 +12991,7 @@ var App = /*#__PURE__*/function (_React$Component) {
               return _this.props.incrementPlayIdx(_this.props.musicInfo.activeSession.id);
 
             case 18:
-              _this.play();
+              _this.props.play();
 
             case 19:
               ;
@@ -13029,13 +13031,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, _callee4);
     })));
 
-    _defineProperty(_assertThisInitialized(_this), "seekTime", function (newTime) {
-      _this.rap.currentTime = newTime;
-    });
-
     _this.state = {
       //Local player info
-      playing: false,
+      //   playing: false,
       addCollectionModal: false,
       addSongModal: false,
       collectionName: '',
@@ -13054,8 +13052,8 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.checkIfLoaded = _this.checkPlayerReady.bind(_assertThisInitialized(_this));
     _this.resetInfo = _this.resetInfo.bind(_assertThisInitialized(_this));
     _this.changeTempoFromModal = _this.changeTempoFromModal.bind(_assertThisInitialized(_this));
-    _this.addSongsFromModal = _this.addSongsFromModal.bind(_assertThisInitialized(_this));
-    _this.seekTime = _this.seekTime.bind(_assertThisInitialized(_this));
+    _this.addSongsFromModal = _this.addSongsFromModal.bind(_assertThisInitialized(_this)); // this.seekTime = this.seekTime.bind(this)
+
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleShare = _this.handleShare.bind(_assertThisInitialized(_this));
@@ -13120,29 +13118,33 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       if (this.checkPlayerReady()) {
         this.checkIfListened();
-      } else {
-        this.rap.src = null;
+      } else {// this.rap.src = null;
       }
     }
   }, {
     key: "play",
     value: function play() {
-      this.rap.play();
-      this.setState({
-        playing: true
-      });
+      // -- dispatch playing true
+      this.props.play(); // this.rap.play();
+      // this.setState({
+      //     playing: true
+      // })
     }
   }, {
     key: "pause",
     value: function pause() {
-      this.rap.pause();
-      this.setState({
-        playing: false
-      });
+      // -- dispatch playing false
+      this.props.pause(); // this.rap.pause();
+      // this.setState({
+      //     playing: false
+      // })
     }
   }, {
     key: "changeTempoFromModal",
-    value: function changeTempoFromModal() {
+    value: // seekTime = (newTime) => {
+    //     this.rap.currentTime = newTime;
+    // };
+    function changeTempoFromModal() {
       this.setState({
         noNextSong: false
       });
@@ -13165,7 +13167,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       console.log('Props on App.js RENDER', this.props);
       console.log('STATE', this.state);
-      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Redirect, {
+      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Redirect, {
         to: "/login"
       });
 
@@ -13223,23 +13225,11 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       }, "Edit Collections") : null;
       var audio;
-      audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
-        src: this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null,
-        preload: "auto",
-        autoPlay: this.state.playing ? true : false,
-        onEnded: this.nextTrack,
-        ref: function ref(element) {
-          _this2.rap = element;
-        }
-      });
+      audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MainPlayer__WEBPACK_IMPORTED_MODULE_15__.default, null);
       var clearListened = this.props.screenStr !== 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.resetInfo
-      }, "Clear Listened") : null;
-      var playPause = this.state.playing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.pause
-      }, "Pa") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.play
-      }, "Pl");
+      }, "Clear Listened") : null; // const playPause = this.props.playing ? <button onClick={this.pause}>Pa</button> : <button onClick={this.play}>Pl</button>
+
       var nextTrackButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.nextTrack
       }, "Ne");
@@ -13252,32 +13242,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         onClick: function onClick() {
           return _this2.props.changeScreen('CollectionSongs');
         }
-      }, "View Songs") : null;
-      var footerControls =
-      /*this.checkPlayerReady() &&*/
-      this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? react_device_detect__WEBPACK_IMPORTED_MODULE_15__.isMobile ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "footer"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControlsMobile__WEBPACK_IMPORTED_MODULE_7__.default, {
-        playPause: playPause,
-        prevTrackButton: prevTrackButton,
-        nextTrackButton: nextTrackButton,
-        currTime: this.rap ? this.rap.currentTime : null,
-        endTime: this.rap ? this.rap.duration : null,
-        seekTime: function seekTime() {
-          return _this2.seekTime;
-        }
-      })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "footer"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_6__.default, {
-        playPause: playPause,
-        prevTrackButton: prevTrackButton,
-        nextTrackButton: nextTrackButton,
-        currTime: this.rap ? this.rap.currentTime : null,
-        endTime: this.rap ? this.rap.duration : null,
-        seekTime: function seekTime() {
-          return _this2.seekTime;
-        }
-      })) : null; //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
+      }, "View Songs") : null; //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
 
       var changeTempo;
       var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_3__.default, {
@@ -13296,13 +13261,13 @@ var App = /*#__PURE__*/function (_React$Component) {
             return _this2.props.changeScreen('Tempo');
           }
         }, "Change Tempo");
-      } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_8__.default, {
+      } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_6__.default, {
         next: this.nextTrack,
         prev: this.prevTrack,
         play: this.play,
         pause: this.pause,
         playPauseBool: playPauseBool
-      });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_9__.default, {
+      });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_7__.default, {
         editMode: this.state.editCollection
       });
       var shareCollection;
@@ -13424,11 +13389,11 @@ var App = /*#__PURE__*/function (_React$Component) {
         value: this.state.recipientEmail
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.shareConfirmation), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "submit"
-      }, "Share")))))), audio, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "Share")))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "topButtons"
       }, homeLogout, editSongs, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"
-      }, navToCollectionSongs, changeTempo, shareCollection, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), footerControls);
+      }, navToCollectionSongs, changeTempo, shareCollection, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ListenToOne__WEBPACK_IMPORTED_MODULE_14__.default, null), selectedScreen), audio);
     }
   }]);
 
@@ -13444,53 +13409,60 @@ var mapStateToProps = function mapStateToProps(state) {
     musicInfo: state.musicReducer,
     screenStr: state.screenReducer.screenStr,
     selectedCollection: state.screenReducer.selectedCollection,
-    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
+    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null // playing: state.playerReducer.playing
+
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     enqueueSong: function enqueueSong() {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_10__.enqueueSongThunk)());
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.enqueueSongThunk)());
     },
     incrementPlayIdx: function incrementPlayIdx(sessionId) {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_10__.incrementPlayIdxThunk)(sessionId));
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.incrementPlayIdxThunk)(sessionId));
     },
     decrementPlayIdx: function decrementPlayIdx(sessionId) {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_10__.decrementPlayIdxThunk)(sessionId));
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.decrementPlayIdxThunk)(sessionId));
     },
     changeScreen: function changeScreen(screen) {
-      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_11__.changeScreenThunk)(screen));
+      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_9__.changeScreenThunk)(screen));
     },
     addToListenedAndSession: function addToListenedAndSession(song, collectionSessionId) {
-      return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_12__.addToListenedAndSessionThunk)(song, collectionSessionId));
+      return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__.addToListenedAndSessionThunk)(song, collectionSessionId));
     },
     clearListened: function clearListened(listenedId) {
-      return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_12__.clearListenedThunk)(listenedId));
+      return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__.clearListenedThunk)(listenedId));
     },
     clearSessions: function clearSessions() {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_10__.clearSessionsThunk)());
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.clearSessionsThunk)());
     },
     createCollection: function createCollection(collectionName, collectionArtURL) {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_10__.createCollectionThunk)(collectionName, collectionArtURL));
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.createCollectionThunk)(collectionName, collectionArtURL));
     },
     dispatchSelectCollectionAndChangeScreen: function dispatchSelectCollectionAndChangeScreen(collectionId, screen) {
-      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_11__.selectCollectionAndChangeScreenThunk)(collectionId, screen));
+      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_9__.selectCollectionAndChangeScreenThunk)(collectionId, screen));
     },
     clearActiveSession: function clearActiveSession(collectionSessionId) {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_10__.clearActiveSessionThunk)(collectionSessionId));
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.clearActiveSessionThunk)(collectionSessionId));
     },
     popOneFromActiveSessionSongs: function popOneFromActiveSessionSongs() {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_10__.popOneFromActiveSessionSongsThunk)());
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.popOneFromActiveSessionSongsThunk)());
     },
     updateSessionBpm: function updateSessionBpm(selectedCollectionId, newBPM) {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_10__.updateSessionBpmThunk)(selectedCollectionId, newBPM));
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.updateSessionBpmThunk)(selectedCollectionId, newBPM));
     },
     applySongsInRange: function applySongsInRange(songs) {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_10__.applySongsInRange)(songs));
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.applySongsInRange)(songs));
     },
     setMetronomeSoundOption: function setMetronomeSoundOption(_boolean) {
-      return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_12__.setMetronomeSoundOptionThunk)(_boolean));
+      return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__.setMetronomeSoundOptionThunk)(_boolean));
+    },
+    play: function play() {
+      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_16__.setPlayingTrueThunk)());
+    },
+    pause: function pause() {
+      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_16__.setPlayingFalseThunk)());
     }
   };
 };
@@ -15889,7 +15861,7 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
           nextTrackButton = _this$props.nextTrackButton,
           prevTrackButton = _this$props.prevTrackButton,
           currTime = _this$props.currTime,
-          endTime = _this$props.endTime,
+          duration = _this$props.duration,
           seekTime = _this$props.seekTime;
       if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Nothing Playing");
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -15924,7 +15896,7 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
         className: "footerCenterTopRight"
       }, "Lo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterSlider__WEBPACK_IMPORTED_MODULE_3__.default, {
         currTime: currTime,
-        endTime: endTime,
+        duration: duration,
         seekTime: seekTime,
         end: true
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -16103,22 +16075,24 @@ var FooterControlsMobile = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(FooterControlsMobile);
 
   function FooterControlsMobile() {
-    var _this;
-
     _classCallCheck(this, FooterControlsMobile);
 
-    _this = _super.call(this);
-    _this.state = {};
-    return _this;
+    return _super.apply(this, arguments);
   }
 
   _createClass(FooterControlsMobile, [{
     key: "render",
-    value: function render() {
+    value: // constructor() {
+    //   super()
+    //   this.state = {
+    //   };
+    // };
+    function render() {
       var _this$props = this.props,
           playPause = _this$props.playPause,
-          nextTrack = _this$props.nextTrack,
-          prevTrack = _this$props.prevTrack;
+          nextTrackButton = _this$props.nextTrackButton,
+          currTime = _this$props.currTime,
+          duration = _this$props.duration;
       return (
         /*#__PURE__*/
         // <div>
@@ -16143,12 +16117,15 @@ var FooterControlsMobile = /*#__PURE__*/function (_React$Component) {
           className: "footerBox3Mobile"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "140"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerItemCenterMobile"
-        }, "Pl"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        }, playPause), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerItemRightMobile"
         }, "Ne"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerSliderMobile"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default //   disabled={true}
-        , {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default, {
+          disabled: true,
+          min: 0,
+          max: Math.round(duration),
+          value: Math.round(currTime),
           size: "small",
           defaultValue: 70,
           sx: {
@@ -16212,21 +16189,118 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
+/* harmony import */ var _secondsToTimestamp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./secondsToTimestamp */ "./src/components/secondsToTimestamp.js");
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+
 
 
 
 var FooterSlider = function FooterSlider(props) {
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {}, [props.currTime, props.endTime]);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState2 = _slicedToArray(_useState, 2),
+      currTime = _useState2[0],
+      setCurrTime = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      seeking = _useState4[0],
+      setSeeking = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!seeking) setCurrTime(props.currTime);
+  }, [props.currTime]);
+
+  var onChange = function onChange(evt) {
+    setCurrTime(evt.target.value);
+    setSeeking(true);
+  };
+
+  var onCommit = function onCommit() {
+    console.log('SETTING NEW TIME', currTime);
+    props.seekTime(currTime);
+    setSeeking(false);
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "footerRow"
     /*center bottom*/
 
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "playTimeEndTime"
-  }, props.currTime), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, (0,_secondsToTimestamp__WEBPACK_IMPORTED_MODULE_1__.default)(props.currTime)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "footerSlider"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_1__.default, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_2__.default, {
+    min: 0,
+    max: Math.round(props.duration),
+    value: Math.round(currTime) //   defaultValue={0}
+    ,
+    valueLabelFormat: function valueLabelFormat() {
+      return (0,_secondsToTimestamp__WEBPACK_IMPORTED_MODULE_1__.default)(currTime);
+    },
+    onChange: onChange,
+    onChangeCommitted: onCommit,
+    valueLabelDisplay: "auto",
     sx: {
       color: 'black',
       '& .MuiSlider-thumb': {
@@ -16243,10 +16317,42 @@ var FooterSlider = function FooterSlider(props) {
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "playTimeEndTime"
-  }, props.endTime));
+  }, (0,_secondsToTimestamp__WEBPACK_IMPORTED_MODULE_1__.default)(props.duration)));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FooterSlider);
+
+/***/ }),
+
+/***/ "./src/components/ListenToOne.js":
+/*!***************************************!*\
+  !*** ./src/components/ListenToOne.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+var ListenToOne = function ListenToOne(props) {
+  console.log('Info from LISTENTO1', props.musicInfo);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, " ");
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  // console.log('State from App.js', state)
+  return {
+    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(ListenToOne));
 
 /***/ }),
 
@@ -16605,6 +16711,297 @@ var Login = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Login);
+
+/***/ }),
+
+/***/ "./src/components/MainPlayer.js":
+/*!**************************************!*\
+  !*** ./src/components/MainPlayer.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
+/* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
+/* harmony import */ var _FooterControlsMobile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FooterControlsMobile */ "./src/components/FooterControlsMobile.js");
+/* harmony import */ var _secondsToTimestamp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./secondsToTimestamp */ "./src/components/secondsToTimestamp.js");
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+
+
+
+
+
+
+
+{
+  /* <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.props.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/> */
+}
+
+var MainPlayer = /*#__PURE__*/function (_React$Component) {
+  _inherits(MainPlayer, _React$Component);
+
+  var _super = _createSuper(MainPlayer);
+
+  function MainPlayer() {
+    var _this;
+
+    _classCallCheck(this, MainPlayer);
+
+    _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
+      _this.rap.addEventListener('timeupdate', function (e) {
+        if (Math.floor(e.target.currentTime) - Math.floor(_this.state.currentTime) >= 1) {
+          _this.setState({
+            currentTime: e.target.currentTime,
+            duration: e.target.duration
+          });
+        } else return;
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function () {
+      if (!_this.props.playing) {
+        _this.rap.pause();
+      } else _this.rap.play();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "seekTime", function (newTime) {
+      console.log(newTime, 'NEW TIME!!!!!!!!!!!!!');
+      _this.rap.currentTime = newTime;
+
+      _this.setState({
+        currentTime: newTime
+      });
+    });
+
+    _this.state = {
+      currentTime: 0,
+      duration: 0
+    };
+    _this.seekTime = _this.seekTime.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(MainPlayer, [{
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.rap.removeEventListener('timeupdate', function () {});
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      console.log('REFRESHED MAINPLAYER');
+      var audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
+        src: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CAura%E2%80%9D+(6+Hours+2).mp3",
+        preload: "auto",
+        autoPlay: this.props.playing ? true : false
+        /*onEnded={}*/
+        ,
+        ref: function ref(element) {
+          _this2.rap = element;
+        }
+      });
+      var playPause = this.props.playing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.props.pause
+      }, "Pa") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.props.play
+      }, "Pl");
+      var footerControls =
+      /*this.checkPlayerReady() &&*/
+      this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? react_device_detect__WEBPACK_IMPORTED_MODULE_3__.isMobile ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControlsMobile__WEBPACK_IMPORTED_MODULE_5__.default, {
+        playPause: playPause,
+        prevTrackButton: function prevTrackButton() {
+          return console.log('Prev');
+        },
+        currTime: this.rap ? this.state.currentTime : null,
+        duration: this.rap ? this.state.duration : null
+      })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "footer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_4__.default, {
+        playPause: playPause,
+        prevTrackButton: function prevTrackButton() {
+          return console.log('Prev');
+        },
+        nextTrackButton: function nextTrackButton() {
+          return console.log('Next');
+        },
+        currTime: this.rap ? this.state.currentTime : null,
+        duration: this.rap ? this.state.duration : null,
+        seekTime: this.seekTime
+      })) : null;
+      var mainPlayer = this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Main Player here") : null;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, audio, footerControls, mainPlayer);
+    }
+  }]);
+
+  return MainPlayer;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    playing: state.playerReducer.playing,
+    musicInfo: state.musicReducer,
+    screenStr: state.screenReducer.screenStr
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    play: function play() {
+      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__.setPlayingTrueThunk)());
+    },
+    pause: function pause() {
+      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__.setPlayingFalseThunk)());
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(MainPlayer));
 
 /***/ }),
 
@@ -17986,6 +18383,29 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./src/components/secondsToTimestamp.js":
+/*!**********************************************!*\
+  !*** ./src/components/secondsToTimestamp.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var secondsToTimestamp = function secondsToTimestamp(timeInSeconds) {
+  var calc = timeInSeconds / 60;
+  var minutes = Math.floor(calc);
+  var seconds = Math.round(calc % 1 * 60);
+  if (seconds < 10) seconds = '0' + seconds;
+  return minutes + ':' + seconds;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (secondsToTimestamp);
+
+/***/ }),
+
 /***/ "./src/components/songsInRange.js":
 /*!****************************************!*\
   !*** ./src/components/songsInRange.js ***!
@@ -18192,18 +18612,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _userDispatchers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./userDispatchers */ "./src/redux/userDispatchers.js");
 /* harmony import */ var _musicDispatchers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _screenDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./screenDispatchers */ "./src/redux/screenDispatchers.js");
+/* harmony import */ var _playerReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./playerReducer */ "./src/redux/playerReducer.js");
 
 
 
 
-var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
+
+var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
   userReducer: _userDispatchers__WEBPACK_IMPORTED_MODULE_0__.default,
   musicReducer: _musicDispatchers__WEBPACK_IMPORTED_MODULE_1__.default,
-  screenReducer: _screenDispatchers__WEBPACK_IMPORTED_MODULE_2__.default
+  screenReducer: _screenDispatchers__WEBPACK_IMPORTED_MODULE_2__.default,
+  playerReducer: _playerReducer__WEBPACK_IMPORTED_MODULE_3__.default
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (appReducer);
 
@@ -19676,6 +20099,125 @@ function musicReducer() {
       return state;
   }
 }
+
+/***/ }),
+
+/***/ "./src/redux/playerReducer.js":
+/*!************************************!*\
+  !*** ./src/redux/playerReducer.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setPlayingTrueThunk": () => (/* binding */ setPlayingTrueThunk),
+/* harmony export */   "setPlayingFalseThunk": () => (/* binding */ setPlayingFalseThunk),
+/* harmony export */   "default": () => (/* binding */ playerReducer)
+/* harmony export */ });
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+
+    if (enumerableOnly) {
+      symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+var SET_PLAYING_TRUE = 'SET_PLAYING_TRUE';
+var SET_PLAYING_FALSE = 'SET_PLAYING_FALSE';
+
+var setPlayingTrue = function setPlayingTrue() {
+  return {
+    type: SET_PLAYING_TRUE
+  };
+};
+
+var setPlayingFalse = function setPlayingFalse() {
+  return {
+    type: SET_PLAYING_FALSE
+  };
+};
+
+var setPlayingTrueThunk = function setPlayingTrueThunk() {
+  return function (dispatch) {
+    dispatch(setPlayingTrue());
+  };
+};
+var setPlayingFalseThunk = function setPlayingFalseThunk() {
+  return function (dispatch) {
+    dispatch(setPlayingFalse());
+  };
+};
+var initialState = {
+  playing: false
+};
+function playerReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case SET_PLAYING_TRUE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        playing: true
+      });
+
+    case SET_PLAYING_FALSE:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        playing: false
+      });
+
+    default:
+      return state;
+  }
+
+  ;
+}
+;
 
 /***/ }),
 
@@ -31177,7 +31719,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\na {\r\n  outline: none;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.secondButtons {\r\n  text-align: right;\r\n  /* display: flex;\r\n  justify-content: space-between; */\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  margin-left: 10px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 18px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.collections {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-wrap: wrap;\r\n}\r\n\r\n.collectionImage {\r\n  max-width: 21vw;\r\n  max-height: 21vh;\r\n  border-radius: 17px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 136px;\r\n  width: 136px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175)\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius:12px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:Yellow;\r\n  border-radius:12px;\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"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","sourcesContent":["body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\na {\r\n  outline: none;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.secondButtons {\r\n  text-align: right;\r\n  /* display: flex;\r\n  justify-content: space-between; */\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  margin-left: 10px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 18px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.collections {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-wrap: wrap;\r\n}\r\n\r\n.collectionImage {\r\n  max-width: 21vw;\r\n  max-height: 21vh;\r\n  border-radius: 17px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 136px;\r\n  width: 136px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175)\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius:12px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:Yellow;\r\n  border-radius:12px;\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\na {\r\n  outline: none;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.secondButtons {\r\n  text-align: right;\r\n  /* display: flex;\r\n  justify-content: space-between; */\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  margin-left: 10px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 18px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.collections {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-wrap: wrap;\r\n}\r\n\r\n.collectionImage {\r\n  max-width: 21vw;\r\n  max-height: 21vh;\r\n  border-radius: 17px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 136px;\r\n  width: 136px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175)\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius:12px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:Yellow;\r\n  border-radius:12px;\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"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","sourcesContent":["body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\na {\r\n  outline: none;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.secondButtons {\r\n  text-align: right;\r\n  /* display: flex;\r\n  justify-content: space-between; */\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  margin-left: 10px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 18px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.collections {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-wrap: wrap;\r\n}\r\n\r\n.collectionImage {\r\n  max-width: 21vw;\r\n  max-height: 21vh;\r\n  border-radius: 17px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 136px;\r\n  width: 136px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175)\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius:12px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:Yellow;\r\n  border-radius:12px;\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

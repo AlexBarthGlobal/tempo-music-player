@@ -4,8 +4,6 @@ import Modal from 'react-modal'
 import Collections from './Collections'
 import Tempo from './Tempo'
 import PlayerScreen from './PlayerScreen'
-import FooterControls from './FooterControls'
-import FooterControlsMobile from './FooterControlsMobile'
 // import AddSongs from './AddSongs'
 import BrowseSongs from './BrowseSongs'
 import CollectionSongs from './CollectionSongs'
@@ -17,7 +15,9 @@ import {addToListenedAndSessionThunk, clearListenedThunk, setMetronomeSoundOptio
 import songsInRange from '../components/songsInRange'
 import axios from 'axios';
 import { isBrowser, isMobile } from 'react-device-detect';
-
+import ListenToOne from './ListenToOne'
+import MainPlayer from './MainPlayer'
+import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
 class App extends React.Component {
@@ -25,7 +25,7 @@ class App extends React.Component {
         super()
         this.state = {
         //Local player info
-          playing: false,
+        //   playing: false,
           addCollectionModal: false,
           addSongModal: false,
           collectionName: '',
@@ -46,7 +46,7 @@ class App extends React.Component {
         this.resetInfo = this.resetInfo.bind(this);
         this.changeTempoFromModal = this.changeTempoFromModal.bind(this);
         this.addSongsFromModal = this.addSongsFromModal.bind(this);
-        this.seekTime = this.seekTime.bind(this)
+        // this.seekTime = this.seekTime.bind(this)
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -120,22 +120,28 @@ class App extends React.Component {
         if (this.checkPlayerReady()) {
             this.checkIfListened();
         } else {
-            this.rap.src = null;
+            // this.rap.src = null;
         }
     };
 
     play() {
-        this.rap.play();
-        this.setState({
-            playing: true
-        })
+        // -- dispatch playing true
+        this.props.play();
+
+        // this.rap.play();
+        // this.setState({
+        //     playing: true
+        // })
     };
     
     pause() {
-        this.rap.pause();
-        this.setState({
-            playing: false
-        })  
+        // -- dispatch playing false
+        this.props.pause();
+
+        // this.rap.pause();
+        // this.setState({
+        //     playing: false
+        // })
     };
 
     nextTrack = async () => {
@@ -155,7 +161,7 @@ class App extends React.Component {
             };
             if (this.props.musicInfo.activeSession.songs[this.props.playIdx+1]) {
                 await this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
-                this.play();
+                this.props.play();
             };
         };
     };
@@ -166,9 +172,9 @@ class App extends React.Component {
         };
     };
 
-    seekTime = (newTime) => {
-        this.rap.currentTime = newTime;
-    };
+    // seekTime = (newTime) => {
+    //     this.rap.currentTime = newTime;
+    // };
 
     changeTempoFromModal() {
         this.setState({noNextSong: false})
@@ -199,14 +205,13 @@ class App extends React.Component {
         /*this.props.screenStr === 'PlayerScreen' ||*/ (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null;
         const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <button className="toTheRight" onClick={() => this.setState({editCollection: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollection: true})}>Edit Collection</button> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <button className="toTheRight" onClick={() => this.setState({editCollections: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollections: true})}>Edit Collections</button> : null;
         let audio;
-        audio = <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.state.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/>
+        audio = <MainPlayer />
         const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;
-        const playPause = this.state.playing ? <button onClick={this.pause}>Pa</button> : <button onClick={this.play}>Pl</button>
+        // const playPause = this.props.playing ? <button onClick={this.pause}>Pa</button> : <button onClick={this.play}>Pl</button>
         const nextTrackButton = <button onClick={this.nextTrack}>Ne</button>
         const prevTrackButton = <button onClick={this.prevTrack} disabled={this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Pr</button>
         const playPauseBool = this.state.playing;
         const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr ==='Tempo' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>View Songs</button> : null
-        const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? isMobile ? <div className='footer'><FooterControlsMobile playPause={playPause} prevTrackButton={prevTrackButton} nextTrackButton={nextTrackButton} currTime={this.rap ? this.rap.currentTime : null} endTime={this.rap ? this.rap.duration : null} seekTime={() => this.seekTime} /></div> : <div className='footer'><FooterControls playPause={playPause} prevTrackButton={prevTrackButton} nextTrackButton={nextTrackButton} currTime={this.rap ? this.rap.currentTime : null} endTime={this.rap ? this.rap.duration : null} seekTime={() => this.seekTime} /></div> : null;
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
         let selectedScreen = <Collections editMode={this.state.editCollections}/>
@@ -349,13 +354,14 @@ class App extends React.Component {
                         </div>
                     </div>
                 </Modal>
-                {audio}
                 <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
                 <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
                 <div>
+                    <ListenToOne />
                     {selectedScreen}
                 </div>             
-                    {footerControls}
+                    {/* {footerControls} */}
+                    {audio}
             </div>
         );
     };
@@ -369,7 +375,8 @@ const mapStateToProps = (state) => {
         musicInfo: state.musicReducer,
         screenStr: state.screenReducer.screenStr,
         selectedCollection: state.screenReducer.selectedCollection,
-        playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
+        playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null,
+        // playing: state.playerReducer.playing
     }
 }
   
@@ -387,7 +394,9 @@ const mapDispatchToProps = (dispatch) => ({
     popOneFromActiveSessionSongs: () => dispatch(popOneFromActiveSessionSongsThunk()),
     updateSessionBpm: (selectedCollectionId, newBPM) => dispatch(updateSessionBpmThunk(selectedCollectionId, newBPM)),
     applySongsInRange: (songs) => dispatch(applySongsInRange(songs)),
-    setMetronomeSoundOption: (boolean) => dispatch(setMetronomeSoundOptionThunk(boolean))
+    setMetronomeSoundOption: (boolean) => dispatch(setMetronomeSoundOptionThunk(boolean)),
+    play: () => dispatch(setPlayingTrueThunk()),
+    pause: () => dispatch(setPlayingFalseThunk())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

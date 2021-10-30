@@ -7,6 +7,8 @@ import FooterControlsMobile from './FooterControlsMobile'
 import secondsToTimestamp from './secondsToTimestamp'
 
 {/* <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.props.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/> */}
+        // const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? isMobile ? <div className='footer'><FooterControlsMobile playPause={playPause} prevTrackButton={() => console.log('Prev')} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} /></div> : <div className='footer'><FooterControls playPause={playPause} prevTrackButton={() => console.log('Prev')} nextTrackButton={() => console.log('Next')} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} /></div> : null;
+        // const mainPlayer = this.props.screenStr === 'PlayerScreen' ? <div>Main Player here</div> : null;
 
 class MainPlayer extends React.Component {
     constructor() {
@@ -52,10 +54,6 @@ class MainPlayer extends React.Component {
         console.log('REFRESHED MAINPLAYER')
         const audio = <audio src={"https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CAura%E2%80%9D+(6+Hours+2).mp3"} preload='auto' autoPlay={this.props.playing ? true : false} /*onEnded={}*/ ref={(element) => {this.rap = element}}/>
         const playPause = this.props.playing ? <button onClick={this.props.pause}>Pa</button> : <button onClick={this.props.play}>Pl</button>
-
-
-        // const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? isMobile ? <div className='footer'><FooterControlsMobile playPause={playPause} prevTrackButton={() => console.log('Prev')} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} /></div> : <div className='footer'><FooterControls playPause={playPause} prevTrackButton={() => console.log('Prev')} nextTrackButton={() => console.log('Next')} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} /></div> : null;
-        // const mainPlayer = this.props.screenStr === 'PlayerScreen' ? <div>Main Player here</div> : null;
 
         const player = this.props.screenStr === 'PlayerScreen' ? 
             <div>Main Player here</div> : 

@@ -357,7 +357,6 @@ class App extends React.Component {
                 <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
                 <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
                 <div>
-                    <ListenToOne />
                     {selectedScreen}
                 </div>             
                     {/* {footerControls} */}

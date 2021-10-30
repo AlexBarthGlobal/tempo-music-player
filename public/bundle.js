@@ -12612,7 +12612,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
-/* harmony import */ var _ListenToOne__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ListenToOne */ "./src/components/ListenToOne.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module './ListenToOne'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /* harmony import */ var _MainPlayer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./MainPlayer */ "./src/components/MainPlayer.js");
 /* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
 function _typeof(obj) {
@@ -13393,7 +13393,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         className: "topButtons"
       }, homeLogout, editSongs, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"
-      }, navToCollectionSongs, changeTempo, shareCollection, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ListenToOne__WEBPACK_IMPORTED_MODULE_14__.default, null), selectedScreen), audio);
+      }, navToCollectionSongs, changeTempo, shareCollection, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), audio);
     }
   }]);
 
@@ -16322,38 +16322,6 @@ var FooterSlider = function FooterSlider(props) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FooterSlider);
-
-/***/ }),
-
-/***/ "./src/components/ListenToOne.js":
-/*!***************************************!*\
-  !*** ./src/components/ListenToOne.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-
-
-
-var ListenToOne = function ListenToOne(props) {
-  console.log('Info from LISTENTO1', props.musicInfo);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, " ");
-};
-
-var mapStateToProps = function mapStateToProps(state) {
-  // console.log('State from App.js', state)
-  return {
-    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
-  };
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(ListenToOne));
 
 /***/ }),
 

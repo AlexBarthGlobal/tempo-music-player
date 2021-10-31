@@ -16877,23 +16877,28 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps) {
-      if (_this.props.noNextSong) {
-        if (_this.state.currentTime >= _this.state.duration) {
-          _this.props.pause();
+      if (_this.props.noNextSong && _this.state.currentTime >= _this.state.duration) {
+        _this.props.pause();
 
-          _this.setState({
-            currentTime: 0
-          });
-        }
-
-        ;
+        _this.setState({
+          currentTime: 0
+        });
       }
 
       ;
 
       if (!_this.props.playing) {
         _this.rap.pause();
-      } else _this.rap.play();
+      } else {
+        _this.rap.play();
+
+        if (!_this.props.noNextSong && _this.rap.currentTime === 0) {//Increment played in DB for the song
+        }
+
+        ;
+      }
+
+      ;
 
       if (prevProps.playIdx !== _this.props.playIdx) {
         _this.setState({

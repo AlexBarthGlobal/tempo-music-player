@@ -43,17 +43,20 @@ class MainPlayer extends React.Component {
     };
 
     componentDidUpdate = (prevProps) => {
-        if (this.props.noNextSong) {
-            if (this.state.currentTime >= this.state.duration) {
-                this.props.pause();
-                this.setState({
-                    currentTime: 0
-                });
-            };
+        if (this.props.noNextSong && this.state.currentTime >= this.state.duration) {
+            this.props.pause();
+            this.setState({
+                currentTime: 0
+            });
         };
         if (!this.props.playing) {
             this.rap.pause();
-        } else this.rap.play();
+        } else {
+            this.rap.play();
+            if (!this.props.noNextSong && this.rap.currentTime === 0) {
+                //Increment played in DB for the song
+            };
+        };
         if (prevProps.playIdx !== this.props.playIdx) {
             this.setState({
                 currentTime: 0,

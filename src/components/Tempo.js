@@ -5,6 +5,7 @@ import {updateSessionBpmThunk, popOneFromActiveSessionSongsThunk, applySongsInRa
 import songsInRange from '../components/songsInRange'
 import Modal from 'react-modal'
 import ManageBPMSliderAndTap from './ManageBPMSliderAndTap'
+import { setPlayingTrueThunk } from '../redux/playerReducer';
 
 class Tempo extends React.Component {
     constructor (props) {
@@ -125,7 +126,8 @@ const mapDispatchToProps = dispatch => ({
     updateSessionBpm: (selectedCollectionId, newBPM) => dispatch(updateSessionBpmThunk(selectedCollectionId, newBPM)),
     popOneFromActiveSessionSongs: () => dispatch(popOneFromActiveSessionSongsThunk()),
     applySongsInRange: (songs) => dispatch(applySongsInRange(songs)),
-    fetchOnTempoChange: (selectedCollectionId, newBPM) => dispatch(fetchOnTempoChangeThunk(selectedCollectionId, newBPM))
+    fetchOnTempoChange: (selectedCollectionId, newBPM) => dispatch(fetchOnTempoChangeThunk(selectedCollectionId, newBPM)),
+    play: () => dispatch(setPlayingTrueThunk())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tempo)

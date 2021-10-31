@@ -39,8 +39,8 @@ class App extends React.Component {
     
         this.nextTrack = this.nextTrack.bind(this);
         this.prevTrack = this.prevTrack.bind(this);
-        this.play = this.play.bind(this);
-        this.pause = this.pause.bind(this);
+        // this.play = this.play.bind(this);
+        // this.pause = this.pause.bind(this);
         this.checkIfLoaded = this.checkPlayerReady.bind(this);
         this.resetInfo = this.resetInfo.bind(this);
         this.changeTempoFromModal = this.changeTempoFromModal.bind(this);
@@ -50,6 +50,36 @@ class App extends React.Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleShare = this.handleShare.bind(this)
+    };
+
+    checkPlayerReady() {
+        return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && /*this.props.musicInfo.activeSession.songsInRange &&*/ this.props.musicInfo.activeSession.songs[this.props.playIdx] /*&& this.props.musicInfo.activeSession.songs[this.props.playIdx] !== 'S'*/);
+    };
+    //Instead of above check, check this.state.currSrc
+
+    checkIfListened() {
+        if (/*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/ !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
+            this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
+        };
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log('UPDATED HERE')
+        if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
+        if (prevState.recipientEmail !== this.state.recipientEmail) return;
+        if (prevProps.screenStr !== this.props.screenStr && (this.state.editCollection || this.state.editCollections)) {
+            this.setState({
+                editCollection: false,
+                editCollections: false
+            })
+        };
+        //Modal stuff above
+
+        if (this.checkPlayerReady()) {
+            this.checkIfListened();
+        } else {
+            // this.rap.src = null;
+        }
     };
 
     handleChange(evt) {
@@ -91,57 +121,25 @@ class App extends React.Component {
         if (this.state.noNextSong) this.setState({noNextSong: false})
     }
 
-    checkPlayerReady() {
-        return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && /*this.props.musicInfo.activeSession.songsInRange &&*/ this.props.musicInfo.activeSession.songs[this.props.playIdx] /*&& this.props.musicInfo.activeSession.songs[this.props.playIdx] !== 'S'*/);
-    };
+    // play() {
+    //     // -- dispatch playing true
+    //     this.props.play();
 
-    checkIfListened() {
-        if (this.props.musicInfo.activeSession.songs[this.props.playIdx] && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
-            this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
-        };
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        console.log('UPDATED HERE')
-        if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
-        if (prevState.recipientEmail !== this.state.recipientEmail) return;
-        if (prevProps.screenStr !== this.props.screenStr && (this.state.editCollection || this.state.editCollections)) {
-            this.setState({
-                editCollection: false,
-                editCollections: false
-            })
-        };
-
-        if (this.rap) {
-            console.log(this.rap.duration)
-        }
-
-        if (this.checkPlayerReady()) {
-            this.checkIfListened();
-        } else {
-            // this.rap.src = null;
-        }
-    };
-
-    play() {
-        // -- dispatch playing true
-        this.props.play();
-
-        // this.rap.play();
-        // this.setState({
-        //     playing: true
-        // })
-    };
+    //     // this.rap.play();
+    //     // this.setState({
+    //     //     playing: true
+    //     // })
+    // };
     
-    pause() {
-        // -- dispatch playing false
-        this.props.pause();
+    // pause() {
+    //     // -- dispatch playing false
+    //     this.props.pause();
 
-        // this.rap.pause();
-        // this.setState({
-        //     playing: false
-        // })
-    };
+    //     // this.rap.pause();
+    //     // this.setState({
+    //     //     playing: false
+    //     // })
+    // };
 
     nextTrack = async () => {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
@@ -169,11 +167,8 @@ class App extends React.Component {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
            await this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
         };
+        this.props.play();
     };
-
-    // seekTime = (newTime) => {
-    //     this.rap.currentTime = newTime;
-    // };
 
     changeTempoFromModal() {
         this.setState({noNextSong: false})
@@ -358,7 +353,7 @@ class App extends React.Component {
                 <div>
                     {selectedScreen}
                 </div>             
-                    <MainPlayer />
+                    {this.checkPlayerReady() ? <MainPlayer nextTrack={this.nextTrack} prevTrack={this.prevTrack} noNextSong={this.state.noNextSong} /> : null}
             </div>
         );
     };

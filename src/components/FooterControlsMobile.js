@@ -14,7 +14,7 @@ class FooterControlsMobile extends React.Component {
     // };
   
     render() {
-      const {playPause, nextTrackButton, currTime, duration} = this.props;
+      const {playPause, nextTrack, currTime, duration} = this.props;
       
       return (
         // <div>
@@ -29,15 +29,16 @@ class FooterControlsMobile extends React.Component {
                 <div className='footerBox1Mobile'>
                     <img className='footerArtMobile' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
                     <div className='footerTextContainerMobile'>
-                        <div>SongName</div>
-                        <div>ArtistName</div>
-                        <div>Beach Chill</div>
+                        <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].songName}</div>
+                        <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].artistName}</div>
+                        <div>{this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionName}</div>
                     </div>
                 </div>
                 <div className='footerBox3Mobile'>
                     <div>140</div>
                     <div className='footerItemCenterMobile'>{playPause}</div>
-                    <div className='footerItemRightMobile'>Ne</div>
+                    {/* <div className='footerItemRightMobile'>Ne</div> */}
+                    <button onClick={nextTrack}>Ne</button>
                 </div>
             </div>
             <div className='footerSliderMobile'>

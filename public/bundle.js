@@ -16085,7 +16085,7 @@ var FooterControlsMobile = /*#__PURE__*/function (_React$Component) {
     function render() {
       var _this$props = this.props,
           playPause = _this$props.playPause,
-          nextTrackButton = _this$props.nextTrackButton,
+          nextTrack = _this$props.nextTrack,
           currTime = _this$props.currTime,
           duration = _this$props.duration;
       return (
@@ -16108,12 +16108,12 @@ var FooterControlsMobile = /*#__PURE__*/function (_React$Component) {
           src: "https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerTextContainerMobile"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "SongName"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "ArtistName"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Beach Chill"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.activeSession.songs[this.props.playIdx].songName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.activeSession.songs[this.props.playIdx].artistName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionName))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerBox3Mobile"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "140"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerItemCenterMobile"
-        }, playPause), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerItemRightMobile"
+        }, playPause), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          onClick: nextTrack
         }, "Ne"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerSliderMobile"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default, {

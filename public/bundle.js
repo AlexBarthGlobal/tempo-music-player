@@ -12604,7 +12604,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PlayerScreen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PlayerScreen */ "./src/components/PlayerScreen.js");
 /* harmony import */ var _BrowseSongs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./BrowseSongs */ "./src/components/BrowseSongs.js");
 /* harmony import */ var _CollectionSongs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CollectionSongs */ "./src/components/CollectionSongs.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
 /* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
@@ -12612,9 +12612,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module './ListenToOne'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-/* harmony import */ var _MainPlayer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./MainPlayer */ "./src/components/MainPlayer.js");
-/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _MainPlayer__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./MainPlayer */ "./src/components/MainPlayer.js");
+/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -12794,7 +12793,6 @@ function _defineProperty(obj, key, value) {
 
 
  // import {logout} from '../redux/isLogged'
-
 
 
 
@@ -13023,7 +13021,9 @@ var App = /*#__PURE__*/function (_React$Component) {
             case 3:
               ;
 
-            case 4:
+              _this.props.play();
+
+            case 5:
             case "end":
               return _context4.stop();
           }
@@ -13046,9 +13046,9 @@ var App = /*#__PURE__*/function (_React$Component) {
       editCollections: false
     };
     _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this));
-    _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
-    _this.play = _this.play.bind(_assertThisInitialized(_this));
-    _this.pause = _this.pause.bind(_assertThisInitialized(_this));
+    _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this)); // this.play = this.play.bind(this);
+    // this.pause = this.pause.bind(this);
+
     _this.checkIfLoaded = _this.checkPlayerReady.bind(_assertThisInitialized(_this));
     _this.resetInfo = _this.resetInfo.bind(_assertThisInitialized(_this));
     _this.changeTempoFromModal = _this.changeTempoFromModal.bind(_assertThisInitialized(_this));
@@ -13061,24 +13061,6 @@ var App = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(App, [{
-    key: "handleChange",
-    value: function handleChange(evt) {
-      this.setState(_defineProperty({}, evt.target.name, evt.target.value));
-    }
-  }, {
-    key: "resetInfo",
-    value: function resetInfo() {
-      console.log('RESETTING INFO');
-      this.props.clearSessions();
-      this.props.clearListened(this.props.user.listened.id);
-      this.setState({
-        playing: false
-      });
-      if (this.state.noNextSong) this.setState({
-        noNextSong: false
-      });
-    }
-  }, {
     key: "checkPlayerReady",
     value: function checkPlayerReady() {
       return this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange &&
@@ -13089,8 +13071,11 @@ var App = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "checkIfListened",
-    value: function checkIfListened() {
-      if (this.props.musicInfo.activeSession.songs[this.props.playIdx] && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
+    value: //Instead of above check, check this.state.currSrc
+    function checkIfListened() {
+      if (
+      /*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/
+      !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
         this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
       }
 
@@ -13110,11 +13095,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         });
       }
 
-      ;
-
-      if (this.rap) {
-        console.log(this.rap.duration);
-      }
+      ; //Modal stuff above
 
       if (this.checkPlayerReady()) {
         this.checkIfListened();
@@ -13122,29 +13103,40 @@ var App = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
-    key: "play",
-    value: function play() {
-      // -- dispatch playing true
-      this.props.play(); // this.rap.play();
-      // this.setState({
-      //     playing: true
-      // })
+    key: "handleChange",
+    value: function handleChange(evt) {
+      this.setState(_defineProperty({}, evt.target.name, evt.target.value));
     }
   }, {
-    key: "pause",
-    value: function pause() {
-      // -- dispatch playing false
-      this.props.pause(); // this.rap.pause();
-      // this.setState({
-      //     playing: false
-      // })
-    }
+    key: "resetInfo",
+    value: function resetInfo() {
+      console.log('RESETTING INFO');
+      this.props.clearSessions();
+      this.props.clearListened(this.props.user.listened.id);
+      this.props.pause();
+      if (this.state.noNextSong) this.setState({
+        noNextSong: false
+      });
+    } // play() {
+    //     // -- dispatch playing true
+    //     this.props.play();
+    //     // this.rap.play();
+    //     // this.setState({
+    //     //     playing: true
+    //     // })
+    // };
+    // pause() {
+    //     // -- dispatch playing false
+    //     this.props.pause();
+    //     // this.rap.pause();
+    //     // this.setState({
+    //     //     playing: false
+    //     // })
+    // };
+
   }, {
     key: "changeTempoFromModal",
-    value: // seekTime = (newTime) => {
-    //     this.rap.currentTime = newTime;
-    // };
-    function changeTempoFromModal() {
+    value: function changeTempoFromModal() {
       this.setState({
         noNextSong: false
       });
@@ -13167,7 +13159,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       console.log('Props on App.js RENDER', this.props);
       console.log('STATE', this.state);
-      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.Redirect, {
+      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Redirect, {
         to: "/login"
       });
 
@@ -13223,9 +13215,9 @@ var App = /*#__PURE__*/function (_React$Component) {
             editCollections: true
           });
         }
-      }, "Edit Collections") : null;
-      var audio;
-      audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MainPlayer__WEBPACK_IMPORTED_MODULE_15__.default, null);
+      }, "Edit Collections") : null; // let audio;
+      // audio = <MainPlayer />
+
       var clearListened = this.props.screenStr !== 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.resetInfo
       }, "Clear Listened") : null; // const playPause = this.props.playing ? <button onClick={this.pause}>Pa</button> : <button onClick={this.play}>Pl</button>
@@ -13393,7 +13385,11 @@ var App = /*#__PURE__*/function (_React$Component) {
         className: "topButtons"
       }, homeLogout, editSongs, clearListened), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "secondButtons"
-      }, navToCollectionSongs, changeTempo, shareCollection, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), audio);
+      }, navToCollectionSongs, changeTempo, shareCollection, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), this.checkPlayerReady() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MainPlayer__WEBPACK_IMPORTED_MODULE_14__.default, {
+        nextTrack: this.nextTrack,
+        prevTrack: this.prevTrack,
+        noNextSong: this.state.noNextSong
+      }) : null);
     }
   }]);
 
@@ -13459,10 +13455,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__.setMetronomeSoundOptionThunk)(_boolean));
     },
     play: function play() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_16__.setPlayingTrueThunk)());
+      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__.setPlayingTrueThunk)());
     },
     pause: function pause() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_16__.setPlayingFalseThunk)());
+      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__.setPlayingFalseThunk)());
     }
   };
 };
@@ -15858,8 +15854,8 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
     function render() {
       var _this$props = this.props,
           playPause = _this$props.playPause,
-          nextTrackButton = _this$props.nextTrackButton,
-          prevTrackButton = _this$props.prevTrackButton,
+          nextTrack = _this$props.nextTrack,
+          prevTrack = _this$props.prevTrack,
           currTime = _this$props.currTime,
           duration = _this$props.duration,
           seekTime = _this$props.seekTime;
@@ -15886,19 +15882,18 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
 
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footerCenterTopLeft"
-      }, this.props.musicInfo.activeSession.currBPM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, this.props.musicInfo.activeSession.currBPM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: prevTrack
+      }, "Pr"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footerCenterItem"
-      }, prevTrackButton), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "footerCenterItem"
-      }, playPause), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "footerCenterItem"
-      }, nextTrackButton), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, playPause), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: nextTrack
+      }, "Ne"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footerCenterTopRight"
       }, "Lo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterSlider__WEBPACK_IMPORTED_MODULE_3__.default, {
         currTime: currTime,
         duration: duration,
-        seekTime: seekTime,
-        end: true
+        seekTime: seekTime
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footerBox3"
         /* 3 */
@@ -16090,7 +16085,7 @@ var FooterControlsMobile = /*#__PURE__*/function (_React$Component) {
     function render() {
       var _this$props = this.props,
           playPause = _this$props.playPause,
-          nextTrackButton = _this$props.nextTrackButton,
+          nextTrack = _this$props.nextTrack,
           currTime = _this$props.currTime,
           duration = _this$props.duration;
       return (
@@ -16113,12 +16108,12 @@ var FooterControlsMobile = /*#__PURE__*/function (_React$Component) {
           src: "https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerTextContainerMobile"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "SongName"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "ArtistName"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Beach Chill"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.activeSession.songs[this.props.playIdx].songName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.activeSession.songs[this.props.playIdx].artistName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionName))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerBox3Mobile"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "140"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerItemCenterMobile"
-        }, playPause), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "footerItemRightMobile"
+        }, playPause), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          onClick: nextTrack
         }, "Ne"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "footerSliderMobile"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default, {
@@ -16701,6 +16696,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
 /* harmony import */ var _FooterControlsMobile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FooterControlsMobile */ "./src/components/FooterControlsMobile.js");
 /* harmony import */ var _secondsToTimestamp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./secondsToTimestamp */ "./src/components/secondsToTimestamp.js");
+/* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
+/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
+/* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -16842,10 +16840,13 @@ function _defineProperty(obj, key, value) {
 
 
 
+
+
+
+
 {
   /* <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.props.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/> */
-} // const footerControls = /*this.checkPlayerReady() &&*/ this.props.musicInfo.activeSession && this.props.screenStr !== 'PlayerScreen' ? isMobile ? <div className='footer'><FooterControlsMobile playPause={playPause} prevTrackButton={() => console.log('Prev')} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} /></div> : <div className='footer'><FooterControls playPause={playPause} prevTrackButton={() => console.log('Prev')} nextTrackButton={() => console.log('Next')} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} /></div> : null;
-// const mainPlayer = this.props.screenStr === 'PlayerScreen' ? <div>Main Player here</div> : null;
+}
 
 var MainPlayer = /*#__PURE__*/function (_React$Component) {
   _inherits(MainPlayer, _React$Component);
@@ -16860,24 +16861,57 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
+      if (_this.props.musicInfo.activeSession) _this.setState({
+        currSrc: _this.props.musicInfo.activeSession.songs[_this.props.playIdx].songURL,
+        duration: _this.props.musicInfo.activeSession.songs[_this.props.playIdx].duration //e.target.duration
+
+      });
+
       _this.rap.addEventListener('timeupdate', function (e) {
         if (Math.floor(e.target.currentTime) - Math.floor(_this.state.currentTime) >= 1) {
           _this.setState({
-            currentTime: e.target.currentTime,
-            duration: e.target.duration
+            currentTime: e.target.currentTime
           });
         } else return;
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function () {
+    _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps) {
+      if (_this.props.noNextSong && _this.state.currentTime >= _this.state.duration) {
+        _this.props.pause();
+
+        _this.setState({
+          currentTime: 0
+        });
+      }
+
+      ;
+
       if (!_this.props.playing) {
         _this.rap.pause();
-      } else _this.rap.play();
+      } else {
+        _this.rap.play();
+
+        if (!_this.props.noNextSong && _this.rap.currentTime === 0) {//Increment played in DB for the song
+        }
+
+        ;
+      }
+
+      ;
+
+      if (prevProps.playIdx !== _this.props.playIdx) {
+        _this.setState({
+          currentTime: 0,
+          duration: _this.props.musicInfo.activeSession.songs[_this.props.playIdx].duration,
+          currSrc: _this.props.musicInfo.activeSession.songs[_this.props.playIdx].songURL
+        });
+      }
+
+      ;
     });
 
     _defineProperty(_assertThisInitialized(_this), "seekTime", function (newTime) {
-      console.log(newTime, 'NEW TIME!!!!!!!!!!!!!');
       _this.rap.currentTime = newTime;
 
       _this.setState({
@@ -16887,7 +16921,8 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
 
     _this.state = {
       currentTime: 0,
-      duration: 0
+      duration: 0,
+      currSrc: null
     };
     _this.seekTime = _this.seekTime.bind(_assertThisInitialized(_this));
     return _this;
@@ -16905,11 +16940,10 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
 
       console.log('REFRESHED MAINPLAYER');
       var audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
-        src: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/Money+Man+%E2%80%9CAura%E2%80%9D+(6+Hours+2).mp3",
+        src: this.state.currSrc,
         preload: "auto",
-        autoPlay: this.props.playing ? true : false
-        /*onEnded={}*/
-        ,
+        autoPlay: this.props.playing ? true : false,
+        onEnded: this.props.nextTrack,
         ref: function ref(element) {
           _this2.rap = element;
         }
@@ -16923,21 +16957,15 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControlsMobile__WEBPACK_IMPORTED_MODULE_5__.default, {
         playPause: playPause,
-        prevTrackButton: function prevTrackButton() {
-          return console.log('Prev');
-        },
+        nextTrack: this.props.nextTrack,
         currTime: this.rap ? this.state.currentTime : null,
         duration: this.rap ? this.state.duration : null
       })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControls__WEBPACK_IMPORTED_MODULE_4__.default, {
         playPause: playPause,
-        prevTrackButton: function prevTrackButton() {
-          return console.log('Prev');
-        },
-        nextTrackButton: function nextTrackButton() {
-          return console.log('Next');
-        },
+        prevTrack: this.props.prevTrack,
+        nextTrack: this.props.nextTrack,
         currTime: this.rap ? this.state.currentTime : null,
         duration: this.rap ? this.state.duration : null,
         seekTime: this.seekTime
@@ -16951,9 +16979,11 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
+    user: state.userReducer.user,
     playing: state.playerReducer.playing,
     musicInfo: state.musicReducer,
-    screenStr: state.screenReducer.screenStr
+    screenStr: state.screenReducer.screenStr,
+    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
   };
 };
 
@@ -17965,6 +17995,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _ManageBPMSliderAndTap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ManageBPMSliderAndTap */ "./src/components/ManageBPMSliderAndTap.js");
+/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -18134,6 +18165,7 @@ function _defineProperty(obj, key, value) {
 
   return obj;
 }
+
 
 
 
@@ -18342,6 +18374,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchOnTempoChange: function fetchOnTempoChange(selectedCollectionId, newBPM) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_3__.fetchOnTempoChangeThunk)(selectedCollectionId, newBPM));
+    },
+    play: function play() {
+      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__.setPlayingTrueThunk)());
     }
   };
 };

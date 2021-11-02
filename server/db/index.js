@@ -29,6 +29,13 @@ Song.belongsToMany(Listened, {through: ListenedSong})
 CollectionSession.belongsToMany(Song, {through: SessionSong})
 Song.belongsToMany(CollectionSession, {through: SessionSong})
 
+//When I re-do database, will be something like below:
+// SessionSong.belongsTo(Song);
+// Song.hasMany(SessionSong);
+
+// SessionSong.belongsTo(CollectionSession);
+// CollectionSession.hasMany(SessionSong);
+
 module.exports = {
     db,
     Song,

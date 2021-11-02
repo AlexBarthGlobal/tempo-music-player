@@ -15,7 +15,6 @@ import {addToListenedAndSessionThunk, clearListenedThunk, setMetronomeSoundOptio
 import songsInRange from '../components/songsInRange'
 import axios from 'axios';
 import { isBrowser, isMobile } from 'react-device-detect';
-import ListenToOne from './ListenToOne'
 import MainPlayer from './MainPlayer'
 import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
 let tempActiveCollectionSession = null;
@@ -40,8 +39,8 @@ class App extends React.Component {
     
         this.nextTrack = this.nextTrack.bind(this);
         this.prevTrack = this.prevTrack.bind(this);
-        this.play = this.play.bind(this);
-        this.pause = this.pause.bind(this);
+        // this.play = this.play.bind(this);
+        // this.pause = this.pause.bind(this);
         this.checkIfLoaded = this.checkPlayerReady.bind(this);
         this.resetInfo = this.resetInfo.bind(this);
         this.changeTempoFromModal = this.changeTempoFromModal.bind(this);
@@ -51,6 +50,36 @@ class App extends React.Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleShare = this.handleShare.bind(this)
+    };
+
+    checkPlayerReady() {
+        return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && /*this.props.musicInfo.activeSession.songsInRange &&*/ this.props.musicInfo.activeSession.songs[this.props.playIdx] /*&& this.props.musicInfo.activeSession.songs[this.props.playIdx] !== 'S'*/);
+    };
+    //Instead of above check, check this.state.currSrc
+
+    checkIfListened() {
+        if (/*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/ !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
+            this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
+        };
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log('UPDATED HERE')
+        if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
+        if (prevState.recipientEmail !== this.state.recipientEmail) return;
+        if (prevProps.screenStr !== this.props.screenStr && (this.state.editCollection || this.state.editCollections)) {
+            this.setState({
+                editCollection: false,
+                editCollections: false
+            })
+        };
+        //Modal stuff above
+
+        if (this.checkPlayerReady()) {
+            this.checkIfListened();
+        } else {
+            // this.rap.src = null;
+        }
     };
 
     handleChange(evt) {
@@ -88,61 +117,29 @@ class App extends React.Component {
         console.log('RESETTING INFO')
         this.props.clearSessions()
         this.props.clearListened(this.props.user.listened.id)
-        this.setState({playing: false})
+        this.props.pause();
         if (this.state.noNextSong) this.setState({noNextSong: false})
     }
 
-    checkPlayerReady() {
-        return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && /*this.props.musicInfo.activeSession.songsInRange &&*/ this.props.musicInfo.activeSession.songs[this.props.playIdx] /*&& this.props.musicInfo.activeSession.songs[this.props.playIdx] !== 'S'*/);
-    };
+    // play() {
+    //     // -- dispatch playing true
+    //     this.props.play();
 
-    checkIfListened() {
-        if (this.props.musicInfo.activeSession.songs[this.props.playIdx] && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
-            this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
-        };
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        console.log('UPDATED HERE')
-        if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
-        if (prevState.recipientEmail !== this.state.recipientEmail) return;
-        if (prevProps.screenStr !== this.props.screenStr && (this.state.editCollection || this.state.editCollections)) {
-            this.setState({
-                editCollection: false,
-                editCollections: false
-            })
-        };
-
-        if (this.rap) {
-            console.log(this.rap.duration)
-        }
-
-        if (this.checkPlayerReady()) {
-            this.checkIfListened();
-        } else {
-            // this.rap.src = null;
-        }
-    };
-
-    play() {
-        // -- dispatch playing true
-        this.props.play();
-
-        // this.rap.play();
-        // this.setState({
-        //     playing: true
-        // })
-    };
+    //     // this.rap.play();
+    //     // this.setState({
+    //     //     playing: true
+    //     // })
+    // };
     
-    pause() {
-        // -- dispatch playing false
-        this.props.pause();
+    // pause() {
+    //     // -- dispatch playing false
+    //     this.props.pause();
 
-        // this.rap.pause();
-        // this.setState({
-        //     playing: false
-        // })
-    };
+    //     // this.rap.pause();
+    //     // this.setState({
+    //     //     playing: false
+    //     // })
+    // };
 
     nextTrack = async () => {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
@@ -170,11 +167,8 @@ class App extends React.Component {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
            await this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
         };
+        this.props.play();
     };
-
-    // seekTime = (newTime) => {
-    //     this.rap.currentTime = newTime;
-    // };
 
     changeTempoFromModal() {
         this.setState({noNextSong: false})
@@ -204,8 +198,8 @@ class App extends React.Component {
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button onClick={() => this.setState({addCollectionModal: true})}>Create Collection</button> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && 
         /*this.props.screenStr === 'PlayerScreen' ||*/ (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null;
         const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <button className="toTheRight" onClick={() => this.setState({editCollection: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollection: true})}>Edit Collection</button> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <button className="toTheRight" onClick={() => this.setState({editCollections: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollections: true})}>Edit Collections</button> : null;
-        let audio;
-        audio = <MainPlayer />
+        // let audio;
+        // audio = <MainPlayer />
         const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;
         // const playPause = this.props.playing ? <button onClick={this.pause}>Pa</button> : <button onClick={this.play}>Pl</button>
         const nextTrackButton = <button onClick={this.nextTrack}>Ne</button>
@@ -359,8 +353,7 @@ class App extends React.Component {
                 <div>
                     {selectedScreen}
                 </div>             
-                    {/* {footerControls} */}
-                    {audio}
+                    {this.checkPlayerReady() ? <MainPlayer nextTrack={this.nextTrack} prevTrack={this.prevTrack} noNextSong={this.state.noNextSong} /> : null}
             </div>
         );
     };

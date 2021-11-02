@@ -13117,23 +13117,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       if (this.state.noNextSong) this.setState({
         noNextSong: false
       });
-    } // play() {
-    //     // -- dispatch playing true
-    //     this.props.play();
-    //     // this.rap.play();
-    //     // this.setState({
-    //     //     playing: true
-    //     // })
-    // };
-    // pause() {
-    //     // -- dispatch playing false
-    //     this.props.pause();
-    //     // this.rap.pause();
-    //     // this.setState({
-    //     //     playing: false
-    //     // })
-    // };
-
+    }
   }, {
     key: "changeTempoFromModal",
     value: function changeTempoFromModal() {

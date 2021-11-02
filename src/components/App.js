@@ -121,26 +121,6 @@ class App extends React.Component {
         if (this.state.noNextSong) this.setState({noNextSong: false})
     }
 
-    // play() {
-    //     // -- dispatch playing true
-    //     this.props.play();
-
-    //     // this.rap.play();
-    //     // this.setState({
-    //     //     playing: true
-    //     // })
-    // };
-    
-    // pause() {
-    //     // -- dispatch playing false
-    //     this.props.pause();
-
-    //     // this.rap.pause();
-    //     // this.setState({
-    //     //     playing: false
-    //     // })
-    // };
-
     nextTrack = async () => {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
             if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();

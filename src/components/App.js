@@ -20,6 +20,14 @@ import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
 import { slide as Menu } from 'react-burger-menu'
 // import HomeButton from '../icons/home.svg'
 import HomeIcon from '@mui/icons-material/Home';
+import EditIcon from '@mui/icons-material/Edit';
+import CheckIcon from '@mui/icons-material/Check';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import AddIcon from '@mui/icons-material/Add';
+import LibraryMusicSharpIcon from '@mui/icons-material/LibraryMusicSharp';
+import Metronome from '../icons/metronome.svg'
+import ShareIcon from '@mui/icons-material/Share';
 
 const styles = {
     bmBurgerButton: {
@@ -231,28 +239,28 @@ class App extends React.Component {
         // // change collection, or clear listened
 
         const homeLogout = this.props.screenStr === 'Collections' ? null : <HomeIcon onClick={() => this.props.changeScreen('Collections')}/>
-        const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button onClick={() => this.setState({addCollectionModal: true})}>Create Collection</button> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && 
-        /*this.props.screenStr === 'PlayerScreen' ||*/ (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null;
-        const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <button className="toTheRight" onClick={() => this.setState({editCollection: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollection: true})}>Edit Collection</button> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <button className="toTheRight" onClick={() => this.setState({editCollections: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollections: true})}>Edit Collections</button> : null;
+        const createOrAddToCollection = this.props.screenStr === 'Collections' ? <AddIcon onClick={() => this.setState({addCollectionModal: true})} /> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && 
+        /*this.props.screenStr === 'PlayerScreen' ||*/ (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <PlaylistAddIcon onClick={() => this.props.changeScreen('BrowseSongs')} />: null;
+        const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <CheckIcon className="toTheRight" onClick={() => this.setState({editCollection: false})}/> : <EditIcon className="toTheRight" onClick={() => this.setState({editCollection: true})}/> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <CheckIcon className="toTheRight" onClick={() => this.setState({editCollections: false})} /> : <EditIcon className="toTheRight" onClick={() => this.setState({editCollections: true})} /> : null;
         // let audio;
         // audio = <MainPlayer />
-        const clearListened = this.props.screenStr !== 'BrowseSongs' ? <button onClick={this.resetInfo}>Clear Listened</button> : null;
+        const clearListened = this.props.screenStr !== 'BrowseSongs' ? <RestartAltIcon onClick={this.resetInfo} /> : null;
         // const playPause = this.props.playing ? <button onClick={this.pause}>Pa</button> : <button onClick={this.play}>Pl</button>
         const nextTrackButton = <button onClick={this.nextTrack}>Ne</button>
         const prevTrackButton = <button onClick={this.prevTrack} disabled={this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Pr</button>
         const playPauseBool = this.state.playing;
-        const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? <button className="toTheLeft" onClick={() => this.props.changeScreen('CollectionSongs')}>View Songs</button> : null
+        const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? <LibraryMusicSharpIcon className="toTheLeft" onClick={() => this.props.changeScreen('CollectionSongs')} /> : null
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
         let selectedScreen = <Collections editMode={this.state.editCollections}/>
         if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo play={this.play} next={this.nextTrack} playing={this.state.playing} setMetronomeSoundOption={this.props.setMetronomeSoundOption} player={this.rap} />
         else if (this.props.screenStr === 'PlayerScreen') {
             selectedScreen = <PlayerScreen />
-            changeTempo = <button onClick={() => this.props.changeScreen('Tempo')}>Change Tempo</button>
+            changeTempo = <Metronome onClick={() => this.props.changeScreen('Tempo')} />
         } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs next={this.nextTrack} prev={this.prevTrack} play={this.play} pause={this.pause} playPauseBool={playPauseBool}/>    
         else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs editMode={this.state.editCollection} />
         let shareCollection;
-        if (this.props.screenStr === 'CollectionSongs') shareCollection = <button onClick={() => this.setState({shareCollectionModal: true})}>Share Collection</button>
+        if (this.props.screenStr === 'CollectionSongs') shareCollection = <ShareIcon onClick={() => this.setState({shareCollectionModal: true})} />
         const burgerMenu = <Menu styles={styles}>
             {/* <a id="home" className="menu-item" href="/">Home</a>
             <a id="about" className="menu-item" href="/about">About</a>

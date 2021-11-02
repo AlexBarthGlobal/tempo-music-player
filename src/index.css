@@ -44,6 +44,7 @@ a {
 
 svg {
   fill: white;
+  color: white;
   transition: all 0.05s ease-out;
   height: 30px;
   width: 30px;

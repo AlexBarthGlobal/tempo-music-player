@@ -185,7 +185,7 @@ class App extends React.Component {
         const nextTrackButton = <button onClick={this.nextTrack}>Ne</button>
         const prevTrackButton = <button onClick={this.prevTrack} disabled={this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Pr</button>
         const playPauseBool = this.state.playing;
-        const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr ==='Tempo' ? <button onClick={() => this.props.changeScreen('CollectionSongs')}>View Songs</button> : null
+        const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? <button className="toTheLeft" onClick={() => this.props.changeScreen('CollectionSongs')}>View Songs</button> : null
         //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
         let changeTempo;
         let selectedScreen = <Collections editMode={this.state.editCollections}/>

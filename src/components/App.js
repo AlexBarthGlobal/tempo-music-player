@@ -17,6 +17,10 @@ import axios from 'axios';
 import { isBrowser, isMobile } from 'react-device-detect';
 import MainPlayer from './MainPlayer'
 import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
+import StyledButton from '../components/StyledButton'
+import play from '../icons/play.svg'
+import pause from '../icons/pause.svg'
+
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
 class App extends React.Component {
@@ -334,6 +338,7 @@ class App extends React.Component {
                     {selectedScreen}
                 </div>             
                     {this.checkPlayerReady() ? <MainPlayer nextTrack={this.nextTrack} prevTrack={this.prevTrack} noNextSong={this.state.noNextSong} /> : null}
+                    <StyledButton restingImg={play} activeImg={pause} size={100}/>
             </div>
         );
     };

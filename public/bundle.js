@@ -12604,7 +12604,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PlayerScreen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PlayerScreen */ "./src/components/PlayerScreen.js");
 /* harmony import */ var _BrowseSongs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./BrowseSongs */ "./src/components/BrowseSongs.js");
 /* harmony import */ var _CollectionSongs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CollectionSongs */ "./src/components/CollectionSongs.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
 /* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
@@ -12614,6 +12614,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 /* harmony import */ var _MainPlayer__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./MainPlayer */ "./src/components/MainPlayer.js");
 /* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _components_StyledButton__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/StyledButton */ "./src/components/StyledButton.js");
+/* harmony import */ var _icons_play_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../icons/play.svg */ "./src/icons/play.svg");
+/* harmony import */ var _icons_play_svg__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_icons_play_svg__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _icons_pause_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../icons/pause.svg */ "./src/icons/pause.svg");
+/* harmony import */ var _icons_pause_svg__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_icons_pause_svg__WEBPACK_IMPORTED_MODULE_18__);
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -12793,6 +12798,9 @@ function _defineProperty(obj, key, value) {
 
 
  // import {logout} from '../redux/isLogged'
+
+
+
 
 
 
@@ -13143,7 +13151,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       console.log('Props on App.js RENDER', this.props);
       console.log('STATE', this.state);
-      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Redirect, {
+      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Redirect, {
         to: "/login"
       });
 
@@ -13374,7 +13382,11 @@ var App = /*#__PURE__*/function (_React$Component) {
         nextTrack: this.nextTrack,
         prevTrack: this.prevTrack,
         noNextSong: this.state.noNextSong
-      }) : null);
+      }) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_StyledButton__WEBPACK_IMPORTED_MODULE_16__.default, {
+        restingImg: (_icons_play_svg__WEBPACK_IMPORTED_MODULE_17___default()),
+        activeImg: (_icons_pause_svg__WEBPACK_IMPORTED_MODULE_18___default()),
+        size: 100
+      }));
     }
   }]);
 
@@ -17963,6 +17975,107 @@ var SingleCollection = function SingleCollection(props) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleCollection);
+
+/***/ }),
+
+/***/ "./src/components/StyledButton.js":
+/*!****************************************!*\
+  !*** ./src/components/StyledButton.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+
+
+var StyledButton = function StyledButton(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      isActive = _useState2[0],
+      setActive = _useState2[1];
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    onMouseEnter: function onMouseEnter() {
+      return setActive(true);
+    },
+    onMouseLeave: function onMouseLeave() {
+      return setActive(false);
+    },
+    className: props.className ? props.className : null,
+    width: props.size,
+    height: props.size,
+    src: isActive ? props.activeImg : props.restingImg
+    /*onClick={props.function()}*/
+
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StyledButton);
 
 /***/ }),
 
@@ -72565,6 +72678,26 @@ module.exports = function (list, options) {
     lastIdentifiers = newLastIdentifiers;
   };
 };
+
+/***/ }),
+
+/***/ "./src/icons/pause.svg":
+/*!*****************************!*\
+  !*** ./src/icons/pause.svg ***!
+  \*****************************/
+/***/ ((module) => {
+
+module.exports = "data:image/svg+xml,%3c!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'%3e %3csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='512.000000pt' height='512.000000pt' viewBox='0 0 512.000000 512.000000' preserveAspectRatio='xMidYMid meet'%3e %3cg transform='translate(0.000000,512.000000) scale(0.100000,-0.100000)' fill='%23000000' stroke='none'%3e %3cpath d='M774 5104 c-16 -8 -39 -29 -50 -47 -19 -31 -19 -71 -19 -2497 0 -2429 0 -2465 20 -2497 38 -64 23 -63 660 -63 631 0 622 -1 662 58 17 26 18 131 18 2502 0 2371 -1 2476 -18 2502 -40 59 -31 58 -664 58 -494 0 -582 -3 -609 -16z'/%3e %3cpath d='M3123 5104 c-18 -9 -40 -28 -50 -43 -17 -25 -18 -135 -18 -2501 0 -2371 1 -2476 18 -2502 40 -59 31 -58 662 -58 637 0 622 -1 660 63 20 32 20 68 20 2497 0 2429 0 2465 -20 2497 -38 64 -23 63 -662 63 -506 0 -582 -2 -610 -16z'/%3e %3c/g%3e %3c/svg%3e"
+
+/***/ }),
+
+/***/ "./src/icons/play.svg":
+/*!****************************!*\
+  !*** ./src/icons/play.svg ***!
+  \****************************/
+/***/ ((module) => {
+
+module.exports = "data:image/svg+xml,%3c!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN' 'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'%3e %3csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='900.000000pt' height='900.000000pt' viewBox='0 0 900.000000 900.000000' preserveAspectRatio='xMidYMid meet'%3e %3cmetadata%3e Created by potrace 1.10, written by Peter Selinger 2001-2011 %3c/metadata%3e %3cg transform='translate(0.000000,900.000000) scale(0.100000,-0.100000)' fill='%23000000' stroke='none'%3e %3cpath d='M957 8971 c-10 -47 -9 -8943 1 -8959 7 -10 16 -7 43 11 19 13 41 26 49 30 20 10 42 24 115 72 71 47 95 62 115 71 8 4 31 19 50 34 19 15 42 30 50 34 23 10 48 26 130 81 41 28 97 64 124 80 27 17 59 37 72 45 31 20 161 103 182 115 27 16 100 63 192 124 96 63 119 77 140 87 8 5 41 26 75 48 68 46 94 62 115 72 8 4 31 19 50 34 19 15 42 30 50 34 20 9 44 24 115 71 33 22 68 44 77 50 9 5 49 30 88 55 39 25 79 50 88 55 27 16 130 83 207 134 79 52 104 67 125 77 8 4 43 27 77 51 35 24 65 43 67 43 3 0 33 19 68 42 69 47 95 63 118 74 8 4 43 27 77 51 35 24 65 43 67 43 3 0 33 19 68 42 35 24 70 47 79 53 9 5 49 30 89 55 40 25 80 50 89 55 9 6 43 28 76 50 33 22 68 44 77 50 9 5 38 23 65 39 26 16 93 59 148 95 55 36 108 70 117 76 9 5 38 23 65 39 26 16 93 59 148 95 55 36 108 70 117 76 50 30 213 132 278 176 41 27 82 52 90 57 16 8 55 33 190 121 46 31 92 61 102 66 9 6 49 30 89 55 39 25 79 50 88 55 9 6 44 29 79 53 35 23 66 42 69 42 4 0 14 6 22 14 9 8 32 22 51 33 19 10 82 50 140 88 58 38 113 74 122 80 9 5 38 23 65 39 26 16 93 59 148 95 55 36 105 68 110 71 6 3 29 17 52 32 24 16 45 28 47 28 3 0 34 20 70 45 37 25 68 45 70 45 3 0 33 19 68 43 91 60 101 66 118 74 8 3 31 19 50 33 19 15 51 36 70 46 19 11 74 45 121 77 47 31 88 57 92 57 3 0 41 24 84 53 43 29 100 66 127 83 27 16 60 37 75 46 14 10 32 21 40 24 7 4 62 39 121 79 59 40 114 75 121 79 8 3 26 14 41 24 15 9 58 37 97 61 45 27 71 50 71 61 0 11 -26 34 -71 61 -39 24 -82 52 -97 61 -15 10 -33 21 -41 24 -7 4 -62 39 -121 79 -59 40 -114 75 -121 79 -8 3 -26 14 -40 24 -15 9 -48 30 -75 46 -27 17 -84 54 -127 83 -43 29 -81 53 -84 53 -4 0 -45 26 -92 57 -47 32 -102 66 -121 77 -19 10 -51 30 -70 45 -40 30 -69 48 -90 58 -8 4 -43 26 -78 50 -35 24 -65 43 -68 43 -2 0 -33 20 -70 45 -36 25 -67 45 -70 45 -2 0 -23 12 -47 28 -23 15 -46 29 -52 32 -5 3 -55 35 -110 71 -55 36 -122 79 -148 95 -27 16 -56 34 -65 39 -9 6 -64 42 -122 80 -58 38 -121 78 -140 88 -19 11 -42 25 -51 33 -8 8 -18 14 -22 14 -3 0 -34 19 -69 42 -35 24 -70 47 -79 53 -9 5 -49 30 -88 55 -40 25 -80 50 -89 55 -10 6 -56 35 -102 66 -135 88 -174 113 -190 121 -8 5 -49 30 -90 57 -65 44 -228 146 -278 176 -9 6 -62 40 -117 76 -55 36 -122 79 -148 95 -27 16 -56 34 -65 39 -9 6 -62 40 -117 76 -55 36 -122 79 -148 95 -27 16 -56 34 -65 39 -9 6 -44 28 -77 50 -33 22 -67 44 -76 50 -9 5 -49 30 -89 55 -40 25 -80 50 -89 55 -9 6 -44 29 -79 53 -35 23 -65 42 -68 42 -2 0 -32 19 -67 43 -34 24 -69 47 -77 51 -23 11 -49 27 -118 74 -35 23 -65 42 -68 42 -2 0 -32 19 -67 43 -34 24 -69 47 -77 51 -21 10 -46 25 -125 77 -77 51 -180 118 -207 134 -9 5 -49 30 -88 55 -39 25 -79 50 -88 55 -9 6 -44 28 -77 50 -71 47 -95 62 -115 71 -8 4 -31 19 -50 34 -19 15 -42 30 -50 34 -21 10 -47 26 -115 72 -34 22 -67 43 -75 48 -21 10 -44 24 -140 87 -92 61 -165 108 -192 124 -21 12 -151 95 -182 115 -13 8 -45 28 -72 45 -27 16 -83 52 -124 80 -82 55 -107 71 -130 81 -8 4 -31 19 -50 33 -41 30 -69 48 -90 58 -8 4 -42 25 -75 48 -34 23 -67 44 -75 48 -8 4 -28 16 -45 27 -16 11 -40 24 -52 29 -12 6 -23 18 -25 28 -3 12 -6 6 -11 -16z'/%3e %3c/g%3e %3c/svg%3e"
 
 /***/ }),
 

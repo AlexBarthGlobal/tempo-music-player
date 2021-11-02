@@ -125,7 +125,7 @@ class CollectionSongs extends React.Component {
                         {this.props.editMode ? <input name='collectionName' onFocus={this.clearNameOnFocus} value={this.state.collectionName} onChange={this.handleChange}></input> : this.state.collectionName}
                     </div>
                     <div>
-                        <Metronome onClick={() => this.props.changeScreen('Tempo')} />
+                        <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
                     </div>
                 </div>
                 <ul style ={{listStyle:'none'}}>

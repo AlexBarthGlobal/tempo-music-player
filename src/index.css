@@ -231,10 +231,11 @@ svg:hover {
   /* border: 1px black solid; */
   margin-top: auto;
   margin-bottom: auto;
+  padding-right: 8px;
 }
 
 .footerItemCenterMobile {
-  margin-right: 18px;
+  margin-right: 14px;
   margin-left: 18px;
 }
 
@@ -364,8 +365,16 @@ svg:hover {
   margin-bottom: auto;
 }
 
+.touchPaddingBottom {
+  padding-bottom: 3.2px;
+}
+
 .touchPaddingTop {
   padding-top: 1.2px;
+}
+
+.touchPaddingTopMobile {
+  padding-top: 0.8px;
 }
 
 .footerSlider {

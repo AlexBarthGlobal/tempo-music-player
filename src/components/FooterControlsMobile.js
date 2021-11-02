@@ -2,16 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux'
 import previousTrack from '../icons/previousTrack.svg'
 import { Slider } from '@mui/material';
-
-{/* <div><img className='footerIcon' src={previousTrack}/></div> */}
+import SkipNextIcon from '@mui/icons-material/SkipNext';
 
 class FooterControlsMobile extends React.Component {
-    // constructor() {
-    //   super()
-    //   this.state = {
-
-    //   };
-    // };
   
     render() {
       const {playPause, nextTrack, currTime, duration} = this.props;
@@ -35,10 +28,10 @@ class FooterControlsMobile extends React.Component {
                     </div>
                 </div>
                 <div className='footerBox3Mobile'>
-                    <div>140</div>
-                    <div className='footerItemCenterMobile'>{playPause}</div>
+                    <div className='centerVertical touchPaddingBottom'>{this.props.musicInfo.activeSession.currBPM}</div>
+                    <div className='footerItemCenterMobile touchPaddingTopMobile'>{playPause}</div>
                     {/* <div className='footerItemRightMobile'>Ne</div> */}
-                    <button onClick={nextTrack}>Ne</button>
+                    <SkipNextIcon onClick={nextTrack} className='touchPaddingTopMobile' sx={{fontSize: 36}}/>
                 </div>
             </div>
             <div className='footerSliderMobile'>

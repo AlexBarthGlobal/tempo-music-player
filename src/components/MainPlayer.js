@@ -9,12 +9,8 @@ import {addToListenedAndSessionThunk} from '../redux/userDispatchers'
 import {enqueueSongThunk, popOneFromActiveSessionSongsThunk, incrementSongPlayedThunk} from '../redux/musicDispatchers'
 import songsInRange from '../components/songsInRange'
 import { duration } from '@mui/material';
-// import StyledButton from '../components/StyledButton'
-// import pause from '../icons/pause.svg'
-// import pauseActive from '../icons/pauseActive.svg'
-// import play from '../icons/play.svg'
-
-{/* <audio src={this.checkPlayerReady() ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL : null} preload="auto" autoPlay={this.props.playing ? true : false} onEnded={this.nextTrack} ref={(element) => {this.rap = element}}/> */}
+import PauseButton from '../icons/pause.svg'
+import PlayButton from '../icons/play.svg'
 
 class MainPlayer extends React.Component {
     constructor() {
@@ -81,8 +77,8 @@ class MainPlayer extends React.Component {
     render () {
         console.log('REFRESHED MAINPLAYER')
         const audio = <audio src={this.state.currSrc} preload='auto' autoPlay={this.props.playing ? true : false} onEnded={this.props.nextTrack} ref={(element) => {this.rap = element}}/>
-        const playPause = this.props.playing ? <button onClick={this.props.pause}>Pa</button> : <button onClick={this.props.play}>Pl</button>
-        // const playPause = this.props.playing ? <StyledButton func={this.props.pause} restingImg={play} activeImg={pauseActive} size={20} /> : <button onClick={this.props.play}>Hi</button>
+        // const playPause = this.props.playing ? <button onClick={this.props.pause}>Pa</button> : <button onClick={this.props.play}>Pl</button>
+        const playPause = this.props.playing ? <PauseButton id='pauseDesktop' onClick={this.props.pause} /> : <PlayButton id='playDesktop' onClick={this.props.play} />
 
         const player = this.props.screenStr === 'PlayerScreen' ? 
             <div>Main Player here</div> : 

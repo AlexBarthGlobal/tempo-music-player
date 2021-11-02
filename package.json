@@ -21,6 +21,7 @@
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@mui/material": "^5.0.4",
+    "@svgr/webpack": "^5.5.0",
     "axios": "^0.21.1",
     "babel": "^6.23.0",
     "babel-polyfill": "^6.26.0",
@@ -51,6 +52,5 @@
     "webpack-cli": "^4.8.0"
   },
   "devDependencies": {
-    "svg-url-loader": "^7.1.1"
   }
 }

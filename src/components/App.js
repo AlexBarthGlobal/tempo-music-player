@@ -17,6 +17,55 @@ import axios from 'axios';
 import { isBrowser, isMobile } from 'react-device-detect';
 import MainPlayer from './MainPlayer'
 import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
+import { slide as Menu } from 'react-burger-menu'
+
+var styles = {
+    bmBurgerButton: {
+      position: 'fixed',
+      width: '28.8px',
+      height: '24px',
+      left: '30px',
+      top: '30px'
+    },
+    bmBurgerBars: {
+    //   background: '#373a47',
+    background: '#F3F3F3'
+    },
+    bmBurgerBarsHover: {
+      background: '#a90000'
+    },
+    bmCrossButton: {
+      height: '24px',
+      width: '24px'
+    },
+    bmCross: {
+      background: '#bdc3c7'
+    },
+    bmMenuWrap: {
+      position: 'fixed',
+      height: '100%'
+    },
+    bmMenu: {
+      background: '#373a47',
+      padding: '2.5em 1.5em 0',
+      fontSize: '1.15em'
+    },
+    bmMorphShape: {
+      fill: '#373a47'
+    },
+    bmItemList: {
+      color: '#b8b7ad',
+      display: 'flex',
+      flexDirection: 'column',
+    userSelect: 'none'
+    },
+    bmItem: {
+      display: 'inline-block'
+    },
+    bmOverlay: {
+      background: 'rgba(0, 0, 0, 0.3)'
+    }
+  }
 
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
@@ -163,6 +212,10 @@ class App extends React.Component {
         tempActiveCollectionSession = null;
     };
 
+    showSettings (event) {
+        event.preventDefault();
+    };
+
     render() {
         console.log('Props on App.js RENDER', this.props)
         console.log('STATE', this.state)
@@ -175,7 +228,7 @@ class App extends React.Component {
         // if (this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[playIdx]) // render a modal saying to change bpm,
         // // change collection, or clear listened
 
-        const homeLogout = this.props.screenStr === 'Collections' ? <button onClick={logout}>Logout</button> : <button onClick={() => this.props.changeScreen('Collections')}>Home</button>
+        const homeLogout = this.props.screenStr === 'Collections' ? null : <button onClick={() => this.props.changeScreen('Collections')}>Home</button>
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button onClick={() => this.setState({addCollectionModal: true})}>Create Collection</button> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && 
         /*this.props.screenStr === 'PlayerScreen' ||*/ (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null;
         const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <button className="toTheRight" onClick={() => this.setState({editCollection: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollection: true})}>Edit Collection</button> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <button className="toTheRight" onClick={() => this.setState({editCollections: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollections: true})}>Edit Collections</button> : null;
@@ -198,9 +251,17 @@ class App extends React.Component {
         else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs editMode={this.state.editCollection} />
         let shareCollection;
         if (this.props.screenStr === 'CollectionSongs') shareCollection = <button onClick={() => this.setState({shareCollectionModal: true})}>Share Collection</button>
+        const burgerMenu = <Menu styles={styles}>
+            {/* <a id="home" className="menu-item" href="/">Home</a>
+            <a id="about" className="menu-item" href="/about">About</a>
+            <a id="contact" className="menu-item" href="/contact">Contact</a> */}
+        <div onClick={ this.showSettings } className="menu-item--small" href="">{this.props.user.email}</div>
+        <div onClick={logout} className='logoutOption'>Logout</div>
+        </Menu>
 
         return (
             <div>
+                {this.props.screenStr === 'Collections' ? burgerMenu : null}
                 <Modal 
                     isOpen={this.state.addCollectionModal} 
                     onRequestClose={() => this.setState({addCollectionModal: false, collectionName: '', collectionArtURL: ''})}

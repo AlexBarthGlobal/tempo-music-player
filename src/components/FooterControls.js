@@ -1,18 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import previousTrack from '../icons/previousTrack.svg'
 import FooterSlider from './FooterSlider'
-
-{/* <div><img className='footerIcon' src={previousTrack}/></div> */}
+import NextTrack from '../icons/nextTrack.svg'
+import PreviousTrack from '../icons/previousTrack.svg'
 
 class FooterControls extends React.Component {
-    // constructor() {
-    //   super()
-    //   this.state = {
-
-    //   };
-    // };
-  
     render() {
       const {playPause, nextTrack, prevTrack, currTime, duration, seekTime} = this.props;
       if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return (<div>Nothing Playing</div>) 
@@ -29,11 +21,9 @@ class FooterControls extends React.Component {
           <div className='footerBox2'/* 2 */>
             <div className='footerCenterTop'/*center top*/>
               <div className='footerCenterTopLeft'>{this.props.musicInfo.activeSession.currBPM}</div>
-              {/* <div className='footerCenterItem'>{prevTrackButton}</div> */}
-              <button onClick={prevTrack}>Pr</button>
+              <PreviousTrack onClick={prevTrack} />
               <div className='footerCenterItem'>{playPause}</div>
-              {/* <div className='footerCenterItem'>{nextTrackButton}</div> */}
-              <button onClick={nextTrack}>Ne</button>
+              <NextTrack onClick={nextTrack} />
               <div className='footerCenterTopRight'>Lo</div>
             </div>
             <FooterSlider currTime={currTime} duration={duration} seekTime={seekTime} />

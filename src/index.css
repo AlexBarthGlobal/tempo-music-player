@@ -69,6 +69,8 @@ svg:hover {
 #metronomeNavButton {
   height: 30px;
   width: 30px;
+  padding-top: 6px;
+  padding-right: 5px;
 }
 
 #metronomeMain {

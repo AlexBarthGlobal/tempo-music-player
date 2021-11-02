@@ -50,11 +50,6 @@ svg {
   width: 30px; */
 }
 
-.navButton {
-  /* height: 38px !important;
-  width: 38px !important; */
-}
-
 svg:hover {
   fill: rgb(117, 117, 117);
   transition: all 0.10s ease-in;
@@ -90,16 +85,30 @@ svg:hover {
 .topButtons {
   display: flex;
   justify-content: space-between;
+  padding-top: 10px;
+  padding-right: 10px;
 }
 
 .secondButtons {
   display: flex;
-  /* text-align: right; */
-  justify-content: end;
+  justify-content: flex-end;
+  /* padding-top: 10px; */
+  padding-top: 6px;
+  padding-right: 10px;
+}
+
+.navButton {
+  height: 38px !important;
+  width: 38px !important;
+  margin-left: 8px;
 }
 
 .toTheLeft {
   margin-right: auto;
+}
+
+.toTheRight {
+  margin-left: auto;
 }
 
 .enablePointerEvents {
@@ -425,10 +434,6 @@ svg:hover {
 .centerWithMargin {
   margin-left: auto;
   margin-right: auto;
-}
-
-.toTheRight {
-  margin-left: auto;
 }
 
 .horizontalSlider {

@@ -34,8 +34,10 @@ const styles = {
       position: 'fixed',
       width: '28.8px',
       height: '24px',
-      left: '30px',
-      top: '30px'
+    //   left: '30px',
+    //   top: '30px'
+    left: '14px',
+    top: '18px'
     },
     bmBurgerBars: {
     //   background: '#373a47',
@@ -58,7 +60,8 @@ const styles = {
     bmMenu: {
       background: '#373a47',
       padding: '2.5em 1.5em 0',
-      fontSize: '1.15em'
+      fontSize: '1.15em',
+    //   width: '260px'
     },
     bmMorphShape: {
       fill: '#373a47'
@@ -67,7 +70,7 @@ const styles = {
       color: '#b8b7ad',
       display: 'flex',
       flexDirection: 'column',
-    userSelect: 'none'
+      userSelect: 'none'
     },
     bmItem: {
       display: 'inline-block'

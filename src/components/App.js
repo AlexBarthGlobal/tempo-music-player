@@ -238,7 +238,7 @@ class App extends React.Component {
         // if (this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[playIdx]) // render a modal saying to change bpm,
         // // change collection, or clear listened
 
-        const homeLogout = this.props.screenStr === 'Collections' ? null : <HomeIcon onClick={() => this.props.changeScreen('Collections')}/>
+        const homeLogout = this.props.screenStr === 'Collections' ? null : <HomeIcon title="click here" onClick={() => this.props.changeScreen('Collections')}/>
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <AddIcon onClick={() => this.setState({addCollectionModal: true})} /> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && 
         /*this.props.screenStr === 'PlayerScreen' ||*/ (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <PlaylistAddIcon onClick={() => this.props.changeScreen('BrowseSongs')} />: null;
         const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <CheckIcon className="toTheRight" onClick={() => this.setState({editCollection: false})}/> : <EditIcon className="toTheRight" onClick={() => this.setState({editCollection: true})}/> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <CheckIcon className="toTheRight" onClick={() => this.setState({editCollections: false})} /> : <EditIcon className="toTheRight" onClick={() => this.setState({editCollections: true})} /> : null;

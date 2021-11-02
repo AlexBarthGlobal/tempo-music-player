@@ -14493,6 +14493,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
 
       var homeLogout = this.props.screenStr === 'Collections' ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_19__.default, {
+        title: "click here",
         onClick: function onClick() {
           return _this2.props.changeScreen('Collections');
         }
@@ -15994,6 +15995,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CollectionSingleSong__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CollectionSingleSong */ "./src/components/CollectionSingleSong.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../icons/metronome.svg */ "./src/icons/metronome.svg");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -16290,6 +16292,7 @@ function _defineProperty(obj, key, value) {
 
 
 
+
 var CollectionSongs = /*#__PURE__*/function (_React$Component) {
   _inherits(CollectionSongs, _React$Component);
 
@@ -16489,11 +16492,11 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
         onFocus: this.clearNameOnFocus,
         value: this.state.collectionName,
         onChange: this.handleChange
-      }) : this.state.collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }) : this.state.collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__.default, {
         onClick: function onClick() {
           return _this2.props.changeScreen('Tempo');
         }
-      }, buttonLabel))), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+      }))), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
         style: {
           listStyle: 'none'
         }

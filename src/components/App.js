@@ -19,7 +19,7 @@ import MainPlayer from './MainPlayer'
 import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
 import { slide as Menu } from 'react-burger-menu'
 
-var styles = {
+const styles = {
     bmBurgerButton: {
       position: 'fixed',
       width: '28.8px',

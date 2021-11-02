@@ -357,6 +357,17 @@ export const removeCollectionThunk = (collectionId, isActiveBool) => {
     };
 };
 
+export const incrementSongPlayedThunk = (songId) => {
+    return async dispatch => {
+        try {
+            console.log('SONGID', songId);
+            await axios.put('/api/incrementSongPlayed', {data: songId});
+        } catch(err) {
+            console.log(err)
+        };
+    };
+};
+
 const initialState = {
     // musicInfo: {
     //     isFetching: true,

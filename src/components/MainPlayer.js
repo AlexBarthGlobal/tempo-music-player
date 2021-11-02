@@ -6,7 +6,7 @@ import FooterControls from './FooterControls'
 import FooterControlsMobile from './FooterControlsMobile'
 import secondsToTimestamp from './secondsToTimestamp'
 import {addToListenedAndSessionThunk} from '../redux/userDispatchers'
-import {enqueueSongThunk, popOneFromActiveSessionSongsThunk/*incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk, clearActiveSessionThunk, updateSessionBpmThunk, applySongsInRange*/} from '../redux/musicDispatchers'
+import {enqueueSongThunk, popOneFromActiveSessionSongsThunk, incrementSongPlayedThunk} from '../redux/musicDispatchers'
 import songsInRange from '../components/songsInRange'
 import { duration } from '@mui/material';
 
@@ -55,6 +55,7 @@ class MainPlayer extends React.Component {
             this.rap.play();
             if (!this.props.noNextSong && this.rap.currentTime === 0) {
                 //Increment played in DB for the song
+                this.props.incrementSongPlayed(this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id)
             };
         };
         if (prevProps.playIdx !== this.props.playIdx) {
@@ -107,7 +108,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
     play: () => dispatch(setPlayingTrueThunk()),
-    pause: () => dispatch(setPlayingFalseThunk())
+    pause: () => dispatch(setPlayingFalseThunk()),
+    incrementSongPlayed: (songId) => dispatch(incrementSongPlayedThunk(songId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPlayer)

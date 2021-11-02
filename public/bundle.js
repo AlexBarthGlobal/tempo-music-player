@@ -16892,7 +16892,9 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
       } else {
         _this.rap.play();
 
-        if (!_this.props.noNextSong && _this.rap.currentTime === 0) {//Increment played in DB for the song
+        if (!_this.props.noNextSong && _this.rap.currentTime === 0) {
+          //Increment played in DB for the song
+          _this.props.incrementSongPlayed(_this.props.musicInfo.activeSession.songs[_this.props.musicInfo.activeSession.playIdx].id);
         }
 
         ;
@@ -16994,6 +16996,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     pause: function pause() {
       return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__.setPlayingFalseThunk)());
+    },
+    incrementSongPlayed: function incrementSongPlayed(songId) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.incrementSongPlayedThunk)(songId));
     }
   };
 };
@@ -18663,6 +18668,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "updateCollectionNameThunk": () => (/* binding */ updateCollectionNameThunk),
 /* harmony export */   "deleteCollectionThunk": () => (/* binding */ deleteCollectionThunk),
 /* harmony export */   "removeCollectionThunk": () => (/* binding */ removeCollectionThunk),
+/* harmony export */   "incrementSongPlayedThunk": () => (/* binding */ incrementSongPlayedThunk),
 /* harmony export */   "default": () => (/* binding */ musicReducer)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -19791,6 +19797,45 @@ var removeCollectionThunk = function removeCollectionThunk(collectionId, isActiv
 
     return function (_x15) {
       return _ref15.apply(this, arguments);
+    };
+  }();
+};
+var incrementSongPlayedThunk = function incrementSongPlayedThunk(songId) {
+  return /*#__PURE__*/function () {
+    var _ref16 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16(dispatch) {
+      return regeneratorRuntime.wrap(function _callee16$(_context16) {
+        while (1) {
+          switch (_context16.prev = _context16.next) {
+            case 0:
+              _context16.prev = 0;
+              console.log('SONGID', songId);
+              _context16.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/api/incrementSongPlayed', {
+                data: songId
+              });
+
+            case 4:
+              _context16.next = 9;
+              break;
+
+            case 6:
+              _context16.prev = 6;
+              _context16.t0 = _context16["catch"](0);
+              console.log(_context16.t0);
+
+            case 9:
+              ;
+
+            case 10:
+            case "end":
+              return _context16.stop();
+          }
+        }
+      }, _callee16, null, [[0, 6]]);
+    }));
+
+    return function (_x16) {
+      return _ref16.apply(this, arguments);
     };
   }();
 };

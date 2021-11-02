@@ -633,4 +633,16 @@ router.put('/setMetronomeSoundOption', async (req, res, next) => {
     };
 });
 
+router.put('/incrementSongPlayed', async (req, res, next) => {
+    try {
+        await Song.increment('plays', {by: 1, where: {
+            id: req.body.data
+        }})
+
+        res.status('201').json('Done')
+    } catch (error) {
+        next(error)
+    };
+});
+
 module.exports = router;

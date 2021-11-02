@@ -18,6 +18,8 @@ import { isBrowser, isMobile } from 'react-device-detect';
 import MainPlayer from './MainPlayer'
 import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
 import { slide as Menu } from 'react-burger-menu'
+// import HomeButton from '../icons/home.svg'
+import HomeIcon from '@mui/icons-material/Home';
 
 const styles = {
     bmBurgerButton: {
@@ -228,7 +230,7 @@ class App extends React.Component {
         // if (this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[playIdx]) // render a modal saying to change bpm,
         // // change collection, or clear listened
 
-        const homeLogout = this.props.screenStr === 'Collections' ? null : <button onClick={() => this.props.changeScreen('Collections')}>Home</button>
+        const homeLogout = this.props.screenStr === 'Collections' ? null : <HomeIcon onClick={() => this.props.changeScreen('Collections')}/>
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <button onClick={() => this.setState({addCollectionModal: true})}>Create Collection</button> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && 
         /*this.props.screenStr === 'PlayerScreen' ||*/ (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null;
         const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <button className="toTheRight" onClick={() => this.setState({editCollection: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollection: true})}>Edit Collection</button> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <button className="toTheRight" onClick={() => this.setState({editCollections: false})}>Done</button> : <button className="toTheRight" onClick={() => this.setState({editCollections: true})}>Edit Collections</button> : null;

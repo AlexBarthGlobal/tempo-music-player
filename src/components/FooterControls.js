@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import FooterSlider from './FooterSlider'
-import NextTrack from '../icons/nextTrack.svg'
-import PreviousTrack from '../icons/previousTrack.svg'
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 
 class FooterControls extends React.Component {
     render() {
@@ -20,11 +20,11 @@ class FooterControls extends React.Component {
           </div>
           <div className='footerBox2'/* 2 */>
             <div className='footerCenterTop'/*center top*/>
-              <div className='footerCenterTopLeft'>{this.props.musicInfo.activeSession.currBPM}</div>
-              <PreviousTrack onClick={prevTrack} />
-              <div className='footerCenterItem'>{playPause}</div>
-              <NextTrack onClick={nextTrack} />
-              <div className='footerCenterTopRight'>Lo</div>
+              <div className='footerCenterTopLeft touchPaddingTop'>{this.props.musicInfo.activeSession.currBPM}</div>
+              <SkipPreviousIcon className='centerVertical' onClick={prevTrack} />
+              {playPause}
+              <SkipNextIcon className='centerVertical' onClick={nextTrack} />
+              <div className='footerCenterTopRight touchPaddingTop'>Lo</div>
             </div>
             <FooterSlider currTime={currTime} duration={duration} seekTime={seekTime} />
           </div>

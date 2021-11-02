@@ -24,8 +24,6 @@ a {
   color: white;
 }
 
-
-
 .logoutOption {
   cursor: pointer;
 }
@@ -130,8 +128,8 @@ svg:hover {
 }
 
 .footerCenterItem {
-  margin-left: 10px;
-  margin-right: 10px;
+  /* margin-left: 10px;
+  margin-right: 10px; */
 }
 
 .footerCenterTopRight {
@@ -339,6 +337,10 @@ svg:hover {
 .centerVertical {
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.touchPaddingTop {
+  padding-top: 1.2px;
 }
 
 .footerSlider {

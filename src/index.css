@@ -34,6 +34,16 @@ a {
   text-decoration: none;
 }
 
+svg {
+  fill: white;
+  transition: all 0.05s ease-out;
+}
+
+svg:hover {
+  fill: rgb(117, 117, 117);
+  transition: all 0.10s ease-in;
+}
+
 .screenTitle {
   /* color: rgb(255, 255, 255); */
   font-size: 2em;
@@ -110,11 +120,13 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* min-height: 40px; */
   height: 70px;
   padding: 10px 10px 10px 10px;
   backdrop-filter: blur(5px);
   background-color: rgba(156, 155, 155, 0.521);
+  border-top: 0.5px solid rgba(56, 56, 56, 0.644);
+  /* background-color: rgba(126, 124, 124, 0.521); */
+  /* box-shadow: 0px 10px 40px 10px rgba(255, 255, 255, 0.568); */
 }
 
 .footerControlsMobile {

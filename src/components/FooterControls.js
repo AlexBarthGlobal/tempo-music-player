@@ -9,7 +9,7 @@ import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 
 class FooterControls extends React.Component {
     render() {
-      const {play, pause, playing, nextTrack, prevTrack, currTime, duration, seekTime} = this.props;
+      const {play, pause, playing, nextTrack, prevTrack, currTime, duration, seekTime, toggleLoop, isLooping} = this.props;
       if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return (<div>Nothing Playing</div>) 
       return (
         <div /*FooterControls*/className='footerControls'>
@@ -28,7 +28,7 @@ class FooterControls extends React.Component {
               {playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={play} />}
               <SkipNextIcon className='centerVertical' onClick={nextTrack} />
               {/* <div className='footerCenterTopRight touchPaddingTop'>Lo</div> */}
-              <AllInclusiveIcon className='footerCenterTopRight centerVertical touchPaddingTop' />
+              <AllInclusiveIcon onClick={toggleLoop} className={`footerCenterTopRight centerVertical touchPaddingTop ${isLooping ? 'loopOn' : null}`} />
             </div>
             <FooterSlider currTime={currTime} duration={duration} seekTime={seekTime} />
           </div>

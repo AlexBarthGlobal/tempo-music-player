@@ -94,17 +94,15 @@ class MainPlayer extends React.Component {
         // const playPause = this.props.playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.play} />
 
         const player = this.props.screenStr === 'PlayerScreen' ? 
-            <PlayerComponent play={this.props.play} pause={this.props.pause} playing={this.props.playing} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime}/> : 
+            <PlayerComponent play={this.props.play} pause={this.props.pause} playing={this.props.playing} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} toggleLoop={this.toggleLoop} isLooping={this.state.loop} /> : 
                 this.props.musicInfo.activeSession ? 
                     isMobile ?
                         <div className='footer'><FooterControlsMobile play={this.props.play} pause={this.props.pause} playing={this.props.playing} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} /></div> : 
-                        <div className='footer'><FooterControls play={this.props.play} pause={this.props.pause} playing={this.props.playing} prevTrack={this.props.prevTrack} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} /></div> : 
+                        <div className='footer'><FooterControls play={this.props.play} pause={this.props.pause} playing={this.props.playing} prevTrack={this.props.prevTrack} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} toggleLoop={this.toggleLoop} isLooping={this.state.loop} /></div> : 
                 null;
 
         return (
             <div>
-                {this.state.loop ? <div>LOOPING</div> : <div>No Loop</div>}
-                <button onClick={this.toggleLoop}>Toggle Loop</button>
                 {audio}
                 {player}
             </div>

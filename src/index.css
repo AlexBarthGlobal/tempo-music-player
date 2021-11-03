@@ -437,6 +437,10 @@ svg:hover {
   border-top-right-radius: 25px; */
 }
 
+.loopOn {
+  color: orange !important;
+}
+
 .controlsBottom {
   display: flex;
   justify-content: space-between;

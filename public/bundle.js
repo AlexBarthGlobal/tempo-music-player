@@ -14772,7 +14772,6 @@ var App = /*#__PURE__*/function (_React$Component) {
 ;
 
 var mapStateToProps = function mapStateToProps(state) {
-  // console.log('State from App.js', state)
   return {
     user: state.userReducer.user,
     musicInfo: state.musicReducer,

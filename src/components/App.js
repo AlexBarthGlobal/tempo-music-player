@@ -238,7 +238,7 @@ class App extends React.Component {
         const logout = () => {
             location.href = "/auth/logout"
         };
-        
+
         const homeLogout = this.props.screenStr === 'Collections' ? null : <HomeIcon className='navButton' onClick={() => this.props.changeScreen('Collections')}/>
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <AddIcon className='navButton' onClick={() => this.setState({addCollectionModal: true})} /> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <PlaylistAddIcon className='navButton' onClick={() => this.props.changeScreen('BrowseSongs')} />: null;
         const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <CheckIcon className="navButton toTheRight" onClick={() => this.setState({editCollection: false})}/> : <EditIcon className="navButton toTheRight" onClick={() => this.setState({editCollection: true})}/> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <CheckIcon className="navButton toTheRight" onClick={() => this.setState({editCollections: false})} /> : <EditIcon className="navButton toTheRight" onClick={() => this.setState({editCollections: true})} /> : null;
@@ -406,7 +406,6 @@ class App extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    // console.log('State from App.js', state)
     return {
         user: state.userReducer.user,
         musicInfo: state.musicReducer,

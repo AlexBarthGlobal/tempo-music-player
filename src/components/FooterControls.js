@@ -41,9 +41,7 @@ class FooterControls extends React.Component {
   };
 
 const mapStateToProps = (state) => {
-    // console.log('State from App.js', state)
   return {
-    // currentSong: state.musicReducer.activeSession ? state.musicReducer.currentSong : null
     musicInfo: state.musicReducer,
     selectedCollection: state.screenReducer.selectedCollection,
     playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null,

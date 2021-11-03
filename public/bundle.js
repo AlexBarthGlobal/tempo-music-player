@@ -17314,9 +17314,7 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
 ;
 
 var mapStateToProps = function mapStateToProps(state) {
-  // console.log('State from App.js', state)
   return {
-    // currentSong: state.musicReducer.activeSession ? state.musicReducer.currentSong : null
     musicInfo: state.musicReducer,
     selectedCollection: state.screenReducer.selectedCollection,
     playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
@@ -18372,7 +18370,6 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       console.log('REFRESHED MAINPLAYER');
-      console.log(this.state.loop);
       var audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.state.currSrc,
         preload: "auto",
@@ -18382,8 +18379,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
         ref: function ref(element) {
           _this2.rap = element;
         }
-      }); // const playPause = this.props.playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.play} />
-
+      });
       var player = this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_PlayerComponent__WEBPACK_IMPORTED_MODULE_7__.default, {
         play: this.props.play,
         pause: this.props.pause,
@@ -19184,8 +19180,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _components_MainPlayerSlider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/MainPlayerSlider */ "./src/components/MainPlayerSlider.js");
-/* harmony import */ var _mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/icons-material/AllInclusive */ "./node_modules/@mui/icons-material/AllInclusive.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_MainPlayerSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/MainPlayerSlider */ "./src/components/MainPlayerSlider.js");
+/* harmony import */ var _mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/icons-material/AllInclusive */ "./node_modules/@mui/icons-material/AllInclusive.js");
+
 
 
 
@@ -19206,9 +19204,9 @@ var PlayerComponent = function PlayerComponent(props) {
     src: "https://images.genius.com/ecb6201ab5498a21dac43d928de2d127.499x499x1.png"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "mainPlayerSongInfo"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Proud"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Money Man"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "6 Hours 2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Playing from: Beach Chill")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, props.musicInfo.activeSession.songs[props.playIdx].songName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, props.musicInfo.activeSession.songs[props.playIdx].artistName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, props.musicInfo.activeSession.songs[props.playIdx].albumName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Playing from: ", props.musicInfo.collections[props.musicInfo.activeSession.collectionId].collectionName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "mainPlayerFlexCenterVertical"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_MainPlayerSlider__WEBPACK_IMPORTED_MODULE_1__.default, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_MainPlayerSlider__WEBPACK_IMPORTED_MODULE_2__.default, {
     play: props.play,
     pause: props.pause,
     playing: props.playing,
@@ -19216,13 +19214,21 @@ var PlayerComponent = function PlayerComponent(props) {
     currTime: props.currTime,
     duration: props.duration,
     seekTime: props.seekTime
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_2__.default, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_3__.default, {
     onClick: props.toggleLoop,
     className: "loopMarginTop ".concat(props.isLooping ? 'loopOn' : null)
   }))))));
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerComponent);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    musicInfo: state.musicReducer,
+    selectedCollection: state.screenReducer.selectedCollection,
+    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(PlayerComponent));
 
 /***/ }),
 

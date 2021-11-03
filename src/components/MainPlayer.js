@@ -1,18 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { setPlayingTrueThunk, setPlayingFalseThunk } from '../redux/playerReducer';
 import { isBrowser, isMobile } from 'react-device-detect';
 import FooterControls from './FooterControls'
 import FooterControlsMobile from './FooterControlsMobile'
-import secondsToTimestamp from './secondsToTimestamp'
-import {addToListenedAndSessionThunk} from '../redux/userDispatchers'
-import {enqueueSongThunk, popOneFromActiveSessionSongsThunk, incrementSongPlayedThunk} from '../redux/musicDispatchers'
-import songsInRange from '../components/songsInRange'
-import { duration } from '@mui/material';
-import PlayArrow from '@mui/icons-material/PlayArrow';
-import PauseIcon from '@mui/icons-material/Pause';
+import {incrementSongPlayedThunk} from '../redux/musicDispatchers'
 import PlayerComponent from '../components/PlayerComponent'
-import FooterSlider from '../components/FooterSlider'
 
 class MainPlayer extends React.Component {
     constructor() {
@@ -20,10 +13,12 @@ class MainPlayer extends React.Component {
         this.state = {
             currentTime: 0,
             duration: 0,
-            currSrc: null
+            currSrc: null,
+            loop: sessionStorage.getItem('loop')
         };
 
         this.seekTime = this.seekTime.bind(this)
+        this.toggleLoop = this.toggleLoop.bind(this)
     };
 
     componentDidMount = () => {
@@ -36,7 +31,12 @@ class MainPlayer extends React.Component {
                 this.setState({
                     currentTime: e.target.currentTime,
                 });
-            } else return;
+            } else if (this.state.currentTime > e.target.currentTime && this.rap.loop) {
+                this.setState({
+                    currentTime: e.target.currentTime
+                })
+                this.props.incrementSongPlayed(this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id);
+            }
         });
     };
 
@@ -55,7 +55,7 @@ class MainPlayer extends React.Component {
             this.rap.pause();
         } else {
             this.rap.play();
-            if (!this.props.noNextSong && this.rap.currentTime === 0) {
+            if (!this.props.noNextSong && this.rap.currentTime === 0 && !this.rap.loop) {
                 //Increment played in DB for the song
                 this.props.incrementSongPlayed(this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id)
             };
@@ -76,9 +76,20 @@ class MainPlayer extends React.Component {
         })
     };
 
+    toggleLoop = () => {
+        if (!this.state.loop) {
+            sessionStorage.setItem('loop', true)
+            this.setState({loop: true});
+        } else {
+            sessionStorage.setItem('loop', false)
+            this.setState({loop: false});
+        };
+    };
+
     render () {
         console.log('REFRESHED MAINPLAYER')
-        const audio = <audio src={this.state.currSrc} preload='auto' autoPlay={this.props.playing ? true : false} onEnded={this.props.nextTrack} ref={(element) => {this.rap = element}}/>
+        console.log(this.state.loop)
+        const audio = <audio src={this.state.currSrc} preload='auto' autoPlay={this.props.playing ? true : false} onEnded={this.props.nextTrack} loop={this.state.loop} ref={(element) => {this.rap = element}}/>
         // const playPause = this.props.playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.play} />
 
         const player = this.props.screenStr === 'PlayerScreen' ? 
@@ -91,6 +102,8 @@ class MainPlayer extends React.Component {
 
         return (
             <div>
+                {this.state.loop ? <div>LOOPING</div> : <div>No Loop</div>}
+                <button onClick={this.toggleLoop}>Toggle Loop</button>
                 {audio}
                 {player}
             </div>

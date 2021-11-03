@@ -18086,12 +18086,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 /* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
 /* harmony import */ var _FooterControlsMobile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FooterControlsMobile */ "./src/components/FooterControlsMobile.js");
-/* harmony import */ var _secondsToTimestamp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./secondsToTimestamp */ "./src/components/secondsToTimestamp.js");
-/* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
-/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
-/* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
-/* harmony import */ var _components_PlayerComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/PlayerComponent */ "./src/components/PlayerComponent.js");
-/* harmony import */ var _components_FooterSlider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/FooterSlider */ "./src/components/FooterSlider.js");
+/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
+/* harmony import */ var _components_PlayerComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/PlayerComponent */ "./src/components/PlayerComponent.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -18235,13 +18231,6 @@ function _defineProperty(obj, key, value) {
 
 
 
-
-
-
-
-
-
-
 var MainPlayer = /*#__PURE__*/function (_React$Component) {
   _inherits(MainPlayer, _React$Component);
 
@@ -18266,7 +18255,13 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
           _this.setState({
             currentTime: e.target.currentTime
           });
-        } else return;
+        } else if (_this.state.currentTime > e.target.currentTime && _this.rap.loop) {
+          _this.setState({
+            currentTime: e.target.currentTime
+          });
+
+          _this.props.incrementSongPlayed(_this.props.musicInfo.activeSession.songs[_this.props.musicInfo.activeSession.playIdx].id);
+        }
       });
     });
 
@@ -18286,7 +18281,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
       } else {
         _this.rap.play();
 
-        if (!_this.props.noNextSong && _this.rap.currentTime === 0) {
+        if (!_this.props.noNextSong && _this.rap.currentTime === 0 && !_this.rap.loop) {
           //Increment played in DB for the song
           _this.props.incrementSongPlayed(_this.props.musicInfo.activeSession.songs[_this.props.musicInfo.activeSession.playIdx].id);
         }
@@ -18315,12 +18310,32 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "toggleLoop", function () {
+      if (!_this.state.loop) {
+        sessionStorage.setItem('loop', true);
+
+        _this.setState({
+          loop: true
+        });
+      } else {
+        sessionStorage.setItem('loop', false);
+
+        _this.setState({
+          loop: false
+        });
+      }
+
+      ;
+    });
+
     _this.state = {
       currentTime: 0,
       duration: 0,
-      currSrc: null
+      currSrc: null,
+      loop: sessionStorage.getItem('loop')
     };
     _this.seekTime = _this.seekTime.bind(_assertThisInitialized(_this));
+    _this.toggleLoop = _this.toggleLoop.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -18335,17 +18350,19 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       console.log('REFRESHED MAINPLAYER');
+      console.log(this.state.loop);
       var audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.state.currSrc,
         preload: "auto",
         autoPlay: this.props.playing ? true : false,
         onEnded: this.props.nextTrack,
+        loop: this.state.loop,
         ref: function ref(element) {
           _this2.rap = element;
         }
       }); // const playPause = this.props.playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.play} />
 
-      var player = this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_PlayerComponent__WEBPACK_IMPORTED_MODULE_10__.default, {
+      var player = this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_PlayerComponent__WEBPACK_IMPORTED_MODULE_7__.default, {
         play: this.props.play,
         pause: this.props.pause,
         playing: this.props.playing,
@@ -18374,7 +18391,9 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
         duration: this.rap ? this.state.duration : null,
         seekTime: this.seekTime
       })) : null;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, audio, player);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.loop ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "LOOPING") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No Loop"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.toggleLoop
+      }, "Toggle Loop"), audio, player);
     }
   }]);
 
@@ -18400,7 +18419,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__.setPlayingFalseThunk)());
     },
     incrementSongPlayed: function incrementSongPlayed(songId) {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.incrementSongPlayedThunk)(songId));
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.incrementSongPlayedThunk)(songId));
     }
   };
 };

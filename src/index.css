@@ -153,6 +153,7 @@ svg:hover {
 #metronomeMain {
   height: 80px;
   width: 80px;
+  margin-top: 14px;
 }
 
 .screenTitle {

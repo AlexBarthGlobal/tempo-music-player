@@ -3,20 +3,15 @@ import {connect} from 'react-redux'
 import previousTrack from '../icons/previousTrack.svg'
 import { Slider } from '@mui/material';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
+import PlayArrow from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
 
 class FooterControlsMobile extends React.Component {
   
     render() {
-      const {playPause, nextTrack, currTime, duration} = this.props;
+      const {play, pause, playing, nextTrack, currTime, duration} = this.props;
       
       return (
-        // <div>
-        //   {playPause}
-        //   <button onClick={prevTrack} disabled={!this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Prev</button>
-        //   <button onClick={nextTrack}>Next</button>
-        //   <span>{this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songName : null}</span>
-        // </div>
-
         <div /*FooterControls*/className='footerControlsMobile'>
             <div className='footerControlsMobileTop'>
                 <div className='footerBox1Mobile'>
@@ -29,7 +24,7 @@ class FooterControlsMobile extends React.Component {
                 </div>
                 <div className='footerBox3Mobile'>
                     <div className='centerVertical touchPaddingBottom'>{this.props.musicInfo.activeSession.currBPM}</div>
-                    <div className='footerItemCenterMobile touchPaddingTopMobile'>{playPause}</div>
+                    <div className='footerItemCenterMobile touchPaddingTopMobile'>{playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={play} />}</div>
                     <SkipNextIcon onClick={nextTrack} className='touchPaddingTopMobile' sx={{fontSize: 36}}/>
                 </div>
             </div>
@@ -74,9 +69,7 @@ class FooterControlsMobile extends React.Component {
   };
 
 const mapStateToProps = (state) => {
-    // console.log('State from App.js', state)
   return {
-    // currentSong: state.musicReducer.activeSession ? state.musicReducer.currentSong : null
     musicInfo: state.musicReducer,
     selectedCollection: state.screenReducer.selectedCollection,
     playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null,

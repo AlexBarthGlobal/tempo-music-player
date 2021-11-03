@@ -60,6 +60,89 @@ svg:hover {
   svg:hover { fill: white; }
 }
 
+#mainPlayerContainer {
+  margin-top: 20px;
+  margin-left: 4vw;
+  margin-right: 4vw;
+}
+
+#mainPlayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin-left: 8vw;
+  margin-right: 8vw; */
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px rgb(114, 114, 114) solid;
+  border-radius: 7px 7px 7px 7px;
+  max-width: 940px;
+  box-shadow: 0px 0px 64px 10px white;
+}
+
+#mainPlayerImageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#mainPlayerImg {
+  width: 95%;
+  height: auto;
+}
+
+.loopMarginTop {
+  margin-top: 8px;
+}
+
+.singleMainPlayerTimestamp {
+  width: 40px;
+} 
+
+#innerMainPlayerContainer {
+  padding-top: min(4vw, 28px);
+}
+
+#innerMainPlayer {
+  /* border: 2px white solid; */
+  margin-left: 4vw;
+  margin-right: 4vw;
+}
+
+.mainPlayerPlayPausePadding {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#mainPlayerSongInfo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.mainPlayerflexHorizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.mainPlayerFlexCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.mainPlayerFlexCenterVertical {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.mainPlayerFlexVertical {
+  display: flex;
+  flex-direction: column;
+}
+
 #metronomeNavButton {
   height: 30px;
   width: 30px;
@@ -70,6 +153,7 @@ svg:hover {
 #metronomeMain {
   height: 80px;
   width: 80px;
+  margin-top: 14px;
 }
 
 .screenTitle {
@@ -122,6 +206,24 @@ svg:hover {
 
 .footerRow {
   display: flex;
+}
+
+#mainPlayerTimestamps {
+  display: flex;
+  flex-direction: row;
+  /* width: 100%; */
+  justify-content: space-between;
+}
+
+#mainPlayerControls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.footerColumn {
+  display: flex;
+  flex-direction: column;
 }
 
 .footerCenterTop {
@@ -336,6 +438,10 @@ svg:hover {
   border-top-right-radius: 25px; */
 }
 
+.loopOn {
+  color: orange !important;
+}
+
 .controlsBottom {
   display: flex;
   justify-content: space-between;
@@ -377,6 +483,14 @@ svg:hover {
   width: 100%;
   margin-left: 18px;
   margin-right: 18px;
+}
+
+.mainSlider {
+  width: 94%;
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-left: 18px;
+  margin-right: 18px; */
 }
 
 .footerSliderMobile {

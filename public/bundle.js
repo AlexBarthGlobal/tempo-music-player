@@ -14537,9 +14537,7 @@ var App = /*#__PURE__*/function (_React$Component) {
 
       var logout = function logout() {
         location.href = "/auth/logout";
-      }; // if (this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[playIdx]) // render a modal saying to change bpm,
-      // // change collection, or clear listened
-
+      };
 
       var homeLogout = this.props.screenStr === 'Collections' ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_19__.default, {
         className: "navButton",
@@ -14588,29 +14586,17 @@ var App = /*#__PURE__*/function (_React$Component) {
             editCollections: true
           });
         }
-      }) : null; // let audio;
-      // audio = <MainPlayer />
-
+      }) : null;
       var clearListened = this.props.screenStr !== 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_24__.default, {
         className: "navButton",
         onClick: this.resetInfo
-      }) : null; // const playPause = this.props.playing ? <button onClick={this.pause}>Pa</button> : <button onClick={this.play}>Pl</button>
-
-      var nextTrackButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.nextTrack
-      }, "Ne");
-      var prevTrackButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.prevTrack,
-        disabled: this.props.musicInfo.activeSession && !this.props.musicInfo.activeSession.songs[this.props.playIdx - 1]
-      }, "Pr");
-      var playPauseBool = this.state.playing;
+      }) : null;
       var navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_LibraryMusicSharp__WEBPACK_IMPORTED_MODULE_25__.default, {
         className: "navButton toTheLeft",
         onClick: function onClick() {
           return _this2.props.changeScreen('CollectionSongs');
         }
-      }) : null; //if (!this.checkPlayerReady()) check higher tempo range for more music, and if still no music there then render a modal.
-
+      }) : null;
       var changeTempo;
       var selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Collections__WEBPACK_IMPORTED_MODULE_3__.default, {
         editMode: this.state.editCollections
@@ -14629,12 +14615,12 @@ var App = /*#__PURE__*/function (_React$Component) {
             return _this2.props.changeScreen('Tempo');
           }
         });
-      } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_6__.default, {
-        next: this.nextTrack,
-        prev: this.prevTrack,
+      } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_6__.default
+      /*next={this.nextTrack} prev={this.prevTrack}*/
+      , {
         play: this.play,
         pause: this.pause,
-        playPauseBool: playPauseBool
+        playPauseBool: this.state.playing
       });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_7__.default, {
         editMode: this.state.editCollection
       });

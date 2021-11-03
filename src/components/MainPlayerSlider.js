@@ -22,9 +22,8 @@ const MainPlayerSlider = (props) => {
     }
 
     return (
-        <div className='footerRow'/*center bottom*/>
-              <div className='playTimeEndTime'>{secondsToTimestamp(props.currTime)}</div>
-              <div className='footerSlider'>
+        <div className='footerColumn maxWidth'/*center bottom*/>
+              <div className='mainSlider'>
                 <Slider
                   min={0}
                   defaultValue={currTime}
@@ -51,7 +50,10 @@ const MainPlayerSlider = (props) => {
                   }}
                 />
               </div>
-              <div className='playTimeEndTime'>{secondsToTimestamp(props.duration)}</div>
+              <div id='mainPlayerTimestamps'>
+                <div>{secondsToTimestamp(props.currTime)}</div>
+                <div>{secondsToTimestamp(props.duration)}</div>
+              </div>
         </div>
     )
 }

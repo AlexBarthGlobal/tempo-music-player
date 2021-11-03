@@ -18,7 +18,7 @@ const PlayerComponent = (props) => {
                     <div>Playing from: Beach Chill</div>
                 </div>
                 <div className='mainPlayerFlexCenterVertical'>
-                    <div>Slider</div>
+                    <MainPlayerSlider currTime={23} duration={280} />
                     <div className='mainPlayerflexHorizontal'>
                         <div>Prev</div>
                         <div>Play</div>

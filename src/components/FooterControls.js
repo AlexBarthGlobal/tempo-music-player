@@ -3,10 +3,12 @@ import {connect} from 'react-redux'
 import FooterSlider from './FooterSlider'
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import PlayArrow from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
 
 class FooterControls extends React.Component {
     render() {
-      const {playPause, nextTrack, prevTrack, currTime, duration, seekTime} = this.props;
+      const {play, pause, playing, nextTrack, prevTrack, currTime, duration, seekTime} = this.props;
       if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return (<div>Nothing Playing</div>) 
       return (
         <div /*FooterControls*/className='footerControls'>
@@ -22,7 +24,7 @@ class FooterControls extends React.Component {
             <div className='footerCenterTop'/*center top*/>
               <div className='footerCenterTopLeft touchPaddingTop'>{this.props.musicInfo.activeSession.currBPM}</div>
               <SkipPreviousIcon className='centerVertical' onClick={prevTrack} />
-              {playPause}
+              {playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={play} />}
               <SkipNextIcon className='centerVertical' onClick={nextTrack} />
               <div className='footerCenterTopRight touchPaddingTop'>Lo</div>
             </div>

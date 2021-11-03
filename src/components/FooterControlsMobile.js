@@ -3,11 +3,13 @@ import {connect} from 'react-redux'
 import previousTrack from '../icons/previousTrack.svg'
 import { Slider } from '@mui/material';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
+import PlayArrow from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
 
 class FooterControlsMobile extends React.Component {
   
     render() {
-      const {playPause, nextTrack, currTime, duration} = this.props;
+      const {play, pause, playing, nextTrack, currTime, duration} = this.props;
       
       return (
         <div /*FooterControls*/className='footerControlsMobile'>
@@ -22,7 +24,7 @@ class FooterControlsMobile extends React.Component {
                 </div>
                 <div className='footerBox3Mobile'>
                     <div className='centerVertical touchPaddingBottom'>{this.props.musicInfo.activeSession.currBPM}</div>
-                    <div className='footerItemCenterMobile touchPaddingTopMobile'>{playPause}</div>
+                    <div className='footerItemCenterMobile touchPaddingTopMobile'>{playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={play} />}</div>
                     <SkipNextIcon onClick={nextTrack} className='touchPaddingTopMobile' sx={{fontSize: 36}}/>
                 </div>
             </div>

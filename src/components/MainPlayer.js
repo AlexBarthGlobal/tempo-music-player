@@ -10,11 +10,12 @@ import PlayerComponent from '../components/PlayerComponent'
 class MainPlayer extends React.Component {
     constructor() {
         super()
+        console.log(sessionStorage.getItem('loop'))
         this.state = {
             currentTime: 0,
             duration: 0,
             currSrc: null,
-            loop: sessionStorage.getItem('loop')
+            loop: JSON.parse(sessionStorage.getItem('loop'))
         };
 
         this.seekTime = this.seekTime.bind(this)
@@ -81,7 +82,7 @@ class MainPlayer extends React.Component {
             sessionStorage.setItem('loop', true)
             this.setState({loop: true});
         } else {
-            sessionStorage.setItem('loop', false)
+            sessionStorage.removeItem('loop')
             this.setState({loop: false});
         };
     };

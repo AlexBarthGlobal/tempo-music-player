@@ -18318,7 +18318,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
           loop: true
         });
       } else {
-        sessionStorage.setItem('loop', false);
+        sessionStorage.removeItem('loop');
 
         _this.setState({
           loop: false
@@ -18328,11 +18328,12 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
       ;
     });
 
+    console.log(sessionStorage.getItem('loop'));
     _this.state = {
       currentTime: 0,
       duration: 0,
       currSrc: null,
-      loop: sessionStorage.getItem('loop')
+      loop: JSON.parse(sessionStorage.getItem('loop'))
     };
     _this.seekTime = _this.seekTime.bind(_assertThisInitialized(_this));
     _this.toggleLoop = _this.toggleLoop.bind(_assertThisInitialized(_this));

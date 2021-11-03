@@ -60,19 +60,45 @@ svg:hover {
   svg:hover { fill: white; }
 }
 
+#mainPlayerContainer {
+  margin-top: 20px;
+  margin-left: 4vw;
+  margin-right: 4vw;
+}
+
 #mainPlayer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  /* margin-left: 8vw;
+  margin-right: 8vw; */
   margin-left: auto;
   margin-right: auto;
-  border: 2px black solid;
+  border: 1px rgb(114, 114, 114) solid;
+  border-radius: 7px 7px 7px 7px;
+  max-width: 940px;
+  box-shadow: 0px 0px 64px 10px white;
+}
+
+#mainPlayerImg {
+  width: 100%;
+  height: auto;
+}
+
+#innerMainPlayerContainer {
+  padding-top: min(4vw, 28px);
+}
+
+#innerMainPlayer {
+  /* border: 2px white solid; */
+  margin-left: 4vw;
+  margin-right: 4vw;
 }
 
 #mainPlayerSongInfo {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .mainPlayerflexHorizontal {
@@ -83,6 +109,13 @@ svg:hover {
 .mainPlayerFlexCenter {
   display: flex;
   justify-content: center;
+}
+
+.mainPlayerFlexCenterVertical {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 
 .mainPlayerFlexVertical {

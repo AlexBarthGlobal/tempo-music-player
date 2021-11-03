@@ -176,11 +176,12 @@ class App extends React.Component {
         this.setState({recipientEmail: ''});
     };
 
-    resetInfo() {
+    resetInfo = async () => {
         console.log('RESETTING INFO')
-        this.props.clearSessions()
-        this.props.clearListened(this.props.user.listened.id)
+        await this.props.clearSessions()
+        await this.props.clearListened(this.props.user.listened.id)
         this.props.pause();
+        if (this.props.screenStr === 'PlayerScreen') this.props.changeScreen('Collections')
         if (this.state.noNextSong) this.setState({noNextSong: false})
     }
 

@@ -14295,40 +14295,69 @@ var App = /*#__PURE__*/function (_React$Component) {
       };
     }());
 
-    _defineProperty(_assertThisInitialized(_this), "nextTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-      var results;
+    _defineProperty(_assertThisInitialized(_this), "resetInfo", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
+              console.log('RESETTING INFO');
+              _context3.next = 3;
+              return _this.props.clearSessions();
+
+            case 3:
+              _context3.next = 5;
+              return _this.props.clearListened(_this.props.user.listened.id);
+
+            case 5:
+              _this.props.pause();
+
+              if (_this.props.screenStr === 'PlayerScreen') _this.props.changeScreen('Collections');
+              if (_this.state.noNextSong) _this.setState({
+                noNextSong: false
+              });
+
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    })));
+
+    _defineProperty(_assertThisInitialized(_this), "nextTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+      var results;
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx]) {
-                _context3.next = 20;
+                _context4.next = 20;
                 break;
               }
 
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 2]) _this.props.enqueueSong();
 
               if (_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 1]) {
-                _context3.next = 14;
+                _context4.next = 14;
                 break;
               }
 
               results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_11__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.musicInfo.activeSession.collectionId].songs, _this.props.musicInfo.activeSession.currBPM, 'up');
 
               if (!results[0].length) {
-                _context3.next = 11;
+                _context4.next = 11;
                 break;
               }
 
               _this.props.popOneFromActiveSessionSongs();
 
-              _context3.next = 8;
+              _context4.next = 8;
               return _this.props.updateSessionBpm(_this.props.musicInfo.activeSession.collectionId, results[1]);
 
             case 8:
               _this.props.applySongsInRange(results[0]);
 
-              _context3.next = 13;
+              _context4.next = 13;
               break;
 
             case 11:
@@ -14346,11 +14375,11 @@ var App = /*#__PURE__*/function (_React$Component) {
               ;
 
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx + 1]) {
-                _context3.next = 19;
+                _context4.next = 19;
                 break;
               }
 
-              _context3.next = 18;
+              _context4.next = 18;
               return _this.props.incrementPlayIdx(_this.props.musicInfo.activeSession.id);
 
             case 18:
@@ -14364,23 +14393,23 @@ var App = /*#__PURE__*/function (_React$Component) {
 
             case 21:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     })));
 
-    _defineProperty(_assertThisInitialized(_this), "prevTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+    _defineProperty(_assertThisInitialized(_this), "prevTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx - 1]) {
-                _context4.next = 3;
+                _context5.next = 3;
                 break;
               }
 
-              _context4.next = 3;
+              _context5.next = 3;
               return _this.props.decrementPlayIdx(_this.props.musicInfo.activeSession.id);
 
             case 3:
@@ -14390,10 +14419,10 @@ var App = /*#__PURE__*/function (_React$Component) {
 
             case 5:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4);
+      }, _callee5);
     })));
 
     _this.state = {
@@ -14471,17 +14500,6 @@ var App = /*#__PURE__*/function (_React$Component) {
     key: "handleChange",
     value: function handleChange(evt) {
       this.setState(_defineProperty({}, evt.target.name, evt.target.value));
-    }
-  }, {
-    key: "resetInfo",
-    value: function resetInfo() {
-      console.log('RESETTING INFO');
-      this.props.clearSessions();
-      this.props.clearListened(this.props.user.listened.id);
-      this.props.pause();
-      if (this.state.noNextSong) this.setState({
-        noNextSong: false
-      });
     }
   }, {
     key: "changeTempoFromModal",

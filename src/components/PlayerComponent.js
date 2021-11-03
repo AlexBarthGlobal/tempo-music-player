@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import MainPlayerSlider from '../components/MainPlayerSlider'
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 
 const PlayerComponent = (props) => {
 
@@ -8,7 +9,7 @@ const PlayerComponent = (props) => {
         <div id='mainPlayer'>
             <div id='innerMainPlayerContainer'>
             <div id='innerMainPlayer'>
-                <div>
+                <div id='mainPlayerImageContainer'>
                     <img id='mainPlayerImg' src='https://images.genius.com/ecb6201ab5498a21dac43d928de2d127.499x499x1.png'/>
                 </div>
                 <div id='mainPlayerSongInfo'>
@@ -18,13 +19,8 @@ const PlayerComponent = (props) => {
                     <div>Playing from: Beach Chill</div>
                 </div>
                 <div className='mainPlayerFlexCenterVertical'>
-                    <MainPlayerSlider currTime={23} duration={280} />
-                    <div className='mainPlayerflexHorizontal'>
-                        <div>Prev</div>
-                        <div>Play</div>
-                        <div>Next</div>
-                    </div>
-                    <div>Loop</div>
+                    <MainPlayerSlider play={props.play} pause={props.pause} playing={props.playing} nextTrack={props.nextTrack} currTime={props.currTime} duration={props.duration} seekTime={props.seekTime} />
+                    <AllInclusiveIcon />
                 </div>
             </div>
             </div>

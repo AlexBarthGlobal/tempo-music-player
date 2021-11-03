@@ -80,10 +80,20 @@ svg:hover {
   box-shadow: 0px 0px 64px 10px white;
 }
 
-#mainPlayerImg {
+#mainPlayerImageContainer {
   width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#mainPlayerImg {
+  width: 95%;
   height: auto;
 }
+
+.singleMainPlayerTimestamp {
+  width: 40px;
+} 
 
 #innerMainPlayerContainer {
   padding-top: min(4vw, 28px);
@@ -93,6 +103,11 @@ svg:hover {
   /* border: 2px white solid; */
   margin-left: 4vw;
   margin-right: 4vw;
+}
+
+.mainPlayerPlayPausePadding {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #mainPlayerSongInfo {
@@ -193,6 +208,12 @@ svg:hover {
   flex-direction: row;
   /* width: 100%; */
   justify-content: space-between;
+}
+
+#mainPlayerControls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .footerColumn {

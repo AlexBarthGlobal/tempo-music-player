@@ -82,7 +82,7 @@ class MainPlayer extends React.Component {
         // const playPause = this.props.playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.play} />
 
         const player = this.props.screenStr === 'PlayerScreen' ? 
-            <PlayerComponent /> : 
+            <PlayerComponent play={this.props.play} pause={this.props.pause} playing={this.props.playing} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime}/> : 
                 this.props.musicInfo.activeSession ? 
                     isMobile ?
                         <div className='footer'><FooterControlsMobile play={this.props.play} pause={this.props.pause} playing={this.props.playing} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} /></div> : 

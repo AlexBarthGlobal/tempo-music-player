@@ -19218,7 +19218,7 @@ var PlayerComponent = function PlayerComponent(props) {
     seekTime: props.seekTime
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_2__.default, {
     onClick: props.toggleLoop,
-    className: "loopMarginTop"
+    className: "loopMarginTop ".concat(props.isLooping ? 'loopOn' : null)
   }))))));
 };
 

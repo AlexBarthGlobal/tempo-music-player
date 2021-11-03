@@ -20,7 +20,7 @@ const PlayerComponent = (props) => {
                 </div>
                 <div className='mainPlayerFlexCenterVertical'>
                     <MainPlayerSlider play={props.play} pause={props.pause} playing={props.playing} nextTrack={props.nextTrack} currTime={props.currTime} duration={props.duration} seekTime={props.seekTime} />
-                    <AllInclusiveIcon onClick={props.toggleLoop} className='loopMarginTop' />
+                    <AllInclusiveIcon onClick={props.toggleLoop} className={`loopMarginTop ${props.isLooping ? 'loopOn' : null}`} />
                 </div>
             </div>
             </div>

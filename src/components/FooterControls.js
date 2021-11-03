@@ -5,6 +5,7 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PlayArrow from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 
 class FooterControls extends React.Component {
     render() {
@@ -26,7 +27,8 @@ class FooterControls extends React.Component {
               <SkipPreviousIcon className='centerVertical' onClick={prevTrack} />
               {playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={play} />}
               <SkipNextIcon className='centerVertical' onClick={nextTrack} />
-              <div className='footerCenterTopRight touchPaddingTop'>Lo</div>
+              {/* <div className='footerCenterTopRight touchPaddingTop'>Lo</div> */}
+              <AllInclusiveIcon className='footerCenterTopRight centerVertical touchPaddingTop' />
             </div>
             <FooterSlider currTime={currTime} duration={duration} seekTime={seekTime} />
           </div>

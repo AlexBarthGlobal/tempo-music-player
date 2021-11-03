@@ -17080,6 +17080,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_icons_material_SkipPrevious__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/icons-material/SkipPrevious */ "./node_modules/@mui/icons-material/SkipPrevious.js");
 /* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
 /* harmony import */ var _mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/Pause */ "./node_modules/@mui/icons-material/Pause.js");
+/* harmony import */ var _mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/AllInclusive */ "./node_modules/@mui/icons-material/AllInclusive.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -17207,6 +17208,7 @@ function _getPrototypeOf(o) {
 
 
 
+
 var FooterControls = /*#__PURE__*/function (_React$Component) {
   _inherits(FooterControls, _React$Component);
 
@@ -17271,9 +17273,9 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_SkipNext__WEBPACK_IMPORTED_MODULE_6__.default, {
         className: "centerVertical",
         onClick: nextTrack
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "footerCenterTopRight touchPaddingTop"
-      }, "Lo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterSlider__WEBPACK_IMPORTED_MODULE_2__.default, {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_7__.default, {
+        className: "footerCenterTopRight centerVertical touchPaddingTop"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterSlider__WEBPACK_IMPORTED_MODULE_2__.default, {
         currTime: currTime,
         duration: duration,
         seekTime: seekTime

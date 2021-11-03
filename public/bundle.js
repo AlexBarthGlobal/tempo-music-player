@@ -18035,8 +18035,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
 /* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
-/* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
-/* harmony import */ var _mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/Pause */ "./node_modules/@mui/icons-material/Pause.js");
+/* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
+/* harmony import */ var _mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/icons-material/Pause */ "./node_modules/@mui/icons-material/Pause.js");
+/* harmony import */ var _components_PlayerComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/PlayerComponent */ "./src/components/PlayerComponent.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -18185,6 +18186,7 @@ function _defineProperty(obj, key, value) {
 
 
 
+
 var MainPlayer = /*#__PURE__*/function (_React$Component) {
   _inherits(MainPlayer, _React$Component);
 
@@ -18286,22 +18288,21 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
         ref: function ref(element) {
           _this2.rap = element;
         }
-      }); // const playPause = this.props.playing ? <button onClick={this.props.pause}>Pa</button> : <button onClick={this.props.play}>Pl</button>
-
-      var playPause = this.props.playing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_10__.default, {
+      });
+      var playPause = this.props.playing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_11__.default, {
         className: "footerCenterItem playPausePadding",
         sx: {
           fontSize: 36
         },
         onClick: this.props.pause
-      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_11__.default, {
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_12__.default, {
         className: "footerCenterItem playPausePadding",
         sx: {
           fontSize: 36
         },
         onClick: this.props.play
       });
-      var player = this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Main Player here") : this.props.musicInfo.activeSession ? react_device_detect__WEBPACK_IMPORTED_MODULE_3__.isMobile ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      var player = this.props.screenStr === 'PlayerScreen' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_PlayerComponent__WEBPACK_IMPORTED_MODULE_10__.default, null) : this.props.musicInfo.activeSession ? react_device_detect__WEBPACK_IMPORTED_MODULE_3__.isMobile ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterControlsMobile__WEBPACK_IMPORTED_MODULE_5__.default, {
         playPause: playPause,
@@ -18882,6 +18883,28 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
 
 
 ;
+
+/***/ }),
+
+/***/ "./src/components/PlayerComponent.js":
+/*!*******************************************!*\
+  !*** ./src/components/PlayerComponent.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+var PlayerComponent = function PlayerComponent(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Player here");
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlayerComponent);
 
 /***/ }),
 

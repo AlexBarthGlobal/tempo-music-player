@@ -30,7 +30,6 @@ class FooterControlsMobile extends React.Component {
                 <div className='footerBox3Mobile'>
                     <div className='centerVertical touchPaddingBottom'>{this.props.musicInfo.activeSession.currBPM}</div>
                     <div className='footerItemCenterMobile touchPaddingTopMobile'>{playPause}</div>
-                    {/* <div className='footerItemRightMobile'>Ne</div> */}
                     <SkipNextIcon onClick={nextTrack} className='touchPaddingTopMobile' sx={{fontSize: 36}}/>
                 </div>
             </div>

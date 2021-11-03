@@ -11,6 +11,7 @@ import songsInRange from '../components/songsInRange'
 import { duration } from '@mui/material';
 import PlayArrow from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
+import PlayerComponent from '../components/PlayerComponent'
 
 class MainPlayer extends React.Component {
     constructor() {
@@ -77,11 +78,10 @@ class MainPlayer extends React.Component {
     render () {
         console.log('REFRESHED MAINPLAYER')
         const audio = <audio src={this.state.currSrc} preload='auto' autoPlay={this.props.playing ? true : false} onEnded={this.props.nextTrack} ref={(element) => {this.rap = element}}/>
-        // const playPause = this.props.playing ? <button onClick={this.props.pause}>Pa</button> : <button onClick={this.props.play}>Pl</button>
         const playPause = this.props.playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={this.props.play} />
 
         const player = this.props.screenStr === 'PlayerScreen' ? 
-            <div>Main Player here</div> : 
+            <PlayerComponent /> : 
                 this.props.musicInfo.activeSession ? 
                     isMobile ?
                         <div className='footer'><FooterControlsMobile playPause={playPause} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} /></div> : 

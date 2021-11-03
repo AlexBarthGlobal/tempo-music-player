@@ -10,13 +10,6 @@ class FooterControlsMobile extends React.Component {
       const {playPause, nextTrack, currTime, duration} = this.props;
       
       return (
-        // <div>
-        //   {playPause}
-        //   <button onClick={prevTrack} disabled={!this.props.musicInfo.activeSession.songs[this.props.playIdx-1]}>Prev</button>
-        //   <button onClick={nextTrack}>Next</button>
-        //   <span>{this.props.musicInfo.activeSession.songs[this.props.playIdx] ? this.props.musicInfo.activeSession.songs[this.props.playIdx].songName : null}</span>
-        // </div>
-
         <div /*FooterControls*/className='footerControlsMobile'>
             <div className='footerControlsMobileTop'>
                 <div className='footerBox1Mobile'>
@@ -74,9 +67,7 @@ class FooterControlsMobile extends React.Component {
   };
 
 const mapStateToProps = (state) => {
-    // console.log('State from App.js', state)
   return {
-    // currentSong: state.musicReducer.activeSession ? state.musicReducer.currentSong : null
     musicInfo: state.musicReducer,
     selectedCollection: state.screenReducer.selectedCollection,
     playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null,

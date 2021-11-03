@@ -60,6 +60,36 @@ svg:hover {
   svg:hover { fill: white; }
 }
 
+#mainPlayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px black solid;
+}
+
+#mainPlayerSongInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainPlayerflexHorizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.mainPlayerFlexCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.mainPlayerFlexVertical {
+  display: flex;
+  flex-direction: column;
+}
+
 #metronomeNavButton {
   height: 30px;
   width: 30px;

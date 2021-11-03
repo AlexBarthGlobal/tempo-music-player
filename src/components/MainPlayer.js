@@ -12,6 +12,7 @@ import { duration } from '@mui/material';
 import PlayArrow from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayerComponent from '../components/PlayerComponent'
+import FooterSlider from '../components/FooterSlider'
 
 class MainPlayer extends React.Component {
     constructor() {

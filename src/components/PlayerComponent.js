@@ -20,7 +20,7 @@ const PlayerComponent = (props) => {
                 </div>
                 <div className='mainPlayerFlexCenterVertical'>
                     <MainPlayerSlider play={props.play} pause={props.pause} playing={props.playing} nextTrack={props.nextTrack} currTime={props.currTime} duration={props.duration} seekTime={props.seekTime} />
-                    <AllInclusiveIcon />
+                    <AllInclusiveIcon className='loopMarginTop' />
                 </div>
             </div>
             </div>

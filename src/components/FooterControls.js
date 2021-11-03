@@ -1,18 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import previousTrack from '../icons/previousTrack.svg'
 import FooterSlider from './FooterSlider'
-
-{/* <div><img className='footerIcon' src={previousTrack}/></div> */}
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 
 class FooterControls extends React.Component {
-    // constructor() {
-    //   super()
-    //   this.state = {
-
-    //   };
-    // };
-  
     render() {
       const {playPause, nextTrack, prevTrack, currTime, duration, seekTime} = this.props;
       if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return (<div>Nothing Playing</div>) 
@@ -28,13 +20,11 @@ class FooterControls extends React.Component {
           </div>
           <div className='footerBox2'/* 2 */>
             <div className='footerCenterTop'/*center top*/>
-              <div className='footerCenterTopLeft'>{this.props.musicInfo.activeSession.currBPM}</div>
-              {/* <div className='footerCenterItem'>{prevTrackButton}</div> */}
-              <button onClick={prevTrack}>Pr</button>
-              <div className='footerCenterItem'>{playPause}</div>
-              {/* <div className='footerCenterItem'>{nextTrackButton}</div> */}
-              <button onClick={nextTrack}>Ne</button>
-              <div className='footerCenterTopRight'>Lo</div>
+              <div className='footerCenterTopLeft touchPaddingTop'>{this.props.musicInfo.activeSession.currBPM}</div>
+              <SkipPreviousIcon className='centerVertical' onClick={prevTrack} />
+              {playPause}
+              <SkipNextIcon className='centerVertical' onClick={nextTrack} />
+              <div className='footerCenterTopRight touchPaddingTop'>Lo</div>
             </div>
             <FooterSlider currTime={currTime} duration={duration} seekTime={seekTime} />
           </div>

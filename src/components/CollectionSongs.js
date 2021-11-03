@@ -5,6 +5,7 @@ import {changeScreenThunk} from '../redux/screenDispatchers'
 import CollectionSingleSong from './CollectionSingleSong'
 import Modal from 'react-modal'
 import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
+import Metronome from '../icons/metronome.svg'
 
 class CollectionSongs extends React.Component {
     constructor(props) {
@@ -124,7 +125,7 @@ class CollectionSongs extends React.Component {
                         {this.props.editMode ? <input name='collectionName' onFocus={this.clearNameOnFocus} value={this.state.collectionName} onChange={this.handleChange}></input> : this.state.collectionName}
                     </div>
                     <div>
-                        <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button>
+                        <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
                     </div>
                 </div>
                 <ul style ={{listStyle:'none'}}>

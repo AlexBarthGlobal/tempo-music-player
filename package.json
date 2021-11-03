@@ -20,7 +20,9 @@
     "@babel/preset-react": "^7.14.5",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.5",
     "@mui/material": "^5.0.4",
+    "@svgr/webpack": "^5.5.0",
     "axios": "^0.21.1",
     "babel": "^6.23.0",
     "babel-polyfill": "^6.26.0",
@@ -34,6 +36,7 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "react": "^17.0.2",
+    "react-burger-menu": "^3.0.6",
     "react-device-detect": "^2.0.1",
     "react-dom": "^17.0.2",
     "react-modal": "^3.14.3",
@@ -50,7 +53,5 @@
     "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0"
   },
-  "devDependencies": {
-    "svg-url-loader": "^7.1.1"
-  }
+  "devDependencies": {}
 }

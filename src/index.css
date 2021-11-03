@@ -56,24 +56,9 @@ svg:hover {
   cursor: pointer;
 }
 
-@media screen {
-  svg:active {
-    fill: rgb(117, 117, 117);
-  }
-  svg:hover {
-    fill: white;
-  }
+@media (hover: none) {
+  svg:hover { fill: white; }
 }
-
-/* #pauseDesktop {
-  height: 20px;
-  width: 20px;
-} */
-
-/* #playDesktop {
-  height: 20px;
-  width: 20px;
-} */
 
 #metronomeNavButton {
   height: 30px;

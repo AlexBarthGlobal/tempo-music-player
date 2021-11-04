@@ -65,8 +65,8 @@ class Collections extends React.Component {
         };
         const selectCollectionAndChangeScreen = (collectionId) => {
             if (isActive(collectionId)) {
-                this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen')
-            } else this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'CollectionSongs')
+                this.props.selectCollectionAndChangeScreen(collectionId, 'PlayerScreen')
+            } else this.props.selectCollectionAndChangeScreen(collectionId, 'CollectionSongs')
         };
         
         const {collections} = this.props.musicInfo;
@@ -185,7 +185,7 @@ const mapStateToProps = (state) => {
   }
   
   const mapDispatchToProps = dispatch => ({
-    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
+    selectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
     deleteCollection: (collectionId, isActiveBool) => dispatch(deleteCollectionThunk(collectionId, isActiveBool)),
     removeCollection: (collectionId, isActiveBool) => dispatch(removeCollectionThunk(collectionId, isActiveBool))
   })

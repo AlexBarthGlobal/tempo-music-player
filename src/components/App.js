@@ -208,13 +208,13 @@ class App extends React.Component {
 
     changeTempoFromModal() {
         this.setState({noNextSong: false})
-        this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'Tempo')
+        this.props.selectCollectionAndChangeScreen(tempActiveCollectionSession, 'Tempo')
         tempActiveCollectionSession = null;
     };
 
     addSongsFromModal() {
         this.setState({noNextSong: false})
-        this.props.dispatchSelectCollectionAndChangeScreen(tempActiveCollectionSession, 'BrowseSongs')
+        this.props.selectCollectionAndChangeScreen(tempActiveCollectionSession, 'BrowseSongs')
         tempActiveCollectionSession = null;
     };
 
@@ -390,7 +390,7 @@ class App extends React.Component {
                 <div>
                     {selectedScreen}
                 </div>             
-                    {this.checkPlayerReady() ? <MainPlayer nextTrack={this.nextTrack} noNextSong={this.state.noNextSong} /> : null}
+                    {this.checkPlayerReady() ? <MainPlayer nextTrack={this.nextTrack} noNextSong={this.state.noNextSong} selectCollectionAndChangeScreen={this.props.selectCollectionAndChangeScreen}/> : null}
             </div>
         );
     };
@@ -417,14 +417,14 @@ const mapDispatchToProps = (dispatch) => ({
     clearListened: (listenedId) => dispatch(clearListenedThunk(listenedId)),
     clearSessions: () => dispatch(clearSessionsThunk()),
     createCollection: (collectionName, collectionArtURL) => dispatch(createCollectionThunk(collectionName, collectionArtURL)),
-    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
+    selectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
     clearActiveSession: (collectionSessionId) => dispatch(clearActiveSessionThunk(collectionSessionId)),
     popOneFromActiveSessionSongs: () => dispatch(popOneFromActiveSessionSongsThunk()),
     updateSessionBpm: (selectedCollectionId, newBPM) => dispatch(updateSessionBpmThunk(selectedCollectionId, newBPM)),
     applySongsInRange: (songs) => dispatch(applySongsInRange(songs)),
     setMetronomeSoundOption: (boolean) => dispatch(setMetronomeSoundOptionThunk(boolean)),
     play: () => dispatch(setPlayingTrueThunk()),
-    pause: () => dispatch(setPlayingFalseThunk())
+    pause: () => dispatch(setPlayingFalseThunk()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -9,11 +9,11 @@ import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 
 class FooterControls extends React.Component {
     render() {
-      const {play, pause, playing, nextTrack, prevTrack, currTime, duration, seekTime, toggleLoop, isLooping} = this.props;
+      const {play, pause, playing, nextTrack, prevTrack, currTime, duration, seekTime, toggleLoop, isLooping, selectCollectionAndChangeScreen} = this.props;
       if (!this.props.musicInfo.activeSession.songs[this.props.playIdx]) return (<div>Nothing Playing</div>) 
       return (
         <div /*FooterControls*/className='footerControls'>
-          <div className='footerBox1'/* 1 */>
+          <div className='footerBox1' onClick={() => selectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'PlayerScreen')}/* 1 */>
               <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
             <div className='footerTextContainer'>
               <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].songName}</div>

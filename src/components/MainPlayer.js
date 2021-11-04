@@ -109,8 +109,8 @@ class MainPlayer extends React.Component {
             <PlayerComponent play={this.props.play} pause={this.props.pause} playing={this.props.playing} prevTrack={this.prevTrack} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} toggleLoop={this.toggleLoop} isLooping={this.state.loop} /> : 
                 this.props.musicInfo.activeSession ? 
                     isMobile ?
-                        <div className='footer'><FooterControlsMobile play={this.props.play} pause={this.props.pause} playing={this.props.playing} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} /></div> : 
-                        <div className='footer'><FooterControls play={this.props.play} pause={this.props.pause} playing={this.props.playing} prevTrack={this.prevTrack} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} toggleLoop={this.toggleLoop} isLooping={this.state.loop} /></div> : 
+                        <div className='footer'><FooterControlsMobile play={this.props.play} pause={this.props.pause} playing={this.props.playing} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} selectCollectionAndChangeScreen={this.props.selectCollectionAndChangeScreen} /></div> : 
+                        <div className='footer'><FooterControls play={this.props.play} pause={this.props.pause} playing={this.props.playing} prevTrack={this.prevTrack} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} toggleLoop={this.toggleLoop} isLooping={this.state.loop} selectCollectionAndChangeScreen={this.props.selectCollectionAndChangeScreen}/></div> : 
                 null;
 
         return (

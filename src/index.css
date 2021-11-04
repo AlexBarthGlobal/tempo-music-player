@@ -294,6 +294,15 @@ svg:hover {
   width: 40vw;
   min-width: 114px;
   /* border: 1px black solid; */
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+  border-radius: 10px;
+}
+
+.footerBox1:hover {
+  border-radius: 10px;
+  background-color: grey;
+  transition: all 0.10s ease-in;
 }
 
 .footerBox1Mobile {

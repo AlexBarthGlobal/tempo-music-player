@@ -74,7 +74,7 @@ class CollectionSongs extends React.Component {
                 <div>
                     <Modal 
                         isOpen={true} 
-                        onRequestClose={() => this.props.dispatchSelectCollectionAndChangeScreen(null, 'Collections')}
+                        onRequestClose={() => this.props.selectCollectionAndChangeScreen(null, 'Collections')}
                         style={
                             {
                                 content: {
@@ -101,7 +101,7 @@ class CollectionSongs extends React.Component {
                                 {this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null}
                             </div>
                             <div>
-                                <button onClick={() => this.props.dispatchSelectCollectionAndChangeScreen(null, 'Collections')}>Go back</button>
+                                <button onClick={() => this.props.selectCollectionAndChangeScreen(null, 'Collections')}>Go back</button>
                             </div>
                         </div>
                     </Modal>
@@ -149,7 +149,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     fetchActiveCollectionSongs: (collectionId) => dispatch(fetchActiveCollectionSongs(collectionId)),
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
-    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
+    selectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
     removeSongFromCollection: (collectionId, songId, listenedBool) => dispatch(removeSongFromCollectionThunk(collectionId, songId, listenedBool)),
     updateCollectionName: (newCollectionName, collectionId) => dispatch(updateCollectionNameThunk(newCollectionName, collectionId))
 });

@@ -9,12 +9,12 @@ import PauseIcon from '@mui/icons-material/Pause';
 class FooterControlsMobile extends React.Component {
   
     render() {
-      const {play, pause, playing, nextTrack, currTime, duration} = this.props;
+      const {play, pause, playing, nextTrack, currTime, duration, selectCollectionAndChangeScreen} = this.props;
       
       return (
         <div /*FooterControls*/className='footerControlsMobile'>
             <div className='footerControlsMobileTop'>
-                <div className='footerBox1Mobile'>
+                <div className='footerBox1Mobile' onClick={() => selectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'PlayerScreen')}>
                     <img className='footerArtMobile' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
                     <div className='footerTextContainerMobile'>
                         <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].songName}</div>

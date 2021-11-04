@@ -154,6 +154,7 @@ svg:hover {
   height: 80px;
   width: 80px;
   margin-top: 14px;
+  transition: all 0.10s ease-out;
 }
 
 .screenTitle {

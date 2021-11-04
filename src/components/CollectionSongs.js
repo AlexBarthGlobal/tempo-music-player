@@ -49,15 +49,16 @@ class CollectionSongs extends React.Component {
     };
     
     render() {
-        console.log('FROM COLLECTIONSONGS', this.props.editMode)
-        console.log('Collection name', this.state.collectionName)
         const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
-        let songList = [];
+        const songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-            console.log(this.props.musicInfo.collections[this.props.selectedCollection].songs)
-            let idx = 0;
             for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-                songList.push(<CollectionSingleSong key={idx} songId={id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[id]} />)
+                songList.push(song);
+            };
+            songList.sort((a,b) => a.BPM-b.BPM)
+            let idx = 0;
+            for (const song of songList) {
+                songList[idx] = (<CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} />)
                 idx++;
             };
         };

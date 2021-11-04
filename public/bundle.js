@@ -14621,8 +14621,9 @@ var App = /*#__PURE__*/function (_React$Component) {
         });
       } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_6__.default, {
         play: this.play,
-        pause: this.pause,
-        playPauseBool: this.state.playing
+        pause: this.pause
+        /*playPauseBool={this.state.playing}*/
+
       });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_7__.default, {
         editMode: this.state.editCollection,
         editModeDone: function editModeDone() {
@@ -15542,6 +15543,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 /* harmony import */ var _components_PreviewPlayer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/PreviewPlayer */ "./src/components/PreviewPlayer.js");
 /* harmony import */ var _components_BPMSlider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/BPMSlider */ "./src/components/BPMSlider.js");
+/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
 function _createForOfIteratorHelper(o, allowArrayLike) {
   var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
 
@@ -15704,6 +15706,7 @@ function _arrayWithHoles(arr) {
 
 
 
+
 var BrowseSongs = function BrowseSongs(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -15726,13 +15729,13 @@ var BrowseSongs = function BrowseSongs(props) {
       setSongURL = _useState8[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (props.playPauseBool) {
+    if (props.playing) {
       setSongURL(null);
       setPlaying(false);
     }
 
     ;
-  }, [props.playPauseBool]);
+  }, [props.playing]);
 
   var selectSong = function selectSong(selectedSongURL) {
     props.pause();
@@ -15903,7 +15906,8 @@ var mapStateToProps = function mapStateToProps(state) {
     selectedCollection: state.screenReducer.selectedCollection,
     searchedSongs: state.musicReducer.searchedSongs,
     selectedCollectionInfo: state.musicReducer.collections[state.screenReducer.selectedCollection],
-    user: state.userReducer.user
+    user: state.userReducer.user,
+    playing: state.playerReducer.playing
   };
 };
 
@@ -15929,6 +15933,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     enqueueSong: function enqueueSong() {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.enqueueSongThunk)());
+    },
+    play: function play() {
+      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__.setPlayingTrueThunk)());
+    },
+    pause: function pause() {
+      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__.setPlayingFalseThunk)());
     }
   };
 };

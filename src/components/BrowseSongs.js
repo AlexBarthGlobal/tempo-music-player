@@ -5,6 +5,7 @@ import BrowseSongsSingleSong from './BrowseSongsSingleSong'
 import songsInRange from '../components/songsInRange'
 import PreviewPlayer from '../components/PreviewPlayer'
 import BPMSlider from '../components/BPMSlider'
+import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
 
 const BrowseSongs = (props) => {
     const [searchInput, setSearchInput] = useState('')
@@ -13,11 +14,11 @@ const BrowseSongs = (props) => {
     const [songURL, setSongURL] = useState(null)
 
     useEffect(() => {
-        if (props.playPauseBool) {
+        if (props.playing) {
             setSongURL(null);
             setPlaying(false);
         };
-    }, [props.playPauseBool])
+    }, [props.playing])
 
     const selectSong = (selectedSongURL) => {
         props.pause();
@@ -104,7 +105,8 @@ const mapStateToProps = (state) => {
         selectedCollection: state.screenReducer.selectedCollection,
         searchedSongs: state.musicReducer.searchedSongs,
         selectedCollectionInfo: state.musicReducer.collections[state.screenReducer.selectedCollection],
-        user: state.userReducer.user
+        user: state.userReducer.user,
+        playing: state.playerReducer.playing,
     };
 };
   
@@ -116,6 +118,8 @@ const mapDispatchToProps = (dispatch) => ({
     applySongsInRange: (songs) => dispatch(applySongsInRange(songs)),
     addSongsInRange: (songs) => dispatch(addSongsInRangeThunk(songs)),
     enqueueSong: () => dispatch(enqueueSongThunk()),
+    play: () => dispatch(setPlayingTrueThunk()),
+    pause: () => dispatch(setPlayingFalseThunk()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BrowseSongs)

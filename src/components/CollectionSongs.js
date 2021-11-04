@@ -155,7 +155,7 @@ class CollectionSongs extends React.Component {
                             <th>Title</th>
                             {isBrowser ? <th>Album</th> : null}
                             <th>BPM</th>
-                            <th><AccessTimeIcon id='durationIcon' /></th>
+                            <th id='durationIconContainer'><AccessTimeIcon id='durationIcon' /></th>
                         </tr>
                         {songList}
                     </table>

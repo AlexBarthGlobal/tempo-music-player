@@ -494,6 +494,10 @@ ul {
   width: 18px;
 }
 
+#durationIconContainer {
+  text-align: right;
+}
+
 /* tr {
   margin-top: 30px;
 } */

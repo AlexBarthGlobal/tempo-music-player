@@ -4,7 +4,7 @@ import { setPlayingTrueThunk, setPlayingFalseThunk } from '../redux/playerReduce
 import { isBrowser, isMobile } from 'react-device-detect';
 import FooterControls from './FooterControls'
 import FooterControlsMobile from './FooterControlsMobile'
-import {incrementSongPlayedThunk} from '../redux/musicDispatchers'
+import {incrementSongPlayedThunk, decrementPlayIdxThunk} from '../redux/musicDispatchers'
 import PlayerComponent from '../components/PlayerComponent'
 
 class MainPlayer extends React.Component {
@@ -20,6 +20,7 @@ class MainPlayer extends React.Component {
 
         this.seekTime = this.seekTime.bind(this)
         this.toggleLoop = this.toggleLoop.bind(this)
+        this.prevTrack = this.prevTrack.bind(this)
     };
 
     componentDidMount = () => {
@@ -58,6 +59,7 @@ class MainPlayer extends React.Component {
             this.rap.play();
             if (!this.props.noNextSong && this.rap.currentTime === 0 && !this.rap.loop) {
                 //Increment played in DB for the song
+                console.log('INCREMENTED PLAYED')
                 this.props.incrementSongPlayed(this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id)
             };
         };
@@ -87,16 +89,28 @@ class MainPlayer extends React.Component {
         };
     };
 
+    prevTrack = async () => {
+        if (this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
+           await this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+        } else {
+            this.rap.currentTime = 0;
+            this.setState({
+                currentTime: 0
+            });
+        };
+        this.props.play();
+    };
+
     render () {
         console.log('REFRESHED MAINPLAYER')
         const audio = <audio src={this.state.currSrc} preload='auto' autoPlay={this.props.playing ? true : false} onEnded={this.props.nextTrack} loop={this.state.loop} ref={(element) => {this.rap = element}}/>
 
         const player = this.props.screenStr === 'PlayerScreen' ? 
-            <PlayerComponent play={this.props.play} pause={this.props.pause} playing={this.props.playing} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} toggleLoop={this.toggleLoop} isLooping={this.state.loop} /> : 
+            <PlayerComponent play={this.props.play} pause={this.props.pause} playing={this.props.playing} prevTrack={this.prevTrack} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} toggleLoop={this.toggleLoop} isLooping={this.state.loop} /> : 
                 this.props.musicInfo.activeSession ? 
                     isMobile ?
-                        <div className='footer'><FooterControlsMobile play={this.props.play} pause={this.props.pause} playing={this.props.playing} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} /></div> : 
-                        <div className='footer'><FooterControls play={this.props.play} pause={this.props.pause} playing={this.props.playing} prevTrack={this.props.prevTrack} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} toggleLoop={this.toggleLoop} isLooping={this.state.loop} /></div> : 
+                        <div className='footer'><FooterControlsMobile play={this.props.play} pause={this.props.pause} playing={this.props.playing} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} selectCollectionAndChangeScreen={this.props.selectCollectionAndChangeScreen} /></div> : 
+                        <div className='footer'><FooterControls play={this.props.play} pause={this.props.pause} playing={this.props.playing} prevTrack={this.prevTrack} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} toggleLoop={this.toggleLoop} isLooping={this.state.loop} selectCollectionAndChangeScreen={this.props.selectCollectionAndChangeScreen}/></div> : 
                 null;
 
         return (
@@ -121,7 +135,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
     play: () => dispatch(setPlayingTrueThunk()),
     pause: () => dispatch(setPlayingFalseThunk()),
-    incrementSongPlayed: (songId) => dispatch(incrementSongPlayedThunk(songId))
+    incrementSongPlayed: (songId) => dispatch(incrementSongPlayedThunk(songId)),
+    decrementPlayIdx: (sessionId) => dispatch(decrementPlayIdxThunk(sessionId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPlayer)

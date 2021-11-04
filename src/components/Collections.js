@@ -65,8 +65,8 @@ class Collections extends React.Component {
         };
         const selectCollectionAndChangeScreen = (collectionId) => {
             if (isActive(collectionId)) {
-                this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'PlayerScreen')
-            } else this.props.dispatchSelectCollectionAndChangeScreen(collectionId, 'CollectionSongs')
+                this.props.selectCollectionAndChangeScreen(collectionId, 'PlayerScreen')
+            } else this.props.selectCollectionAndChangeScreen(collectionId, 'CollectionSongs')
         };
         
         const {collections} = this.props.musicInfo;
@@ -84,7 +84,6 @@ class Collections extends React.Component {
         });
         let i = 0;
         for (const collection of collectionComponents) {
-            // if (!collection.collectionName) break;
             collectionComponents[i] = <SingleCollection selectCollectionAndChangeScreen={selectCollectionAndChangeScreen} isActive={isActive} hasSession={hasSession} collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} BPM={hasSession(collection.id) ? this.props.musicInfo.collections[collection.id].collectionSessions[0].currBPM : null} editMode={this.props.editMode} removeCollection={this.selectForRemove} deleteCollection={this.selectForDelete} userOwns={collection.collectionOwner === this.props.user.id} key={collection.id}/>   
             i++;
         };
@@ -185,7 +184,7 @@ const mapStateToProps = (state) => {
   }
   
   const mapDispatchToProps = dispatch => ({
-    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
+    selectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
     deleteCollection: (collectionId, isActiveBool) => dispatch(deleteCollectionThunk(collectionId, isActiveBool)),
     removeCollection: (collectionId, isActiveBool) => dispatch(removeCollectionThunk(collectionId, isActiveBool))
   })

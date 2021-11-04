@@ -9,10 +9,11 @@ import Metronome from '../icons/metronome.svg'
 
 class CollectionSongs extends React.Component {
     constructor(props) {
-        console.log('PROPS from COLLECTIONSONGS CONSTRUCTOR',props.musicInfo.collections[props.selectedCollection].collectionName)
         super()
         this.state = {
-            collectionName: props.musicInfo.collections[props.selectedCollection].collectionName
+            collectionName: props.musicInfo.collections[props.selectedCollection].collectionName,
+            editedCollectionName: props.musicInfo.collections[props.selectedCollection].collectionName,
+            exited: false
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -21,15 +22,33 @@ class CollectionSongs extends React.Component {
 
     componentDidMount() {
         this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && this.props.editMode) {
+                this.setState({
+                    collectionName: this.state.editedCollectionName
+                })
+                this.props.editModeDone();
+            } 
+            if (e.key === "Escape" && this.props.editMode) {
+                this.setState({
+                    exited: true,
+                    editedCollectionName: this.props.musicInfo.collections[this.props.selectedCollection].collectionName
+                })
+                this.props.editModeDone();
+            };
+        });
+    };
+
+    componentWillUnmount() {
+        document.removeEventListener('keypress', () => {});
     };
 
     async componentDidUpdate(prevProps) {
         if (prevProps.editMode && !this.props.editMode) {
-            if (this.state.collectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName) {
-                console.log('UPDATE COLLECTION NAME IN DB')
-                await this.props.updateCollectionName(this.state.collectionName, this.props.selectedCollection)
-                //this.setState({collectionName: this.props.musicInfo.collections[this.props.selectedCollection].collectionName})
-            };
+            if (!this.state.exited && this.state.editedCollectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName) {
+                this.setState({collectionName: this.state.editedCollectionName})
+                await this.props.updateCollectionName(this.state.editedCollectionName, this.props.selectedCollection);
+            } else this.setState({exited: false})
         };
     };
 
@@ -40,7 +59,7 @@ class CollectionSongs extends React.Component {
     };
 
     clearNameOnFocus = () => {
-        this.setState({collectionName: ''})
+        this.setState({editedCollectionName: ''})
     }
 
     removeSongFromCollection = async (songId) => {
@@ -49,15 +68,16 @@ class CollectionSongs extends React.Component {
     };
     
     render() {
-        console.log('FROM COLLECTIONSONGS', this.props.editMode)
-        console.log('Collection name', this.state.collectionName)
-        const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
-        let songList = [];
+        // const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
+        const songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-            console.log(this.props.musicInfo.collections[this.props.selectedCollection].songs)
-            let idx = 0;
             for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-                songList.push(<CollectionSingleSong key={idx} songId={id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[id]} />)
+                songList.push(song);
+            };
+            songList.sort((a,b) => a.BPM-b.BPM)
+            let idx = 0;
+            for (const song of songList) {
+                songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} />
                 idx++;
             };
         };
@@ -74,7 +94,7 @@ class CollectionSongs extends React.Component {
                 <div>
                     <Modal 
                         isOpen={true} 
-                        onRequestClose={() => this.props.dispatchSelectCollectionAndChangeScreen(null, 'Collections')}
+                        onRequestClose={() => this.props.selectCollectionAndChangeScreen(null, 'Collections')}
                         style={
                             {
                                 content: {
@@ -101,7 +121,7 @@ class CollectionSongs extends React.Component {
                                 {this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null}
                             </div>
                             <div>
-                                <button onClick={() => this.props.dispatchSelectCollectionAndChangeScreen(null, 'Collections')}>Go back</button>
+                                <button onClick={() => this.props.selectCollectionAndChangeScreen(null, 'Collections')}>Go back</button>
                             </div>
                         </div>
                     </Modal>
@@ -122,15 +142,17 @@ class CollectionSongs extends React.Component {
             <div>
                 <div className='screenTitle'>
                     <div>
-                        {this.props.editMode ? <input name='collectionName' onFocus={this.clearNameOnFocus} value={this.state.collectionName} onChange={this.handleChange}></input> : this.state.collectionName}
+                        {this.props.editMode ? <input name='editedCollectionName' onFocus={this.clearNameOnFocus} value={this.state.editedCollectionName} onChange={this.handleChange}></input> : this.state.collectionName}
                     </div>
                     <div>
                         <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
                     </div>
                 </div>
+                
                 <ul style ={{listStyle:'none'}}>
                     {songList}
                 </ul>
+
             </div>
         )
     }
@@ -138,6 +160,7 @@ class CollectionSongs extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        // selectedCollectionName: state.musicReducer.collections[state.screenReducer.selectedCollection].collectionName,
         user: state.userReducer.user,
         musicInfo: state.musicReducer,
         screenStr: state.screenReducer.screenStr,
@@ -149,7 +172,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     fetchActiveCollectionSongs: (collectionId) => dispatch(fetchActiveCollectionSongs(collectionId)),
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
-    dispatchSelectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
+    selectCollectionAndChangeScreen: (collectionId, screen) => dispatch(selectCollectionAndChangeScreenThunk(collectionId, screen)),
     removeSongFromCollection: (collectionId, songId, listenedBool) => dispatch(removeSongFromCollectionThunk(collectionId, songId, listenedBool)),
     updateCollectionName: (newCollectionName, collectionId) => dispatch(updateCollectionNameThunk(newCollectionName, collectionId))
 });

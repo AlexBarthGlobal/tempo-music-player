@@ -154,6 +154,7 @@ svg:hover {
   height: 80px;
   width: 80px;
   margin-top: 14px;
+  transition: all 0.10s ease-out;
 }
 
 .screenTitle {
@@ -294,6 +295,15 @@ svg:hover {
   width: 40vw;
   min-width: 114px;
   /* border: 1px black solid; */
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+  border-radius: 10px;
+}
+
+.footerBox1:hover {
+  border-radius: 10px;
+  background-color: grey;
+  transition: all 0.10s ease-in;
 }
 
 .footerBox1Mobile {
@@ -301,6 +311,16 @@ svg:hover {
   width: 62vw;
   min-width: 114px;
   /* border: 1px black solid; */
+}
+
+#footerControlsBPM {
+  cursor: pointer;
+  transition: all 0.20s ease-out;
+}
+
+#footerControlsBPM:hover {
+  color: rgb(117, 117, 117);
+  transition: all 0.10s ease-in;
 }
 
 .footerBox2 {

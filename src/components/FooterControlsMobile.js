@@ -9,12 +9,12 @@ import PauseIcon from '@mui/icons-material/Pause';
 class FooterControlsMobile extends React.Component {
   
     render() {
-      const {play, pause, playing, nextTrack, currTime, duration} = this.props;
+      const {play, pause, playing, nextTrack, currTime, duration, selectCollectionAndChangeScreen} = this.props;
       
       return (
         <div /*FooterControls*/className='footerControlsMobile'>
             <div className='footerControlsMobileTop'>
-                <div className='footerBox1Mobile'>
+                <div className='footerBox1Mobile' onClick={() => selectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'PlayerScreen')}>
                     <img className='footerArtMobile' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
                     <div className='footerTextContainerMobile'>
                         <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].songName}</div>
@@ -23,7 +23,7 @@ class FooterControlsMobile extends React.Component {
                     </div>
                 </div>
                 <div className='footerBox3Mobile'>
-                    <div className='centerVertical touchPaddingBottom'>{this.props.musicInfo.activeSession.currBPM}</div>
+                    <div className='centerVertical touchPaddingBottom' onClick={() => selectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'Tempo')}>{this.props.musicInfo.activeSession.currBPM}</div>
                     <div className='footerItemCenterMobile touchPaddingTopMobile'>{playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={play} />}</div>
                     <SkipNextIcon onClick={nextTrack} className='touchPaddingTopMobile' sx={{fontSize: 36}}/>
                 </div>

@@ -138,6 +138,19 @@ svg:hover {
   margin-bottom: 20px;
 }
 
+.collectionSongsList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.collectionSongsFlexCenterVertical {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
 .mainPlayerFlexVertical {
   display: flex;
   flex-direction: column;
@@ -155,6 +168,7 @@ svg:hover {
   width: 80px;
   margin-top: 14px;
   transition: all 0.10s ease-out;
+  margin-bottom: 14px;
 }
 
 .screenTitle {
@@ -177,6 +191,22 @@ svg:hover {
   /* padding-top: 10px; */
   padding-top: 6px;
   padding-right: 10px;
+}
+
+.singleSongVertical {
+  padding-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.singleSong {
+  display: flex;
+  width: 100%;
+}
+
+ul {
+  padding-left: 0;
+  list-style-type: none;
 }
 
 .navButton {
@@ -441,11 +471,50 @@ svg:hover {
 } */
 
 .maxWidth {
-  width: 100%
+  width: 100%;
+}
+
+.singleSongInfo {
+  display: flex;
+  width: 100%;
 }
 
 .playTimeEndTime {
   padding-top: 2px;
+}
+
+.collectionSongImg {
+  height: 52px;
+  width: 52px;
+}
+
+#singleSongInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+#durationIcon {
+  height: 18px;
+  width: 18px;
+}
+
+.collectionSongsTable {
+  width: 100%;
+  max-width: 1600px;
+  padding-left: 6px;
+  padding-right: 12px;
+  text-align: left;
+  /* table-layout: fixed; */
+}
+
+.singleSongRemoveBox {
+  width: 6px;
+  max-width: 6px;
+}
+
+
+.singleSongBox1 {
+  display: flex;
 }
 
 .controlsTop {

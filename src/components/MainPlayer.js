@@ -59,6 +59,7 @@ class MainPlayer extends React.Component {
             this.rap.play();
             if (!this.props.noNextSong && this.rap.currentTime === 0 && !this.rap.loop) {
                 //Increment played in DB for the song
+                console.log('INCREMENTED PLAYED')
                 this.props.incrementSongPlayed(this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id)
             };
         };
@@ -91,6 +92,11 @@ class MainPlayer extends React.Component {
     prevTrack = async () => {
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
            await this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+        } else {
+            this.rap.currentTime = 0;
+            this.setState({
+                currentTime: 0
+            });
         };
         this.props.play();
     };

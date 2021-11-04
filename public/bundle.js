@@ -18291,6 +18291,8 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
 
         if (!_this.props.noNextSong && _this.rap.currentTime === 0 && !_this.rap.loop) {
           //Increment played in DB for the song
+          console.log('INCREMENTED PLAYED');
+
           _this.props.incrementSongPlayed(_this.props.musicInfo.activeSession.songs[_this.props.musicInfo.activeSession.playIdx].id);
         }
 
@@ -18342,7 +18344,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx - 1]) {
-                _context.next = 3;
+                _context.next = 5;
                 break;
               }
 
@@ -18350,11 +18352,22 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
               return _this.props.decrementPlayIdx(_this.props.musicInfo.activeSession.id);
 
             case 3:
+              _context.next = 7;
+              break;
+
+            case 5:
+              _this.rap.currentTime = 0;
+
+              _this.setState({
+                currentTime: 0
+              });
+
+            case 7:
               ;
 
               _this.props.play();
 
-            case 5:
+            case 9:
             case "end":
               return _context.stop();
           }

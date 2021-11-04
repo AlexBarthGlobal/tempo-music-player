@@ -10,7 +10,7 @@ const CollectionSingleSong = (props) => {
                 <td className='singleSongRemoveBox'>{editMode ? <div onClick={() => removeSongFromCollection(songId)}>X</div> : null}</td>
                 <td className='singleSongInfo'>
                     <img className='collectionSongImg' src={artURL} />
-                    <div className='singleSongVertical'>
+                    <div className='singleSongVertical centerVertical touchPaddingBottomSong'>
                         <div>{songName}</div>
                         <div>{artistName}</div>
                     </div>

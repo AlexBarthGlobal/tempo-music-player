@@ -199,11 +199,6 @@ svg:hover {
   flex-direction: column;
 }
 
-.singleSong {
-  display: flex;
-  width: 100%;
-}
-
 ul {
   padding-left: 0;
   list-style-type: none;
@@ -317,8 +312,9 @@ ul {
   /* min-height: 40px; */
   height: 52px;
   /* padding: 10px 10px 10px 10px; */
-  backdrop-filter: blur(5px);
-  background-color: rgba(156, 155, 155, 0.521);
+  /* backdrop-filter: blur(5px); */
+  /* background-color: rgba(156, 155, 155, 0.521); */
+  background-color: rgb(102, 101, 101);
 }
 
 .footerBox1 {
@@ -498,6 +494,10 @@ ul {
   width: 18px;
 }
 
+/* tr {
+  margin-top: 30px;
+} */
+
 .collectionSongsTable {
   width: 100%;
   max-width: 1600px;
@@ -505,6 +505,7 @@ ul {
   padding-right: 12px;
   text-align: left;
   /* table-layout: fixed; */
+  padding-bottom: 70px;
 }
 
 .singleSongRemoveBox {
@@ -557,8 +558,20 @@ ul {
   margin-bottom: auto;
 }
 
+/* table > tr {
+  padding-top: 20px;
+} */
+
+tr {
+  height: 60px;
+}
+
 .touchPaddingBottom {
   padding-bottom: 3.2px;
+}
+
+.touchPaddingBottomSong {
+  padding-bottom: 3.6px;
 }
 
 .touchPaddingTop {

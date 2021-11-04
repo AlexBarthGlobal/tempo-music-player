@@ -312,6 +312,16 @@ svg:hover {
   /* border: 1px black solid; */
 }
 
+#footerControlsBPM {
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+}
+
+#footerControlsBPM:hover {
+  color: rgb(117, 117, 117);
+  transition: all 0.10s ease-in;
+}
+
 .footerBox2 {
   width: 100%;
   padding-left: 40px;

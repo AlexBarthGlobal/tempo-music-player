@@ -23,7 +23,7 @@ class FooterControlsMobile extends React.Component {
                     </div>
                 </div>
                 <div className='footerBox3Mobile'>
-                    <div className='centerVertical touchPaddingBottom'>{this.props.musicInfo.activeSession.currBPM}</div>
+                    <div className='centerVertical touchPaddingBottom' onClick={() => selectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'Tempo')}>{this.props.musicInfo.activeSession.currBPM}</div>
                     <div className='footerItemCenterMobile touchPaddingTopMobile'>{playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={play} />}</div>
                     <SkipNextIcon onClick={nextTrack} className='touchPaddingTopMobile' sx={{fontSize: 36}}/>
                 </div>

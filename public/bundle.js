@@ -14399,32 +14399,6 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, _callee4);
     })));
 
-    _defineProperty(_assertThisInitialized(_this), "prevTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-      return regeneratorRuntime.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx - 1]) {
-                _context5.next = 3;
-                break;
-              }
-
-              _context5.next = 3;
-              return _this.props.decrementPlayIdx(_this.props.musicInfo.activeSession.id);
-
-            case 3:
-              ;
-
-              _this.props.play();
-
-            case 5:
-            case "end":
-              return _context5.stop();
-          }
-        }
-      }, _callee5);
-    })));
-
     _this.state = {
       //Local player info
       //   playing: false,
@@ -14439,8 +14413,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       editCollection: false,
       editCollections: false
     };
-    _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this));
-    _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this)); // this.play = this.play.bind(this);
+    _this.nextTrack = _this.nextTrack.bind(_assertThisInitialized(_this)); // this.play = this.play.bind(this);
     // this.pause = this.pause.bind(this);
 
     _this.checkIfLoaded = _this.checkPlayerReady.bind(_assertThisInitialized(_this));
@@ -14615,9 +14588,7 @@ var App = /*#__PURE__*/function (_React$Component) {
             return _this2.props.changeScreen('Tempo');
           }
         });
-      } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_6__.default
-      /*next={this.nextTrack} prev={this.prevTrack}*/
-      , {
+      } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_6__.default, {
         play: this.play,
         pause: this.pause,
         playPauseBool: this.state.playing
@@ -14760,7 +14731,6 @@ var App = /*#__PURE__*/function (_React$Component) {
         className: "secondButtons"
       }, navToCollectionSongs, changeTempo, shareCollection, createOrAddToCollection), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, selectedScreen), this.checkPlayerReady() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_MainPlayer__WEBPACK_IMPORTED_MODULE_14__.default, {
         nextTrack: this.nextTrack,
-        prevTrack: this.prevTrack,
         noNextSong: this.state.noNextSong
       }) : null);
     }
@@ -14790,9 +14760,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     incrementPlayIdx: function incrementPlayIdx(sessionId) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.incrementPlayIdxThunk)(sessionId));
     },
-    decrementPlayIdx: function decrementPlayIdx(sessionId) {
-      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__.decrementPlayIdxThunk)(sessionId));
-    },
+    // decrementPlayIdx: (sessionId) => dispatch(decrementPlayIdxThunk(sessionId)),
     changeScreen: function changeScreen(screen) {
       return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_9__.changeScreenThunk)(screen));
     },
@@ -18108,6 +18076,42 @@ function _typeof(obj) {
   return _typeof(obj);
 }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
+
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -18332,6 +18336,32 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
       ;
     });
 
+    _defineProperty(_assertThisInitialized(_this), "prevTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx - 1]) {
+                _context.next = 3;
+                break;
+              }
+
+              _context.next = 3;
+              return _this.props.decrementPlayIdx(_this.props.musicInfo.activeSession.id);
+
+            case 3:
+              ;
+
+              _this.props.play();
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })));
+
     console.log(sessionStorage.getItem('loop'));
     _this.state = {
       currentTime: 0,
@@ -18341,6 +18371,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
     };
     _this.seekTime = _this.seekTime.bind(_assertThisInitialized(_this));
     _this.toggleLoop = _this.toggleLoop.bind(_assertThisInitialized(_this));
+    _this.prevTrack = _this.prevTrack.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -18369,6 +18400,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
         play: this.props.play,
         pause: this.props.pause,
         playing: this.props.playing,
+        prevTrack: this.prevTrack,
         nextTrack: this.props.nextTrack,
         currTime: this.rap ? this.state.currentTime : null,
         duration: this.rap ? this.state.duration : null,
@@ -18390,7 +18422,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
         play: this.props.play,
         pause: this.props.pause,
         playing: this.props.playing,
-        prevTrack: this.props.prevTrack,
+        prevTrack: this.prevTrack,
         nextTrack: this.props.nextTrack,
         currTime: this.rap ? this.state.currentTime : null,
         duration: this.rap ? this.state.duration : null,
@@ -18425,6 +18457,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     incrementSongPlayed: function incrementSongPlayed(songId) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.incrementSongPlayedThunk)(songId));
+    },
+    decrementPlayIdx: function decrementPlayIdx(sessionId) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.decrementPlayIdxThunk)(sessionId));
     }
   };
 };
@@ -19195,6 +19230,7 @@ var PlayerComponent = function PlayerComponent(props) {
     play: props.play,
     pause: props.pause,
     playing: props.playing,
+    prevTrack: props.prevTrack,
     nextTrack: props.nextTrack,
     currTime: props.currTime,
     duration: props.duration,

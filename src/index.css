@@ -314,7 +314,7 @@ svg:hover {
 
 #footerControlsBPM {
   cursor: pointer;
-  transition: all 0.25s ease-out;
+  transition: all 0.20s ease-out;
 }
 
 #footerControlsBPM:hover {

@@ -28,6 +28,7 @@ import AddIcon from '@mui/icons-material/Add';
 import LibraryMusicSharpIcon from '@mui/icons-material/LibraryMusicSharp';
 import Metronome from '../icons/metronome.svg'
 import ShareIcon from '@mui/icons-material/Share';
+// import ClearIcon from '@mui/icons-material/Clear';
 
 const styles = {
     bmBurgerButton: {
@@ -231,9 +232,9 @@ class App extends React.Component {
             location.href = "/auth/logout"
         };
 
-        const homeLogout = this.props.screenStr === 'Collections' ? null : <HomeIcon className='navButton' onClick={() => this.props.changeScreen('Collections')}/>
+        const homeLogout = this.props.screenStr === 'Collections' ? null : <HomeIcon className='navButton toTheLeft' onClick={() => this.props.changeScreen('Collections')}/>
         const createOrAddToCollection = this.props.screenStr === 'Collections' ? <AddIcon className='navButton' onClick={() => this.setState({addCollectionModal: true})} /> : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? <PlaylistAddIcon className='navButton' onClick={() => this.props.changeScreen('BrowseSongs')} />: null;
-        const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <CheckIcon className="navButton toTheRight" onClick={() => this.setState({editCollection: false})}/> : <EditIcon className="navButton toTheRight" onClick={() => this.setState({editCollection: true})}/> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <CheckIcon className="navButton toTheRight" onClick={() => this.setState({editCollections: false})} /> : <EditIcon className="navButton toTheRight" onClick={() => this.setState({editCollections: true})} /> : null;
+        const editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? <CheckIcon className="navButton" onClick={() => this.setState({editCollection: false})}/> : <EditIcon className="navButton" onClick={() => this.setState({editCollection: true})}/> : this.props.screenStr === 'Collections' ? this.state.editCollections ? <CheckIcon className="navButton" onClick={() => this.setState({editCollections: false})} /> : <EditIcon className="navButton" onClick={() => this.setState({editCollections: true})} /> : null;
         const clearListened = this.props.screenStr !== 'BrowseSongs' ? <RestartAltIcon className='navButton' onClick={this.resetInfo} /> : null;
         const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? <LibraryMusicSharpIcon className="navButton toTheLeft" onClick={() => this.props.changeScreen('CollectionSongs')} /> : null;
         let changeTempo;
@@ -253,6 +254,7 @@ class App extends React.Component {
         <div onClick={ this.showSettings } className="menu-item--small" href="">{this.props.user.email}</div>
         <div onClick={logout} className='logoutOption'>Logout</div>
         </Menu>
+        // const escapeExitSongs = this.state.editCollection ? <ClearIcon onClick={() => this.setState({editCollection: false})} className='navButton'/> : null;
 
         return (
             <div>

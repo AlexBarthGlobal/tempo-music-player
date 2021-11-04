@@ -165,7 +165,8 @@ svg:hover {
 
 .topButtons {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: flex-end;
   padding-top: 10px;
   padding-right: 10px;
 }

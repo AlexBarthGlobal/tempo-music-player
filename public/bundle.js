@@ -14593,7 +14593,12 @@ var App = /*#__PURE__*/function (_React$Component) {
         pause: this.pause,
         playPauseBool: this.state.playing
       });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_7__.default, {
-        editMode: this.state.editCollection
+        editMode: this.state.editCollection,
+        editModeDone: function editModeDone() {
+          return _this2.setState({
+            editCollection: false
+          });
+        }
       });
       var shareCollection;
       if (this.props.screenStr === 'CollectionSongs') shareCollection = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Share__WEBPACK_IMPORTED_MODULE_26__.default, {
@@ -16358,7 +16363,21 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
   _createClass(CollectionSongs, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       this.props.fetchActiveCollectionSongs(this.props.selectedCollection);
+      document.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter' && _this2.props.editMode) {
+          _this2.props.editModeDone();
+        }
+
+        ;
+      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      document.removeEventListener('keypress', function () {});
     }
   }, {
     key: "componentDidUpdate",
@@ -16405,7 +16424,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play';
       var songList = [];
@@ -16474,7 +16493,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_5___default()), {
           isOpen: true,
           onRequestClose: function onRequestClose() {
-            return _this2.props.selectCollectionAndChangeScreen(null, 'Collections');
+            return _this3.props.selectCollectionAndChangeScreen(null, 'Collections');
           },
           style: {
             content: {
@@ -16495,17 +16514,17 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
           }
         }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No songs in this collection yet!"), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: function onClick() {
-            return _this2.props.changeScreen('BrowseSongs');
+            return _this3.props.changeScreen('BrowseSongs');
           }
         }, "Add Songs") : null), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: function onClick() {
-            return _this2.props.selectCollectionAndChangeScreen(null, 'Collections');
+            return _this3.props.selectCollectionAndChangeScreen(null, 'Collections');
           }
         }, "Go back")))), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "screenTitle"
         }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.selectedCollection].collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: function onClick() {
-            return _this2.props.changeScreen('Tempo');
+            return _this3.props.changeScreen('Tempo');
           }
         }, buttonLabel))));
       } else return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -16518,7 +16537,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
       }) : this.state.collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__.default, {
         id: "metronomeMain",
         onClick: function onClick() {
-          return _this2.props.changeScreen('Tempo');
+          return _this3.props.changeScreen('Tempo');
         }
       }))), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
         style: {

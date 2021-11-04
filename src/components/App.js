@@ -243,7 +243,7 @@ class App extends React.Component {
             selectedScreen = <PlayerScreen />
             changeTempo = <Metronome id='metronomeNavButton' onClick={() => this.props.changeScreen('Tempo')} />
         } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs play={this.play} pause={this.pause} playPauseBool={this.state.playing}/>    
-        else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs editMode={this.state.editCollection} />
+        else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs editMode={this.state.editCollection} editModeDone={() => this.setState({editCollection: false})} />
         let shareCollection;
         if (this.props.screenStr === 'CollectionSongs') shareCollection = <ShareIcon className='navButton' onClick={() => this.setState({shareCollectionModal: true})} />
         const burgerMenu = <Menu styles={styles}>

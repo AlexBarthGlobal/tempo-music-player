@@ -21,6 +21,15 @@ class CollectionSongs extends React.Component {
 
     componentDidMount() {
         this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
+        document.addEventListener('keypress', e => {
+            if (e.key === 'Enter' && this.props.editMode) {
+                this.props.editModeDone();
+            };
+        });
+    };
+
+    componentWillUnmount() {
+        document.removeEventListener('keypress', () => {});
     };
 
     async componentDidUpdate(prevProps) {
@@ -58,7 +67,7 @@ class CollectionSongs extends React.Component {
             songList.sort((a,b) => a.BPM-b.BPM)
             let idx = 0;
             for (const song of songList) {
-                songList[idx] = (<CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} />)
+                songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} />
                 idx++;
             };
         };
@@ -129,9 +138,11 @@ class CollectionSongs extends React.Component {
                         <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
                     </div>
                 </div>
+                
                 <ul style ={{listStyle:'none'}}>
                     {songList}
                 </ul>
+
             </div>
         )
     }

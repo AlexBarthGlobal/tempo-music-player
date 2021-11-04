@@ -16316,7 +16316,6 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, CollectionSongs);
 
-    console.log('PROPS from COLLECTIONSONGS CONSTRUCTOR', props.musicInfo.collections[props.selectedCollection].collectionName);
     _this = _super.call(this);
 
     _defineProperty(_assertThisInitialized(_this), "handleChange", function (evt) {
@@ -16370,6 +16369,10 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
       this.props.fetchActiveCollectionSongs(this.props.selectedCollection);
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && _this2.props.editMode) {
+          _this2.setState({
+            collectionName: _this2.state.editedCollectionName
+          });
+
           _this2.props.editModeDone();
         }
 
@@ -16399,31 +16402,34 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 if (!(prevProps.editMode && !this.props.editMode)) {
-                  _context2.next = 7;
+                  _context2.next = 8;
                   break;
                 }
 
                 if (!(!this.state.exited && this.state.editedCollectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName)) {
-                  _context2.next = 6;
+                  _context2.next = 7;
                   break;
                 }
 
-                _context2.next = 4;
+                this.setState({
+                  collectionName: this.state.editedCollectionName
+                });
+                _context2.next = 5;
                 return this.props.updateCollectionName(this.state.editedCollectionName, this.props.selectedCollection);
 
-              case 4:
-                _context2.next = 7;
+              case 5:
+                _context2.next = 8;
                 break;
 
-              case 6:
+              case 7:
                 this.setState({
                   exited: false
                 });
 
-              case 7:
+              case 8:
                 ;
 
-              case 8:
+              case 9:
               case "end":
                 return _context2.stop();
             }
@@ -16550,7 +16556,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
         onFocus: this.clearNameOnFocus,
         value: this.state.editedCollectionName,
         onChange: this.handleChange
-      }) : this.props.musicInfo.collections[this.props.selectedCollection].collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__.default, {
+      }) : this.state.collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__.default, {
         id: "metronomeMain",
         onClick: function onClick() {
           return _this3.props.changeScreen('Tempo');
@@ -16568,6 +16574,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
+    // selectedCollectionName: state.musicReducer.collections[state.screenReducer.selectedCollection].collectionName,
     user: state.userReducer.user,
     musicInfo: state.musicReducer,
     screenStr: state.screenReducer.screenStr,

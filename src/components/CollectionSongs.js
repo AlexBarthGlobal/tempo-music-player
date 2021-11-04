@@ -9,7 +9,6 @@ import Metronome from '../icons/metronome.svg'
 
 class CollectionSongs extends React.Component {
     constructor(props) {
-        console.log('PROPS from COLLECTIONSONGS CONSTRUCTOR',props.musicInfo.collections[props.selectedCollection].collectionName)
         super()
         this.state = {
             collectionName: props.musicInfo.collections[props.selectedCollection].collectionName,
@@ -25,6 +24,9 @@ class CollectionSongs extends React.Component {
         this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
         document.addEventListener('keydown', e => {
             if (e.key === 'Enter' && this.props.editMode) {
+                this.setState({
+                    collectionName: this.state.editedCollectionName
+                })
                 this.props.editModeDone();
             } 
             if (e.key === "Escape" && this.props.editMode) {
@@ -44,7 +46,8 @@ class CollectionSongs extends React.Component {
     async componentDidUpdate(prevProps) {
         if (prevProps.editMode && !this.props.editMode) {
             if (!this.state.exited && this.state.editedCollectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName) {
-                await this.props.updateCollectionName(this.state.editedCollectionName, this.props.selectedCollection)
+                this.setState({collectionName: this.state.editedCollectionName})
+                await this.props.updateCollectionName(this.state.editedCollectionName, this.props.selectedCollection);
             } else this.setState({exited: false})
         };
     };
@@ -139,7 +142,7 @@ class CollectionSongs extends React.Component {
             <div>
                 <div className='screenTitle'>
                     <div>
-                        {this.props.editMode ? <input name='editedCollectionName' onFocus={this.clearNameOnFocus} value={this.state.editedCollectionName} onChange={this.handleChange}></input> : this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
+                        {this.props.editMode ? <input name='editedCollectionName' onFocus={this.clearNameOnFocus} value={this.state.editedCollectionName} onChange={this.handleChange}></input> : this.state.collectionName}
                     </div>
                     <div>
                         <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
@@ -157,6 +160,7 @@ class CollectionSongs extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        // selectedCollectionName: state.musicReducer.collections[state.screenReducer.selectedCollection].collectionName,
         user: state.userReducer.user,
         musicInfo: state.musicReducer,
         screenStr: state.screenReducer.screenStr,

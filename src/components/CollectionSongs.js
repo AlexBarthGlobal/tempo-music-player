@@ -70,7 +70,7 @@ class CollectionSongs extends React.Component {
     };
     
     render() {
-        // const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
+        const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
         const songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
             for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
@@ -150,16 +150,17 @@ class CollectionSongs extends React.Component {
                 </div>
                 <div>
                     <table className='collectionSongsTable'>
-                        <tr>
-                            <th></th>
-                            <th>Title</th>
-                            {isBrowser ? <th>Album</th> : null}
-                            <th>BPM</th>
-                            <th id='durationIconContainer'><AccessTimeIcon id='durationIcon' /></th>
-                        </tr>
-                        {songList}
+                        <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Title</th>
+                                {isBrowser ? <th>Album</th> : null}
+                                <th>BPM</th>
+                                <th id='durationIconContainer'><AccessTimeIcon id='durationIcon' /></th>
+                            </tr>
+                            {songList}
+                        </tbody>
                     </table>
-                    <div></div>
                 </div>
             </div>
         )

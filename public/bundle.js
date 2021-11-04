@@ -16494,9 +16494,9 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this; // const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
+      var _this3 = this;
 
-
+      var buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play';
       var songList = [];
 
       if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
@@ -16612,11 +16612,11 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
         }
       }))), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
         className: "collectionSongsTable"
-      }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Title"), react_device_detect__WEBPACK_IMPORTED_MODULE_7__.isBrowser ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Album") : null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "BPM"), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
+      }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Title"), react_device_detect__WEBPACK_IMPORTED_MODULE_7__.isBrowser ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Album") : null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "BPM"), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
         id: "durationIconContainer"
       }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_8__.default, {
         id: "durationIcon"
-      }))), songList), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null)));
+      }))), songList))));
     }
   }]);
 

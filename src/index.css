@@ -495,7 +495,8 @@ ul {
 }
 
 #durationIconContainer {
-  text-align: right;
+  padding-top: 6px;
+  padding-left: 12px;
 }
 
 /* tr {

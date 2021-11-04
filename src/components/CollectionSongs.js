@@ -12,7 +12,9 @@ class CollectionSongs extends React.Component {
         console.log('PROPS from COLLECTIONSONGS CONSTRUCTOR',props.musicInfo.collections[props.selectedCollection].collectionName)
         super()
         this.state = {
-            collectionName: props.musicInfo.collections[props.selectedCollection].collectionName
+            collectionName: props.musicInfo.collections[props.selectedCollection].collectionName,
+            editedCollectionName: props.musicInfo.collections[props.selectedCollection].collectionName,
+            exited: false
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -21,8 +23,15 @@ class CollectionSongs extends React.Component {
 
     componentDidMount() {
         this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
-        document.addEventListener('keypress', e => {
+        document.addEventListener('keydown', e => {
             if (e.key === 'Enter' && this.props.editMode) {
+                this.props.editModeDone();
+            } 
+            if (e.key === "Escape" && this.props.editMode) {
+                this.setState({
+                    exited: true,
+                    editedCollectionName: this.props.musicInfo.collections[this.props.selectedCollection].collectionName
+                })
                 this.props.editModeDone();
             };
         });
@@ -34,11 +43,9 @@ class CollectionSongs extends React.Component {
 
     async componentDidUpdate(prevProps) {
         if (prevProps.editMode && !this.props.editMode) {
-            if (this.state.collectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName) {
-                console.log('UPDATE COLLECTION NAME IN DB')
-                await this.props.updateCollectionName(this.state.collectionName, this.props.selectedCollection)
-                //this.setState({collectionName: this.props.musicInfo.collections[this.props.selectedCollection].collectionName})
-            };
+            if (!this.state.exited && this.state.editedCollectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName) {
+                await this.props.updateCollectionName(this.state.editedCollectionName, this.props.selectedCollection)
+            } else this.setState({exited: false})
         };
     };
 
@@ -49,7 +56,7 @@ class CollectionSongs extends React.Component {
     };
 
     clearNameOnFocus = () => {
-        this.setState({collectionName: ''})
+        this.setState({editedCollectionName: ''})
     }
 
     removeSongFromCollection = async (songId) => {
@@ -58,7 +65,7 @@ class CollectionSongs extends React.Component {
     };
     
     render() {
-        const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
+        // const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
         const songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
             for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
@@ -132,7 +139,7 @@ class CollectionSongs extends React.Component {
             <div>
                 <div className='screenTitle'>
                     <div>
-                        {this.props.editMode ? <input name='collectionName' onFocus={this.clearNameOnFocus} value={this.state.collectionName} onChange={this.handleChange}></input> : this.state.collectionName}
+                        {this.props.editMode ? <input name='editedCollectionName' onFocus={this.clearNameOnFocus} value={this.state.editedCollectionName} onChange={this.handleChange}></input> : this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
                     </div>
                     <div>
                         <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />

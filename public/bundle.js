@@ -16325,7 +16325,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "clearNameOnFocus", function () {
       _this.setState({
-        collectionName: ''
+        editedCollectionName: ''
       });
     });
 
@@ -16353,7 +16353,9 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
     }());
 
     _this.state = {
-      collectionName: props.musicInfo.collections[props.selectedCollection].collectionName
+      collectionName: props.musicInfo.collections[props.selectedCollection].collectionName,
+      editedCollectionName: props.musicInfo.collections[props.selectedCollection].collectionName,
+      exited: false
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.clearNameOnFocus = _this.clearNameOnFocus.bind(_assertThisInitialized(_this));
@@ -16366,8 +16368,17 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchActiveCollectionSongs(this.props.selectedCollection);
-      document.addEventListener('keypress', function (e) {
+      document.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && _this2.props.editMode) {
+          _this2.props.editModeDone();
+        }
+
+        if (e.key === "Escape" && _this2.props.editMode) {
+          _this2.setState({
+            exited: true,
+            editedCollectionName: _this2.props.musicInfo.collections[_this2.props.selectedCollection].collectionName
+          });
+
           _this2.props.editModeDone();
         }
 
@@ -16388,26 +16399,31 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 if (!(prevProps.editMode && !this.props.editMode)) {
+                  _context2.next = 7;
+                  break;
+                }
+
+                if (!(!this.state.exited && this.state.editedCollectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName)) {
                   _context2.next = 6;
                   break;
                 }
 
-                if (!(this.state.collectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName)) {
-                  _context2.next = 5;
-                  break;
-                }
+                _context2.next = 4;
+                return this.props.updateCollectionName(this.state.editedCollectionName, this.props.selectedCollection);
 
-                console.log('UPDATE COLLECTION NAME IN DB');
-                _context2.next = 5;
-                return this.props.updateCollectionName(this.state.collectionName, this.props.selectedCollection);
-
-              case 5:
-                ;
+              case 4:
+                _context2.next = 7;
+                break;
 
               case 6:
-                ;
+                this.setState({
+                  exited: false
+                });
 
               case 7:
+                ;
+
+              case 8:
               case "end":
                 return _context2.stop();
             }
@@ -16424,9 +16440,9 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this3 = this; // const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
 
-      var buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play';
+
       var songList = [];
 
       if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
@@ -16530,11 +16546,11 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
       } else return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle"
       }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.editMode ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-        name: "collectionName",
+        name: "editedCollectionName",
         onFocus: this.clearNameOnFocus,
-        value: this.state.collectionName,
+        value: this.state.editedCollectionName,
         onChange: this.handleChange
-      }) : this.state.collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__.default, {
+      }) : this.props.musicInfo.collections[this.props.selectedCollection].collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__.default, {
         id: "metronomeMain",
         onClick: function onClick() {
           return _this3.props.changeScreen('Tempo');

@@ -20,6 +20,18 @@ a {
   outline: none;
 }
 
+.clearFooterPadding {
+  padding-bottom: 100px;
+}
+
+.clearFooterPaddingDesktopSongs {
+  padding-bottom: 140px;
+}
+
+.clearFooterPaddingMobile {
+  padding-bottom: 70px;
+}
+
 .burgerCross {
   color: white;
 }
@@ -68,6 +80,70 @@ svg:hover {
   margin-right: 4px;
 }
 
+.collectionsTitle {
+  margin-bottom: 40px;
+}
+
+.collections {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.singleCollection {
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+  width: 13vw;
+  height: 13vw;
+  min-width: 125px;
+  min-height: 125px;
+  max-width: 250px;
+  max-height: 250px;
+  margin-right: 6vw;
+  margin-left: 6vw;
+  margin-bottom: 80px;
+}
+
+.imgAndStatus {
+  position: relative;
+}
+
+.collectionName {
+  font-size: 20px;
+  font-weight: 500;
+  padding-top: 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sessionStatus {
+  font-size: min(max(0.85vw, 12px), 17px);
+  /* position: absolute;
+  padding-left: 4px;
+  top: 86.8%;
+  background-color: rgba(128, 128, 128, 0.479);
+  border-radius: 0px 0px 0px 1.15vw; */
+}
+
+.collectionImage {
+  border-radius: 1.15vw;
+  width: 13vw;
+  height: 13vw;
+  min-width: 125px;
+  min-height: 125px;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.singleCollectionInnerContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 #mainPlayerContainer {
   margin-top: 20px;
   margin-left: 4vw;
@@ -92,11 +168,19 @@ svg:hover {
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.imagePlayerFiller {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 #mainPlayerImg {
   width: 95%;
   height: auto;
+  z-index: 1;
 }
 
 .loopMarginTop {
@@ -174,7 +258,7 @@ svg:hover {
 #metronomeMain {
   height: 80px;
   width: 80px;
-  margin-top: 14px;
+  margin-top: 20px;
   transition: all 0.10s ease-out;
   margin-bottom: 14px;
 }
@@ -514,7 +598,7 @@ ul {
   padding-right: 12px;
   text-align: left;
   /* table-layout: fixed; */
-  padding-bottom: 70px;
+  /* padding-bottom: 70px; */
 }
 
 .collectionSongsTableDesktop {
@@ -644,18 +728,6 @@ tr {
 .controlButton {
   margin-left: 6px;
   margin-right: 6px;
-}
-
-.collections {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.collectionImage {
-  max-width: 21vw;
-  max-height: 21vh;
-  border-radius: 17px;
 }
 
 .centerThis {

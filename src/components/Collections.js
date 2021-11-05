@@ -4,6 +4,7 @@ import SingleCollection from './SingleCollection'
 import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {deleteCollectionThunk, removeCollectionThunk} from '../redux/musicDispatchers'
 import Modal from 'react-modal'
+import { isBrowser, isMobile } from 'react-device-detect';
 
 class Collections extends React.Component {
     constructor(props) {
@@ -23,11 +24,9 @@ class Collections extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     };
 
-    // async componentDidUpdate(prevProps) {
-    //     if (prevProps.editMode && !this.props.editMode) {
-    //         
-    //     };
-    // };
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
 
     deleteCollection = async (evt) => {
         evt.preventDefault();
@@ -163,10 +162,10 @@ class Collections extends React.Component {
             <div>
                 {removeCollectionModal}
                 {deleteCollectionModal}
-                <div className='screenTitle'>
+                <div className='screenTitle collectionsTitle'>
                     Collections
                 </div>
-                <div className='collections'>
+                <div className={`collections ${isBrowser ? 'clearFooterPadding' : 'clearFooterPaddingMobile'}`}>
                     {collectionComponents.length ? collectionComponents : noCollections}
                 </div>
             </div>

@@ -16,6 +16,10 @@ const BrowseSongs = (props) => {
     const [songURL, setSongURL] = useState(null)
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         if (props.playing) {
             setSongURL(null);
             setPlaying(false);
@@ -92,7 +96,7 @@ const BrowseSongs = (props) => {
                 </div>
             </div>
             <div>
-                <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop' : null}`}>
+                <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
                     <tbody>
                         <tr>
                             <th></th>

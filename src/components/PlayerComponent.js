@@ -11,6 +11,7 @@ const PlayerComponent = (props) => {
                     <div id='innerMainPlayer'>
                         <div id='mainPlayerImageContainer'>
                             <img id='mainPlayerImg' src='https://images.genius.com/ecb6201ab5498a21dac43d928de2d127.499x499x1.png'/>
+                            <div className='imagePlayerFiller'></div>
                         </div>
                         <div id='mainPlayerSongInfo'>
                             <div>{props.musicInfo.activeSession.songs[props.playIdx].songName}</div>

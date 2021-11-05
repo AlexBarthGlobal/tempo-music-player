@@ -5,7 +5,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 const CollectionSingleSong = (props) => {
     const {songId, songName, artistName, albumName, BPM, duration, artURL, editMode, removeSongFromCollection, listenedBool} = props
-
         return (
             <tr>
                 <td className='removeSongCrossContainer'>{editMode ? <ClearIcon className={isBrowser ? 'removeSongCross' : 'removeSongCrossMobile'} onClick={() => removeSongFromCollection(songId)} /> : null}</td>

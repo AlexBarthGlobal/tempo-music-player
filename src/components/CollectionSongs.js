@@ -23,6 +23,7 @@ class CollectionSongs extends React.Component {
     };
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
         document.addEventListener('keydown', e => {
             if (e.key === 'Enter' && this.props.editMode) {
@@ -149,7 +150,7 @@ class CollectionSongs extends React.Component {
                     </div>
                 </div>
                 <div>
-                    <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop' : null}`}>
+                    <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
                         <tbody>
                             <tr>
                                 <th></th>

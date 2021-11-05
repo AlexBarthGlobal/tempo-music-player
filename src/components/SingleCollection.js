@@ -6,15 +6,15 @@ const SingleCollection = (props) => {
     let sessionStatus = null;
     if (isActive(collectionId)) sessionStatus = <div>Playing at {BPM} BPM</div>
     else if (hasSession(collectionId)) sessionStatus = <div>Resume at {BPM} BPM</div>
-    else sessionStatus = <div>Start new session!</div>
+    else sessionStatus = <div>Start new session</div>
     return (
-        <div>
-            <div onClick={() => selectCollectionAndChangeScreen(collectionId)}>
-                <div>
+        <div className='singleCollection'>
+            <div className='singleCollectionInnerContainer' onClick={() => selectCollectionAndChangeScreen(collectionId)}>
+                <div className='imgAndStatus'>
                     <img className='collectionImage' src={collectionArt} /*onLoad={}*/></img>
+                    <div className='sessionStatus'>{sessionStatus}</div>
                 </div>
-                {collectionName}
-                {sessionStatus}
+                <div className='collectionName'>{collectionName}</div>  
             </div>
             <div>{props.editMode ? userOwns ? <button onClick={() => deleteCollection(collectionId)}>Delete</button> : <button onClick={() => removeCollection(collectionId)}>Remove</button> : null}</div>
         </div>

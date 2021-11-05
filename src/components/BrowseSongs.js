@@ -6,6 +6,8 @@ import songsInRange from '../components/songsInRange'
 import PreviewPlayer from '../components/PreviewPlayer'
 import BPMSlider from '../components/BPMSlider'
 import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { isBrowser, isMobile } from 'react-device-detect';
 
 const BrowseSongs = (props) => {
     const [searchInput, setSearchInput] = useState('')
@@ -89,9 +91,20 @@ const BrowseSongs = (props) => {
                     <BPMSlider localBPM={BPMInput} setLocalBPM={setBPMInput} resetTapPadTrigger={() => console.log('Hi')}/>
                 </div>
             </div>
-            <ul style ={{listStyle:'none'}}>
-                    {songs}
-            </ul>
+            <div>
+                <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop' : null}`}>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Title</th>
+                            {isBrowser ? <th>Album</th> : null}
+                            <th>BPM</th>
+                            <th id='durationIconContainer'><AccessTimeIcon id='durationIcon' /></th>
+                        </tr>
+                        {songs}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 };

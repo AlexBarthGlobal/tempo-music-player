@@ -15572,6 +15572,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_PreviewPlayer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/PreviewPlayer */ "./src/components/PreviewPlayer.js");
 /* harmony import */ var _components_BPMSlider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/BPMSlider */ "./src/components/BPMSlider.js");
 /* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
+/* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 function _createForOfIteratorHelper(o, allowArrayLike) {
   var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
 
@@ -15725,6 +15727,8 @@ function _iterableToArrayLimit(arr, i) {
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
+
+
 
 
 
@@ -15919,11 +15923,13 @@ var BrowseSongs = function BrowseSongs(props) {
     resetTapPadTrigger: function resetTapPadTrigger() {
       return console.log('Hi');
     }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-    style: {
-      listStyle: 'none'
-    }
-  }, songs));
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
+    className: "collectionSongsTable ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_8__.isBrowser ? 'collectionSongsTableDesktop' : null)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Title"), react_device_detect__WEBPACK_IMPORTED_MODULE_8__.isBrowser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Album") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "BPM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
+    id: "durationIconContainer"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_9__.default, {
+    id: "durationIcon"
+  }))), songs))));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -15985,7 +15991,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
+/* harmony import */ var _secondsToTimestamp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./secondsToTimestamp */ "./src/components/secondsToTimestamp.js");
+/* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
+/* harmony import */ var _mui_icons_material_Clear__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/Clear */ "./node_modules/@mui/icons-material/Clear.js");
 
+
+
+
+
+{
+  /* <button onClick={() => selectSong(songURL)}>{playingURL === songURL ? 'Stop' : 'Play'}</button>
+  <button onClick={!inCollection ? () => addSongToCollection(songId) : () => removeSongFromCollection(songId)}>{!inCollection ? 'Add' : 'Remove'}</button> */
+}
 
 var BrowseSongsSingleSong = function BrowseSongsSingleSong(props) {
   var songId = props.songId,
@@ -16002,17 +16020,26 @@ var BrowseSongsSingleSong = function BrowseSongsSingleSong(props) {
       playingStatus = props.playingStatus,
       playingURL = props.playingURL,
       selectSong = props.selectSong;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+    className: "removeSongCrossContainer"
+  }, !inCollection ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_3__.default, {
+    className: react_device_detect__WEBPACK_IMPORTED_MODULE_1__.isBrowser ? 'removeSongCross' : 'removeSongCrossMobile',
     onClick: function onClick() {
-      return selectSong(songURL);
-    }
-  }, playingURL === songURL ? 'Stop' : 'Play'), songName, " ", artistName, " ", albumName, " ", BPM, " ", duration, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    onClick: !inCollection ? function () {
       return addSongToCollection(songId);
-    } : function () {
+    }
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Clear__WEBPACK_IMPORTED_MODULE_4__.default, {
+    className: react_device_detect__WEBPACK_IMPORTED_MODULE_1__.isBrowser ? 'removeSongCross' : 'removeSongCrossMobile',
+    onClick: function onClick() {
       return removeSongFromCollection(songId);
     }
-  }, !inCollection ? 'Add' : 'Remove'));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+    className: "singleSongInfo"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "collectionSongImg",
+    src: artURL
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "singleSongVertical centerVertical touchPaddingBottomSong"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, songName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, artistName))), react_device_detect__WEBPACK_IMPORTED_MODULE_1__.isBrowser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, albumName) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, BPM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, (0,_secondsToTimestamp__WEBPACK_IMPORTED_MODULE_2__.default)(duration)));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BrowseSongsSingleSong);

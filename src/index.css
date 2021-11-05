@@ -168,11 +168,19 @@ svg:hover {
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.imagePlayerFiller {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 #mainPlayerImg {
   width: 95%;
   height: auto;
+  z-index: 1;
 }
 
 .loopMarginTop {

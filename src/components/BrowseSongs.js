@@ -16,6 +16,10 @@ const BrowseSongs = (props) => {
     const [songURL, setSongURL] = useState(null)
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         if (props.playing) {
             setSongURL(null);
             setPlaying(false);

@@ -15863,7 +15863,6 @@ var BrowseSongs = function BrowseSongs(props) {
   var songs = [];
 
   if (props.searchedSongs) {
-    console.log('LOOPING AGAIN');
     var idx = 0;
 
     var _iterator = _createForOfIteratorHelper(props.searchedSongs),
@@ -15901,13 +15900,12 @@ var BrowseSongs = function BrowseSongs(props) {
   }
 
   ;
-  console.log('Props from browseSongs', props);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_PreviewPlayer__WEBPACK_IMPORTED_MODULE_5__.default, {
     songURL: songURL,
     previewEnded: previewEnded
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "screenTitle"
-  }, "Add Songs to ", props.selectedCollectionInfo.collectionName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, "Add songs to ", props.selectedCollectionInfo.collectionName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "centerThis"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     type: "text",
@@ -16003,9 +16001,7 @@ var BrowseSongsSingleSong = function BrowseSongsSingleSong(props) {
       inCollection = props.inCollection,
       playingStatus = props.playingStatus,
       playingURL = props.playingURL,
-      selectSong = props.selectSong; //convert duration into minutes & seconds
-  // console.log('Song in collection?', songName, inCollection)
-
+      selectSong = props.selectSong;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     onClick: function onClick() {
       return selectSong(songURL);

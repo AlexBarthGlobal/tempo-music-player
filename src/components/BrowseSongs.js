@@ -68,7 +68,6 @@ const BrowseSongs = (props) => {
 
     const songs = [];
     if (props.searchedSongs) {
-        console.log('LOOPING AGAIN')
         let idx = 0;
         for (const song of props.searchedSongs) {
             songs.push(<BrowseSongsSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} songURL={song.songURL} artURL={song.artURL} addSongToCollection={addSongToCollection} removeSongFromCollection={removeSongFromCollection} inCollection={checkIfInCollection(song.id)} selectSong={selectSong} playingStatus={playing} playingURL={songURL} />)
@@ -76,13 +75,11 @@ const BrowseSongs = (props) => {
         };
     };
 
-    console.log('Props from browseSongs', props)
-
     return (
         <div>
             <PreviewPlayer songURL={songURL} previewEnded={previewEnded} />
             <div className='screenTitle'>
-                Add Songs to {props.selectedCollectionInfo.collectionName}
+                Add songs to {props.selectedCollectionInfo.collectionName}
             </div>
             <div className='centerThis'>
                 <div>

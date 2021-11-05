@@ -20,6 +20,18 @@ a {
   outline: none;
 }
 
+.clearFooterPadding {
+  padding-bottom: 100px;
+}
+
+.clearFooterPaddingDesktopSongs {
+  padding-bottom: 140px;
+}
+
+.clearFooterPaddingMobile {
+  padding-bottom: 70px;
+}
+
 .burgerCross {
   color: white;
 }
@@ -80,18 +92,6 @@ svg:hover {
   flex-wrap: wrap;
 }
 
-.clearFooterPadding {
-  padding-bottom: 100px;
-}
-
-.clearFooterPaddingDesktopSongs {
-  padding-bottom: 140px;
-}
-
-.clearFooterPaddingMobile {
-  padding-bottom: 70px;
-}
-
 .singleCollection {
   display: flex;
   cursor: pointer;
@@ -122,11 +122,11 @@ svg:hover {
 
 .sessionStatus {
   font-size: min(max(0.85vw, 12px), 17px);
-  position: absolute;
+  /* position: absolute;
   padding-left: 4px;
   top: 86.8%;
   background-color: rgba(128, 128, 128, 0.479);
-  border-radius: 0px 0px 0px 1.15vw;
+  border-radius: 0px 0px 0px 1.15vw; */
 }
 
 .collectionImage {

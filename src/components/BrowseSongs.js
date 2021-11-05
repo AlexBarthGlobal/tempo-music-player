@@ -92,7 +92,7 @@ const BrowseSongs = (props) => {
                 </div>
             </div>
             <div>
-                <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop' : null}`}>
+                <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
                     <tbody>
                         <tr>
                             <th></th>

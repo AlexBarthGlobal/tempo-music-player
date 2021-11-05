@@ -6,7 +6,7 @@ const SingleCollection = (props) => {
     let sessionStatus = null;
     if (isActive(collectionId)) sessionStatus = <div>Playing at {BPM} BPM</div>
     else if (hasSession(collectionId)) sessionStatus = <div>Resume at {BPM} BPM</div>
-    else sessionStatus = <div>Start new session!</div>
+    else sessionStatus = <div>Start new session</div>
     return (
         <div className='singleCollection'>
             <div className='singleCollectionInnerContainer' onClick={() => selectCollectionAndChangeScreen(collectionId)}>

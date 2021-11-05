@@ -117,7 +117,8 @@ svg:hover {
   max-height: 250px;
   /* margin-right: 6vw;
   margin-left: 6vw; */
-  margin-bottom: 80px;
+  /* margin-bottom: 80px; */
+  margin-bottom: max(80px, min(10vw, 180px));
 }
 
 .imgAndStatus {

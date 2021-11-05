@@ -56,13 +56,17 @@ const styles = {
     },
     bmMenuWrap: {
       position: 'fixed',
+      top: '0',
       height: '100%'
     },
     bmMenu: {
+      position: 'fixed',
+      top: '0',
       background: '#373a47',
       padding: '2.5em 1.5em 0',
       fontSize: '1.15em',
     //   width: '260px'
+      paddingTop: '0px !important',
     },
     bmMorphShape: {
       fill: '#373a47'
@@ -77,6 +81,8 @@ const styles = {
       display: 'inline-block'
     },
     bmOverlay: {
+      position: 'fixed',
+      top: '0',
       background: 'rgba(0, 0, 0, 0.3)'
     }
   }

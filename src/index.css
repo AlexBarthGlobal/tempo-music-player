@@ -6,7 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(26, 24, 24);
-  padding-top: 92px; /* Header space 92px*/
+  /* Header space */
+  padding-top: 92px;
   /* background-color: #111111; */
  
 }

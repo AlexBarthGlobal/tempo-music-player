@@ -81,11 +81,47 @@ class Collections extends React.Component {
             if (a < b) return 1;
             return 0;
         });
+
+        // if (i+1 % 4 === 0) {
+            //     smallContainer.push(coll)
+            //     output.push(<div className='collectionBox1'>{bigContainer}</div>);
+            // } else if (i+1 % 2 === 0) {
+            //     smallContainer.push(coll);
+            // };
+
+        const output = [];
         let i = 0;
+        let bigContainer = [];
+        let smallContainer = [];
         for (const collection of collectionComponents) {
-            collectionComponents[i] = <SingleCollection selectCollectionAndChangeScreen={selectCollectionAndChangeScreen} isActive={isActive} hasSession={hasSession} collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} BPM={hasSession(collection.id) ? this.props.musicInfo.collections[collection.id].collectionSessions[0].currBPM : null} editMode={this.props.editMode} removeCollection={this.selectForRemove} deleteCollection={this.selectForDelete} userOwns={collection.collectionOwner === this.props.user.id} key={collection.id}/>   
+            let coll = <SingleCollection selectCollectionAndChangeScreen={selectCollectionAndChangeScreen} isActive={isActive} hasSession={hasSession} collectionId={collection.id} collectionName={collection.collectionName} collectionArt={collection.collectionArtUrl} BPM={hasSession(collection.id) ? this.props.musicInfo.collections[collection.id].collectionSessions[0].currBPM : null} editMode={this.props.editMode} removeCollection={this.selectForRemove} deleteCollection={this.selectForDelete} userOwns={collection.collectionOwner === this.props.user.id} key={collection.id}/>
+            smallContainer.push(coll);
+            if ((i+1) % 4 === 0) {
+                bigContainer.push(<div className='collectionBox2'>{[...smallContainer]}</div>)
+                smallContainer = [];
+                output.push(<div className='collectionBox1'>{[...bigContainer]}</div>)
+                bigContainer = [];
+            } else if ((i+1) % 2 === 0) {
+                bigContainer.push(<div className='collectionBox2'>{[...smallContainer]}</div>)
+                smallContainer = [];
+                if (!collectionComponents[i+1]) {
+                    output.push(<div className='collectionBox1'>{[...bigContainer]}</div>)
+                    bigContainer = [];
+                };
+            };    
             i++;
         };
+
+        // if (i % 2 === 1) {
+        //     smallContainer.push(<div className='singleCollection'></div>)
+        //     bigContainer.push(<div className='collectionBox2'>{smallContainer}</div>)
+        //     output.push(<div className='collectionBox1'>{bigContainer}</div>)
+        // } else if (i % 2 === 0) {
+        //     bigContainer.push(<div className='collectionBox2'>{smallContainer}</div>)
+        //     output.push(<div className='collectionBox1'>{bigContainer}</div>)
+        // };
+
+        // output.push(<div className='collectionBox2'><div></div><div></div></div>)
 
         const removeCollectionModal = <Modal 
             isOpen={this.state.confirmRemove} 
@@ -166,7 +202,7 @@ class Collections extends React.Component {
                     Collections
                 </div>
                 <div className={`collections ${isBrowser ? 'clearFooterPadding' : 'clearFooterPaddingMobile'}`}>
-                    {collectionComponents.length ? collectionComponents : noCollections}
+                    {collectionComponents.length ? <div>{output}</div> : noCollections}
                 </div>
             </div>
         )

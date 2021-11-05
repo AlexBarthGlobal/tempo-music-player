@@ -98,12 +98,9 @@ class Tempo extends React.Component {
                         </div>
                     </div>
                 </Modal>
-                <div className='screenTitle'>
-                    Tempo Screen
-                </div>
-                <div className='centerThis'>
-                    <div>Confirm BPM:</div>
-                    <div>
+                <div>
+                    <div className='screenTitle confirmBPMTitle'>Confirm BPM:</div>
+                    <div className='centerThis'>
                         <ManageBPMSliderAndTap BPM={this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : 140} metronomeSound={this.props.user.metronomeSound} playing={this.props.playing} handleSubmit={this.handleSubmit} setMetronomeSoundOption={this.props.setMetronomeSoundOption}/>
                     </div>
                 </div>
@@ -118,6 +115,7 @@ const mapStateToProps = (state) => {
         musicInfo: state.musicReducer,
         screenStr: state.screenReducer.screenStr,
         selectedCollection: state.screenReducer.selectedCollection,
+        playing: state.playerReducer.playing
     }
 }
   

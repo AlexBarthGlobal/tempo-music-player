@@ -239,7 +239,7 @@ class App extends React.Component {
         const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? <LibraryMusicSharpIcon className="navButton toTheLeft" onClick={() => this.props.changeScreen('CollectionSongs')} /> : null;
         let changeTempo;
         let selectedScreen = <Collections editMode={this.state.editCollections}/>
-        if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo play={this.play} next={this.nextTrack} playing={this.state.playing} setMetronomeSoundOption={this.props.setMetronomeSoundOption} player={this.rap} />
+        if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo play={this.play} next={this.nextTrack} setMetronomeSoundOption={this.props.setMetronomeSoundOption} player={this.rap} />
         else if (this.props.screenStr === 'PlayerScreen') {
             selectedScreen = <PlayerScreen />
             changeTempo = <Metronome id='metronomeNavButton' onClick={() => this.props.changeScreen('Tempo')} />

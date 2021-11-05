@@ -5,11 +5,10 @@ import { Slider } from '@mui/material';
 const BPMSlider = (props) => {
     const [sliderBPM, setSliderBPM] = useState(props.localBPM)
 
-    // useEffect(() => {
-    //     if (props.localBPM !== sliderBPM) setSliderBPM(props.localBPM);
-    //     return;
-    // }, [props.localBPM])
-
+    useEffect(() => {
+        if (props.localBPM !== sliderBPM) setSliderBPM(props.localBPM);
+        return;
+    }, [props.localBPM])
 
     const onChange = (evt) => {
         if (evt.target.value === sliderBPM) return;

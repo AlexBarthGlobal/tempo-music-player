@@ -33,9 +33,9 @@ export default class ManageBPMSliderAndTap extends React.Component {
                 <div>
                     <MetronomeSounds localBPM={this.state.localBPM} playing={this.props.playing} metronomeSound={this.props.metronomeSound} setMetronomeSoundOption={this.props.setMetronomeSoundOption}/>
                 </div>
-                {/* <div>
+                <div className='BPMLightContainer'>
                     <BPMLight localBPM={this.state.localBPM} playing={this.props.playing} metronomeSound={this.props.metronomeSound}/>
-                </div> */}
+                </div>
                 <div>
                     <BPMSlider localBPM={this.state.localBPM} setLocalBPM={this.setLocalBPM} resetTapPadTrigger={this.resetTapPadTrigger}/>
                 </div>

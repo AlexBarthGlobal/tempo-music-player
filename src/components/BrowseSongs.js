@@ -54,7 +54,7 @@ const BrowseSongs = (props) => {
         if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
             const results = songsInRange(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
             if (results[0].length) {
-                if (!props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx+1]) {
+                if (props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx+1] === 'undefined') {
                     props.popOneFromActiveSessionSongs();
                     props.addSongsInRange(results[0])
                 };

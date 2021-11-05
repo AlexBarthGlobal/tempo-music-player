@@ -15784,7 +15784,7 @@ var BrowseSongs = function BrowseSongs(props) {
                 results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
 
                 if (results[0].length) {
-                  if (!props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx + 1]) {
+                  if (props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx + 1] === 'undefined') {
                     props.popOneFromActiveSessionSongs();
                     props.addSongsInRange(results[0]);
                   }

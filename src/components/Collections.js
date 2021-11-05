@@ -163,7 +163,7 @@ class Collections extends React.Component {
             <div>
                 {removeCollectionModal}
                 {deleteCollectionModal}
-                <div className='screenTitle'>
+                <div className='screenTitle collectionsTitle'>
                     Collections
                 </div>
                 <div className='collections'>

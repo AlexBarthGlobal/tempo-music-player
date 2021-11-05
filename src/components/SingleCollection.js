@@ -8,13 +8,11 @@ const SingleCollection = (props) => {
     else if (hasSession(collectionId)) sessionStatus = <div>Resume at {BPM} BPM</div>
     else sessionStatus = <div>Start new session!</div>
     return (
-        <div>
-            <div onClick={() => selectCollectionAndChangeScreen(collectionId)}>
-                <div>
-                    <img className='collectionImage' src={collectionArt} /*onLoad={}*/></img>
-                </div>
-                {collectionName}
-                {sessionStatus}
+        <div className='singleCollection'>
+            <div className='singleCollectionInnerContainer' onClick={() => selectCollectionAndChangeScreen(collectionId)}>
+                <img className='collectionImage' src={collectionArt} /*onLoad={}*/></img>
+                <div>{collectionName}</div>
+                <div>{sessionStatus}</div>
             </div>
             <div>{props.editMode ? userOwns ? <button onClick={() => deleteCollection(collectionId)}>Delete</button> : <button onClick={() => removeCollection(collectionId)}>Remove</button> : null}</div>
         </div>

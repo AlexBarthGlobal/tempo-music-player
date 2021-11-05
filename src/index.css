@@ -665,6 +665,18 @@ tr {
   text-align: center;
 }
 
+.previewControlsContainer {
+  position: relative;
+}
+
+.previewControls {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  transform: scale(1.25);
+  padding-left: 1.1px;
+}
+
 .centerWithMargin {
   margin-left: auto;
   margin-right: auto;

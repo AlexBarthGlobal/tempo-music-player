@@ -6,6 +6,8 @@ import CollectionSingleSong from './CollectionSingleSong'
 import Modal from 'react-modal'
 import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import Metronome from '../icons/metronome.svg'
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { isBrowser, isMobile } from 'react-device-detect';
 
 class CollectionSongs extends React.Component {
     constructor(props) {
@@ -68,7 +70,7 @@ class CollectionSongs extends React.Component {
     };
     
     render() {
-        // const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
+        const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
         const songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
             for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
@@ -77,6 +79,7 @@ class CollectionSongs extends React.Component {
             songList.sort((a,b) => a.BPM-b.BPM)
             let idx = 0;
             for (const song of songList) {
+                console.log(song.artURL)
                 songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} />
                 idx++;
             };
@@ -133,9 +136,6 @@ class CollectionSongs extends React.Component {
                             <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button>
                         </div>
                     </div>
-                    {/* <ul>
-                      {songList}
-                    </ul> */}
                 </div>      
             )
         } else return (
@@ -148,11 +148,20 @@ class CollectionSongs extends React.Component {
                         <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
                     </div>
                 </div>
-                
-                <ul style ={{listStyle:'none'}}>
-                    {songList}
-                </ul>
-
+                <div>
+                    <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop' : null}`}>
+                        <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Title</th>
+                                {isBrowser ? <th>Album</th> : null}
+                                <th>BPM</th>
+                                <th id='durationIconContainer'><AccessTimeIcon id='durationIcon' /></th>
+                            </tr>
+                            {songList}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }

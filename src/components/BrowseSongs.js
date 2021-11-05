@@ -5,6 +5,9 @@ import BrowseSongsSingleSong from './BrowseSongsSingleSong'
 import songsInRange from '../components/songsInRange'
 import PreviewPlayer from '../components/PreviewPlayer'
 import BPMSlider from '../components/BPMSlider'
+import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { isBrowser, isMobile } from 'react-device-detect';
 
 const BrowseSongs = (props) => {
     const [searchInput, setSearchInput] = useState('')
@@ -13,11 +16,11 @@ const BrowseSongs = (props) => {
     const [songURL, setSongURL] = useState(null)
 
     useEffect(() => {
-        if (props.playPauseBool) {
+        if (props.playing) {
             setSongURL(null);
             setPlaying(false);
         };
-    }, [props.playPauseBool])
+    }, [props.playing])
 
     const selectSong = (selectedSongURL) => {
         props.pause();
@@ -53,7 +56,7 @@ const BrowseSongs = (props) => {
         if (props.musicInfo.activeSession && props.musicInfo.activeSession.collectionId === props.selectedCollection) {
             const results = songsInRange(props.user.listened.songs, props.musicInfo.collections[props.selectedCollection].songs, props.musicInfo.activeSession.currBPM);
             if (results[0].length) {
-                if (!props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx+1]) {
+                if (props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx+1] === 'undefined') {
                     props.popOneFromActiveSessionSongs();
                     props.addSongsInRange(results[0])
                 };
@@ -67,7 +70,6 @@ const BrowseSongs = (props) => {
 
     const songs = [];
     if (props.searchedSongs) {
-        console.log('LOOPING AGAIN')
         let idx = 0;
         for (const song of props.searchedSongs) {
             songs.push(<BrowseSongsSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} songURL={song.songURL} artURL={song.artURL} addSongToCollection={addSongToCollection} removeSongFromCollection={removeSongFromCollection} inCollection={checkIfInCollection(song.id)} selectSong={selectSong} playingStatus={playing} playingURL={songURL} />)
@@ -75,13 +77,11 @@ const BrowseSongs = (props) => {
         };
     };
 
-    console.log('Props from browseSongs', props)
-
     return (
         <div>
             <PreviewPlayer songURL={songURL} previewEnded={previewEnded} />
             <div className='screenTitle'>
-                Add Songs to {props.selectedCollectionInfo.collectionName}
+                Add songs to {props.selectedCollectionInfo.collectionName}
             </div>
             <div className='centerThis'>
                 <div>
@@ -91,9 +91,20 @@ const BrowseSongs = (props) => {
                     <BPMSlider localBPM={BPMInput} setLocalBPM={setBPMInput} resetTapPadTrigger={() => console.log('Hi')}/>
                 </div>
             </div>
-            <ul style ={{listStyle:'none'}}>
-                    {songs}
-            </ul>
+            <div>
+                <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop' : null}`}>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Title</th>
+                            {isBrowser ? <th>Album</th> : null}
+                            <th>BPM</th>
+                            <th id='durationIconContainer'><AccessTimeIcon id='durationIcon' /></th>
+                        </tr>
+                        {songs}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 };
@@ -104,7 +115,8 @@ const mapStateToProps = (state) => {
         selectedCollection: state.screenReducer.selectedCollection,
         searchedSongs: state.musicReducer.searchedSongs,
         selectedCollectionInfo: state.musicReducer.collections[state.screenReducer.selectedCollection],
-        user: state.userReducer.user
+        user: state.userReducer.user,
+        playing: state.playerReducer.playing,
     };
 };
   
@@ -116,6 +128,8 @@ const mapDispatchToProps = (dispatch) => ({
     applySongsInRange: (songs) => dispatch(applySongsInRange(songs)),
     addSongsInRange: (songs) => dispatch(addSongsInRangeThunk(songs)),
     enqueueSong: () => dispatch(enqueueSongThunk()),
+    play: () => dispatch(setPlayingTrueThunk()),
+    pause: () => dispatch(setPlayingFalseThunk()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BrowseSongs)

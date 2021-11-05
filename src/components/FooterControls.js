@@ -14,7 +14,7 @@ class FooterControls extends React.Component {
       return (
         <div /*FooterControls*/className='footerControls'>
           <div className='footerBox1' onClick={() => selectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'PlayerScreen')}/* 1 */>
-              <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
+            <img className='footerArt' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
             <div className='footerTextContainer'>
               <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].songName}</div>
               <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].artistName}</div>

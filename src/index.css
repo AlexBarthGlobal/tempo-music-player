@@ -57,7 +57,15 @@ svg:hover {
 }
 
 @media (hover: none) {
-  svg:hover { fill: white; }
+  svg:hover { fill: white; };
+}
+
+.removeSongCross {
+  margin-right: 8px;
+}
+
+.removeSongCrossMobile {
+  margin-right: 4px;
 }
 
 #mainPlayerContainer {
@@ -138,6 +146,19 @@ svg:hover {
   margin-bottom: 20px;
 }
 
+.collectionSongsList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.collectionSongsFlexCenterVertical {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
 .mainPlayerFlexVertical {
   display: flex;
   flex-direction: column;
@@ -155,6 +176,7 @@ svg:hover {
   width: 80px;
   margin-top: 14px;
   transition: all 0.10s ease-out;
+  margin-bottom: 14px;
 }
 
 .screenTitle {
@@ -177,6 +199,17 @@ svg:hover {
   /* padding-top: 10px; */
   padding-top: 6px;
   padding-right: 10px;
+}
+
+.singleSongVertical {
+  padding-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+ul {
+  padding-left: 0;
+  list-style-type: none;
 }
 
 .navButton {
@@ -287,8 +320,9 @@ svg:hover {
   /* min-height: 40px; */
   height: 52px;
   /* padding: 10px 10px 10px 10px; */
-  backdrop-filter: blur(5px);
-  background-color: rgba(156, 155, 155, 0.521);
+  /* backdrop-filter: blur(5px); */
+  /* background-color: rgba(156, 155, 155, 0.521); */
+  background-color: rgb(102, 101, 101);
 }
 
 .footerBox1 {
@@ -441,11 +475,59 @@ svg:hover {
 } */
 
 .maxWidth {
-  width: 100%
+  width: 100%;
+}
+
+.singleSongInfo {
+  display: flex;
+  width: 100%;
 }
 
 .playTimeEndTime {
   padding-top: 2px;
+}
+
+.collectionSongImg {
+  height: 52px;
+  width: 52px;
+}
+
+#singleSongInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+#durationIcon {
+  height: 18px;
+  width: 18px;
+}
+
+#durationIconContainer {
+  padding-top: 6px;
+  padding-left: 12px;
+}
+
+.collectionSongsTable {
+  width: 100%;
+  max-width: 1600px;
+  padding-left: 6px;
+  padding-right: 12px;
+  text-align: left;
+  /* table-layout: fixed; */
+  padding-bottom: 70px;
+}
+
+.collectionSongsTableDesktop {
+  /* margin-left: 10vw; */
+  padding-left: 100px;
+}
+
+.removeSongCrossContainer {
+  width: 0px;
+}
+
+.singleSongBox1 {
+  display: flex;
 }
 
 .controlsTop {
@@ -488,8 +570,20 @@ svg:hover {
   margin-bottom: auto;
 }
 
+/* table > tr {
+  padding-top: 20px;
+} */
+
+tr {
+  height: 60px;
+}
+
 .touchPaddingBottom {
   padding-bottom: 3.2px;
+}
+
+.touchPaddingBottomSong {
+  padding-bottom: 3.6px;
 }
 
 .touchPaddingTop {
@@ -569,6 +663,18 @@ svg:hover {
   margin-right: auto;
   width: 8em */
   text-align: center;
+}
+
+.previewControlsContainer {
+  position: relative;
+}
+
+.previewControls {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  transform: scale(1.25);
+  padding-left: 1.1px;
 }
 
 .centerWithMargin {

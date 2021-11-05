@@ -149,7 +149,7 @@ class CollectionSongs extends React.Component {
                     </div>
                 </div>
                 <div>
-                    <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop' : null}`}>
+                    <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
                         <tbody>
                             <tr>
                                 <th></th>

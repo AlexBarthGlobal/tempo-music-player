@@ -10,9 +10,11 @@ const SingleCollection = (props) => {
     return (
         <div className='singleCollection'>
             <div className='singleCollectionInnerContainer' onClick={() => selectCollectionAndChangeScreen(collectionId)}>
-                <img className='collectionImage' src={collectionArt} /*onLoad={}*/></img>
-                <div>{collectionName}</div>
-                <div>{sessionStatus}</div>
+                <div className='imgAndStatus'>
+                    <img className='collectionImage' src={collectionArt} /*onLoad={}*/></img>
+                    <div className='sessionStatus'>{sessionStatus}</div>
+                </div>
+                <div className='collectionName'>{collectionName}</div>  
             </div>
             <div>{props.editMode ? userOwns ? <button onClick={() => deleteCollection(collectionId)}>Delete</button> : <button onClick={() => removeCollection(collectionId)}>Remove</button> : null}</div>
         </div>

@@ -69,7 +69,7 @@ svg:hover {
 }
 
 .collectionsTitle {
-  margin-bottom: 34px;
+  margin-bottom: 40px;
 }
 
 .collections {
@@ -78,6 +78,18 @@ svg:hover {
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.clearFooterPadding {
+  padding-bottom: 100px;
+}
+
+.clearFooterPaddingDesktopSongs {
+  padding-bottom: 140px;
+}
+
+.clearFooterPaddingMobile {
+  padding-bottom: 70px;
 }
 
 .singleCollection {
@@ -92,7 +104,29 @@ svg:hover {
   max-height: 250px;
   margin-right: 6vw;
   margin-left: 6vw;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
+}
+
+.imgAndStatus {
+  position: relative;
+}
+
+.collectionName {
+  font-size: 20px;
+  font-weight: 500;
+  padding-top: 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sessionStatus {
+  font-size: min(max(0.85vw, 12px), 17px);
+  position: absolute;
+  padding-left: 4px;
+  top: 86.8%;
+  background-color: rgba(128, 128, 128, 0.479);
+  border-radius: 0px 0px 0px 1.15vw;
 }
 
 .collectionImage {
@@ -556,7 +590,7 @@ ul {
   padding-right: 12px;
   text-align: left;
   /* table-layout: fixed; */
-  padding-bottom: 70px;
+  /* padding-bottom: 70px; */
 }
 
 .collectionSongsTableDesktop {

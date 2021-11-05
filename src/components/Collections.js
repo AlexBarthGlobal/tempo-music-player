@@ -5,6 +5,7 @@ import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {deleteCollectionThunk, removeCollectionThunk} from '../redux/musicDispatchers'
 import Modal from 'react-modal'
 import { isBrowser, isMobile } from 'react-device-detect';
+import SpringScrollbars from './SpringScrollbars'
 
 class Collections extends React.Component {
     constructor(props) {
@@ -159,7 +160,7 @@ class Collections extends React.Component {
         </Modal>
     
         return (
-            <div>
+            <div>         
                 {removeCollectionModal}
                 {deleteCollectionModal}
                 <div className='screenTitle collectionsTitle'>
@@ -168,7 +169,8 @@ class Collections extends React.Component {
                 <div className={`collections ${isBrowser ? 'clearFooterPadding' : 'clearFooterPaddingMobile'}`}>
                     {collectionComponents.length ? collectionComponents : noCollections}
                 </div>
-            </div>
+                
+            </div>     
         )
     };
 };

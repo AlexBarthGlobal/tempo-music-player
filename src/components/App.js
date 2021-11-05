@@ -29,6 +29,7 @@ import LibraryMusicSharpIcon from '@mui/icons-material/LibraryMusicSharp';
 import Metronome from '../icons/metronome.svg'
 import ShareIcon from '@mui/icons-material/Share';
 // import ClearIcon from '@mui/icons-material/Clear';
+import SpringScrollbars from './SpringScrollbars';
 
 const styles = {
     bmBurgerButton: {
@@ -393,15 +394,27 @@ class App extends React.Component {
                         </div>
                     </div>
                 </Modal>
+                {this.props.screenStr !== 'PlayerScreen' && isBrowser ? <SpringScrollbars ref='scrollbars' style={{ height: `calc(100vh - 90px)`}}>
                 <div id='headerContainer'>
                     <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
                     <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
                 </div>
-                <div>
+                <div className='headerRoom'>
                     {selectedScreen}
-                </div>             
+                </div> 
+                </SpringScrollbars> :
+                <div>
+                <div id='headerContainer'>
+                    <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
+                    <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
+                </div>
+                <div className='headerRoom'>
+                    {selectedScreen}
+                </div>
+                </div> }
                     {this.checkPlayerReady() ? <MainPlayer nextTrack={this.nextTrack} noNextSong={this.state.noNextSong} selectCollectionAndChangeScreen={this.props.selectCollectionAndChangeScreen}/> : null}
             </div>
+            
         );
     };
 };

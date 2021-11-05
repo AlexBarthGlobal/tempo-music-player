@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(26, 24, 24);
   /* Header space */
-  padding-top: 92px;
+  /* padding-top: 92px; */
   /* background-color: #111111; */
  
 }
@@ -27,11 +27,12 @@ a {
 }
 
 .clearFooterPadding {
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
 }
 
 .clearFooterPaddingDesktopSongs {
-  padding-bottom: 140px;
+  /* padding-bottom: 140px; */
+  padding-bottom: 60px;
 }
 
 .clearFooterPaddingMobile {
@@ -265,6 +266,7 @@ svg:hover {
   width: 30px;
   padding-top: 6px;
   padding-right: 5px;
+  pointer-events: all;
 }
 
 #metronomeMain {
@@ -286,6 +288,7 @@ svg:hover {
   position: fixed;
   z-index: 1;
   top: 0;
+  pointer-events: none;
 }
 
 .topButtons {
@@ -319,6 +322,7 @@ ul {
   height: 38px !important;
   width: 38px !important;
   margin-left: 8px;
+  pointer-events: all;
 }
 
 .toTheLeft {

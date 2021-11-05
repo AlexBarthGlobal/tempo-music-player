@@ -250,7 +250,7 @@ svg:hover {
 #metronomeMain {
   height: 80px;
   width: 80px;
-  margin-top: 14px;
+  margin-top: 20px;
   transition: all 0.10s ease-out;
   margin-bottom: 14px;
 }

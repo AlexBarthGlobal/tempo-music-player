@@ -57,7 +57,15 @@ svg:hover {
 }
 
 @media (hover: none) {
-  svg:hover { fill: white; }
+  svg:hover { fill: white; };
+}
+
+.removeSongCross {
+  margin-right: 8px;
+}
+
+.removeSongCrossMobile {
+  margin-right: 4px;
 }
 
 #mainPlayerContainer {
@@ -499,10 +507,6 @@ ul {
   padding-left: 12px;
 }
 
-/* tr {
-  margin-top: 30px;
-} */
-
 .collectionSongsTable {
   width: 100%;
   max-width: 1600px;
@@ -513,11 +517,14 @@ ul {
   padding-bottom: 70px;
 }
 
-.singleSongRemoveBox {
-  width: 6px;
-  max-width: 6px;
+.collectionSongsTableDesktop {
+  /* margin-left: 10vw; */
+  padding-left: 100px;
 }
 
+.removeSongCrossContainer {
+  width: 0px;
+}
 
 .singleSongBox1 {
   display: flex;

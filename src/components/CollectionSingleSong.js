@@ -1,13 +1,14 @@
 import React from 'react'
 import { isBrowser, isMobile } from 'react-device-detect';
 import secondsToTimestamp from './secondsToTimestamp'
+import ClearIcon from '@mui/icons-material/Clear';
 
 const CollectionSingleSong = (props) => {
     const {songId, songName, artistName, albumName, BPM, duration, artURL, editMode, removeSongFromCollection, listenedBool} = props
 
         return (
             <tr>
-                <td className='singleSongRemoveBox'>{editMode ? <div onClick={() => removeSongFromCollection(songId)}>X</div> : null}</td>
+                <td className='removeSongCrossContainer'>{editMode ? <ClearIcon className={isBrowser ? 'removeSongCross' : 'removeSongCrossMobile'} onClick={() => removeSongFromCollection(songId)} /> : null}</td>
                 <td className='singleSongInfo'>
                     <img className='collectionSongImg' src={artURL} />
                     <div className='singleSongVertical centerVertical touchPaddingBottomSong'>

@@ -387,8 +387,10 @@ class App extends React.Component {
                         </div>
                     </div>
                 </Modal>
-                <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
-                <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
+                <div id='headerContainer'>
+                    <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
+                    <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
+                </div>
                 <div>
                     {selectedScreen}
                 </div>             

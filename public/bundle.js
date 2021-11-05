@@ -17119,6 +17119,11 @@ var Collections = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(Collections, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      window.scrollTo(0, 0);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;

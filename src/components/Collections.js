@@ -24,6 +24,10 @@ class Collections extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     };
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     deleteCollection = async (evt) => {
         evt.preventDefault();
         /*await*/ console.log('deleting collection', this.state.tempSelectedCollection) //call thunk

@@ -4,6 +4,7 @@ import BPMTap from './BPMTap'
 import BPMLight from './BPMLight'
 import MetronomeSounds from './MetronomeSounds'
 import { Slider } from '@mui/material';
+import PlayArrow from '@mui/icons-material/PlayArrow';
 
 export default class ManageBPMSliderAndTap extends React.Component {
     constructor(props) {
@@ -45,7 +46,7 @@ export default class ManageBPMSliderAndTap extends React.Component {
                 <div>
 
                 </div>
-                <button onClick={() => this.props.handleSubmit(this.state.localBPM)}>Play</button>
+                <PlayArrow sx={{fontSize: 74}} onClick={() => this.props.handleSubmit(this.state.localBPM)} />
             </div>
         )
     }

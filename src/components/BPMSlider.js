@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 // import ReactSlider from 'react-slider'
 import { Slider } from '@mui/material';
+import { isBrowser, isMobile } from 'react-device-detect';
 
 const BPMSlider = (props) => {
     const [sliderBPM, setSliderBPM] = useState(props.localBPM)
@@ -22,7 +23,7 @@ const BPMSlider = (props) => {
     return (
         <div>
             <div className='BPMText'>{`${sliderBPM}`}</div>
-            <div className='horizontalSlider'>
+            <div className={isBrowser ? 'horizontalSlider' : 'horizontalSliderMobile'}>
             <Slider
                 min={80}
                 max={200}

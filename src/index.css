@@ -784,6 +784,16 @@ tr {
   margin-left: auto;
   margin-right: auto;
   height: 40px;
+  margin-bottom: 12px;
+}
+
+.horizontalSliderMobile {
+  width: 72%;
+  /* padding:10px; */
+  margin-left: auto;
+  margin-right: auto;
+  height: 40px;
+  margin-bottom: 12px;
 }
 
 .exampleTrack {
@@ -825,11 +835,12 @@ tr {
 
 .BPMTapPad {
   margin: 0 auto;
-  height: 136px;
-  width: 136px;
+  height: 120px;
+  width: 120px;
   border: 2px solid black;
   border-radius: 12px;
-  background-color: rgb(175, 175, 175)
+  background-color: rgb(175, 175, 175);
+  margin-bottom: 9px;
 }
 
 .BPMTapPad:active {

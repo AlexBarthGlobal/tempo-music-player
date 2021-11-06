@@ -39,14 +39,6 @@ a {
   padding-bottom: 70px;
 }
 
-.burgerCross {
-  color: white;
-}
-
-.logoutOption {
-  cursor: pointer;
-}
-
 input[type=checkbox] {
   padding-top: 20px;
   transform: scale(1.2);
@@ -105,6 +97,25 @@ svg:hover {
   display: flex;
   justify-content: center;
   flex-direction: row;
+}
+
+.burgerName {
+  margin-top: 0px;
+  font-size: 130%;
+  /* font-size: 2.2vmin; */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+  margin-bottom: 18px;
+}
+
+.burgerLogout {
+  cursor: pointer;
+}
+
+.burgerCross {
+  color: white;
 }
 
 .tempoPlayArrow {

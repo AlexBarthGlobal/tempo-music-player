@@ -50,23 +50,26 @@ const styles = {
     },
     bmCrossButton: {
       height: '24px',
-      width: '24px'
+      width: '24px',
+      top: '0',
+      right: '1',
+      marginTop: '3px',
+      marginLeft: '3px',
     },
     bmCross: {
-      background: '#bdc3c7'
+      background: '#bdc3c7',
     },
     bmMenuWrap: {
       position: 'fixed',
-      top: '0',
-      height: '100%'
+      height: '100%',
+      top: '0'
     },
     bmMenu: {
       position: 'fixed',
       top: '0',
       background: '#373a47',
-      padding: '2.5em 1.5em 0',
+      padding: '1.5em 1.5em 0',
       fontSize: '1.15em',
-    //   width: '260px'
       paddingTop: '0px !important',
     },
     bmMorphShape: {
@@ -76,7 +79,9 @@ const styles = {
       color: '#b8b7ad',
       display: 'flex',
       flexDirection: 'column',
-      userSelect: 'none'
+      userSelect: 'none',
+      minWidth: '220px',
+      maxWidth: '220px'
     },
     bmItem: {
       display: 'inline-block'
@@ -252,12 +257,10 @@ class App extends React.Component {
         else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs editMode={this.state.editCollection} editModeDone={() => this.setState({editCollection: false})} />
         let shareCollection;
         if (this.props.screenStr === 'CollectionSongs') shareCollection = <ShareIcon className='navButton' onClick={() => this.setState({shareCollectionModal: true})} />
-        const burgerMenu = <Menu styles={styles}>
-            {/* <a id="home" className="menu-item" href="/">Home</a>
-            <a id="about" className="menu-item" href="/about">About</a>
-            <a id="contact" className="menu-item" href="/contact">Contact</a> */}
-        <div onClick={ this.showSettings } className="menu-item--small" href="">{this.props.user.email}</div>
-        <div onClick={logout} className='logoutOption'>Logout</div>
+        
+        const burgerMenu = <Menu styles={styles} disableAutoFocus>
+            <h4 onClick={ this.showSettings } className='burgerName'>{this.props.user.email}</h4>
+        <   div onClick={logout} className='burgerLogout'>Logout</div>
         </Menu>
         // const escapeExitSongs = this.state.editCollection ? <ClearIcon onClick={() => this.setState({editCollection: false})} className='navButton'/> : null;
 

@@ -17,6 +17,7 @@ const BrowseSongs = (props) => {
     const [disabledBPM, setDisabledBPM] = useState(false)
     const [prevBPM, setPrevBPM] = useState(140)
     const [counter, setCounter] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -53,6 +54,7 @@ const BrowseSongs = (props) => {
     let timer;
 
     useEffect(() => {
+        setLoading(true)
         timer = setTimeout(() => setCounter(counter + 1), 1000)
         return () => clearTimeout(timer);
     }, [searchInput, BPMInput, counter])
@@ -61,13 +63,11 @@ const BrowseSongs = (props) => {
         setCounter(0);
     }, [searchInput, BPMInput])
 
-    useEffect(() => {
-        console.log('SEARCHING NOW', counter)
+    useEffect(async () => {
         if (counter >= 1) {
             clearTimeout(timer);
-            console.log('CONFIRMED')
-            props.searchSongs(searchInput, Number(BPMInput))
-            // setCounter(0);
+            await props.searchSongs(searchInput, Number(BPMInput))
+            setLoading(false)
         };
     }, [counter])
 
@@ -132,7 +132,7 @@ const BrowseSongs = (props) => {
                 </div>
             </div>
             <div>
-                {songs.length ? <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
+                {loading ? <div className='bars2'></div>:songs.length ? <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
                     <tbody>
                         <tr>
                             <th></th>

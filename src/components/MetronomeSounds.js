@@ -84,12 +84,16 @@ export default class MetronomeSound extends React.Component {
         let topMetronome = <audio src={'https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TopMetronome.mp3'} preload="auto" autoPlay={false} /*onEnded={}*/ ref={(element) => {this.topMetronome = element}}/>
         let metronomeBottom = <audio src={'https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/MetronomeBottom.mp3'} preload="auto" autoPlay={false} /*onEnded={}*/ ref={(element) => {this.metronomeBottom = element}}/>
         return (
-            <label>
+            <div className='metronomeLabelContainer'>
+            <div>
                 {topMetronome}
                 {metronomeBottom}
+            </div>
+            <label className='metronomeLabel'>
                 Metronome Sound:
-                <input name='Metronome Sound' type='checkbox' checked={this.state.metronomeSound} onChange={() => this.props.setMetronomeSoundOption(this.props.metronomeSound ? false : true)}/>
+                <input className='metronomeSoundCheckbox' name='Metronome Sound' type='checkbox' checked={this.state.metronomeSound} onChange={() => this.props.setMetronomeSoundOption(this.props.metronomeSound ? false : true)}/>
             </label>
+            </div>
         )
     };
 };

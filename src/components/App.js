@@ -94,8 +94,6 @@ class App extends React.Component {
     constructor() {
         super()
         this.state = {
-        //Local player info
-        //   playing: false,
           addCollectionModal: false,
           addSongModal: false,
           collectionName: '',
@@ -394,7 +392,7 @@ class App extends React.Component {
                         </div>
                     </div>
                 </Modal>
-                {this.props.screenStr !== 'PlayerScreen' && isBrowser ? <SpringScrollbars ref='scrollbars' style={{ height: `calc(100vh - 90px)`}}>
+                {this.props.screenStr !== 'PlayerScreen' && isBrowser ? <SpringScrollbars ref='scrollbars' style={{ height: this.props.musicInfo.activeSession ? `calc(100vh - 90px)` : `100vh`}}>
                 <div id='headerContainer'>
                     <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
                     <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
@@ -427,7 +425,6 @@ const mapStateToProps = (state) => {
         screenStr: state.screenReducer.screenStr,
         selectedCollection: state.screenReducer.selectedCollection,
         playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null,
-        // playing: state.playerReducer.playing
     }
 }
   

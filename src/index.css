@@ -47,6 +47,27 @@ a {
   cursor: pointer;
 }
 
+input[type=checkbox] {
+  padding-top: 20px;
+  transform: scale(1.2);
+}
+
+.metronomeLabelContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.metronomeLabel {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.metronomeSoundCheckbox {
+  margin-top: 6.1px;
+  margin-left: 5.6px;
+}
+
 div {
   color: rgb(255, 255, 255);
 }

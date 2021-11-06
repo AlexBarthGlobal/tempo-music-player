@@ -155,24 +155,7 @@ svg:hover {
   margin-left: 6vw; */
   /* margin-bottom: 80px; */
   margin-bottom: max(80px, min(10vw, 180px));
-  transition: all 0.10s ease-out;
-  border-radius: 1.15vw;
-  border: 0.7px rgba(0, 0, 0, 0.432) solid;
 }
-
-/* .singleCollection:active {
-  transition: all 0.05s ease-in;
-  border-radius: 1.15vw;
-  transform: scale(0.96)
-} */
-
-/* .singleCollectionBrowser:hover {
-  transition: all 0.05s ease-in;
-  box-shadow: 0px 0px 0px 1px rgb(143, 142, 142);
-}
-.singleCollectionBrowser:active {
-  box-shadow: 0px 0px 2px 3px rgb(165, 164, 164);
-} */
 
 .imgAndStatus {
   position: relative;

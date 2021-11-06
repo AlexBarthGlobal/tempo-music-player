@@ -19972,7 +19972,12 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
               width: '50vw',
               marginLeft: 'auto',
               marginRight: 'auto',
-              top: '28%'
+              top: '28%',
+              backgroundColor: 'rgb(52 52 52)',
+              border: '1px solid #00000096'
+            },
+            overlay: {
+              backgroundColor: '#36363614'
             }
           }
         }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No songs in this collection yet!"), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
@@ -19985,11 +19990,12 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
           }
         }, "Go back")))), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "screenTitle"
-        }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.selectedCollection].collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.selectedCollection].collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__.default, {
+          id: "metronomeMain",
           onClick: function onClick() {
             return _this3.props.changeScreen('Tempo');
           }
-        }, buttonLabel))));
+        }))));
       } else return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle"
       }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.editMode ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {

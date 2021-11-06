@@ -115,6 +115,11 @@ class CollectionSongs extends React.Component {
                                     marginLeft: 'auto',
                                     marginRight: 'auto',
                                     top: '28%',
+                                    backgroundColor: 'rgb(52 52 52)',
+                                    border: '1px solid #00000096'
+                                },
+                                overlay: {
+                                    backgroundColor: '#36363614'
                                 }
                             }
                         }
@@ -134,7 +139,8 @@ class CollectionSongs extends React.Component {
                             {this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
                         </div>
                         <div>
-                            <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button>
+                            {/* <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button> */}
+                            <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
                         </div>
                     </div>
                 </div>      

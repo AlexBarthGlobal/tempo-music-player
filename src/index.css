@@ -171,13 +171,7 @@ svg:hover {
 }
 
 .sessionStatus {
-  /* font-size: min(max(0.85vw, 12px), 17px); */
   font-size: min(max(0.977vw, 13.55px), 18px);
-  /* position: absolute;
-  padding-left: 4px;
-  top: 86.8%;
-  background-color: rgba(128, 128, 128, 0.479);
-  border-radius: 0px 0px 0px 1.15vw; */
 }
 
 .collectionImage {
@@ -387,6 +381,19 @@ svg:hover {
   padding-left: 12px;
   display: flex;
   flex-direction: column;
+}
+
+.isPlaying {
+  color:rgb(255, 251, 0) !important;
+  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);
+}
+
+.resumeStatus {
+  color:rgba(255, 251, 0, 0.616) !important;
+}
+
+.listenedCollectionSong {
+  color: rgb(126, 126, 126);
 }
 
 ul {
@@ -725,7 +732,8 @@ ul {
 }
 
 .loopOn {
-  color: orange !important;
+  /* color:rgb(255, 208, 0) !important; */
+  color:rgb(255, 251, 0) !important;
 }
 
 .controlsBottom {

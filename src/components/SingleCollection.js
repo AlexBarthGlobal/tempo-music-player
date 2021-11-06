@@ -1,4 +1,5 @@
 import React from 'react';
+import { isBrowser, isMobile } from 'react-device-detect';
 
 const SingleCollection = (props) => {
     const {collectionId, collectionName, collectionArt, selectCollectionAndChangeScreen, isActive, hasSession, BPM, editMode, removeCollection, deleteCollection, userOwns} = props;
@@ -8,7 +9,7 @@ const SingleCollection = (props) => {
     else if (hasSession(collectionId)) sessionStatus = <div>Resume at {BPM} BPM</div>
     else sessionStatus = <div>Start new session</div>
     return (
-        <div className='singleCollection'>
+        <div className={`singleCollection ${isBrowser ? 'singleCollectionBrowser' : null}`}>
             <div className='singleCollectionInnerContainer' onClick={() => selectCollectionAndChangeScreen(collectionId)}>
                 <div className='imgAndStatus'>
                     <img className='collectionImage' src={collectionArt} /*onLoad={}*/></img>

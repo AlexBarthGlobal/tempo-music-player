@@ -47,9 +47,7 @@ export default class ManageBPMSliderAndTap extends React.Component {
                 <div>
 
                 </div>
-                <Anime delay={anime.stagger(100)} loop={true} scale={[.1, 0.91]}>
                     <PlayArrow sx={{fontSize: 70}} className='tempoPlayArrow' onClick={() => this.props.handleSubmit(this.state.localBPM)} />
-                </Anime>
             </div>
         )
     }

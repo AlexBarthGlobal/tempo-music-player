@@ -107,6 +107,10 @@ svg:hover {
   flex-direction: row;
 }
 
+.tempoPlayArrow {
+  margin-bottom: 30px;
+}
+
 .browseSongsTitle {
   margin-bottom: 30px;
 }

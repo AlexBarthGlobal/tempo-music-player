@@ -23138,7 +23138,9 @@ var SingleCollection = function SingleCollection(props) {
   var sessionStatus = null;
   if (isActive(collectionId)) sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Playing at ", BPM, " BPM");else if (hasSession(collectionId)) sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Resume at ", BPM, " BPM");else sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Start new session");
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "singleCollection ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_1__.isBrowser ? 'singleCollectionBrowser' : null)
+    className: "singleCollection"
+    /*${isBrowser ? 'singleCollectionBrowser' : null}*/
+
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "singleCollectionInnerContainer",
     onClick: function onClick() {

@@ -46,7 +46,7 @@ export default class ManageBPMSliderAndTap extends React.Component {
                 <div>
 
                 </div>
-                <PlayArrow sx={{fontSize: 74}} onClick={() => this.props.handleSubmit(this.state.localBPM)} />
+                <PlayArrow sx={{fontSize: 70}} onClick={() => this.props.handleSubmit(this.state.localBPM)} />
             </div>
         )
     }

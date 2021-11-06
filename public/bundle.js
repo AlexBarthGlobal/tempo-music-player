@@ -19248,7 +19248,7 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
         resetTapPadTrigger: this.state.resetTapPadTrigger
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_5__.default, {
         sx: {
-          fontSize: 74
+          fontSize: 70
         },
         onClick: function onClick() {
           return _this2.props.handleSubmit(_this2.state.localBPM);

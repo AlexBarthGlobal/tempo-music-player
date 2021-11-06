@@ -2,7 +2,6 @@ import React from 'react';
 
 const SingleCollection = (props) => {
     const {collectionId, collectionName, collectionArt, selectCollectionAndChangeScreen, isActive, hasSession, BPM, editMode, removeCollection, deleteCollection, userOwns} = props;
-    console.log('STATUS HERE', isActive(collectionId))
 
     let sessionStatus = null;
     if (isActive(collectionId)) sessionStatus = <div className='isPlaying'>Playing at {BPM} BPM</div>

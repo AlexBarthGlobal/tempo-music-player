@@ -19,6 +19,8 @@ router.put('/clearSessions', async (req, res, next) => {
 
 router.put('/searchSongs', async (req, res, next) => {
 
+    console.log('RARI', req.body.searchInput, req.body.BPMInput)
+
     const searchInputAndBPMInput = {
         where: {    //searchInput and BPMInput are filled
             [Op.or]: [ 

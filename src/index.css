@@ -91,6 +91,17 @@ svg:hover {
   margin-bottom: 40px;
 }
 
+.BPMTextAndCheckbox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.browseSongsTitle {
+  margin-bottom: 30px;
+}
+
 .collections {
   display: grid;
   grid-template-columns: repeat(auto-fill,max(178px, 25%));
@@ -162,6 +173,10 @@ svg:hover {
   margin-top: 20px;
   margin-left: 4vw;
   margin-right: 4vw;
+}
+
+.playerWrapper {
+  margin-top: 102px;
 }
 
 #mainPlayer {

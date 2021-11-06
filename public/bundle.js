@@ -16805,6 +16805,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
@@ -16872,6 +16887,8 @@ function _arrayWithHoles(arr) {
 
 
 var BPMSlider = function BPMSlider(props) {
+  var _MuiSliderThumb;
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.localBPM),
       _useState2 = _slicedToArray(_useState, 2),
       sliderBPM = _useState2[0],
@@ -16909,17 +16926,21 @@ var BPMSlider = function BPMSlider(props) {
     onChangeCommitted: onChangeCommitted,
     sx: {
       color: 'black',
-      '& .MuiSlider-thumb': {
+      '& .MuiSlider-thumb': (_MuiSliderThumb = {
         width: 24,
         height: 24,
         backgroundColor: '#fff',
         '&:before': {
           boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
-        } // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-        //   boxShadow: 'none',
-        // },
-
-      }
+        }
+      }, _defineProperty(_MuiSliderThumb, "&:before", {
+        boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
+      }), _defineProperty(_MuiSliderThumb, '&:hover, &.Mui-focusVisible', {
+        // This is the hover/glow
+        boxShadow: "0px 0px 5px 6px grey"
+      }), _defineProperty(_MuiSliderThumb, '&.Mui-active', {
+        boxShadow: "0px 0px 10px 4px #FDFDFD"
+      }), _MuiSliderThumb)
     }
   })));
 };
@@ -19831,10 +19852,14 @@ var FooterSlider = function FooterSlider(props) {
         backgroundColor: '#fff',
         '&:before': {
           boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
-        } // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-        //   boxShadow: 'none',
-        // },
-
+        },
+        '&:hover, &.Mui-focusVisible': {
+          // This is the hover/glow
+          boxShadow: "0px 0px 5px 6px grey"
+        },
+        '&.Mui-active': {
+          boxShadow: "0px 0px 10px 4px #FDFDFD"
+        }
       }
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -20664,6 +20689,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_icons_material_SkipPrevious__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/icons-material/SkipPrevious */ "./node_modules/@mui/icons-material/SkipPrevious.js");
 /* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
 /* harmony import */ var _mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/Pause */ "./node_modules/@mui/icons-material/Pause.js");
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
@@ -20734,6 +20774,8 @@ function _arrayWithHoles(arr) {
 
 
 var MainPlayerSlider = function MainPlayerSlider(props) {
+  var _MuiSliderThumb;
+
   var play = props.play,
       pause = props.pause,
       playing = props.playing,
@@ -20785,17 +20827,21 @@ var MainPlayerSlider = function MainPlayerSlider(props) {
     valueLabelDisplay: "auto",
     sx: {
       color: 'black',
-      '& .MuiSlider-thumb': {
+      '& .MuiSlider-thumb': (_MuiSliderThumb = {
         width: 24,
         height: 24,
         backgroundColor: '#fff',
         '&:before': {
           boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
-        } // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-        //   boxShadow: 'none',
-        // },
-
-      }
+        }
+      }, _defineProperty(_MuiSliderThumb, "&:before", {
+        boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
+      }), _defineProperty(_MuiSliderThumb, '&:hover, &.Mui-focusVisible', {
+        // This is the hover/glow
+        boxShadow: "0px 0px 5px 6px grey"
+      }), _defineProperty(_MuiSliderThumb, '&.Mui-active', {
+        boxShadow: "0px 0px 10px 4px #FDFDFD"
+      }), _MuiSliderThumb)
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "mainPlayerTimestamps"

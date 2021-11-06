@@ -23,7 +23,7 @@ class MainPlayer extends React.Component {
         this.prevTrack = this.prevTrack.bind(this)
     };
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         if (this.props.musicInfo.activeSession) this.setState({
             currSrc: this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL,
             duration: this.props.musicInfo.activeSession.songs[this.props.playIdx].duration //e.target.duration
@@ -47,6 +47,10 @@ class MainPlayer extends React.Component {
     };
 
     componentDidUpdate = (prevProps) => {
+        if (this.rap.readyState !== 4) { // Allows song to be seekable before first playing on mobile devices.
+            this.rap.play();
+            this.rap.pause();
+        };
         if (this.props.noNextSong && this.state.currentTime >= this.state.duration) {
             this.props.pause();
             this.setState({
@@ -72,7 +76,12 @@ class MainPlayer extends React.Component {
         };
     };
 
-    seekTime = (newTime) => {
+    seekTime = async (newTime) => {
+        // if (this.rap.readyState !== 4) {
+        //     await this.rap.play();
+        //     await this.rap.pause();
+        // };
+        
         this.rap.currentTime = newTime;
         this.setState({
             currentTime: newTime

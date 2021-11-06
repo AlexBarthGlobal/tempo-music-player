@@ -67,10 +67,14 @@ const styles = {
     bmMenu: {
       position: 'fixed',
       top: '0',
-      background: '#373a47',
+    //   background: '#373a47',
+      background: 'rgb(62 60 68 / 91%)',
+      backdropFilter: 'blur(5px)',
       padding: '1.5em 1.5em 0',
       fontSize: '1.15em',
       paddingTop: '0px !important',
+      height: `${isBrowser ? 'calc(100vh - 90px)' : '100%' }`
+      
     },
     bmMorphShape: {
       fill: '#373a47'
@@ -79,7 +83,6 @@ const styles = {
       color: '#b8b7ad',
       display: 'flex',
       flexDirection: 'column',
-      userSelect: 'none',
       minWidth: '220px',
       maxWidth: '220px'
     },
@@ -89,7 +92,8 @@ const styles = {
     bmOverlay: {
       position: 'fixed',
       top: '0',
-      background: 'rgba(0, 0, 0, 0.3)'
+      background: 'rgba(0, 0, 0, 0.3)',
+      height: `${isBrowser ? 'calc(100vh - 90px)' : '100%' }`
     }
   }
 

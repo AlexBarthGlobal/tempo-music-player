@@ -59,6 +59,10 @@ class FooterControlsMobile extends React.Component {
                     },
                     '& .MuiSlider-rail': {
                         color: 'gray',
+                        opacity: 1,
+                        top: `75%`,
+                        height: 4,
+                        borderRadius: 0
                     }
                   }}
                 />

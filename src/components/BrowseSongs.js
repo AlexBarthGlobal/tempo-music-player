@@ -16,6 +16,7 @@ const BrowseSongs = (props) => {
     const [songURL, setSongURL] = useState(null)
     const [disabledBPM, setDisabledBPM] = useState(false)
     const [prevBPM, setPrevBPM] = useState(140)
+    const [counter, setCounter] = useState(0)
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -49,9 +50,26 @@ const BrowseSongs = (props) => {
         evt.target.name === 'searchInput' ? setSearchInput(evt.target.value) : setBPMInput(evt.target.value);
     };
 
+    let timer;
+
     useEffect(() => {
-        props.searchSongs(searchInput, Number(BPMInput))
+        timer = setTimeout(() => setCounter(counter + 1), 1000)
+        return () => clearTimeout(timer);
+    }, [searchInput, BPMInput, counter])
+
+    useEffect(() => {
+        setCounter(0);
     }, [searchInput, BPMInput])
+
+    useEffect(() => {
+        console.log('SEARCHING NOW', counter)
+        if (counter >= 1) {
+            clearTimeout(timer);
+            console.log('CONFIRMED')
+            props.searchSongs(searchInput, Number(BPMInput))
+            // setCounter(0);
+        };
+    }, [counter])
 
     const checkIfInCollection = (songId) => {
         return props.selectedCollectionInfo.songs.has(songId);

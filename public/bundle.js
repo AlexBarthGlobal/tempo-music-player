@@ -15915,6 +15915,11 @@ var BrowseSongs = function BrowseSongs(props) {
       prevBPM = _useState12[0],
       setPrevBPM = _useState12[1];
 
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState14 = _slicedToArray(_useState13, 2),
+      counter = _useState14[0],
+      setCounter = _useState14[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     window.scrollTo(0, 0);
   }, []);
@@ -15951,9 +15956,29 @@ var BrowseSongs = function BrowseSongs(props) {
     evt.target.name === 'searchInput' ? setSearchInput(evt.target.value) : setBPMInput(evt.target.value);
   };
 
+  var timer;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    props.searchSongs(searchInput, Number(BPMInput));
+    timer = setTimeout(function () {
+      return setCounter(counter + 1);
+    }, 1000);
+    return function () {
+      return clearTimeout(timer);
+    };
+  }, [searchInput, BPMInput, counter]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setCounter(0);
   }, [searchInput, BPMInput]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    console.log('SEARCHING NOW', counter);
+
+    if (counter >= 1) {
+      clearTimeout(timer);
+      console.log('CONFIRMED');
+      props.searchSongs(searchInput, Number(BPMInput)); // setCounter(0);
+    }
+
+    ;
+  }, [counter]);
 
   var checkIfInCollection = function checkIfInCollection(songId) {
     return props.selectedCollectionInfo.songs.has(songId);

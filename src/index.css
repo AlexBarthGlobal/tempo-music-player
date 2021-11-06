@@ -146,7 +146,8 @@ svg:hover {
 }
 
 .sessionStatus {
-  font-size: min(max(0.85vw, 12px), 17px);
+  /* font-size: min(max(0.85vw, 12px), 17px); */
+  font-size: min(max(0.977vw, 13.55px), 18px);
   /* position: absolute;
   padding-left: 4px;
   top: 86.8%;
@@ -296,8 +297,8 @@ svg:hover {
 .bars2 {
   margin-left: auto;
   margin-right: auto;
-  width:45px;
-  height:40px;
+  width:40.255px;
+  height:34.92px;
   --c:linear-gradient(currentColor 0 0);
   background: 
     var(--c) 0%   100%,
@@ -324,6 +325,13 @@ svg:hover {
   /* color: rgb(255, 255, 255); */
   font-size: 1.3em;
   text-align: center;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.browseSongsInput {
+  width: 200px;
+  margin-bottom: 20px;
 }
 
 #headerContainer {

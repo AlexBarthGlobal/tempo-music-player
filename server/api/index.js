@@ -34,12 +34,17 @@ router.put('/searchSongs', async (req, res, next) => {
                         [Op.iLike]: `%${req.body.searchInput}%`
                     }
                 },
+                {
+                    albumName: {
+                        [Op.iLike]: `%${req.body.searchInput}%`
+                    }
+                },
             ],
             [Op.and]: [
                 {
                     BPM: {
                         [Op.gte]: req.body.BPMInput-2,
-                         [Op.lte]: req.body.BPMInput+3
+                        [Op.lte]: req.body.BPMInput+3
                     }
                 }
             ]
@@ -58,6 +63,11 @@ router.put('/searchSongs', async (req, res, next) => {
                 },
                 { 
                     artistName: {
+                        [Op.iLike]: `%${req.body.searchInput}%`
+                    }
+                },
+                {
+                    albumName: {
                         [Op.iLike]: `%${req.body.searchInput}%`
                     }
                 },

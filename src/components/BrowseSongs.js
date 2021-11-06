@@ -8,6 +8,7 @@ import BPMSlider from '../components/BPMSlider'
 import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { isBrowser, isMobile } from 'react-device-detect';
+import Input from '@mui/material/Input';
 
 const BrowseSongs = (props) => {
     const [searchInput, setSearchInput] = useState('')
@@ -125,7 +126,15 @@ const BrowseSongs = (props) => {
             </div>
             <div className='centerThis'>
                 <div>
-                    <input type='text' name='searchInput' placeholder='Search for songs or artists' value={searchInput} onChange={handleChange}></input>
+                    {/* <input type='text' name='searchInput' placeholder='Search for songs, albums or artists' value={searchInput} onChange={handleChange}></input>*/}
+                    <Input className='browseSongsInput' 
+                        sx={{
+                            fontSize: 22,
+                            color: 'white',
+                            ':not($focused)': { borderBottomColor: 'white' },
+                            ':before': { borderBottomColor: 'grey' },
+                            ':after': { borderBottomColor: 'white' },
+                        }} inputProps={{ spellCheck: false }} name='searchInput' id="outlined-basic" placeholder="Search" value={searchInput} onChange={handleChange} variant="outlined" />
                 </div>
                 <div>
                     <BPMSlider localBPM={BPMInput} setLocalBPM={setBrowseBPMInput} toggleDisabledBPM={toggleDisabledBPM} disabledBPM={disabledBPM}/>
@@ -143,7 +152,7 @@ const BrowseSongs = (props) => {
                         </tr>
                         {songs}
                     </tbody>
-                </table> : <div className='browseSongsAlert'>Try a different Song, Artist or BPM</div>}
+                </table> : <div className='browseSongsAlert'>Try a different Song, Album, Artist or BPM</div>}
             </div>
         </div>
     )

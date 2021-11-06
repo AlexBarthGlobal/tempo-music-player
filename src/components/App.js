@@ -29,6 +29,7 @@ import LibraryMusicSharpIcon from '@mui/icons-material/LibraryMusicSharp';
 import Metronome from '../icons/metronome.svg'
 import ShareIcon from '@mui/icons-material/Share';
 // import ClearIcon from '@mui/icons-material/Clear';
+import SpringScrollbars from './SpringScrollbars';
 
 const styles = {
     bmBurgerButton: {
@@ -56,13 +57,17 @@ const styles = {
     },
     bmMenuWrap: {
       position: 'fixed',
+      top: '0',
       height: '100%'
     },
     bmMenu: {
+      position: 'fixed',
+      top: '0',
       background: '#373a47',
       padding: '2.5em 1.5em 0',
       fontSize: '1.15em',
     //   width: '260px'
+      paddingTop: '0px !important',
     },
     bmMorphShape: {
       fill: '#373a47'
@@ -77,6 +82,8 @@ const styles = {
       display: 'inline-block'
     },
     bmOverlay: {
+      position: 'fixed',
+      top: '0',
       background: 'rgba(0, 0, 0, 0.3)'
     }
   }
@@ -239,7 +246,7 @@ class App extends React.Component {
         const navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? <LibraryMusicSharpIcon className="navButton toTheLeft" onClick={() => this.props.changeScreen('CollectionSongs')} /> : null;
         let changeTempo;
         let selectedScreen = <Collections editMode={this.state.editCollections}/>
-        if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo play={this.play} next={this.nextTrack} playing={this.state.playing} setMetronomeSoundOption={this.props.setMetronomeSoundOption} player={this.rap} />
+        if (this.props.screenStr === 'Tempo') selectedScreen = <Tempo play={this.play} next={this.nextTrack} setMetronomeSoundOption={this.props.setMetronomeSoundOption} player={this.rap} />
         else if (this.props.screenStr === 'PlayerScreen') {
             selectedScreen = <PlayerScreen />
             changeTempo = <Metronome id='metronomeNavButton' onClick={() => this.props.changeScreen('Tempo')} />
@@ -387,13 +394,27 @@ class App extends React.Component {
                         </div>
                     </div>
                 </Modal>
-                <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
-                <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
-                <div>
+                {this.props.screenStr !== 'PlayerScreen' && isBrowser ? <SpringScrollbars ref='scrollbars' style={{ height: `calc(100vh - 90px)`}}>
+                <div id='headerContainer'>
+                    <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
+                    <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
+                </div>
+                <div className='headerRoom'>
                     {selectedScreen}
-                </div>             
+                </div> 
+                </SpringScrollbars> :
+                <div>
+                <div id='headerContainer'>
+                    <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
+                    <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>
+                </div>
+                <div className='headerRoom'>
+                    {selectedScreen}
+                </div>
+                </div> }
                     {this.checkPlayerReady() ? <MainPlayer nextTrack={this.nextTrack} noNextSong={this.state.noNextSong} selectCollectionAndChangeScreen={this.props.selectCollectionAndChangeScreen}/> : null}
             </div>
+            
         );
     };
 };

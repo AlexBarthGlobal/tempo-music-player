@@ -10,6 +10,7 @@ import {fetchCollectionsAndSessions, fetchActiveCollectionSongs, applySongsInRan
 import Routes from './components/Routes'
 import { BrowserRouter as Router, withRouter, Redirect } from 'react-router-dom'
 import songsInRange from './components/songsInRange'
+import SpringScrollbars from './components/SpringScrollbars';
 
 const Main = class extends React.Component { 
 
@@ -39,8 +40,11 @@ const Main = class extends React.Component {
       )
     }
 
+    // { height: 100 + 'vh' }
+    // { height: `calc(100vh - 92px)`}
+    // { height: `calc(100vh - 182px)`}
     return (
-      <Routes props={this.props}/>
+        <Routes props={this.props}/>
     )
   }
 }

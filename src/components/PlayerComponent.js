@@ -5,6 +5,7 @@ import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 
 const PlayerComponent = (props) => {
     return (
+        <div className='playerWrapper'>
         <div id='mainPlayerContainer'>
             <div id='mainPlayer'>
                 <div id='innerMainPlayerContainer'>
@@ -26,6 +27,7 @@ const PlayerComponent = (props) => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     )
 }

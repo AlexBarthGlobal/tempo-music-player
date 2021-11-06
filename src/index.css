@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(26, 24, 24);
+  /* Header space */
+  /* padding-top: 92px; */
   /* background-color: #111111; */
  
 }
@@ -20,12 +22,17 @@ a {
   outline: none;
 }
 
+.headerRoom {
+  margin-top: 92px;
+}
+
 .clearFooterPadding {
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
 }
 
 .clearFooterPaddingDesktopSongs {
-  padding-bottom: 140px;
+  /* padding-bottom: 140px; */
+  padding-bottom: 60px;
 }
 
 .clearFooterPaddingMobile {
@@ -84,6 +91,17 @@ svg:hover {
   margin-bottom: 40px;
 }
 
+.BPMTextAndCheckbox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.browseSongsTitle {
+  margin-bottom: 30px;
+}
+
 .collections {
   display: grid;
   grid-template-columns: repeat(auto-fill,max(178px, 25%));
@@ -110,7 +128,8 @@ svg:hover {
   max-height: 250px;
   /* margin-right: 6vw;
   margin-left: 6vw; */
-  margin-bottom: 80px;
+  /* margin-bottom: 80px; */
+  margin-bottom: max(80px, min(10vw, 180px));
 }
 
 .imgAndStatus {
@@ -154,6 +173,10 @@ svg:hover {
   margin-top: 20px;
   margin-left: 4vw;
   margin-right: 4vw;
+}
+
+.playerWrapper {
+  margin-top: 102px;
 }
 
 #mainPlayer {
@@ -259,12 +282,13 @@ svg:hover {
   width: 30px;
   padding-top: 6px;
   padding-right: 5px;
+  pointer-events: all;
 }
 
 #metronomeMain {
   height: 80px;
   width: 80px;
-  margin-top: 20px;
+  margin-top: 22px;
   transition: all 0.10s ease-out;
   margin-bottom: 14px;
 }
@@ -273,6 +297,20 @@ svg:hover {
   /* color: rgb(255, 255, 255); */
   font-size: 2em;
   text-align: center;
+}
+
+.browseSongsAlert {
+  /* color: rgb(255, 255, 255); */
+  font-size: 1.3em;
+  text-align: center;
+}
+
+#headerContainer {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  pointer-events: none;
 }
 
 .topButtons {
@@ -306,6 +344,7 @@ ul {
   height: 38px !important;
   width: 38px !important;
   margin-left: 8px;
+  pointer-events: all;
 }
 
 .toTheLeft {
@@ -766,6 +805,16 @@ tr {
   margin-left: auto;
   margin-right: auto;
   height: 40px;
+  margin-bottom: 12px;
+}
+
+.horizontalSliderMobile {
+  width: 72%;
+  /* padding:10px; */
+  margin-left: auto;
+  margin-right: auto;
+  height: 40px;
+  margin-bottom: 12px;
 }
 
 .exampleTrack {
@@ -807,11 +856,12 @@ tr {
 
 .BPMTapPad {
   margin: 0 auto;
-  height: 136px;
-  width: 136px;
+  height: 120px;
+  width: 120px;
   border: 2px solid black;
   border-radius: 12px;
-  background-color: rgb(175, 175, 175)
+  background-color: rgb(175, 175, 175);
+  margin-bottom: 9px;
 }
 
 .BPMTapPad:active {
@@ -823,13 +873,24 @@ tr {
   font-size: 17px;
 }
 
-.BPMLight {
+.BPMLightContainer {
+  margin-top: 20px;
+  margin-bottom: 20px;
   height: 60px;
-  width: 60px;
+}
+
+.BPMLight {
+  height: 40px;
+  width: 40px;
   border: 1px solid grey;
   margin: auto;
   background-color: grey;
-  border-radius:12px;
+  border-radius: 12px;
+  transition: all 0.75s ease-out;
+}
+
+.confirmBPMTitle {
+  margin-bottom: 2px;
 }
 
 .BPMLightActive {
@@ -837,8 +898,10 @@ tr {
   width: 60px;
   border: 1px solid grey;
   margin: auto;
-  background-color:Yellow;
-  border-radius:12px;
+  background-color:rgb(194, 194, 194);
+  border-radius: 12px;
+  transition: all 0.11s ease-in;
+  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);
 }
 
 .noSelect {

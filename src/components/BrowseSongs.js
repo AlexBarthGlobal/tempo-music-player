@@ -14,6 +14,8 @@ const BrowseSongs = (props) => {
     const [BPMInput, setBPMInput] = useState(props.musicInfo.activeSession ? props.musicInfo.activeSession.currBPM : 140)
     const [playing, setPlaying] = useState(false)
     const [songURL, setSongURL] = useState(null)
+    const [disabledBPM, setDisabledBPM] = useState(false)
+    const [prevBPM, setPrevBPM] = useState(140)
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -72,6 +74,22 @@ const BrowseSongs = (props) => {
         await props.removeSongFromCollection(props.selectedCollection, songId, !!props.user.listened.songs[songId]);
     };
 
+    const setBrowseBPMInput = async (newBPM) => {
+        if (!disabledBPM) setBPMInput(newBPM)
+        else return;
+    };
+
+    const toggleDisabledBPM = () => {
+        if (disabledBPM) {
+            setBPMInput(prevBPM)
+            setDisabledBPM(false);
+        } else {
+            setPrevBPM(BPMInput)
+            setBPMInput(null)
+            setDisabledBPM(true);
+        }
+    }
+
     const songs = [];
     if (props.searchedSongs) {
         let idx = 0;
@@ -84,7 +102,7 @@ const BrowseSongs = (props) => {
     return (
         <div>
             <PreviewPlayer songURL={songURL} previewEnded={previewEnded} />
-            <div className='screenTitle'>
+            <div className='screenTitle browseSongsTitle'>
                 Add songs to {props.selectedCollectionInfo.collectionName}
             </div>
             <div className='centerThis'>
@@ -92,11 +110,11 @@ const BrowseSongs = (props) => {
                     <input type='text' name='searchInput' placeholder='Search for songs or artists' value={searchInput} onChange={handleChange}></input>
                 </div>
                 <div>
-                    <BPMSlider localBPM={BPMInput} setLocalBPM={setBPMInput} resetTapPadTrigger={() => console.log('Hi')}/>
+                    <BPMSlider localBPM={BPMInput} setLocalBPM={setBrowseBPMInput} toggleDisabledBPM={toggleDisabledBPM} disabledBPM={disabledBPM}/>
                 </div>
             </div>
             <div>
-                <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
+                {songs.length ? <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
                     <tbody>
                         <tr>
                             <th></th>
@@ -107,7 +125,7 @@ const BrowseSongs = (props) => {
                         </tr>
                         {songs}
                     </tbody>
-                </table>
+                </table> : <div className='browseSongsAlert'>Try a different Song, Artist or BPM</div>}
             </div>
         </div>
     )

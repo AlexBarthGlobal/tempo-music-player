@@ -25,7 +25,7 @@ const BPMTap = (props) => {
         if (clicks >= 1) {
             timer = setTimeout(() => setCounter(counter + 1), 1000);
         };
-        if (counter >= 3) resetTapPad();
+        if (counter >= 2) resetTapPad();
         return () => clearTimeout(timer)
     }, [counter, clicks >= 1]);
 

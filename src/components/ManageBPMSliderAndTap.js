@@ -5,6 +5,7 @@ import BPMLight from './BPMLight'
 import MetronomeSounds from './MetronomeSounds'
 import { Slider } from '@mui/material';
 import PlayArrow from '@mui/icons-material/PlayArrow';
+import Anime, {anime} from 'react-anime';
 
 export default class ManageBPMSliderAndTap extends React.Component {
     constructor(props) {
@@ -24,7 +25,7 @@ export default class ManageBPMSliderAndTap extends React.Component {
     };
 
     render() {
-
+        
         // console.log('PLAYING OR NOT', this.props.playing)
         // console.log('Metronome sound', this.props.metronomeSound)
         // console.log('handleSubmit', this.props.handleSubmit)
@@ -46,7 +47,9 @@ export default class ManageBPMSliderAndTap extends React.Component {
                 <div>
 
                 </div>
-                <PlayArrow sx={{fontSize: 70}} onClick={() => this.props.handleSubmit(this.state.localBPM)} />
+                <Anime delay={anime.stagger(100)} loop={true} scale={[.1, 0.91]}>
+                    <PlayArrow sx={{fontSize: 70}} className='tempoPlayArrow' onClick={() => this.props.handleSubmit(this.state.localBPM)} />
+                </Anime>
             </div>
         )
     }

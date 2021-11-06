@@ -36,6 +36,7 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "react": "^17.0.2",
+    "react-anime": "^4.1.1",
     "react-burger-menu": "^3.0.6",
     "react-custom-scrollbars": "^4.2.1",
     "react-device-detect": "^2.0.1",

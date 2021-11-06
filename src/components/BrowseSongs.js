@@ -114,7 +114,7 @@ const BrowseSongs = (props) => {
                 </div>
             </div>
             <div>
-                <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
+                {songs.length ? <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
                     <tbody>
                         <tr>
                             <th></th>
@@ -125,7 +125,7 @@ const BrowseSongs = (props) => {
                         </tr>
                         {songs}
                     </tbody>
-                </table>
+                </table> : <div className='browseSongsAlert'>Try a different Song, Artist or BPM</div>}
             </div>
         </div>
     )

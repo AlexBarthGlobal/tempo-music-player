@@ -299,6 +299,12 @@ svg:hover {
   text-align: center;
 }
 
+.browseSongsAlert {
+  /* color: rgb(255, 255, 255); */
+  font-size: 1.3em;
+  text-align: center;
+}
+
 #headerContainer {
   width: 100%;
   position: fixed;

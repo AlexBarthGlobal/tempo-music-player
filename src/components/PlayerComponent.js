@@ -2,14 +2,15 @@ import React from 'react';
 import {connect} from 'react-redux'
 import MainPlayerSlider from '../components/MainPlayerSlider'
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
-import VolumeControls from './VolumeControls'
+import VolumeControlsMainPlayer from './VolumeControlsMainPlayer'
+import { isBrowser, isMobile } from 'react-device-detect';
 
 const PlayerComponent = (props) => {
     return (
         <div className='playerWrapper'>
             <div id='mainPlayerContainer'>
                 <div id='mainPlayer'>
-                    {/* <div className='mainPlayerSideBox' ></div> */}
+                    {isBrowser ? <div className='mainPlayerSideBox' ></div> : null}
                     <div id='innerMainPlayerContainer'>
                         <div id='innerMainPlayer'>
                             <div id='mainPlayerImageContainer'>
@@ -28,7 +29,7 @@ const PlayerComponent = (props) => {
                             </div>
                         </div>
                     </div>
-                    {/* <div className='mainPlayerSideBox'></div> */}
+                    {isBrowser ? <div className='mainPlayerSideBox'><VolumeControlsMainPlayer /></div> : null}
                 </div>
             </div>
         </div>

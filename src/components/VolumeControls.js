@@ -43,6 +43,7 @@ const VolumeControls = (props) => {
                 //   valueLabelFormat={() => secondsToTimestamp(currTime)}
                 //   onChange={onChange}
                 //   onChangeCommitted={onCommit}
+                  step={1}
                   onKeyDown={preventHorizontalKeyboardNavigation}
                   onMouseDown={() => {
                       console.log('Clicked')

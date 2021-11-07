@@ -22280,6 +22280,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
     })));
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps) {
+      // this.rap.volume = this.props.volume;
       if (_this.rap.readyState !== 4) {
         // Allows song to be seekable before first playing on mobile devices.
         _this.rap.play();
@@ -24498,6 +24499,7 @@ var VolumeControls = function VolumeControls(props) {
     //   onChange={onChange}
     //   onChangeCommitted={onCommit}
     ,
+    step: 1,
     onKeyDown: preventHorizontalKeyboardNavigation,
     onMouseDown: function onMouseDown() {
       console.log('Clicked');

@@ -6,6 +6,7 @@ import songsInRange from '../components/songsInRange'
 import Modal from 'react-modal'
 import ManageBPMSliderAndTap from './ManageBPMSliderAndTap'
 import { setPlayingTrueThunk } from '../redux/playerReducer';
+import { isBrowser, isMobile } from 'react-device-detect';
 
 class Tempo extends React.Component {
     constructor (props) {
@@ -76,26 +77,33 @@ class Tempo extends React.Component {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                // minHeight: '116px',
-                                // maxHeight: '14vh',
-                                height: '116px',
-                                maxHeight: '116px',
+                                height: '118px',
                                 position: 'absolute',
                                 width: '50vw',
+                                minWidth: '270px',
+                                maxWidth: '518px',
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
                                 top: '28%',
+                                border: '1px solid #00000096',
+                                // paddingBottom: '30px',
+                                backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
+                                backdropFilter: 'blur(5px)'
+                            },
+                            overlay: {
+                                backgroundColor: '#36363614',
+                                zIndex: 2
                             }
                         }
                     }
                 >
                     <div>
-                        <div>No more music at the selected BPM!</div>
-                        <div>Try a different BPM,</div>
-                        <div>add songs, or clear listened.</div>
-                        <div>
+                        <div className='modalText'>No more songs at the selected BPM!</div>
+                        <div className='modalText'>Try a different BPM,</div>
+                        <div className='modalText'>add songs, or clear listened.</div>
+                        {/* <div>
                             
-                        </div>
+                        </div> */}
                     </div>
                 </Modal>
                 <div>

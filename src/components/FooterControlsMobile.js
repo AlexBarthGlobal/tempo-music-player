@@ -55,7 +55,8 @@ class FooterControlsMobile extends React.Component {
                       // },
                     },
                     '& .MuiSlider-track': {
-                        color: 'orange',
+                        // color: 'rgb(255, 251, 0)',
+                        color: '#d4af37'
                     },
                     '& .MuiSlider-rail': {
                         color: 'gray',

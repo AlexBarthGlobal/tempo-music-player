@@ -44,9 +44,12 @@ const FooterSlider = (props) => {
                       '&:before': {
                         boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
                       },
-                      // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-                      //   boxShadow: 'none',
-                      // },
+                      '&:hover, &.Mui-focusVisible': {   // This is the hover/glow
+                        boxShadow: `0px 0px 5px 6px grey`,
+                      },
+                      '&.Mui-active': {
+                        boxShadow: `0px 0px 10px 4px #FDFDFD`,
+                      },
                     },
                   }}
                 />

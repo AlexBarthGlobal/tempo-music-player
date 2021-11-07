@@ -8,6 +8,8 @@ import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import Metronome from '../icons/metronome.svg'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { isBrowser, isMobile } from 'react-device-detect';
+import Button from '@mui/material/Button';
+import StyledButton from './StyledButton'
 
 class CollectionSongs extends React.Component {
     constructor(props) {
@@ -81,7 +83,7 @@ class CollectionSongs extends React.Component {
             let idx = 0;
             for (const song of songList) {
                 console.log(song.artURL)
-                songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} />
+                songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} songIsPlaying={this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === song.id} />
                 idx++;
             };
         };
@@ -107,25 +109,33 @@ class CollectionSongs extends React.Component {
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     textAlign: 'center',
-                                    // minHeight: '106px',
-                                    // maxHeight: '106px',
-                                    height: '106px',
+                                    height: '118px',
                                     position: 'absolute',
                                     width: '50vw',
+                                    minWidth: '244px',
+                                    maxWidth: '518px',
                                     marginLeft: 'auto',
                                     marginRight: 'auto',
                                     top: '28%',
+                                    border: '1px solid #00000096',
+                                    paddingBottom: '30px',
+                                    backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
+                                    backdropFilter: 'blur(5px)'
+                                },
+                                overlay: {
+                                    backgroundColor: '#36363614',
+                                    zIndex: 2
                                 }
                             }
                         }
                     >
                         <div>
-                            <div>No songs in this collection yet!</div>
-                            <div>
-                                {this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null}
+                            <div className='modalText modalTextPadding'>No songs in this collection yet!</div>
+                            <div className='modalButton'>
+                                {this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? <StyledButton title='Add songs' func={() => this.props.changeScreen('BrowseSongs')} /> : null}
                             </div>
-                            <div>
-                                <button onClick={() => this.props.selectCollectionAndChangeScreen(null, 'Collections')}>Go back</button>
+                            <div className='modalButton'>
+                                <StyledButton title='Go back' func={() => this.props.selectCollectionAndChangeScreen(null, 'Collections')} />
                             </div>
                         </div>
                     </Modal>
@@ -134,7 +144,8 @@ class CollectionSongs extends React.Component {
                             {this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
                         </div>
                         <div>
-                            <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button>
+                            {/* <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button> */}
+                            <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
                         </div>
                     </div>
                 </div>      

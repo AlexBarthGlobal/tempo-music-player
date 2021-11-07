@@ -23,7 +23,7 @@ const BPMSlider = (props) => {
     return (
         <div>
             <div className='BPMText'>{!props.toggleDisabledBPM ? `${sliderBPM}` : props.disabledBPM ? 'Any BPM' : `${sliderBPM}`}</div>
-            {props.toggleDisabledBPM ? <input name='Toggle Search by BPM' type='checkbox' checked={!props.disabledBPM} onChange={props.toggleDisabledBPM}/> : null}
+            {props.toggleDisabledBPM ? <input className='toggleSearchByBPMBox' name='Toggle Search by BPM' type='checkbox' checked={!props.disabledBPM} onChange={props.toggleDisabledBPM}/> : null}
             <div className={isBrowser ? 'horizontalSlider' : 'horizontalSliderMobile'}>
             <Slider
                 min={80}
@@ -41,9 +41,15 @@ const BPMSlider = (props) => {
                         '&:before': {
                           boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
                         },
-                        // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-                        //   boxShadow: 'none',
-                        // },
+                        '&:before': {
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
+                        },
+                        '&:hover, &.Mui-focusVisible': {   // This is the hover/glow
+                            boxShadow: `0px 0px 5px 6px grey`,
+                        },
+                        '&.Mui-active': {
+                            boxShadow: `0px 0px 10px 4px #FDFDFD`,
+                        },
                     },
                 }}
             />

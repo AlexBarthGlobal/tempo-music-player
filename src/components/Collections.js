@@ -160,6 +160,7 @@ class Collections extends React.Component {
         </Modal>
     
         return (
+            
             <div>         
                 {removeCollectionModal}
                 {deleteCollectionModal}

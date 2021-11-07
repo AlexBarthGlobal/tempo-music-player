@@ -3756,6 +3756,1544 @@ var _utils = __webpack_require__(/*! @mui/material/utils */ "./node_modules/@mui
 
 /***/ }),
 
+/***/ "./node_modules/@mui/material/ButtonBase/ButtonBase.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@mui/material/ButtonBase/ButtonBase.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ButtonBaseRoot": () => (/* binding */ ButtonBaseRoot),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@mui/material/node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@mui/material/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/refType.js");
+/* harmony import */ var _mui_utils__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/utils */ "./node_modules/@mui/utils/esm/elementTypeAcceptingRef.js");
+/* harmony import */ var _mui_core_composeClasses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/core/composeClasses */ "./node_modules/@mui/core/composeClasses/composeClasses.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/styles/styled.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/styles/useThemeProps.js");
+/* harmony import */ var _utils_useForkRef__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../utils/useForkRef */ "./node_modules/@mui/material/utils/useForkRef.js");
+/* harmony import */ var _utils_useEventCallback__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../utils/useEventCallback */ "./node_modules/@mui/material/utils/useEventCallback.js");
+/* harmony import */ var _utils_useIsFocusVisible__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../utils/useIsFocusVisible */ "./node_modules/@mui/material/utils/useIsFocusVisible.js");
+/* harmony import */ var _TouchRipple__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./TouchRipple */ "./node_modules/@mui/material/ButtonBase/TouchRipple.js");
+/* harmony import */ var _buttonBaseClasses__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./buttonBaseClasses */ "./node_modules/@mui/material/ButtonBase/buttonBaseClasses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "type"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const useUtilityClasses = ownerState => {
+  const {
+    disabled,
+    focusVisible,
+    focusVisibleClassName,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root', disabled && 'disabled', focusVisible && 'focusVisible']
+  };
+  const composedClasses = (0,_mui_core_composeClasses__WEBPACK_IMPORTED_MODULE_6__.default)(slots, _buttonBaseClasses__WEBPACK_IMPORTED_MODULE_7__.getButtonBaseUtilityClass, classes);
+
+  if (focusVisible && focusVisibleClassName) {
+    composedClasses.root += ` ${focusVisibleClassName}`;
+  }
+
+  return composedClasses;
+};
+
+const ButtonBaseRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_8__.default)('button', {
+  name: 'MuiButtonBase',
+  slot: 'Root',
+  overridesResolver: (props, styles) => styles.root
+})({
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'relative',
+  boxSizing: 'border-box',
+  WebkitTapHighlightColor: 'transparent',
+  backgroundColor: 'transparent',
+  // Reset default value
+  // We disable the focus ring for mouse, touch and keyboard users.
+  outline: 0,
+  border: 0,
+  margin: 0,
+  // Remove the margin in Safari
+  borderRadius: 0,
+  padding: 0,
+  // Remove the padding in Firefox
+  cursor: 'pointer',
+  userSelect: 'none',
+  verticalAlign: 'middle',
+  MozAppearance: 'none',
+  // Reset
+  WebkitAppearance: 'none',
+  // Reset
+  textDecoration: 'none',
+  // So we take precedent over the style of a native <a /> element.
+  color: 'inherit',
+  '&::-moz-focus-inner': {
+    borderStyle: 'none' // Remove Firefox dotted outline.
+
+  },
+  [`&.${_buttonBaseClasses__WEBPACK_IMPORTED_MODULE_7__.default.disabled}`]: {
+    pointerEvents: 'none',
+    // Disable link interactions
+    cursor: 'default'
+  },
+  '@media print': {
+    colorAdjust: 'exact'
+  }
+});
+/**
+ * `ButtonBase` contains as few styles as possible.
+ * It aims to be a simple building block for creating a button.
+ * It contains a load of style reset and some focus/ripple logic.
+ */
+
+const ButtonBase = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function ButtonBase(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_9__.default)({
+    props: inProps,
+    name: 'MuiButtonBase'
+  });
+
+  const {
+    action,
+    centerRipple = false,
+    children,
+    className,
+    component = 'button',
+    disabled = false,
+    disableRipple = false,
+    disableTouchRipple = false,
+    focusRipple = false,
+    LinkComponent = 'a',
+    onBlur,
+    onClick,
+    onContextMenu,
+    onDragLeave,
+    onFocus,
+    onFocusVisible,
+    onKeyDown,
+    onKeyUp,
+    onMouseDown,
+    onMouseLeave,
+    onMouseUp,
+    onTouchEnd,
+    onTouchMove,
+    onTouchStart,
+    tabIndex = 0,
+    TouchRippleProps,
+    type
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(props, _excluded);
+
+  const buttonRef = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
+  const rippleRef = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
+  const {
+    isFocusVisibleRef,
+    onFocus: handleFocusVisible,
+    onBlur: handleBlurVisible,
+    ref: focusVisibleRef
+  } = (0,_utils_useIsFocusVisible__WEBPACK_IMPORTED_MODULE_10__.default)();
+  const [focusVisible, setFocusVisible] = react__WEBPACK_IMPORTED_MODULE_2__.useState(false);
+
+  if (disabled && focusVisible) {
+    setFocusVisible(false);
+  }
+
+  react__WEBPACK_IMPORTED_MODULE_2__.useImperativeHandle(action, () => ({
+    focusVisible: () => {
+      setFocusVisible(true);
+      buttonRef.current.focus();
+    }
+  }), []);
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
+    if (focusVisible && focusRipple && !disableRipple) {
+      rippleRef.current.pulsate();
+    }
+  }, [disableRipple, focusRipple, focusVisible]);
+
+  function useRippleHandler(rippleAction, eventCallback, skipRippleAction = disableTouchRipple) {
+    return (0,_utils_useEventCallback__WEBPACK_IMPORTED_MODULE_11__.default)(event => {
+      if (eventCallback) {
+        eventCallback(event);
+      }
+
+      const ignore = skipRippleAction;
+
+      if (!ignore && rippleRef.current) {
+        rippleRef.current[rippleAction](event);
+      }
+
+      return true;
+    });
+  }
+
+  const handleMouseDown = useRippleHandler('start', onMouseDown);
+  const handleContextMenu = useRippleHandler('stop', onContextMenu);
+  const handleDragLeave = useRippleHandler('stop', onDragLeave);
+  const handleMouseUp = useRippleHandler('stop', onMouseUp);
+  const handleMouseLeave = useRippleHandler('stop', event => {
+    if (focusVisible) {
+      event.preventDefault();
+    }
+
+    if (onMouseLeave) {
+      onMouseLeave(event);
+    }
+  });
+  const handleTouchStart = useRippleHandler('start', onTouchStart);
+  const handleTouchEnd = useRippleHandler('stop', onTouchEnd);
+  const handleTouchMove = useRippleHandler('stop', onTouchMove);
+  const handleBlur = useRippleHandler('stop', event => {
+    handleBlurVisible(event);
+
+    if (isFocusVisibleRef.current === false) {
+      setFocusVisible(false);
+    }
+
+    if (onBlur) {
+      onBlur(event);
+    }
+  }, false);
+  const handleFocus = (0,_utils_useEventCallback__WEBPACK_IMPORTED_MODULE_11__.default)(event => {
+    // Fix for https://github.com/facebook/react/issues/7769
+    if (!buttonRef.current) {
+      buttonRef.current = event.currentTarget;
+    }
+
+    handleFocusVisible(event);
+
+    if (isFocusVisibleRef.current === true) {
+      setFocusVisible(true);
+
+      if (onFocusVisible) {
+        onFocusVisible(event);
+      }
+    }
+
+    if (onFocus) {
+      onFocus(event);
+    }
+  });
+
+  const isNonNativeButton = () => {
+    const button = buttonRef.current;
+    return component && component !== 'button' && !(button.tagName === 'A' && button.href);
+  };
+  /**
+   * IE11 shim for https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/repeat
+   */
+
+
+  const keydownRef = react__WEBPACK_IMPORTED_MODULE_2__.useRef(false);
+  const handleKeyDown = (0,_utils_useEventCallback__WEBPACK_IMPORTED_MODULE_11__.default)(event => {
+    // Check if key is already down to avoid repeats being counted as multiple activations
+    if (focusRipple && !keydownRef.current && focusVisible && rippleRef.current && event.key === ' ') {
+      keydownRef.current = true;
+      rippleRef.current.stop(event, () => {
+        rippleRef.current.start(event);
+      });
+    }
+
+    if (event.target === event.currentTarget && isNonNativeButton() && event.key === ' ') {
+      event.preventDefault();
+    }
+
+    if (onKeyDown) {
+      onKeyDown(event);
+    } // Keyboard accessibility for non interactive elements
+
+
+    if (event.target === event.currentTarget && isNonNativeButton() && event.key === 'Enter' && !disabled) {
+      event.preventDefault();
+
+      if (onClick) {
+        onClick(event);
+      }
+    }
+  });
+  const handleKeyUp = (0,_utils_useEventCallback__WEBPACK_IMPORTED_MODULE_11__.default)(event => {
+    // calling preventDefault in keyUp on a <button> will not dispatch a click event if Space is pressed
+    // https://codesandbox.io/s/button-keyup-preventdefault-dn7f0
+    if (focusRipple && event.key === ' ' && rippleRef.current && focusVisible && !event.defaultPrevented) {
+      keydownRef.current = false;
+      rippleRef.current.stop(event, () => {
+        rippleRef.current.pulsate(event);
+      });
+    }
+
+    if (onKeyUp) {
+      onKeyUp(event);
+    } // Keyboard accessibility for non interactive elements
+
+
+    if (onClick && event.target === event.currentTarget && isNonNativeButton() && event.key === ' ' && !event.defaultPrevented) {
+      onClick(event);
+    }
+  });
+  let ComponentProp = component;
+
+  if (ComponentProp === 'button' && (other.href || other.to)) {
+    ComponentProp = LinkComponent;
+  }
+
+  const buttonProps = {};
+
+  if (ComponentProp === 'button') {
+    buttonProps.type = type === undefined ? 'button' : type;
+    buttonProps.disabled = disabled;
+  } else {
+    if (!other.href && !other.to) {
+      buttonProps.role = 'button';
+    }
+
+    if (disabled) {
+      buttonProps['aria-disabled'] = disabled;
+    }
+  }
+
+  const handleOwnRef = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_12__.default)(focusVisibleRef, buttonRef);
+  const handleRef = (0,_utils_useForkRef__WEBPACK_IMPORTED_MODULE_12__.default)(ref, handleOwnRef);
+  const [mountedState, setMountedState] = react__WEBPACK_IMPORTED_MODULE_2__.useState(false);
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
+    setMountedState(true);
+  }, []);
+  const enableTouchRipple = mountedState && !disableRipple && !disabled;
+
+  if (true) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
+      if (enableTouchRipple && !rippleRef.current) {
+        console.error(['MUI: The `component` prop provided to ButtonBase is invalid.', 'Please make sure the children prop is rendered in this custom component.'].join('\n'));
+      }
+    }, [enableTouchRipple]);
+  }
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, props, {
+    centerRipple,
+    component,
+    disabled,
+    disableRipple,
+    disableTouchRipple,
+    focusRipple,
+    tabIndex,
+    focusVisible
+  });
+
+  const classes = useUtilityClasses(ownerState);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(ButtonBaseRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+    as: ComponentProp,
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_4__.default)(classes.root, className),
+    ownerState: ownerState,
+    onBlur: handleBlur,
+    onClick: onClick,
+    onContextMenu: handleContextMenu,
+    onFocus: handleFocus,
+    onKeyDown: handleKeyDown,
+    onKeyUp: handleKeyUp,
+    onMouseDown: handleMouseDown,
+    onMouseLeave: handleMouseLeave,
+    onMouseUp: handleMouseUp,
+    onDragLeave: handleDragLeave,
+    onTouchEnd: handleTouchEnd,
+    onTouchMove: handleTouchMove,
+    onTouchStart: handleTouchStart,
+    ref: handleRef,
+    tabIndex: disabled ? -1 : tabIndex,
+    type: type
+  }, buttonProps, other, {
+    children: [children, enableTouchRipple ?
+    /*#__PURE__*/
+
+    /* TouchRipple is only needed client-side, x2 boost on the server. */
+    (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_TouchRipple__WEBPACK_IMPORTED_MODULE_13__.default, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+      ref: rippleRef,
+      center: centerRipple
+    }, TouchRippleProps)) : null]
+  }));
+});
+ true ? ButtonBase.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * A ref for imperative actions.
+   * It currently only supports `focusVisible()` action.
+   */
+  action: _mui_utils__WEBPACK_IMPORTED_MODULE_14__.default,
+
+  /**
+   * If `true`, the ripples are centered.
+   * They won't start at the cursor interaction position.
+   * @default false
+   */
+  centerRipple: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * The content of the component.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: _mui_utils__WEBPACK_IMPORTED_MODULE_15__.default,
+
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   */
+  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * If `true`, the ripple effect is disabled.
+   *
+   * ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure
+   * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
+   * @default false
+   */
+  disableRipple: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * If `true`, the touch ripple effect is disabled.
+   * @default false
+   */
+  disableTouchRipple: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * If `true`, the base button will have a keyboard focus ripple.
+   * @default false
+   */
+  focusRipple: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * This prop can help identify which element has keyboard focus.
+   * The class name will be applied when the element gains the focus through keyboard interaction.
+   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
+   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/master/explainer.md).
+   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
+   * if needed.
+   */
+  focusVisibleClassName: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /**
+   * @ignore
+   */
+  href: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().any),
+
+  /**
+   * The component used to render a link when the `href` prop is provided.
+   * @default 'a'
+   */
+  LinkComponent: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().elementType),
+
+  /**
+   * @ignore
+   */
+  onBlur: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onClick: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onContextMenu: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onDragLeave: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onFocus: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * Callback fired when the component is focused with a keyboard.
+   * We trigger a `onFocus` callback too.
+   */
+  onFocusVisible: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onKeyDown: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onKeyUp: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onMouseDown: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onMouseLeave: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onMouseUp: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onTouchEnd: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onTouchMove: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * @ignore
+   */
+  onTouchStart: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+
+  /**
+   * @default 0
+   */
+  tabIndex: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+
+  /**
+   * Props applied to the `TouchRipple` element.
+   */
+  TouchRippleProps: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+
+  /**
+   * @ignore
+   */
+  type: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['button', 'reset', 'submit']), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ButtonBase);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/ButtonBase/Ripple.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@mui/material/ButtonBase/Ripple.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+/**
+ * @ignore - internal component.
+ */
+
+
+
+function Ripple(props) {
+  const {
+    className,
+    classes,
+    pulsate = false,
+    rippleX,
+    rippleY,
+    rippleSize,
+    in: inProp,
+    onExited,
+    timeout
+  } = props;
+  const [leaving, setLeaving] = react__WEBPACK_IMPORTED_MODULE_0__.useState(false);
+  const rippleClassName = (0,clsx__WEBPACK_IMPORTED_MODULE_2__.default)(className, classes.ripple, classes.rippleVisible, pulsate && classes.ripplePulsate);
+  const rippleStyles = {
+    width: rippleSize,
+    height: rippleSize,
+    top: -(rippleSize / 2) + rippleY,
+    left: -(rippleSize / 2) + rippleX
+  };
+  const childClassName = (0,clsx__WEBPACK_IMPORTED_MODULE_2__.default)(classes.child, leaving && classes.childLeaving, pulsate && classes.childPulsate);
+
+  if (!inProp && !leaving) {
+    setLeaving(true);
+  }
+
+  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(() => {
+    if (!inProp && onExited != null) {
+      // react-transition-group#onExited
+      const timeoutId = setTimeout(onExited, timeout);
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+
+    return undefined;
+  }, [onExited, inProp, timeout]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+    className: rippleClassName,
+    style: rippleStyles,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+      className: childClassName
+    })
+  });
+}
+
+ true ? Ripple.propTypes = {
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object.isRequired),
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+
+  /**
+   * @ignore - injected from TransitionGroup
+   */
+  in: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool),
+
+  /**
+   * @ignore - injected from TransitionGroup
+   */
+  onExited: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func),
+
+  /**
+   * If `true`, the ripple pulsates, typically indicating the keyboard focus state of an element.
+   */
+  pulsate: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool),
+
+  /**
+   * Diameter of the ripple.
+   */
+  rippleSize: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number),
+
+  /**
+   * Horizontal position of the ripple center.
+   */
+  rippleX: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number),
+
+  /**
+   * Vertical position of the ripple center.
+   */
+  rippleY: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number),
+
+  /**
+   * exit delay
+   */
+  timeout: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number.isRequired)
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Ripple);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/ButtonBase/TouchRipple.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@mui/material/ButtonBase/TouchRipple.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DELAY_RIPPLE": () => (/* binding */ DELAY_RIPPLE),
+/* harmony export */   "TouchRippleRoot": () => (/* binding */ TouchRippleRoot),
+/* harmony export */   "TouchRippleRipple": () => (/* binding */ TouchRippleRipple),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@mui/material/node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@mui/material/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_transition_group__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-transition-group */ "./node_modules/react-transition-group/esm/TransitionGroup.js");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_system__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/system */ "./node_modules/@emotion/react/dist/emotion-react.browser.esm.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/styles/styled.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/styles/useThemeProps.js");
+/* harmony import */ var _Ripple__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Ripple */ "./node_modules/@mui/material/ButtonBase/Ripple.js");
+/* harmony import */ var _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./touchRippleClasses */ "./node_modules/@mui/material/ButtonBase/touchRippleClasses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["center", "classes", "className"];
+
+let _ = t => t,
+    _t,
+    _t2,
+    _t3,
+    _t4;
+
+
+
+
+
+
+
+
+
+
+
+const DURATION = 550;
+const DELAY_RIPPLE = 80;
+const enterKeyframe = (0,_mui_system__WEBPACK_IMPORTED_MODULE_6__.keyframes)(_t || (_t = _`
+  0% {
+    transform: scale(0);
+    opacity: 0.1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+`));
+const exitKeyframe = (0,_mui_system__WEBPACK_IMPORTED_MODULE_6__.keyframes)(_t2 || (_t2 = _`
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+`));
+const pulsateKeyframe = (0,_mui_system__WEBPACK_IMPORTED_MODULE_6__.keyframes)(_t3 || (_t3 = _`
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.92);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+`));
+const TouchRippleRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__.default)('span', {
+  name: 'MuiTouchRipple',
+  slot: 'Root',
+  skipSx: true
+})({
+  overflow: 'hidden',
+  pointerEvents: 'none',
+  position: 'absolute',
+  zIndex: 0,
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  borderRadius: 'inherit'
+}); // This `styled()` function invokes keyframes. `styled-components` only supports keyframes
+// in string templates. Do not convert these styles in JS object as it will break.
+
+const TouchRippleRipple = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_7__.default)(_Ripple__WEBPACK_IMPORTED_MODULE_8__.default, {
+  name: 'MuiTouchRipple',
+  slot: 'Ripple'
+})(_t4 || (_t4 = _`
+  opacity: 0;
+  position: absolute;
+
+  &.${0} {
+    opacity: 0.3;
+    transform: scale(1);
+    animation-name: ${0};
+    animation-duration: ${0}ms;
+    animation-timing-function: ${0};
+  }
+
+  &.${0} {
+    animation-duration: ${0}ms;
+  }
+
+  & .${0} {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+
+  & .${0} {
+    opacity: 0;
+    animation-name: ${0};
+    animation-duration: ${0}ms;
+    animation-timing-function: ${0};
+  }
+
+  & .${0} {
+    position: absolute;
+    /* @noflip */
+    left: 0px;
+    top: 0;
+    animation-name: ${0};
+    animation-duration: 2500ms;
+    animation-timing-function: ${0};
+    animation-iteration-count: infinite;
+    animation-delay: 200ms;
+  }
+`), _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.rippleVisible, enterKeyframe, DURATION, ({
+  theme
+}) => theme.transitions.easing.easeInOut, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.ripplePulsate, ({
+  theme
+}) => theme.transitions.duration.shorter, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.child, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.childLeaving, exitKeyframe, DURATION, ({
+  theme
+}) => theme.transitions.easing.easeInOut, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.childPulsate, pulsateKeyframe, ({
+  theme
+}) => theme.transitions.easing.easeInOut);
+/**
+ * @ignore - internal component.
+ *
+ * TODO v5: Make private
+ */
+
+const TouchRipple = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function TouchRipple(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_10__.default)({
+    props: inProps,
+    name: 'MuiTouchRipple'
+  });
+
+  const {
+    center: centerProp = false,
+    classes = {},
+    className
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__.default)(props, _excluded);
+
+  const [ripples, setRipples] = react__WEBPACK_IMPORTED_MODULE_2__.useState([]);
+  const nextKey = react__WEBPACK_IMPORTED_MODULE_2__.useRef(0);
+  const rippleCallback = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
+    if (rippleCallback.current) {
+      rippleCallback.current();
+      rippleCallback.current = null;
+    }
+  }, [ripples]); // Used to filter out mouse emulated events on mobile.
+
+  const ignoringMouseDown = react__WEBPACK_IMPORTED_MODULE_2__.useRef(false); // We use a timer in order to only show the ripples for touch "click" like events.
+  // We don't want to display the ripple for touch scroll events.
+
+  const startTimer = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null); // This is the hook called once the previous timeout is ready.
+
+  const startTimerCommit = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
+  const container = react__WEBPACK_IMPORTED_MODULE_2__.useRef(null);
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(() => {
+    return () => {
+      clearTimeout(startTimer.current);
+    };
+  }, []);
+  const startCommit = react__WEBPACK_IMPORTED_MODULE_2__.useCallback(params => {
+    const {
+      pulsate,
+      rippleX,
+      rippleY,
+      rippleSize,
+      cb
+    } = params;
+    setRipples(oldRipples => [...oldRipples, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(TouchRippleRipple, {
+      classes: {
+        ripple: (0,clsx__WEBPACK_IMPORTED_MODULE_4__.default)(classes.ripple, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.ripple),
+        rippleVisible: (0,clsx__WEBPACK_IMPORTED_MODULE_4__.default)(classes.rippleVisible, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.rippleVisible),
+        ripplePulsate: (0,clsx__WEBPACK_IMPORTED_MODULE_4__.default)(classes.ripplePulsate, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.ripplePulsate),
+        child: (0,clsx__WEBPACK_IMPORTED_MODULE_4__.default)(classes.child, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.child),
+        childLeaving: (0,clsx__WEBPACK_IMPORTED_MODULE_4__.default)(classes.childLeaving, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.childLeaving),
+        childPulsate: (0,clsx__WEBPACK_IMPORTED_MODULE_4__.default)(classes.childPulsate, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.childPulsate)
+      },
+      timeout: DURATION,
+      pulsate: pulsate,
+      rippleX: rippleX,
+      rippleY: rippleY,
+      rippleSize: rippleSize
+    }, nextKey.current)]);
+    nextKey.current += 1;
+    rippleCallback.current = cb;
+  }, [classes]);
+  const start = react__WEBPACK_IMPORTED_MODULE_2__.useCallback((event = {}, options = {}, cb) => {
+    const {
+      pulsate = false,
+      center = centerProp || options.pulsate,
+      fakeElement = false // For test purposes
+
+    } = options;
+
+    if (event.type === 'mousedown' && ignoringMouseDown.current) {
+      ignoringMouseDown.current = false;
+      return;
+    }
+
+    if (event.type === 'touchstart') {
+      ignoringMouseDown.current = true;
+    }
+
+    const element = fakeElement ? null : container.current;
+    const rect = element ? element.getBoundingClientRect() : {
+      width: 0,
+      height: 0,
+      left: 0,
+      top: 0
+    }; // Get the size of the ripple
+
+    let rippleX;
+    let rippleY;
+    let rippleSize;
+
+    if (center || event.clientX === 0 && event.clientY === 0 || !event.clientX && !event.touches) {
+      rippleX = Math.round(rect.width / 2);
+      rippleY = Math.round(rect.height / 2);
+    } else {
+      const {
+        clientX,
+        clientY
+      } = event.touches ? event.touches[0] : event;
+      rippleX = Math.round(clientX - rect.left);
+      rippleY = Math.round(clientY - rect.top);
+    }
+
+    if (center) {
+      rippleSize = Math.sqrt((2 * rect.width ** 2 + rect.height ** 2) / 3); // For some reason the animation is broken on Mobile Chrome if the size is even.
+
+      if (rippleSize % 2 === 0) {
+        rippleSize += 1;
+      }
+    } else {
+      const sizeX = Math.max(Math.abs((element ? element.clientWidth : 0) - rippleX), rippleX) * 2 + 2;
+      const sizeY = Math.max(Math.abs((element ? element.clientHeight : 0) - rippleY), rippleY) * 2 + 2;
+      rippleSize = Math.sqrt(sizeX ** 2 + sizeY ** 2);
+    } // Touche devices
+
+
+    if (event.touches) {
+      // check that this isn't another touchstart due to multitouch
+      // otherwise we will only clear a single timer when unmounting while two
+      // are running
+      if (startTimerCommit.current === null) {
+        // Prepare the ripple effect.
+        startTimerCommit.current = () => {
+          startCommit({
+            pulsate,
+            rippleX,
+            rippleY,
+            rippleSize,
+            cb
+          });
+        }; // Delay the execution of the ripple effect.
+
+
+        startTimer.current = setTimeout(() => {
+          if (startTimerCommit.current) {
+            startTimerCommit.current();
+            startTimerCommit.current = null;
+          }
+        }, DELAY_RIPPLE); // We have to make a tradeoff with this value.
+      }
+    } else {
+      startCommit({
+        pulsate,
+        rippleX,
+        rippleY,
+        rippleSize,
+        cb
+      });
+    }
+  }, [centerProp, startCommit]);
+  const pulsate = react__WEBPACK_IMPORTED_MODULE_2__.useCallback(() => {
+    start({}, {
+      pulsate: true
+    });
+  }, [start]);
+  const stop = react__WEBPACK_IMPORTED_MODULE_2__.useCallback((event, cb) => {
+    clearTimeout(startTimer.current); // The touch interaction occurs too quickly.
+    // We still want to show ripple effect.
+
+    if (event.type === 'touchend' && startTimerCommit.current) {
+      startTimerCommit.current();
+      startTimerCommit.current = null;
+      startTimer.current = setTimeout(() => {
+        stop(event, cb);
+      });
+      return;
+    }
+
+    startTimerCommit.current = null;
+    setRipples(oldRipples => {
+      if (oldRipples.length > 0) {
+        return oldRipples.slice(1);
+      }
+
+      return oldRipples;
+    });
+    rippleCallback.current = cb;
+  }, []);
+  react__WEBPACK_IMPORTED_MODULE_2__.useImperativeHandle(ref, () => ({
+    pulsate,
+    start,
+    stop
+  }), [pulsate, start, stop]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(TouchRippleRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_4__.default)(classes.root, _touchRippleClasses__WEBPACK_IMPORTED_MODULE_9__.default.root, className),
+    ref: container
+  }, other, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_transition_group__WEBPACK_IMPORTED_MODULE_11__.default, {
+      component: null,
+      exit: true,
+      children: ripples
+    })
+  }));
+});
+ true ? TouchRipple.propTypes = {
+  /**
+   * If `true`, the ripple starts at the center of the component
+   * rather than at the point of interaction.
+   */
+  center: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+
+  /**
+   * @ignore
+   */
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TouchRipple);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/ButtonBase/buttonBaseClasses.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@mui/material/ButtonBase/buttonBaseClasses.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getButtonBaseUtilityClass": () => (/* binding */ getButtonBaseUtilityClass),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/generateUtilityClass/generateUtilityClass.js");
+/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/generateUtilityClasses/generateUtilityClasses.js");
+
+function getButtonBaseUtilityClass(slot) {
+  return (0,_mui_core__WEBPACK_IMPORTED_MODULE_0__.default)('MuiButtonBase', slot);
+}
+const buttonBaseClasses = (0,_mui_core__WEBPACK_IMPORTED_MODULE_1__.default)('MuiButtonBase', ['root', 'disabled', 'focusVisible']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (buttonBaseClasses);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/ButtonBase/touchRippleClasses.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@mui/material/ButtonBase/touchRippleClasses.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getTouchRippleUtilityClass": () => (/* binding */ getTouchRippleUtilityClass),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/generateUtilityClass/generateUtilityClass.js");
+/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/generateUtilityClasses/generateUtilityClasses.js");
+
+function getTouchRippleUtilityClass(slot) {
+  return (0,_mui_core__WEBPACK_IMPORTED_MODULE_0__.default)('MuiTouchRipple', slot);
+}
+const touchRippleClasses = (0,_mui_core__WEBPACK_IMPORTED_MODULE_1__.default)('MuiTouchRipple', ['root', 'ripple', 'rippleVisible', 'ripplePulsate', 'child', 'childLeaving', 'childPulsate']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (touchRippleClasses);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/Button/Button.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@mui/material/Button/Button.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@mui/material/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@mui/material/node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/composeClasses/composeClasses.js");
+/* harmony import */ var _mui_system__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/system */ "./node_modules/@mui/system/esm/colorManipulator.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@mui/material/styles/styled.js");
+/* harmony import */ var _styles_useThemeProps__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../styles/useThemeProps */ "./node_modules/@mui/material/styles/useThemeProps.js");
+/* harmony import */ var _ButtonBase__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../ButtonBase */ "./node_modules/@mui/material/ButtonBase/ButtonBase.js");
+/* harmony import */ var _utils_capitalize__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/capitalize */ "./node_modules/@mui/material/utils/capitalize.js");
+/* harmony import */ var _buttonClasses__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./buttonClasses */ "./node_modules/@mui/material/Button/buttonClasses.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+const _excluded = ["children", "color", "component", "disabled", "disableElevation", "disableFocusRipple", "endIcon", "focusVisibleClassName", "fullWidth", "size", "startIcon", "type", "variant"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+const useUtilityClasses = ownerState => {
+  const {
+    color,
+    disableElevation,
+    fullWidth,
+    size,
+    variant,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root', variant, `${variant}${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__.default)(color)}`, `size${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__.default)(size)}`, `${variant}Size${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__.default)(size)}`, color === 'inherit' && 'colorInherit', disableElevation && 'disableElevation', fullWidth && 'fullWidth'],
+    label: ['label'],
+    startIcon: ['startIcon', `iconSize${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__.default)(size)}`],
+    endIcon: ['endIcon', `iconSize${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__.default)(size)}`]
+  };
+  const composedClasses = (0,_mui_core__WEBPACK_IMPORTED_MODULE_7__.default)(slots, _buttonClasses__WEBPACK_IMPORTED_MODULE_8__.getButtonUtilityClass, classes);
+  return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, classes, composedClasses);
+};
+
+const commonIconStyles = ownerState => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, ownerState.size === 'small' && {
+  '& > *:nth-of-type(1)': {
+    fontSize: 18
+  }
+}, ownerState.size === 'medium' && {
+  '& > *:nth-of-type(1)': {
+    fontSize: 20
+  }
+}, ownerState.size === 'large' && {
+  '& > *:nth-of-type(1)': {
+    fontSize: 22
+  }
+});
+
+const ButtonRoot = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_9__.default)(_ButtonBase__WEBPACK_IMPORTED_MODULE_10__.default, {
+  shouldForwardProp: prop => (0,_styles_styled__WEBPACK_IMPORTED_MODULE_9__.rootShouldForwardProp)(prop) || prop === 'classes',
+  name: 'MuiButton',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, styles[ownerState.variant], styles[`${ownerState.variant}${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__.default)(ownerState.color)}`], styles[`size${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__.default)(ownerState.size)}`], styles[`${ownerState.variant}Size${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__.default)(ownerState.size)}`], ownerState.color === 'inherit' && styles.colorInherit, ownerState.disableElevation && styles.disableElevation, ownerState.fullWidth && styles.fullWidth];
+  }
+})(({
+  theme,
+  ownerState
+}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, theme.typography.button, {
+  minWidth: 64,
+  padding: '6px 16px',
+  borderRadius: theme.shape.borderRadius,
+  transition: theme.transitions.create(['background-color', 'box-shadow', 'border-color', 'color'], {
+    duration: theme.transitions.duration.short
+  }),
+  '&:hover': (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({
+    textDecoration: 'none',
+    backgroundColor: (0,_mui_system__WEBPACK_IMPORTED_MODULE_11__.alpha)(theme.palette.text.primary, theme.palette.action.hoverOpacity),
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: 'transparent'
+    }
+  }, ownerState.variant === 'text' && ownerState.color !== 'inherit' && {
+    backgroundColor: (0,_mui_system__WEBPACK_IMPORTED_MODULE_11__.alpha)(theme.palette[ownerState.color].main, theme.palette.action.hoverOpacity),
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: 'transparent'
+    }
+  }, ownerState.variant === 'outlined' && ownerState.color !== 'inherit' && {
+    border: `1px solid ${theme.palette[ownerState.color].main}`,
+    backgroundColor: (0,_mui_system__WEBPACK_IMPORTED_MODULE_11__.alpha)(theme.palette[ownerState.color].main, theme.palette.action.hoverOpacity),
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: 'transparent'
+    }
+  }, ownerState.variant === 'contained' && {
+    backgroundColor: theme.palette.grey.A100,
+    boxShadow: theme.shadows[4],
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      boxShadow: theme.shadows[2],
+      backgroundColor: theme.palette.grey[300]
+    }
+  }, ownerState.variant === 'contained' && ownerState.color !== 'inherit' && {
+    backgroundColor: theme.palette[ownerState.color].dark,
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: theme.palette[ownerState.color].main
+    }
+  }),
+  '&:active': (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, ownerState.variant === 'contained' && {
+    boxShadow: theme.shadows[8]
+  }),
+  [`&.${_buttonClasses__WEBPACK_IMPORTED_MODULE_8__.default.focusVisible}`]: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, ownerState.variant === 'contained' && {
+    boxShadow: theme.shadows[6]
+  }),
+  [`&.${_buttonClasses__WEBPACK_IMPORTED_MODULE_8__.default.disabled}`]: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({
+    color: theme.palette.action.disabled
+  }, ownerState.variant === 'outlined' && {
+    border: `1px solid ${theme.palette.action.disabledBackground}`
+  }, ownerState.variant === 'outlined' && ownerState.color === 'secondary' && {
+    border: `1px solid ${theme.palette.action.disabled}`
+  }, ownerState.variant === 'contained' && {
+    color: theme.palette.action.disabled,
+    boxShadow: theme.shadows[0],
+    backgroundColor: theme.palette.action.disabledBackground
+  })
+}, ownerState.variant === 'text' && {
+  padding: '6px 8px'
+}, ownerState.variant === 'text' && ownerState.color !== 'inherit' && {
+  color: theme.palette[ownerState.color].main
+}, ownerState.variant === 'outlined' && {
+  padding: '5px 15px',
+  border: `1px solid ${theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)'}`
+}, ownerState.variant === 'outlined' && ownerState.color !== 'inherit' && {
+  color: theme.palette[ownerState.color].main,
+  border: `1px solid ${(0,_mui_system__WEBPACK_IMPORTED_MODULE_11__.alpha)(theme.palette[ownerState.color].main, 0.5)}`
+}, ownerState.variant === 'contained' && {
+  color: theme.palette.getContrastText(theme.palette.grey[300]),
+  backgroundColor: theme.palette.grey[300],
+  boxShadow: theme.shadows[2]
+}, ownerState.variant === 'contained' && ownerState.color !== 'inherit' && {
+  color: theme.palette[ownerState.color].contrastText,
+  backgroundColor: theme.palette[ownerState.color].main
+}, ownerState.color === 'inherit' && {
+  color: 'inherit',
+  borderColor: 'currentColor'
+}, ownerState.size === 'small' && ownerState.variant === 'text' && {
+  padding: '4px 5px',
+  fontSize: theme.typography.pxToRem(13)
+}, ownerState.size === 'large' && ownerState.variant === 'text' && {
+  padding: '8px 11px',
+  fontSize: theme.typography.pxToRem(15)
+}, ownerState.size === 'small' && ownerState.variant === 'outlined' && {
+  padding: '3px 9px',
+  fontSize: theme.typography.pxToRem(13)
+}, ownerState.size === 'large' && ownerState.variant === 'outlined' && {
+  padding: '7px 21px',
+  fontSize: theme.typography.pxToRem(15)
+}, ownerState.size === 'small' && ownerState.variant === 'contained' && {
+  padding: '4px 10px',
+  fontSize: theme.typography.pxToRem(13)
+}, ownerState.size === 'large' && ownerState.variant === 'contained' && {
+  padding: '8px 22px',
+  fontSize: theme.typography.pxToRem(15)
+}, ownerState.fullWidth && {
+  width: '100%'
+}), ({
+  ownerState
+}) => ownerState.disableElevation && {
+  boxShadow: 'none',
+  '&:hover': {
+    boxShadow: 'none'
+  },
+  [`&.${_buttonClasses__WEBPACK_IMPORTED_MODULE_8__.default.focusVisible}`]: {
+    boxShadow: 'none'
+  },
+  '&:active': {
+    boxShadow: 'none'
+  },
+  [`&.${_buttonClasses__WEBPACK_IMPORTED_MODULE_8__.default.disabled}`]: {
+    boxShadow: 'none'
+  }
+});
+const ButtonStartIcon = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_9__.default)('span', {
+  name: 'MuiButton',
+  slot: 'StartIcon',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.startIcon, styles[`iconSize${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__.default)(ownerState.size)}`]];
+  }
+})(({
+  ownerState
+}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({
+  display: 'inherit',
+  marginRight: 8,
+  marginLeft: -4
+}, ownerState.size === 'small' && {
+  marginLeft: -2
+}, commonIconStyles(ownerState)));
+const ButtonEndIcon = (0,_styles_styled__WEBPACK_IMPORTED_MODULE_9__.default)('span', {
+  name: 'MuiButton',
+  slot: 'EndIcon',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.endIcon, styles[`iconSize${(0,_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__.default)(ownerState.size)}`]];
+  }
+})(({
+  ownerState
+}) => (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({
+  display: 'inherit',
+  marginRight: -4,
+  marginLeft: 8
+}, ownerState.size === 'small' && {
+  marginRight: -2
+}, commonIconStyles(ownerState)));
+const Button = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(function Button(inProps, ref) {
+  const props = (0,_styles_useThemeProps__WEBPACK_IMPORTED_MODULE_12__.default)({
+    props: inProps,
+    name: 'MuiButton'
+  });
+
+  const {
+    children,
+    color = 'primary',
+    component = 'button',
+    disabled = false,
+    disableElevation = false,
+    disableFocusRipple = false,
+    endIcon: endIconProp,
+    focusVisibleClassName,
+    fullWidth = false,
+    size = 'medium',
+    startIcon: startIconProp,
+    type,
+    variant = 'text'
+  } = props,
+        other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__.default)(props, _excluded);
+
+  const ownerState = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, props, {
+    color,
+    component,
+    disabled,
+    disableElevation,
+    disableFocusRipple,
+    fullWidth,
+    size,
+    type,
+    variant
+  });
+
+  const classes = useUtilityClasses(ownerState);
+
+  const startIcon = startIconProp && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(ButtonStartIcon, {
+    className: classes.startIcon,
+    ownerState: ownerState,
+    children: startIconProp
+  });
+
+  const endIcon = endIconProp && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(ButtonEndIcon, {
+    className: classes.endIcon,
+    ownerState: ownerState,
+    children: endIconProp
+  });
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(ButtonRoot, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({
+    ownerState: ownerState,
+    component: component,
+    disabled: disabled,
+    focusRipple: !disableFocusRipple,
+    focusVisibleClassName: (0,clsx__WEBPACK_IMPORTED_MODULE_4__.default)(classes.focusVisible, focusVisibleClassName),
+    ref: ref,
+    type: type
+  }, other, {
+    classes: classes,
+    children: [startIcon, children, endIcon]
+  }));
+});
+ true ? Button.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * The content of the component.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   * @default 'primary'
+   */
+  color: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['inherit', 'primary', 'secondary', 'success', 'error', 'info', 'warning']), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]),
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().elementType),
+
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   */
+  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * If `true`, no elevation is used.
+   * @default false
+   */
+  disableElevation: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * If `true`, the  keyboard focus ripple is disabled.
+   * @default false
+   */
+  disableFocusRipple: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * If `true`, the ripple effect is disabled.
+   *
+   * ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure
+   * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
+   * @default false
+   */
+  disableRipple: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * Element placed after the children.
+   */
+  endIcon: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+
+  /**
+   * @ignore
+   */
+  focusVisibleClassName: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /**
+   * If `true`, the button will take up the full width of its container.
+   * @default false
+   */
+  fullWidth: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+
+  /**
+   * The URL to link to when the button is clicked.
+   * If defined, an `a` element will be used as the root node.
+   */
+  href: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+
+  /**
+   * The size of the component.
+   * `small` is equivalent to the dense button styling.
+   * @default 'medium'
+   */
+  size: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['small', 'medium', 'large']), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]),
+
+  /**
+   * Element placed before the children.
+   */
+  startIcon: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+
+  /**
+   * @ignore
+   */
+  type: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['button', 'reset', 'submit']), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]),
+
+  /**
+   * The variant to use.
+   * @default 'text'
+   */
+  variant: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['contained', 'outlined', 'text']), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)])
+} : 0;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Button);
+
+/***/ }),
+
+/***/ "./node_modules/@mui/material/Button/buttonClasses.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@mui/material/Button/buttonClasses.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getButtonUtilityClass": () => (/* binding */ getButtonUtilityClass),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/generateUtilityClass/generateUtilityClass.js");
+/* harmony import */ var _mui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/core */ "./node_modules/@mui/core/generateUtilityClasses/generateUtilityClasses.js");
+
+function getButtonUtilityClass(slot) {
+  return (0,_mui_core__WEBPACK_IMPORTED_MODULE_0__.default)('MuiButton', slot);
+}
+const buttonClasses = (0,_mui_core__WEBPACK_IMPORTED_MODULE_1__.default)('MuiButton', ['root', 'text', 'textInherit', 'textPrimary', 'textSecondary', 'outlined', 'outlinedInherit', 'outlinedPrimary', 'outlinedSecondary', 'contained', 'containedInherit', 'containedPrimary', 'containedSecondary', 'disableElevation', 'focusVisible', 'disabled', 'colorInherit', 'textSizeSmall', 'textSizeMedium', 'textSizeLarge', 'outlinedSizeSmall', 'outlinedSizeMedium', 'outlinedSizeLarge', 'containedSizeSmall', 'containedSizeMedium', 'containedSizeLarge', 'sizeMedium', 'sizeSmall', 'sizeLarge', 'fullWidth', 'startIcon', 'endIcon', 'iconSizeSmall', 'iconSizeMedium', 'iconSizeLarge']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (buttonClasses);
+
+/***/ }),
+
 /***/ "./node_modules/@mui/material/FormControl/FormControlContext.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/@mui/material/FormControl/FormControlContext.js ***!
@@ -13823,6 +15361,1331 @@ module.exports = function(name, value) {
 
 /***/ }),
 
+/***/ "./node_modules/animejs/lib/anime.es.js":
+/*!**********************************************!*\
+  !*** ./node_modules/animejs/lib/anime.es.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/*
+ * anime.js v3.2.1
+ * (c) 2020 Julian Garnier
+ * Released under the MIT license
+ * animejs.com
+ */
+
+// Defaults
+
+var defaultInstanceSettings = {
+  update: null,
+  begin: null,
+  loopBegin: null,
+  changeBegin: null,
+  change: null,
+  changeComplete: null,
+  loopComplete: null,
+  complete: null,
+  loop: 1,
+  direction: 'normal',
+  autoplay: true,
+  timelineOffset: 0
+};
+
+var defaultTweenSettings = {
+  duration: 1000,
+  delay: 0,
+  endDelay: 0,
+  easing: 'easeOutElastic(1, .5)',
+  round: 0
+};
+
+var validTransforms = ['translateX', 'translateY', 'translateZ', 'rotate', 'rotateX', 'rotateY', 'rotateZ', 'scale', 'scaleX', 'scaleY', 'scaleZ', 'skew', 'skewX', 'skewY', 'perspective', 'matrix', 'matrix3d'];
+
+// Caching
+
+var cache = {
+  CSS: {},
+  springs: {}
+};
+
+// Utils
+
+function minMax(val, min, max) {
+  return Math.min(Math.max(val, min), max);
+}
+
+function stringContains(str, text) {
+  return str.indexOf(text) > -1;
+}
+
+function applyArguments(func, args) {
+  return func.apply(null, args);
+}
+
+var is = {
+  arr: function (a) { return Array.isArray(a); },
+  obj: function (a) { return stringContains(Object.prototype.toString.call(a), 'Object'); },
+  pth: function (a) { return is.obj(a) && a.hasOwnProperty('totalLength'); },
+  svg: function (a) { return a instanceof SVGElement; },
+  inp: function (a) { return a instanceof HTMLInputElement; },
+  dom: function (a) { return a.nodeType || is.svg(a); },
+  str: function (a) { return typeof a === 'string'; },
+  fnc: function (a) { return typeof a === 'function'; },
+  und: function (a) { return typeof a === 'undefined'; },
+  nil: function (a) { return is.und(a) || a === null; },
+  hex: function (a) { return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(a); },
+  rgb: function (a) { return /^rgb/.test(a); },
+  hsl: function (a) { return /^hsl/.test(a); },
+  col: function (a) { return (is.hex(a) || is.rgb(a) || is.hsl(a)); },
+  key: function (a) { return !defaultInstanceSettings.hasOwnProperty(a) && !defaultTweenSettings.hasOwnProperty(a) && a !== 'targets' && a !== 'keyframes'; },
+};
+
+// Easings
+
+function parseEasingParameters(string) {
+  var match = /\(([^)]+)\)/.exec(string);
+  return match ? match[1].split(',').map(function (p) { return parseFloat(p); }) : [];
+}
+
+// Spring solver inspired by Webkit Copyright © 2016 Apple Inc. All rights reserved. https://webkit.org/demos/spring/spring.js
+
+function spring(string, duration) {
+
+  var params = parseEasingParameters(string);
+  var mass = minMax(is.und(params[0]) ? 1 : params[0], .1, 100);
+  var stiffness = minMax(is.und(params[1]) ? 100 : params[1], .1, 100);
+  var damping = minMax(is.und(params[2]) ? 10 : params[2], .1, 100);
+  var velocity =  minMax(is.und(params[3]) ? 0 : params[3], .1, 100);
+  var w0 = Math.sqrt(stiffness / mass);
+  var zeta = damping / (2 * Math.sqrt(stiffness * mass));
+  var wd = zeta < 1 ? w0 * Math.sqrt(1 - zeta * zeta) : 0;
+  var a = 1;
+  var b = zeta < 1 ? (zeta * w0 + -velocity) / wd : -velocity + w0;
+
+  function solver(t) {
+    var progress = duration ? (duration * t) / 1000 : t;
+    if (zeta < 1) {
+      progress = Math.exp(-progress * zeta * w0) * (a * Math.cos(wd * progress) + b * Math.sin(wd * progress));
+    } else {
+      progress = (a + b * progress) * Math.exp(-progress * w0);
+    }
+    if (t === 0 || t === 1) { return t; }
+    return 1 - progress;
+  }
+
+  function getDuration() {
+    var cached = cache.springs[string];
+    if (cached) { return cached; }
+    var frame = 1/6;
+    var elapsed = 0;
+    var rest = 0;
+    while(true) {
+      elapsed += frame;
+      if (solver(elapsed) === 1) {
+        rest++;
+        if (rest >= 16) { break; }
+      } else {
+        rest = 0;
+      }
+    }
+    var duration = elapsed * frame * 1000;
+    cache.springs[string] = duration;
+    return duration;
+  }
+
+  return duration ? solver : getDuration;
+
+}
+
+// Basic steps easing implementation https://developer.mozilla.org/fr/docs/Web/CSS/transition-timing-function
+
+function steps(steps) {
+  if ( steps === void 0 ) steps = 10;
+
+  return function (t) { return Math.ceil((minMax(t, 0.000001, 1)) * steps) * (1 / steps); };
+}
+
+// BezierEasing https://github.com/gre/bezier-easing
+
+var bezier = (function () {
+
+  var kSplineTableSize = 11;
+  var kSampleStepSize = 1.0 / (kSplineTableSize - 1.0);
+
+  function A(aA1, aA2) { return 1.0 - 3.0 * aA2 + 3.0 * aA1 }
+  function B(aA1, aA2) { return 3.0 * aA2 - 6.0 * aA1 }
+  function C(aA1)      { return 3.0 * aA1 }
+
+  function calcBezier(aT, aA1, aA2) { return ((A(aA1, aA2) * aT + B(aA1, aA2)) * aT + C(aA1)) * aT }
+  function getSlope(aT, aA1, aA2) { return 3.0 * A(aA1, aA2) * aT * aT + 2.0 * B(aA1, aA2) * aT + C(aA1) }
+
+  function binarySubdivide(aX, aA, aB, mX1, mX2) {
+    var currentX, currentT, i = 0;
+    do {
+      currentT = aA + (aB - aA) / 2.0;
+      currentX = calcBezier(currentT, mX1, mX2) - aX;
+      if (currentX > 0.0) { aB = currentT; } else { aA = currentT; }
+    } while (Math.abs(currentX) > 0.0000001 && ++i < 10);
+    return currentT;
+  }
+
+  function newtonRaphsonIterate(aX, aGuessT, mX1, mX2) {
+    for (var i = 0; i < 4; ++i) {
+      var currentSlope = getSlope(aGuessT, mX1, mX2);
+      if (currentSlope === 0.0) { return aGuessT; }
+      var currentX = calcBezier(aGuessT, mX1, mX2) - aX;
+      aGuessT -= currentX / currentSlope;
+    }
+    return aGuessT;
+  }
+
+  function bezier(mX1, mY1, mX2, mY2) {
+
+    if (!(0 <= mX1 && mX1 <= 1 && 0 <= mX2 && mX2 <= 1)) { return; }
+    var sampleValues = new Float32Array(kSplineTableSize);
+
+    if (mX1 !== mY1 || mX2 !== mY2) {
+      for (var i = 0; i < kSplineTableSize; ++i) {
+        sampleValues[i] = calcBezier(i * kSampleStepSize, mX1, mX2);
+      }
+    }
+
+    function getTForX(aX) {
+
+      var intervalStart = 0;
+      var currentSample = 1;
+      var lastSample = kSplineTableSize - 1;
+
+      for (; currentSample !== lastSample && sampleValues[currentSample] <= aX; ++currentSample) {
+        intervalStart += kSampleStepSize;
+      }
+
+      --currentSample;
+
+      var dist = (aX - sampleValues[currentSample]) / (sampleValues[currentSample + 1] - sampleValues[currentSample]);
+      var guessForT = intervalStart + dist * kSampleStepSize;
+      var initialSlope = getSlope(guessForT, mX1, mX2);
+
+      if (initialSlope >= 0.001) {
+        return newtonRaphsonIterate(aX, guessForT, mX1, mX2);
+      } else if (initialSlope === 0.0) {
+        return guessForT;
+      } else {
+        return binarySubdivide(aX, intervalStart, intervalStart + kSampleStepSize, mX1, mX2);
+      }
+
+    }
+
+    return function (x) {
+      if (mX1 === mY1 && mX2 === mY2) { return x; }
+      if (x === 0 || x === 1) { return x; }
+      return calcBezier(getTForX(x), mY1, mY2);
+    }
+
+  }
+
+  return bezier;
+
+})();
+
+var penner = (function () {
+
+  // Based on jQuery UI's implemenation of easing equations from Robert Penner (http://www.robertpenner.com/easing)
+
+  var eases = { linear: function () { return function (t) { return t; }; } };
+
+  var functionEasings = {
+    Sine: function () { return function (t) { return 1 - Math.cos(t * Math.PI / 2); }; },
+    Circ: function () { return function (t) { return 1 - Math.sqrt(1 - t * t); }; },
+    Back: function () { return function (t) { return t * t * (3 * t - 2); }; },
+    Bounce: function () { return function (t) {
+      var pow2, b = 4;
+      while (t < (( pow2 = Math.pow(2, --b)) - 1) / 11) {}
+      return 1 / Math.pow(4, 3 - b) - 7.5625 * Math.pow(( pow2 * 3 - 2 ) / 22 - t, 2)
+    }; },
+    Elastic: function (amplitude, period) {
+      if ( amplitude === void 0 ) amplitude = 1;
+      if ( period === void 0 ) period = .5;
+
+      var a = minMax(amplitude, 1, 10);
+      var p = minMax(period, .1, 2);
+      return function (t) {
+        return (t === 0 || t === 1) ? t : 
+          -a * Math.pow(2, 10 * (t - 1)) * Math.sin((((t - 1) - (p / (Math.PI * 2) * Math.asin(1 / a))) * (Math.PI * 2)) / p);
+      }
+    }
+  };
+
+  var baseEasings = ['Quad', 'Cubic', 'Quart', 'Quint', 'Expo'];
+
+  baseEasings.forEach(function (name, i) {
+    functionEasings[name] = function () { return function (t) { return Math.pow(t, i + 2); }; };
+  });
+
+  Object.keys(functionEasings).forEach(function (name) {
+    var easeIn = functionEasings[name];
+    eases['easeIn' + name] = easeIn;
+    eases['easeOut' + name] = function (a, b) { return function (t) { return 1 - easeIn(a, b)(1 - t); }; };
+    eases['easeInOut' + name] = function (a, b) { return function (t) { return t < 0.5 ? easeIn(a, b)(t * 2) / 2 : 
+      1 - easeIn(a, b)(t * -2 + 2) / 2; }; };
+    eases['easeOutIn' + name] = function (a, b) { return function (t) { return t < 0.5 ? (1 - easeIn(a, b)(1 - t * 2)) / 2 : 
+      (easeIn(a, b)(t * 2 - 1) + 1) / 2; }; };
+  });
+
+  return eases;
+
+})();
+
+function parseEasings(easing, duration) {
+  if (is.fnc(easing)) { return easing; }
+  var name = easing.split('(')[0];
+  var ease = penner[name];
+  var args = parseEasingParameters(easing);
+  switch (name) {
+    case 'spring' : return spring(easing, duration);
+    case 'cubicBezier' : return applyArguments(bezier, args);
+    case 'steps' : return applyArguments(steps, args);
+    default : return applyArguments(ease, args);
+  }
+}
+
+// Strings
+
+function selectString(str) {
+  try {
+    var nodes = document.querySelectorAll(str);
+    return nodes;
+  } catch(e) {
+    return;
+  }
+}
+
+// Arrays
+
+function filterArray(arr, callback) {
+  var len = arr.length;
+  var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+  var result = [];
+  for (var i = 0; i < len; i++) {
+    if (i in arr) {
+      var val = arr[i];
+      if (callback.call(thisArg, val, i, arr)) {
+        result.push(val);
+      }
+    }
+  }
+  return result;
+}
+
+function flattenArray(arr) {
+  return arr.reduce(function (a, b) { return a.concat(is.arr(b) ? flattenArray(b) : b); }, []);
+}
+
+function toArray(o) {
+  if (is.arr(o)) { return o; }
+  if (is.str(o)) { o = selectString(o) || o; }
+  if (o instanceof NodeList || o instanceof HTMLCollection) { return [].slice.call(o); }
+  return [o];
+}
+
+function arrayContains(arr, val) {
+  return arr.some(function (a) { return a === val; });
+}
+
+// Objects
+
+function cloneObject(o) {
+  var clone = {};
+  for (var p in o) { clone[p] = o[p]; }
+  return clone;
+}
+
+function replaceObjectProps(o1, o2) {
+  var o = cloneObject(o1);
+  for (var p in o1) { o[p] = o2.hasOwnProperty(p) ? o2[p] : o1[p]; }
+  return o;
+}
+
+function mergeObjects(o1, o2) {
+  var o = cloneObject(o1);
+  for (var p in o2) { o[p] = is.und(o1[p]) ? o2[p] : o1[p]; }
+  return o;
+}
+
+// Colors
+
+function rgbToRgba(rgbValue) {
+  var rgb = /rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(rgbValue);
+  return rgb ? ("rgba(" + (rgb[1]) + ",1)") : rgbValue;
+}
+
+function hexToRgba(hexValue) {
+  var rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  var hex = hexValue.replace(rgx, function (m, r, g, b) { return r + r + g + g + b + b; } );
+  var rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  var r = parseInt(rgb[1], 16);
+  var g = parseInt(rgb[2], 16);
+  var b = parseInt(rgb[3], 16);
+  return ("rgba(" + r + "," + g + "," + b + ",1)");
+}
+
+function hslToRgba(hslValue) {
+  var hsl = /hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(hslValue) || /hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(hslValue);
+  var h = parseInt(hsl[1], 10) / 360;
+  var s = parseInt(hsl[2], 10) / 100;
+  var l = parseInt(hsl[3], 10) / 100;
+  var a = hsl[4] || 1;
+  function hue2rgb(p, q, t) {
+    if (t < 0) { t += 1; }
+    if (t > 1) { t -= 1; }
+    if (t < 1/6) { return p + (q - p) * 6 * t; }
+    if (t < 1/2) { return q; }
+    if (t < 2/3) { return p + (q - p) * (2/3 - t) * 6; }
+    return p;
+  }
+  var r, g, b;
+  if (s == 0) {
+    r = g = b = l;
+  } else {
+    var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    var p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+  return ("rgba(" + (r * 255) + "," + (g * 255) + "," + (b * 255) + "," + a + ")");
+}
+
+function colorToRgb(val) {
+  if (is.rgb(val)) { return rgbToRgba(val); }
+  if (is.hex(val)) { return hexToRgba(val); }
+  if (is.hsl(val)) { return hslToRgba(val); }
+}
+
+// Units
+
+function getUnit(val) {
+  var split = /[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(val);
+  if (split) { return split[1]; }
+}
+
+function getTransformUnit(propName) {
+  if (stringContains(propName, 'translate') || propName === 'perspective') { return 'px'; }
+  if (stringContains(propName, 'rotate') || stringContains(propName, 'skew')) { return 'deg'; }
+}
+
+// Values
+
+function getFunctionValue(val, animatable) {
+  if (!is.fnc(val)) { return val; }
+  return val(animatable.target, animatable.id, animatable.total);
+}
+
+function getAttribute(el, prop) {
+  return el.getAttribute(prop);
+}
+
+function convertPxToUnit(el, value, unit) {
+  var valueUnit = getUnit(value);
+  if (arrayContains([unit, 'deg', 'rad', 'turn'], valueUnit)) { return value; }
+  var cached = cache.CSS[value + unit];
+  if (!is.und(cached)) { return cached; }
+  var baseline = 100;
+  var tempEl = document.createElement(el.tagName);
+  var parentEl = (el.parentNode && (el.parentNode !== document)) ? el.parentNode : document.body;
+  parentEl.appendChild(tempEl);
+  tempEl.style.position = 'absolute';
+  tempEl.style.width = baseline + unit;
+  var factor = baseline / tempEl.offsetWidth;
+  parentEl.removeChild(tempEl);
+  var convertedUnit = factor * parseFloat(value);
+  cache.CSS[value + unit] = convertedUnit;
+  return convertedUnit;
+}
+
+function getCSSValue(el, prop, unit) {
+  if (prop in el.style) {
+    var uppercasePropName = prop.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    var value = el.style[prop] || getComputedStyle(el).getPropertyValue(uppercasePropName) || '0';
+    return unit ? convertPxToUnit(el, value, unit) : value;
+  }
+}
+
+function getAnimationType(el, prop) {
+  if (is.dom(el) && !is.inp(el) && (!is.nil(getAttribute(el, prop)) || (is.svg(el) && el[prop]))) { return 'attribute'; }
+  if (is.dom(el) && arrayContains(validTransforms, prop)) { return 'transform'; }
+  if (is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) { return 'css'; }
+  if (el[prop] != null) { return 'object'; }
+}
+
+function getElementTransforms(el) {
+  if (!is.dom(el)) { return; }
+  var str = el.style.transform || '';
+  var reg  = /(\w+)\(([^)]*)\)/g;
+  var transforms = new Map();
+  var m; while (m = reg.exec(str)) { transforms.set(m[1], m[2]); }
+  return transforms;
+}
+
+function getTransformValue(el, propName, animatable, unit) {
+  var defaultVal = stringContains(propName, 'scale') ? 1 : 0 + getTransformUnit(propName);
+  var value = getElementTransforms(el).get(propName) || defaultVal;
+  if (animatable) {
+    animatable.transforms.list.set(propName, value);
+    animatable.transforms['last'] = propName;
+  }
+  return unit ? convertPxToUnit(el, value, unit) : value;
+}
+
+function getOriginalTargetValue(target, propName, unit, animatable) {
+  switch (getAnimationType(target, propName)) {
+    case 'transform': return getTransformValue(target, propName, animatable, unit);
+    case 'css': return getCSSValue(target, propName, unit);
+    case 'attribute': return getAttribute(target, propName);
+    default: return target[propName] || 0;
+  }
+}
+
+function getRelativeValue(to, from) {
+  var operator = /^(\*=|\+=|-=)/.exec(to);
+  if (!operator) { return to; }
+  var u = getUnit(to) || 0;
+  var x = parseFloat(from);
+  var y = parseFloat(to.replace(operator[0], ''));
+  switch (operator[0][0]) {
+    case '+': return x + y + u;
+    case '-': return x - y + u;
+    case '*': return x * y + u;
+  }
+}
+
+function validateValue(val, unit) {
+  if (is.col(val)) { return colorToRgb(val); }
+  if (/\s/g.test(val)) { return val; }
+  var originalUnit = getUnit(val);
+  var unitLess = originalUnit ? val.substr(0, val.length - originalUnit.length) : val;
+  if (unit) { return unitLess + unit; }
+  return unitLess;
+}
+
+// getTotalLength() equivalent for circle, rect, polyline, polygon and line shapes
+// adapted from https://gist.github.com/SebLambla/3e0550c496c236709744
+
+function getDistance(p1, p2) {
+  return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+}
+
+function getCircleLength(el) {
+  return Math.PI * 2 * getAttribute(el, 'r');
+}
+
+function getRectLength(el) {
+  return (getAttribute(el, 'width') * 2) + (getAttribute(el, 'height') * 2);
+}
+
+function getLineLength(el) {
+  return getDistance(
+    {x: getAttribute(el, 'x1'), y: getAttribute(el, 'y1')}, 
+    {x: getAttribute(el, 'x2'), y: getAttribute(el, 'y2')}
+  );
+}
+
+function getPolylineLength(el) {
+  var points = el.points;
+  var totalLength = 0;
+  var previousPos;
+  for (var i = 0 ; i < points.numberOfItems; i++) {
+    var currentPos = points.getItem(i);
+    if (i > 0) { totalLength += getDistance(previousPos, currentPos); }
+    previousPos = currentPos;
+  }
+  return totalLength;
+}
+
+function getPolygonLength(el) {
+  var points = el.points;
+  return getPolylineLength(el) + getDistance(points.getItem(points.numberOfItems - 1), points.getItem(0));
+}
+
+// Path animation
+
+function getTotalLength(el) {
+  if (el.getTotalLength) { return el.getTotalLength(); }
+  switch(el.tagName.toLowerCase()) {
+    case 'circle': return getCircleLength(el);
+    case 'rect': return getRectLength(el);
+    case 'line': return getLineLength(el);
+    case 'polyline': return getPolylineLength(el);
+    case 'polygon': return getPolygonLength(el);
+  }
+}
+
+function setDashoffset(el) {
+  var pathLength = getTotalLength(el);
+  el.setAttribute('stroke-dasharray', pathLength);
+  return pathLength;
+}
+
+// Motion path
+
+function getParentSvgEl(el) {
+  var parentEl = el.parentNode;
+  while (is.svg(parentEl)) {
+    if (!is.svg(parentEl.parentNode)) { break; }
+    parentEl = parentEl.parentNode;
+  }
+  return parentEl;
+}
+
+function getParentSvg(pathEl, svgData) {
+  var svg = svgData || {};
+  var parentSvgEl = svg.el || getParentSvgEl(pathEl);
+  var rect = parentSvgEl.getBoundingClientRect();
+  var viewBoxAttr = getAttribute(parentSvgEl, 'viewBox');
+  var width = rect.width;
+  var height = rect.height;
+  var viewBox = svg.viewBox || (viewBoxAttr ? viewBoxAttr.split(' ') : [0, 0, width, height]);
+  return {
+    el: parentSvgEl,
+    viewBox: viewBox,
+    x: viewBox[0] / 1,
+    y: viewBox[1] / 1,
+    w: width,
+    h: height,
+    vW: viewBox[2],
+    vH: viewBox[3]
+  }
+}
+
+function getPath(path, percent) {
+  var pathEl = is.str(path) ? selectString(path)[0] : path;
+  var p = percent || 100;
+  return function(property) {
+    return {
+      property: property,
+      el: pathEl,
+      svg: getParentSvg(pathEl),
+      totalLength: getTotalLength(pathEl) * (p / 100)
+    }
+  }
+}
+
+function getPathProgress(path, progress, isPathTargetInsideSVG) {
+  function point(offset) {
+    if ( offset === void 0 ) offset = 0;
+
+    var l = progress + offset >= 1 ? progress + offset : 0;
+    return path.el.getPointAtLength(l);
+  }
+  var svg = getParentSvg(path.el, path.svg);
+  var p = point();
+  var p0 = point(-1);
+  var p1 = point(+1);
+  var scaleX = isPathTargetInsideSVG ? 1 : svg.w / svg.vW;
+  var scaleY = isPathTargetInsideSVG ? 1 : svg.h / svg.vH;
+  switch (path.property) {
+    case 'x': return (p.x - svg.x) * scaleX;
+    case 'y': return (p.y - svg.y) * scaleY;
+    case 'angle': return Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI;
+  }
+}
+
+// Decompose value
+
+function decomposeValue(val, unit) {
+  // const rgx = /-?\d*\.?\d+/g; // handles basic numbers
+  // const rgx = /[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g; // handles exponents notation
+  var rgx = /[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g; // handles exponents notation
+  var value = validateValue((is.pth(val) ? val.totalLength : val), unit) + '';
+  return {
+    original: value,
+    numbers: value.match(rgx) ? value.match(rgx).map(Number) : [0],
+    strings: (is.str(val) || unit) ? value.split(rgx) : []
+  }
+}
+
+// Animatables
+
+function parseTargets(targets) {
+  var targetsArray = targets ? (flattenArray(is.arr(targets) ? targets.map(toArray) : toArray(targets))) : [];
+  return filterArray(targetsArray, function (item, pos, self) { return self.indexOf(item) === pos; });
+}
+
+function getAnimatables(targets) {
+  var parsed = parseTargets(targets);
+  return parsed.map(function (t, i) {
+    return {target: t, id: i, total: parsed.length, transforms: { list: getElementTransforms(t) } };
+  });
+}
+
+// Properties
+
+function normalizePropertyTweens(prop, tweenSettings) {
+  var settings = cloneObject(tweenSettings);
+  // Override duration if easing is a spring
+  if (/^spring/.test(settings.easing)) { settings.duration = spring(settings.easing); }
+  if (is.arr(prop)) {
+    var l = prop.length;
+    var isFromTo = (l === 2 && !is.obj(prop[0]));
+    if (!isFromTo) {
+      // Duration divided by the number of tweens
+      if (!is.fnc(tweenSettings.duration)) { settings.duration = tweenSettings.duration / l; }
+    } else {
+      // Transform [from, to] values shorthand to a valid tween value
+      prop = {value: prop};
+    }
+  }
+  var propArray = is.arr(prop) ? prop : [prop];
+  return propArray.map(function (v, i) {
+    var obj = (is.obj(v) && !is.pth(v)) ? v : {value: v};
+    // Default delay value should only be applied to the first tween
+    if (is.und(obj.delay)) { obj.delay = !i ? tweenSettings.delay : 0; }
+    // Default endDelay value should only be applied to the last tween
+    if (is.und(obj.endDelay)) { obj.endDelay = i === propArray.length - 1 ? tweenSettings.endDelay : 0; }
+    return obj;
+  }).map(function (k) { return mergeObjects(k, settings); });
+}
+
+
+function flattenKeyframes(keyframes) {
+  var propertyNames = filterArray(flattenArray(keyframes.map(function (key) { return Object.keys(key); })), function (p) { return is.key(p); })
+  .reduce(function (a,b) { if (a.indexOf(b) < 0) { a.push(b); } return a; }, []);
+  var properties = {};
+  var loop = function ( i ) {
+    var propName = propertyNames[i];
+    properties[propName] = keyframes.map(function (key) {
+      var newKey = {};
+      for (var p in key) {
+        if (is.key(p)) {
+          if (p == propName) { newKey.value = key[p]; }
+        } else {
+          newKey[p] = key[p];
+        }
+      }
+      return newKey;
+    });
+  };
+
+  for (var i = 0; i < propertyNames.length; i++) loop( i );
+  return properties;
+}
+
+function getProperties(tweenSettings, params) {
+  var properties = [];
+  var keyframes = params.keyframes;
+  if (keyframes) { params = mergeObjects(flattenKeyframes(keyframes), params); }
+  for (var p in params) {
+    if (is.key(p)) {
+      properties.push({
+        name: p,
+        tweens: normalizePropertyTweens(params[p], tweenSettings)
+      });
+    }
+  }
+  return properties;
+}
+
+// Tweens
+
+function normalizeTweenValues(tween, animatable) {
+  var t = {};
+  for (var p in tween) {
+    var value = getFunctionValue(tween[p], animatable);
+    if (is.arr(value)) {
+      value = value.map(function (v) { return getFunctionValue(v, animatable); });
+      if (value.length === 1) { value = value[0]; }
+    }
+    t[p] = value;
+  }
+  t.duration = parseFloat(t.duration);
+  t.delay = parseFloat(t.delay);
+  return t;
+}
+
+function normalizeTweens(prop, animatable) {
+  var previousTween;
+  return prop.tweens.map(function (t) {
+    var tween = normalizeTweenValues(t, animatable);
+    var tweenValue = tween.value;
+    var to = is.arr(tweenValue) ? tweenValue[1] : tweenValue;
+    var toUnit = getUnit(to);
+    var originalValue = getOriginalTargetValue(animatable.target, prop.name, toUnit, animatable);
+    var previousValue = previousTween ? previousTween.to.original : originalValue;
+    var from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
+    var fromUnit = getUnit(from) || getUnit(originalValue);
+    var unit = toUnit || fromUnit;
+    if (is.und(to)) { to = previousValue; }
+    tween.from = decomposeValue(from, unit);
+    tween.to = decomposeValue(getRelativeValue(to, from), unit);
+    tween.start = previousTween ? previousTween.end : 0;
+    tween.end = tween.start + tween.delay + tween.duration + tween.endDelay;
+    tween.easing = parseEasings(tween.easing, tween.duration);
+    tween.isPath = is.pth(tweenValue);
+    tween.isPathTargetInsideSVG = tween.isPath && is.svg(animatable.target);
+    tween.isColor = is.col(tween.from.original);
+    if (tween.isColor) { tween.round = 1; }
+    previousTween = tween;
+    return tween;
+  });
+}
+
+// Tween progress
+
+var setProgressValue = {
+  css: function (t, p, v) { return t.style[p] = v; },
+  attribute: function (t, p, v) { return t.setAttribute(p, v); },
+  object: function (t, p, v) { return t[p] = v; },
+  transform: function (t, p, v, transforms, manual) {
+    transforms.list.set(p, v);
+    if (p === transforms.last || manual) {
+      var str = '';
+      transforms.list.forEach(function (value, prop) { str += prop + "(" + value + ") "; });
+      t.style.transform = str;
+    }
+  }
+};
+
+// Set Value helper
+
+function setTargetsValue(targets, properties) {
+  var animatables = getAnimatables(targets);
+  animatables.forEach(function (animatable) {
+    for (var property in properties) {
+      var value = getFunctionValue(properties[property], animatable);
+      var target = animatable.target;
+      var valueUnit = getUnit(value);
+      var originalValue = getOriginalTargetValue(target, property, valueUnit, animatable);
+      var unit = valueUnit || getUnit(originalValue);
+      var to = getRelativeValue(validateValue(value, unit), originalValue);
+      var animType = getAnimationType(target, property);
+      setProgressValue[animType](target, property, to, animatable.transforms, true);
+    }
+  });
+}
+
+// Animations
+
+function createAnimation(animatable, prop) {
+  var animType = getAnimationType(animatable.target, prop.name);
+  if (animType) {
+    var tweens = normalizeTweens(prop, animatable);
+    var lastTween = tweens[tweens.length - 1];
+    return {
+      type: animType,
+      property: prop.name,
+      animatable: animatable,
+      tweens: tweens,
+      duration: lastTween.end,
+      delay: tweens[0].delay,
+      endDelay: lastTween.endDelay
+    }
+  }
+}
+
+function getAnimations(animatables, properties) {
+  return filterArray(flattenArray(animatables.map(function (animatable) {
+    return properties.map(function (prop) {
+      return createAnimation(animatable, prop);
+    });
+  })), function (a) { return !is.und(a); });
+}
+
+// Create Instance
+
+function getInstanceTimings(animations, tweenSettings) {
+  var animLength = animations.length;
+  var getTlOffset = function (anim) { return anim.timelineOffset ? anim.timelineOffset : 0; };
+  var timings = {};
+  timings.duration = animLength ? Math.max.apply(Math, animations.map(function (anim) { return getTlOffset(anim) + anim.duration; })) : tweenSettings.duration;
+  timings.delay = animLength ? Math.min.apply(Math, animations.map(function (anim) { return getTlOffset(anim) + anim.delay; })) : tweenSettings.delay;
+  timings.endDelay = animLength ? timings.duration - Math.max.apply(Math, animations.map(function (anim) { return getTlOffset(anim) + anim.duration - anim.endDelay; })) : tweenSettings.endDelay;
+  return timings;
+}
+
+var instanceID = 0;
+
+function createNewInstance(params) {
+  var instanceSettings = replaceObjectProps(defaultInstanceSettings, params);
+  var tweenSettings = replaceObjectProps(defaultTweenSettings, params);
+  var properties = getProperties(tweenSettings, params);
+  var animatables = getAnimatables(params.targets);
+  var animations = getAnimations(animatables, properties);
+  var timings = getInstanceTimings(animations, tweenSettings);
+  var id = instanceID;
+  instanceID++;
+  return mergeObjects(instanceSettings, {
+    id: id,
+    children: [],
+    animatables: animatables,
+    animations: animations,
+    duration: timings.duration,
+    delay: timings.delay,
+    endDelay: timings.endDelay
+  });
+}
+
+// Core
+
+var activeInstances = [];
+
+var engine = (function () {
+  var raf;
+
+  function play() {
+    if (!raf && (!isDocumentHidden() || !anime.suspendWhenDocumentHidden) && activeInstances.length > 0) {
+      raf = requestAnimationFrame(step);
+    }
+  }
+  function step(t) {
+    // memo on algorithm issue:
+    // dangerous iteration over mutable `activeInstances`
+    // (that collection may be updated from within callbacks of `tick`-ed animation instances)
+    var activeInstancesLength = activeInstances.length;
+    var i = 0;
+    while (i < activeInstancesLength) {
+      var activeInstance = activeInstances[i];
+      if (!activeInstance.paused) {
+        activeInstance.tick(t);
+        i++;
+      } else {
+        activeInstances.splice(i, 1);
+        activeInstancesLength--;
+      }
+    }
+    raf = i > 0 ? requestAnimationFrame(step) : undefined;
+  }
+
+  function handleVisibilityChange() {
+    if (!anime.suspendWhenDocumentHidden) { return; }
+
+    if (isDocumentHidden()) {
+      // suspend ticks
+      raf = cancelAnimationFrame(raf);
+    } else { // is back to active tab
+      // first adjust animations to consider the time that ticks were suspended
+      activeInstances.forEach(
+        function (instance) { return instance ._onDocumentVisibility(); }
+      );
+      engine();
+    }
+  }
+  if (typeof document !== 'undefined') {
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+  }
+
+  return play;
+})();
+
+function isDocumentHidden() {
+  return !!document && document.hidden;
+}
+
+// Public Instance
+
+function anime(params) {
+  if ( params === void 0 ) params = {};
+
+
+  var startTime = 0, lastTime = 0, now = 0;
+  var children, childrenLength = 0;
+  var resolve = null;
+
+  function makePromise(instance) {
+    var promise = window.Promise && new Promise(function (_resolve) { return resolve = _resolve; });
+    instance.finished = promise;
+    return promise;
+  }
+
+  var instance = createNewInstance(params);
+  var promise = makePromise(instance);
+
+  function toggleInstanceDirection() {
+    var direction = instance.direction;
+    if (direction !== 'alternate') {
+      instance.direction = direction !== 'normal' ? 'normal' : 'reverse';
+    }
+    instance.reversed = !instance.reversed;
+    children.forEach(function (child) { return child.reversed = instance.reversed; });
+  }
+
+  function adjustTime(time) {
+    return instance.reversed ? instance.duration - time : time;
+  }
+
+  function resetTime() {
+    startTime = 0;
+    lastTime = adjustTime(instance.currentTime) * (1 / anime.speed);
+  }
+
+  function seekChild(time, child) {
+    if (child) { child.seek(time - child.timelineOffset); }
+  }
+
+  function syncInstanceChildren(time) {
+    if (!instance.reversePlayback) {
+      for (var i = 0; i < childrenLength; i++) { seekChild(time, children[i]); }
+    } else {
+      for (var i$1 = childrenLength; i$1--;) { seekChild(time, children[i$1]); }
+    }
+  }
+
+  function setAnimationsProgress(insTime) {
+    var i = 0;
+    var animations = instance.animations;
+    var animationsLength = animations.length;
+    while (i < animationsLength) {
+      var anim = animations[i];
+      var animatable = anim.animatable;
+      var tweens = anim.tweens;
+      var tweenLength = tweens.length - 1;
+      var tween = tweens[tweenLength];
+      // Only check for keyframes if there is more than one tween
+      if (tweenLength) { tween = filterArray(tweens, function (t) { return (insTime < t.end); })[0] || tween; }
+      var elapsed = minMax(insTime - tween.start - tween.delay, 0, tween.duration) / tween.duration;
+      var eased = isNaN(elapsed) ? 1 : tween.easing(elapsed);
+      var strings = tween.to.strings;
+      var round = tween.round;
+      var numbers = [];
+      var toNumbersLength = tween.to.numbers.length;
+      var progress = (void 0);
+      for (var n = 0; n < toNumbersLength; n++) {
+        var value = (void 0);
+        var toNumber = tween.to.numbers[n];
+        var fromNumber = tween.from.numbers[n] || 0;
+        if (!tween.isPath) {
+          value = fromNumber + (eased * (toNumber - fromNumber));
+        } else {
+          value = getPathProgress(tween.value, eased * toNumber, tween.isPathTargetInsideSVG);
+        }
+        if (round) {
+          if (!(tween.isColor && n > 2)) {
+            value = Math.round(value * round) / round;
+          }
+        }
+        numbers.push(value);
+      }
+      // Manual Array.reduce for better performances
+      var stringsLength = strings.length;
+      if (!stringsLength) {
+        progress = numbers[0];
+      } else {
+        progress = strings[0];
+        for (var s = 0; s < stringsLength; s++) {
+          var a = strings[s];
+          var b = strings[s + 1];
+          var n$1 = numbers[s];
+          if (!isNaN(n$1)) {
+            if (!b) {
+              progress += n$1 + ' ';
+            } else {
+              progress += n$1 + b;
+            }
+          }
+        }
+      }
+      setProgressValue[anim.type](animatable.target, anim.property, progress, animatable.transforms);
+      anim.currentValue = progress;
+      i++;
+    }
+  }
+
+  function setCallback(cb) {
+    if (instance[cb] && !instance.passThrough) { instance[cb](instance); }
+  }
+
+  function countIteration() {
+    if (instance.remaining && instance.remaining !== true) {
+      instance.remaining--;
+    }
+  }
+
+  function setInstanceProgress(engineTime) {
+    var insDuration = instance.duration;
+    var insDelay = instance.delay;
+    var insEndDelay = insDuration - instance.endDelay;
+    var insTime = adjustTime(engineTime);
+    instance.progress = minMax((insTime / insDuration) * 100, 0, 100);
+    instance.reversePlayback = insTime < instance.currentTime;
+    if (children) { syncInstanceChildren(insTime); }
+    if (!instance.began && instance.currentTime > 0) {
+      instance.began = true;
+      setCallback('begin');
+    }
+    if (!instance.loopBegan && instance.currentTime > 0) {
+      instance.loopBegan = true;
+      setCallback('loopBegin');
+    }
+    if (insTime <= insDelay && instance.currentTime !== 0) {
+      setAnimationsProgress(0);
+    }
+    if ((insTime >= insEndDelay && instance.currentTime !== insDuration) || !insDuration) {
+      setAnimationsProgress(insDuration);
+    }
+    if (insTime > insDelay && insTime < insEndDelay) {
+      if (!instance.changeBegan) {
+        instance.changeBegan = true;
+        instance.changeCompleted = false;
+        setCallback('changeBegin');
+      }
+      setCallback('change');
+      setAnimationsProgress(insTime);
+    } else {
+      if (instance.changeBegan) {
+        instance.changeCompleted = true;
+        instance.changeBegan = false;
+        setCallback('changeComplete');
+      }
+    }
+    instance.currentTime = minMax(insTime, 0, insDuration);
+    if (instance.began) { setCallback('update'); }
+    if (engineTime >= insDuration) {
+      lastTime = 0;
+      countIteration();
+      if (!instance.remaining) {
+        instance.paused = true;
+        if (!instance.completed) {
+          instance.completed = true;
+          setCallback('loopComplete');
+          setCallback('complete');
+          if (!instance.passThrough && 'Promise' in window) {
+            resolve();
+            promise = makePromise(instance);
+          }
+        }
+      } else {
+        startTime = now;
+        setCallback('loopComplete');
+        instance.loopBegan = false;
+        if (instance.direction === 'alternate') {
+          toggleInstanceDirection();
+        }
+      }
+    }
+  }
+
+  instance.reset = function() {
+    var direction = instance.direction;
+    instance.passThrough = false;
+    instance.currentTime = 0;
+    instance.progress = 0;
+    instance.paused = true;
+    instance.began = false;
+    instance.loopBegan = false;
+    instance.changeBegan = false;
+    instance.completed = false;
+    instance.changeCompleted = false;
+    instance.reversePlayback = false;
+    instance.reversed = direction === 'reverse';
+    instance.remaining = instance.loop;
+    children = instance.children;
+    childrenLength = children.length;
+    for (var i = childrenLength; i--;) { instance.children[i].reset(); }
+    if (instance.reversed && instance.loop !== true || (direction === 'alternate' && instance.loop === 1)) { instance.remaining++; }
+    setAnimationsProgress(instance.reversed ? instance.duration : 0);
+  };
+
+  // internal method (for engine) to adjust animation timings before restoring engine ticks (rAF)
+  instance._onDocumentVisibility = resetTime;
+
+  // Set Value helper
+
+  instance.set = function(targets, properties) {
+    setTargetsValue(targets, properties);
+    return instance;
+  };
+
+  instance.tick = function(t) {
+    now = t;
+    if (!startTime) { startTime = now; }
+    setInstanceProgress((now + (lastTime - startTime)) * anime.speed);
+  };
+
+  instance.seek = function(time) {
+    setInstanceProgress(adjustTime(time));
+  };
+
+  instance.pause = function() {
+    instance.paused = true;
+    resetTime();
+  };
+
+  instance.play = function() {
+    if (!instance.paused) { return; }
+    if (instance.completed) { instance.reset(); }
+    instance.paused = false;
+    activeInstances.push(instance);
+    resetTime();
+    engine();
+  };
+
+  instance.reverse = function() {
+    toggleInstanceDirection();
+    instance.completed = instance.reversed ? false : true;
+    resetTime();
+  };
+
+  instance.restart = function() {
+    instance.reset();
+    instance.play();
+  };
+
+  instance.remove = function(targets) {
+    var targetsArray = parseTargets(targets);
+    removeTargetsFromInstance(targetsArray, instance);
+  };
+
+  instance.reset();
+
+  if (instance.autoplay) { instance.play(); }
+
+  return instance;
+
+}
+
+// Remove targets from animation
+
+function removeTargetsFromAnimations(targetsArray, animations) {
+  for (var a = animations.length; a--;) {
+    if (arrayContains(targetsArray, animations[a].animatable.target)) {
+      animations.splice(a, 1);
+    }
+  }
+}
+
+function removeTargetsFromInstance(targetsArray, instance) {
+  var animations = instance.animations;
+  var children = instance.children;
+  removeTargetsFromAnimations(targetsArray, animations);
+  for (var c = children.length; c--;) {
+    var child = children[c];
+    var childAnimations = child.animations;
+    removeTargetsFromAnimations(targetsArray, childAnimations);
+    if (!childAnimations.length && !child.children.length) { children.splice(c, 1); }
+  }
+  if (!animations.length && !children.length) { instance.pause(); }
+}
+
+function removeTargetsFromActiveInstances(targets) {
+  var targetsArray = parseTargets(targets);
+  for (var i = activeInstances.length; i--;) {
+    var instance = activeInstances[i];
+    removeTargetsFromInstance(targetsArray, instance);
+  }
+}
+
+// Stagger helpers
+
+function stagger(val, params) {
+  if ( params === void 0 ) params = {};
+
+  var direction = params.direction || 'normal';
+  var easing = params.easing ? parseEasings(params.easing) : null;
+  var grid = params.grid;
+  var axis = params.axis;
+  var fromIndex = params.from || 0;
+  var fromFirst = fromIndex === 'first';
+  var fromCenter = fromIndex === 'center';
+  var fromLast = fromIndex === 'last';
+  var isRange = is.arr(val);
+  var val1 = isRange ? parseFloat(val[0]) : parseFloat(val);
+  var val2 = isRange ? parseFloat(val[1]) : 0;
+  var unit = getUnit(isRange ? val[1] : val) || 0;
+  var start = params.start || 0 + (isRange ? val1 : 0);
+  var values = [];
+  var maxValue = 0;
+  return function (el, i, t) {
+    if (fromFirst) { fromIndex = 0; }
+    if (fromCenter) { fromIndex = (t - 1) / 2; }
+    if (fromLast) { fromIndex = t - 1; }
+    if (!values.length) {
+      for (var index = 0; index < t; index++) {
+        if (!grid) {
+          values.push(Math.abs(fromIndex - index));
+        } else {
+          var fromX = !fromCenter ? fromIndex%grid[0] : (grid[0]-1)/2;
+          var fromY = !fromCenter ? Math.floor(fromIndex/grid[0]) : (grid[1]-1)/2;
+          var toX = index%grid[0];
+          var toY = Math.floor(index/grid[0]);
+          var distanceX = fromX - toX;
+          var distanceY = fromY - toY;
+          var value = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+          if (axis === 'x') { value = -distanceX; }
+          if (axis === 'y') { value = -distanceY; }
+          values.push(value);
+        }
+        maxValue = Math.max.apply(Math, values);
+      }
+      if (easing) { values = values.map(function (val) { return easing(val / maxValue) * maxValue; }); }
+      if (direction === 'reverse') { values = values.map(function (val) { return axis ? (val < 0) ? val * -1 : -val : Math.abs(maxValue - val); }); }
+    }
+    var spacing = isRange ? (val2 - val1) / maxValue : val1;
+    return start + (spacing * (Math.round(values[i] * 100) / 100)) + unit;
+  }
+}
+
+// Timeline
+
+function timeline(params) {
+  if ( params === void 0 ) params = {};
+
+  var tl = anime(params);
+  tl.duration = 0;
+  tl.add = function(instanceParams, timelineOffset) {
+    var tlIndex = activeInstances.indexOf(tl);
+    var children = tl.children;
+    if (tlIndex > -1) { activeInstances.splice(tlIndex, 1); }
+    function passThrough(ins) { ins.passThrough = true; }
+    for (var i = 0; i < children.length; i++) { passThrough(children[i]); }
+    var insParams = mergeObjects(instanceParams, replaceObjectProps(defaultTweenSettings, params));
+    insParams.targets = insParams.targets || params.targets;
+    var tlDuration = tl.duration;
+    insParams.autoplay = false;
+    insParams.direction = tl.direction;
+    insParams.timelineOffset = is.und(timelineOffset) ? tlDuration : getRelativeValue(timelineOffset, tlDuration);
+    passThrough(tl);
+    tl.seek(insParams.timelineOffset);
+    var ins = anime(insParams);
+    passThrough(ins);
+    children.push(ins);
+    var timings = getInstanceTimings(children, params);
+    tl.delay = timings.delay;
+    tl.endDelay = timings.endDelay;
+    tl.duration = timings.duration;
+    tl.seek(0);
+    tl.reset();
+    if (tl.autoplay) { tl.play(); }
+    return tl;
+  };
+  return tl;
+}
+
+anime.version = '3.2.1';
+anime.speed = 1;
+// TODO:#review: naming, documentation
+anime.suspendWhenDocumentHidden = true;
+anime.running = activeInstances;
+anime.remove = removeTargetsFromActiveInstances;
+anime.get = getOriginalTargetValue;
+anime.set = setTargetsValue;
+anime.convertPx = convertPxToUnit;
+anime.path = getPath;
+anime.setDashoffset = setDashoffset;
+anime.stagger = stagger;
+anime.timeline = timeline;
+anime.easing = parseEasings;
+anime.penner = penner;
+anime.random = function (min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; };
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (anime);
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -15743,7 +18606,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PlayerScreen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PlayerScreen */ "./src/components/PlayerScreen.js");
 /* harmony import */ var _BrowseSongs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./BrowseSongs */ "./src/components/BrowseSongs.js");
 /* harmony import */ var _CollectionSongs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CollectionSongs */ "./src/components/CollectionSongs.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
 /* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
@@ -15755,16 +18618,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
 /* harmony import */ var react_burger_menu__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-burger-menu */ "./node_modules/react-burger-menu/lib/BurgerMenu.js");
 /* harmony import */ var react_burger_menu__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(react_burger_menu__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @mui/icons-material/Home */ "./node_modules/@mui/icons-material/Home.js");
-/* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
-/* harmony import */ var _mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/icons-material/Check */ "./node_modules/@mui/icons-material/Check.js");
-/* harmony import */ var _mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/icons-material/RestartAlt */ "./node_modules/@mui/icons-material/RestartAlt.js");
-/* harmony import */ var _mui_icons_material_PlaylistAdd__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/icons-material/PlaylistAdd */ "./node_modules/@mui/icons-material/PlaylistAdd.js");
-/* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
-/* harmony import */ var _mui_icons_material_LibraryMusicSharp__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/icons-material/LibraryMusicSharp */ "./node_modules/@mui/icons-material/LibraryMusicSharp.js");
+/* harmony import */ var _mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material/Home */ "./node_modules/@mui/icons-material/Home.js");
+/* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
+/* harmony import */ var _mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/icons-material/Check */ "./node_modules/@mui/icons-material/Check.js");
+/* harmony import */ var _mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/icons-material/RestartAlt */ "./node_modules/@mui/icons-material/RestartAlt.js");
+/* harmony import */ var _mui_icons_material_PlaylistAdd__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/icons-material/PlaylistAdd */ "./node_modules/@mui/icons-material/PlaylistAdd.js");
+/* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
+/* harmony import */ var _mui_icons_material_LibraryMusicSharp__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/icons-material/LibraryMusicSharp */ "./node_modules/@mui/icons-material/LibraryMusicSharp.js");
 /* harmony import */ var _icons_metronome_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../icons/metronome.svg */ "./src/icons/metronome.svg");
-/* harmony import */ var _mui_icons_material_Share__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/icons-material/Share */ "./node_modules/@mui/icons-material/Share.js");
+/* harmony import */ var _mui_icons_material_Share__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/icons-material/Share */ "./node_modules/@mui/icons-material/Share.js");
 /* harmony import */ var _SpringScrollbars__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./SpringScrollbars */ "./src/components/SpringScrollbars.js");
+/* harmony import */ var _StyledButton__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./StyledButton */ "./src/components/StyledButton.js");
+/* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -15967,62 +18832,8 @@ function _defineProperty(obj, key, value) {
  // import ClearIcon from '@mui/icons-material/Clear';
 
 
-var styles = {
-  bmBurgerButton: {
-    position: 'fixed',
-    width: '28.8px',
-    height: '24px',
-    //   left: '30px',
-    //   top: '30px'
-    left: '14px',
-    top: '18px'
-  },
-  bmBurgerBars: {
-    //   background: '#373a47',
-    background: '#F3F3F3'
-  },
-  bmBurgerBarsHover: {
-    background: '#a90000'
-  },
-  bmCrossButton: {
-    height: '24px',
-    width: '24px'
-  },
-  bmCross: {
-    background: '#bdc3c7'
-  },
-  bmMenuWrap: {
-    position: 'fixed',
-    top: '0',
-    height: '100%'
-  },
-  bmMenu: {
-    position: 'fixed',
-    top: '0',
-    background: '#373a47',
-    padding: '2.5em 1.5em 0',
-    fontSize: '1.15em',
-    //   width: '260px'
-    paddingTop: '0px !important'
-  },
-  bmMorphShape: {
-    fill: '#373a47'
-  },
-  bmItemList: {
-    color: '#b8b7ad',
-    display: 'flex',
-    flexDirection: 'column',
-    userSelect: 'none'
-  },
-  bmItem: {
-    display: 'inline-block'
-  },
-  bmOverlay: {
-    position: 'fixed',
-    top: '0',
-    background: 'rgba(0, 0, 0, 0.3)'
-  }
-};
+
+
 var tempActiveCollectionSession = null;
 react_modal__WEBPACK_IMPORTED_MODULE_2___default().setAppElement('#root');
 
@@ -16046,7 +18857,7 @@ var App = /*#__PURE__*/function (_React$Component) {
               case 0:
                 evt.preventDefault();
 
-                if (_this.state.collectionName.length) {
+                if (_this.state.collectionName) {
                   _context.next = 3;
                   break;
                 }
@@ -16325,6 +19136,9 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleChange",
     value: function handleChange(evt) {
+      if (this.state.shareConfirmation.length) this.setState({
+        shareConfirmation: ''
+      });
       this.setState(_defineProperty({}, evt.target.name, evt.target.value));
     }
   }, {
@@ -16353,11 +19167,81 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this2 = this,
+          _React$createElement;
 
+      var styles = {
+        bmBurgerButton: {
+          position: 'fixed',
+          width: '28.8px',
+          height: '24px',
+          //   left: '30px',
+          //   top: '30px'
+          left: '14px',
+          top: '18px'
+        },
+        bmBurgerBars: {
+          //   background: '#373a47',
+          background: '#F3F3F3'
+        },
+        bmBurgerBarsHover: {
+          background: '#a90000'
+        },
+        bmCrossButton: {
+          height: '24px',
+          width: '24px',
+          top: '0',
+          right: '1',
+          marginTop: '3px',
+          marginLeft: '3px'
+        },
+        bmCross: {
+          background: '#bdc3c7' //   backgroundColor: 'white'
+
+        },
+        bmMenuWrap: {
+          position: 'fixed',
+          //   height: '100%',
+          height: "".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_13__.isBrowser && this.props.musicInfo.activeSession ? 'calc(100vh - 90px)' : '100%'),
+          width: '276px',
+          top: '0',
+          backdropFilter: 'blur(5px)'
+        },
+        bmMenu: {
+          position: 'fixed',
+          top: '0',
+          //   background: '#373a47',
+          //   background: 'rgb(62 60 68 / 91%)',
+          background: 'rgba(52, 52, 52, 0.82)',
+          backdropFilter: 'blur(5px)',
+          padding: '1.5em 1.5em 0',
+          fontSize: '1.15em',
+          paddingTop: '0px !important',
+          height: "".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_13__.isBrowser && this.props.musicInfo.activeSession ? 'calc(100vh - 90px)' : '100%')
+        },
+        bmMorphShape: {
+          fill: '#373a47'
+        },
+        bmItemList: {
+          color: '#b8b7ad',
+          display: 'flex',
+          flexDirection: 'column',
+          minWidth: '220px',
+          maxWidth: '220px'
+        },
+        bmItem: {
+          display: 'inline-block'
+        },
+        bmOverlay: {
+          position: 'fixed',
+          top: '0',
+          background: 'rgba(0, 0, 0, 0.3)',
+          height: "".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_13__.isBrowser && this.props.musicInfo.activeSession ? 'calc(100vh - 90px)' : '100%')
+        }
+      };
       console.log('Props on App.js RENDER', this.props);
       console.log('STATE', this.state);
-      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Redirect, {
+      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Redirect, {
         to: "/login"
       });
 
@@ -16365,47 +19249,47 @@ var App = /*#__PURE__*/function (_React$Component) {
         location.href = "/auth/logout";
       };
 
-      var homeLogout = this.props.screenStr === 'Collections' ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_20__.default, {
+      var homeLogout = this.props.screenStr === 'Collections' ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_21__.default, {
         className: "navButton toTheLeft",
         onClick: function onClick() {
           return _this2.props.changeScreen('Collections');
         }
       });
-      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_21__.default, {
+      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_22__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
             addCollectionModal: true
           });
         }
-      }) : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlaylistAdd__WEBPACK_IMPORTED_MODULE_22__.default, {
+      }) : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlaylistAdd__WEBPACK_IMPORTED_MODULE_23__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.props.changeScreen('BrowseSongs');
         }
       }) : null;
-      var editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_23__.default, {
+      var editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_24__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
             editCollection: false
           });
         }
-      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_24__.default, {
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_25__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
             editCollection: true
           });
         }
-      }) : this.props.screenStr === 'Collections' ? this.state.editCollections ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_23__.default, {
+      }) : this.props.screenStr === 'Collections' ? this.state.editCollections ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_24__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
             editCollections: false
           });
         }
-      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_24__.default, {
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_25__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
@@ -16413,11 +19297,11 @@ var App = /*#__PURE__*/function (_React$Component) {
           });
         }
       }) : null;
-      var clearListened = this.props.screenStr !== 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_25__.default, {
+      var clearListened = this.props.screenStr !== 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_26__.default, {
         className: "navButton",
         onClick: this.resetInfo
       }) : null;
-      var navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_LibraryMusicSharp__WEBPACK_IMPORTED_MODULE_26__.default, {
+      var navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_LibraryMusicSharp__WEBPACK_IMPORTED_MODULE_27__.default, {
         className: "navButton toTheLeft",
         onClick: function onClick() {
           return _this2.props.changeScreen('CollectionSongs');
@@ -16454,7 +19338,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       });
       var shareCollection;
-      if (this.props.screenStr === 'CollectionSongs') shareCollection = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Share__WEBPACK_IMPORTED_MODULE_27__.default, {
+      if (this.props.screenStr === 'CollectionSongs') shareCollection = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Share__WEBPACK_IMPORTED_MODULE_28__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
@@ -16463,14 +19347,14 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       });
       var burgerMenu = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_burger_menu__WEBPACK_IMPORTED_MODULE_16__.slide, {
-        styles: styles
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        styles: styles,
+        disableAutoFocus: true
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", {
         onClick: this.showSettings,
-        className: "menu-item--small",
-        href: ""
+        className: "burgerName"
       }, this.props.user.email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: logout,
-        className: "logoutOption"
+        className: "burgerLogout"
       }, "Logout")); // const escapeExitSongs = this.state.editCollection ? <ClearIcon onClick={() => this.setState({editCollection: false})} className='navButton'/> : null;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.screenStr === 'Collections' ? burgerMenu : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_2___default()), {
@@ -16489,31 +19373,79 @@ var App = /*#__PURE__*/function (_React$Component) {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            // minHeight: '116px',
-            // maxHeight: '14vh',
-            height: '118px',
-            // maxHeight: '116px',
+            height: '188px',
             position: 'absolute',
             width: '50vw',
+            minWidth: '222px',
+            maxWidth: '518px',
             marginLeft: 'auto',
             marginRight: 'auto',
-            top: '28%'
+            top: '28%',
+            border: '1px solid #00000096',
+            backgroundColor: "rgb(52 52 52 ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_13__.isBrowser ? '/ 82%' : '', ")"),
+            backdropFilter: 'blur(5px)'
+          },
+          overlay: {
+            backgroundColor: '#36363614',
+            zIndex: 2
           }
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Name your collection:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText"
+      }, "Name your collection:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_29__.default, {
+        className: "browseSongsInput",
+        sx: {
+          fontSize: 16,
+          color: 'white',
+          ':not($focused)': {
+            borderBottomColor: 'white'
+          },
+          ':before': {
+            borderBottomColor: 'grey'
+          },
+          ':after': {
+            borderBottomColor: 'white'
+          }
+        },
+        inputProps: {
+          spellCheck: false
+        },
         name: "collectionName",
+        id: "outlined-basic",
+        value: this.state.collectionName,
         onChange: this.handleChange,
-        value: this.state.collectionName
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Art URL:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        variant: "outlined"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText"
+      }, "Art URL:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_29__.default, (_React$createElement = {
+        className: "browseSongsInput",
+        sx: {
+          fontSize: 16,
+          color: 'white',
+          ':not($focused)': {
+            borderBottomColor: 'white'
+          },
+          ':before': {
+            borderBottomColor: 'grey'
+          },
+          ':after': {
+            borderBottomColor: 'white'
+          }
+        },
+        inputProps: {
+          spellCheck: false
+        },
         name: "collectionArtURL",
-        onChange: this.handleChange,
-        placeholder: 'Optional',
-        value: this.state.collectionArtURL
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        type: "submit"
-      }, "Create")))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_2___default()), {
+        id: "outlined-basic",
+        placeholder: "Search",
+        value: this.state.collectionArtURL,
+        onChange: this.handleChange
+      }, _defineProperty(_React$createElement, "placeholder", 'Optional'), _defineProperty(_React$createElement, "variant", "outlined"), _React$createElement))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_19__.default, {
+        type: "submit",
+        title: "Create"
+      })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_2___default()), {
         isOpen: this.state.noNextSong,
         onRequestClose: function onRequestClose() {
           return _this2.setState({
@@ -16527,30 +19459,53 @@ var App = /*#__PURE__*/function (_React$Component) {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            // minHeight: '116px',
-            // maxHeight: '14vh',
-            height: '142px',
-            // maxHeight: '126px',
+            height: '234px',
             position: 'absolute',
             width: '50vw',
+            minWidth: '255px',
+            maxWidth: '518px',
             marginLeft: 'auto',
             marginRight: 'auto',
-            top: '28%'
+            top: '28%',
+            border: '1px solid #00000096',
+            paddingBottom: '24px',
+            backgroundColor: "rgb(52 52 52 ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_13__.isBrowser ? '/ 82%' : '', ")"),
+            backdropFilter: 'blur(5px)'
+          },
+          overlay: {
+            backgroundColor: '#36363614',
+            zIndex: 2
           }
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No more music in this BPM range!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Choose a different collection, or:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.changeTempoFromModal
-      }, "Change BPM")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.activeSession && this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionOwner === this.props.user.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.addSongsFromModal
-      }, "Add songs to collection") : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.resetInfo
-      }, "Clear Listened")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: function onClick() {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText modalTextPadding"
+      }, "No more songs in this BPM range!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText modalTextPadding"
+      }, "Choose a different collection, or:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalButton"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_19__.default, {
+        title: "Change BPM",
+        func: this.changeTempoFromModal
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalButton"
+      }, this.props.musicInfo.activeSession && this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionOwner === this.props.user.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_19__.default, {
+        title: "Add songs to collection",
+        func: this.addSongsFromModal
+      }) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalButton"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_19__.default, {
+        title: "Clear Listened",
+        func: this.resetInfo
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalButton"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_19__.default, {
+        title: "Close",
+        func: function func() {
           return _this2.setState({
             noNextSong: false
           });
         }
-      }, "Close")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_2___default()), {
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_2___default()), {
         isOpen: this.state.shareCollectionModal,
         onRequestClose: function onRequestClose() {
           return _this2.setState({
@@ -16565,26 +19520,57 @@ var App = /*#__PURE__*/function (_React$Component) {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            // minHeight: '116px',
-            // maxHeight: '14vh',
-            height: '116px',
-            // maxHeight: '116px',
+            height: '146px',
             position: 'absolute',
             width: '50vw',
+            minWidth: '222px',
+            maxWidth: '518px',
             marginLeft: 'auto',
             marginRight: 'auto',
-            top: '28%'
+            top: '28%',
+            border: '1px solid #00000096',
+            paddingBottom: '30px',
+            backgroundColor: "rgb(52 52 52 ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_13__.isBrowser ? '/ 82%' : '', ")"),
+            backdropFilter: 'blur(5px)'
+          },
+          overlay: {
+            backgroundColor: '#36363614',
+            zIndex: 2
           }
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Enter the recipient's E-mail:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText"
+      }, "Enter recipient's E-mail:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleShare
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_29__.default, {
+        className: "browseSongsInput",
+        sx: {
+          fontSize: 16,
+          color: 'white',
+          ':not($focused)': {
+            borderBottomColor: 'white'
+          },
+          ':before': {
+            borderBottomColor: 'grey'
+          },
+          ':after': {
+            borderBottomColor: 'white'
+          }
+        },
+        inputProps: {
+          spellCheck: false
+        },
         name: "recipientEmail",
+        id: "outlined-basic",
+        value: this.state.recipientEmail,
         onChange: this.handleChange,
-        value: this.state.recipientEmail
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.shareConfirmation), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        variant: "outlined"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText noRecipientPadding"
+      }, this.state.shareConfirmation), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_19__.default, {
+        title: "Share",
         type: "submit"
-      }, "Share")))))), this.props.screenStr !== 'PlayerScreen' && react_device_detect__WEBPACK_IMPORTED_MODULE_13__.isBrowser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpringScrollbars__WEBPACK_IMPORTED_MODULE_18__.default, {
+      })))))), this.props.screenStr !== 'PlayerScreen' && react_device_detect__WEBPACK_IMPORTED_MODULE_13__.isBrowser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpringScrollbars__WEBPACK_IMPORTED_MODULE_18__.default, {
         ref: "scrollbars",
         style: {
           height: this.props.musicInfo.activeSession ? "calc(100vh - 90px)" : "100vh"
@@ -16805,6 +19791,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
@@ -16872,6 +19873,8 @@ function _arrayWithHoles(arr) {
 
 
 var BPMSlider = function BPMSlider(props) {
+  var _MuiSliderThumb;
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.localBPM),
       _useState2 = _slicedToArray(_useState, 2),
       sliderBPM = _useState2[0],
@@ -16894,6 +19897,7 @@ var BPMSlider = function BPMSlider(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "BPMText"
   }, !props.toggleDisabledBPM ? "".concat(sliderBPM) : props.disabledBPM ? 'Any BPM' : "".concat(sliderBPM)), props.toggleDisabledBPM ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    className: "toggleSearchByBPMBox",
     name: "Toggle Search by BPM",
     type: "checkbox",
     checked: !props.disabledBPM,
@@ -16909,17 +19913,21 @@ var BPMSlider = function BPMSlider(props) {
     onChangeCommitted: onChangeCommitted,
     sx: {
       color: 'black',
-      '& .MuiSlider-thumb': {
+      '& .MuiSlider-thumb': (_MuiSliderThumb = {
         width: 24,
         height: 24,
         backgroundColor: '#fff',
         '&:before': {
           boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
-        } // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-        //   boxShadow: 'none',
-        // },
-
-      }
+        }
+      }, _defineProperty(_MuiSliderThumb, "&:before", {
+        boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
+      }), _defineProperty(_MuiSliderThumb, '&:hover, &.Mui-focusVisible', {
+        // This is the hover/glow
+        boxShadow: "0px 0px 5px 6px grey"
+      }), _defineProperty(_MuiSliderThumb, '&.Mui-active', {
+        boxShadow: "0px 0px 10px 4px #FDFDFD"
+      }), _MuiSliderThumb)
     }
   })));
 };
@@ -18034,8 +21042,12 @@ var CollectionSingleSong = function CollectionSingleSong(props) {
       artURL = props.artURL,
       editMode = props.editMode,
       removeSongFromCollection = props.removeSongFromCollection,
-      listenedBool = props.listenedBool;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+      listenedBool = props.listenedBool,
+      songIsPlaying = props.songIsPlaying;
+  var specialClassName = songIsPlaying ? 'isPlaying' : listenedBool ? 'listenedCollectionSong' : null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
+    id: "singleSongRow"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
     className: "removeSongCrossContainer"
   }, editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Clear__WEBPACK_IMPORTED_MODULE_3__.default, {
     className: react_device_detect__WEBPACK_IMPORTED_MODULE_1__.isBrowser ? 'removeSongCross' : 'removeSongCrossMobile',
@@ -18049,7 +21061,17 @@ var CollectionSingleSong = function CollectionSingleSong(props) {
     src: artURL
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "singleSongVertical centerVertical touchPaddingBottomSong"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, songName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, artistName))), react_device_detect__WEBPACK_IMPORTED_MODULE_1__.isBrowser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, albumName) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, BPM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, (0,_secondsToTimestamp__WEBPACK_IMPORTED_MODULE_2__.default)(duration)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: specialClassName
+  }, songName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: specialClassName
+  }, artistName))), react_device_detect__WEBPACK_IMPORTED_MODULE_1__.isBrowser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+    className: specialClassName
+  }, albumName) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+    className: specialClassName
+  }, BPM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+    className: specialClassName
+  }, (0,_secondsToTimestamp__WEBPACK_IMPORTED_MODULE_2__.default)(duration)));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CollectionSingleSong);
@@ -18075,8 +21097,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../icons/metronome.svg */ "./src/icons/metronome.svg");
-/* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
+/* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
+/* harmony import */ var _StyledButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./StyledButton */ "./src/components/StyledButton.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -18376,6 +21399,8 @@ function _defineProperty(obj, key, value) {
 
 
 
+
+
 var CollectionSongs = /*#__PURE__*/function (_React$Component) {
   _inherits(CollectionSongs, _React$Component);
 
@@ -18564,7 +21589,8 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
               artURL: _song.artURL,
               editMode: this.props.editMode,
               removeSongFromCollection: this.removeSongFromCollection,
-              listenedBool: !!this.props.user.listened.songs[_song.id]
+              listenedBool: !!this.props.user.listened.songs[_song.id],
+              songIsPlaying: this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === _song.id
             });
             idx++;
           }
@@ -18596,31 +21622,48 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
               justifyContent: 'center',
               alignItems: 'center',
               textAlign: 'center',
-              // minHeight: '106px',
-              // maxHeight: '106px',
-              height: '106px',
+              height: '118px',
               position: 'absolute',
               width: '50vw',
+              minWidth: '244px',
+              maxWidth: '518px',
               marginLeft: 'auto',
               marginRight: 'auto',
-              top: '28%'
+              top: '28%',
+              border: '1px solid #00000096',
+              paddingBottom: '30px',
+              backgroundColor: "rgb(52 52 52 ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_7__.isBrowser ? '/ 82%' : '', ")"),
+              backdropFilter: 'blur(5px)'
+            },
+            overlay: {
+              backgroundColor: '#36363614',
+              zIndex: 2
             }
           }
-        }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No songs in this collection yet!"), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-          onClick: function onClick() {
+        }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "modalText modalTextPadding"
+        }, "No songs in this collection yet!"), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "modalButton"
+        }, this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_8__.default, {
+          title: "Add songs",
+          func: function func() {
             return _this3.props.changeScreen('BrowseSongs');
           }
-        }, "Add Songs") : null), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-          onClick: function onClick() {
+        }) : null), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "modalButton"
+        }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_8__.default, {
+          title: "Go back",
+          func: function func() {
             return _this3.props.selectCollectionAndChangeScreen(null, 'Collections');
           }
-        }, "Go back")))), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        })))), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "screenTitle"
-        }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.selectedCollection].collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.selectedCollection].collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__.default, {
+          id: "metronomeMain",
           onClick: function onClick() {
             return _this3.props.changeScreen('Tempo');
           }
-        }, buttonLabel))));
+        }))));
       } else return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle"
       }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.editMode ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
@@ -18637,7 +21680,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
         className: "collectionSongsTable ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_7__.isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile')
       }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Title"), react_device_detect__WEBPACK_IMPORTED_MODULE_7__.isBrowser ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Album") : null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "BPM"), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
         id: "durationIconContainer"
-      }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_8__.default, {
+      }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_9__.default, {
         id: "durationIcon"
       }))), songList))));
     }
@@ -19667,7 +22710,8 @@ var FooterControlsMobile = /*#__PURE__*/function (_React$Component) {
 
           },
           '& .MuiSlider-track': {
-            color: 'orange'
+            // color: 'rgb(255, 251, 0)',
+            color: '#d4af37'
           },
           '& .MuiSlider-rail': {
             color: 'gray',
@@ -19831,10 +22875,14 @@ var FooterSlider = function FooterSlider(props) {
         backgroundColor: '#fff',
         '&:before': {
           boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
-        } // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-        //   boxShadow: 'none',
-        // },
-
+        },
+        '&:hover, &.Mui-focusVisible': {
+          // This is the hover/glow
+          boxShadow: "0px 0px 5px 6px grey"
+        },
+        '&.Mui-active': {
+          boxShadow: "0px 0px 10px 4px #FDFDFD"
+        }
       }
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -20414,29 +23462,49 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
 
-    _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
-      if (_this.props.musicInfo.activeSession) _this.setState({
-        currSrc: _this.props.musicInfo.activeSession.songs[_this.props.playIdx].songURL,
-        duration: _this.props.musicInfo.activeSession.songs[_this.props.playIdx].duration //e.target.duration
+    _defineProperty(_assertThisInitialized(_this), "componentDidMount", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (_this.props.musicInfo.activeSession) _this.setState({
+                currSrc: _this.props.musicInfo.activeSession.songs[_this.props.playIdx].songURL,
+                duration: _this.props.musicInfo.activeSession.songs[_this.props.playIdx].duration //e.target.duration
 
-      });
+              });
 
-      _this.rap.addEventListener('timeupdate', function (e) {
-        if (Math.floor(e.target.currentTime) - Math.floor(_this.state.currentTime) >= 1) {
-          _this.setState({
-            currentTime: e.target.currentTime
-          });
-        } else if (_this.state.currentTime > e.target.currentTime && _this.rap.loop) {
-          _this.setState({
-            currentTime: e.target.currentTime
-          });
+              _this.rap.addEventListener('timeupdate', function (e) {
+                if (Math.floor(e.target.currentTime) - Math.floor(_this.state.currentTime) >= 1) {
+                  _this.setState({
+                    currentTime: e.target.currentTime
+                  });
+                } else if (_this.state.currentTime > e.target.currentTime && _this.rap.loop) {
+                  _this.setState({
+                    currentTime: e.target.currentTime
+                  });
 
-          _this.props.incrementSongPlayed(_this.props.musicInfo.activeSession.songs[_this.props.musicInfo.activeSession.playIdx].id);
+                  _this.props.incrementSongPlayed(_this.props.musicInfo.activeSession.songs[_this.props.musicInfo.activeSession.playIdx].id);
+                }
+              });
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
         }
-      });
-    });
+      }, _callee);
+    })));
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps) {
+      if (_this.rap.readyState !== 4) {
+        // Allows song to be seekable before first playing on mobile devices.
+        _this.rap.play();
+
+        _this.rap.pause();
+      }
+
+      ;
+
       if (_this.props.noNextSong && _this.state.currentTime >= _this.state.duration) {
         _this.props.pause();
 
@@ -20475,13 +23543,34 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
       ;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "seekTime", function (newTime) {
-      _this.rap.currentTime = newTime;
+    _defineProperty(_assertThisInitialized(_this), "seekTime", /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(newTime) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                // if (this.rap.readyState !== 4) {
+                //     await this.rap.play();
+                //     await this.rap.pause();
+                // };
+                _this.rap.currentTime = newTime;
 
-      _this.setState({
-        currentTime: newTime
-      });
-    });
+                _this.setState({
+                  currentTime: newTime
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
 
     _defineProperty(_assertThisInitialized(_this), "toggleLoop", function () {
       if (!_this.state.loop) {
@@ -20501,21 +23590,21 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
       ;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "prevTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-      return regeneratorRuntime.wrap(function _callee$(_context) {
+    _defineProperty(_assertThisInitialized(_this), "prevTrack", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               if (!_this.props.musicInfo.activeSession.songs[_this.props.playIdx - 1]) {
-                _context.next = 5;
+                _context3.next = 5;
                 break;
               }
 
-              _context.next = 3;
+              _context3.next = 3;
               return _this.props.decrementPlayIdx(_this.props.musicInfo.activeSession.id);
 
             case 3:
-              _context.next = 7;
+              _context3.next = 7;
               break;
 
             case 5:
@@ -20532,10 +23621,10 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
 
             case 9:
             case "end":
-              return _context.stop();
+              return _context3.stop();
           }
         }
-      }, _callee);
+      }, _callee3);
     })));
 
     console.log(sessionStorage.getItem('loop'));
@@ -20664,6 +23753,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mui_icons_material_SkipPrevious__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/icons-material/SkipPrevious */ "./node_modules/@mui/icons-material/SkipPrevious.js");
 /* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
 /* harmony import */ var _mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/Pause */ "./node_modules/@mui/icons-material/Pause.js");
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
@@ -20734,6 +23838,8 @@ function _arrayWithHoles(arr) {
 
 
 var MainPlayerSlider = function MainPlayerSlider(props) {
+  var _MuiSliderThumb;
+
   var play = props.play,
       pause = props.pause,
       playing = props.playing,
@@ -20785,15 +23891,23 @@ var MainPlayerSlider = function MainPlayerSlider(props) {
     valueLabelDisplay: "auto",
     sx: {
       color: 'black',
-      '& .MuiSlider-thumb': {
+      '& .MuiSlider-thumb': (_MuiSliderThumb = {
         width: 24,
         height: 24,
         backgroundColor: '#fff',
         '&:before': {
           boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
-        } // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-        //   boxShadow: 'none',
-        // },
+        }
+      }, _defineProperty(_MuiSliderThumb, "&:before", {
+        boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
+      }), _defineProperty(_MuiSliderThumb, '&:hover, &.Mui-focusVisible', {
+        // This is the hover/glow
+        boxShadow: "0px 0px 5px 6px grey"
+      }), _defineProperty(_MuiSliderThumb, '&.Mui-active', {
+        boxShadow: "0px 0px 10px 4px #FDFDFD"
+      }), _MuiSliderThumb),
+      '& .MuiSlider-rail': {
+        color: 'gray' // opacity: 1,
 
       }
     }
@@ -20850,7 +23964,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BPMTap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BPMTap */ "./src/components/BPMTap.js");
 /* harmony import */ var _BPMLight__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BPMLight */ "./src/components/BPMLight.js");
 /* harmony import */ var _MetronomeSounds__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MetronomeSounds */ "./src/components/MetronomeSounds.js");
-/* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
+/* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
+/* harmony import */ var react_anime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-anime */ "./node_modules/react-anime/dist/react-anime.modern.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -20993,6 +24108,7 @@ function _defineProperty(obj, key, value) {
 
 
 
+
 var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
   _inherits(ManageBPMSliderAndTap, _React$Component);
 
@@ -21051,10 +24167,11 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMTap__WEBPACK_IMPORTED_MODULE_2__.default, {
         setLocalBPM: this.setLocalBPM,
         resetTapPadTrigger: this.state.resetTapPadTrigger
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_5__.default, {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_6__.default, {
         sx: {
           fontSize: 70
         },
+        className: "tempoPlayArrow",
         onClick: function onClick() {
           return _this2.props.handleSubmit(_this2.state.localBPM);
         }
@@ -21708,10 +24825,13 @@ var SingleCollection = function SingleCollection(props) {
       editMode = props.editMode,
       removeCollection = props.removeCollection,
       deleteCollection = props.deleteCollection,
-      userOwns = props.userOwns; // console.log(selectCollection)
-
+      userOwns = props.userOwns;
   var sessionStatus = null;
-  if (isActive(collectionId)) sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Playing at ", BPM, " BPM");else if (hasSession(collectionId)) sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Resume at ", BPM, " BPM");else sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Start new session");
+  if (isActive(collectionId)) sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "isPlaying"
+  }, "Playing at ", BPM, " BPM");else if (hasSession(collectionId)) sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "resumeStatus"
+  }, "Resume at ", BPM, " BPM");else sessionStatus = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Start new session");
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "singleCollection"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -21986,6 +25106,41 @@ var SpringScrollbars = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/components/StyledButton.js":
+/*!****************************************!*\
+  !*** ./src/components/StyledButton.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
+
+
+
+var StyledButton = function StyledButton(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Button__WEBPACK_IMPORTED_MODULE_1__.default, {
+    onClick: props.func,
+    type: props.type,
+    sx: {
+      color: 'black',
+      backgroundColor: 'white',
+      textTransform: "none",
+      ':hover': {
+        bgcolor: 'gray'
+      }
+    }
+  }, props.title);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StyledButton);
+
+/***/ }),
+
 /***/ "./src/components/Tempo.js":
 /*!*********************************!*\
   !*** ./src/components/Tempo.js ***!
@@ -22006,6 +25161,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _ManageBPMSliderAndTap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ManageBPMSliderAndTap */ "./src/components/ManageBPMSliderAndTap.js");
 /* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -22185,6 +25341,7 @@ function _defineProperty(obj, key, value) {
 
 
 
+
 var Tempo = /*#__PURE__*/function (_React$Component) {
   _inherits(Tempo, _React$Component);
 
@@ -22329,18 +25486,31 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            // minHeight: '116px',
-            // maxHeight: '14vh',
-            height: '116px',
-            maxHeight: '116px',
+            height: '118px',
             position: 'absolute',
             width: '50vw',
+            minWidth: '270px',
+            maxWidth: '518px',
             marginLeft: 'auto',
             marginRight: 'auto',
-            top: '28%'
+            top: '28%',
+            border: '1px solid #00000096',
+            // paddingBottom: '30px',
+            backgroundColor: "rgb(52 52 52 ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_8__.isBrowser ? '/ 82%' : '', ")"),
+            backdropFilter: 'blur(5px)'
+          },
+          overlay: {
+            backgroundColor: '#36363614',
+            zIndex: 2
           }
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No more music at the selected BPM!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Try a different BPM,"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "add songs, or clear listened."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText"
+      }, "No more songs at the selected BPM!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText"
+      }, "Try a different BPM,"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText"
+      }, "add songs, or clear listened."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle confirmBPMTitle"
       }, "Confirm BPM:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "centerThis"
@@ -35772,7 +38942,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* Header space */\r\n  /* padding-top: 92px; */\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPadding {\r\n  /* padding-bottom: 100px; */\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  /* padding-bottom: 140px; */\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.logoutOption {\r\n  cursor: pointer;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n  /* height: 30px;\r\n  width: 30px; */\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  /* margin-right: 6vw;\r\n  margin-left: 6vw; */\r\n  /* margin-bottom: 80px; */\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  /* font-size: min(max(0.85vw, 12px), 17px); */\r\n  font-size: min(max(0.977vw, 13.55px), 18px);\r\n  /* position: absolute;\r\n  padding-left: 4px;\r\n  top: 86.8%;\r\n  background-color: rgba(128, 128, 128, 0.479);\r\n  border-radius: 0px 0px 0px 1.15vw; */\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  /* margin-left: 8vw;\r\n  margin-right: 8vw; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: 95%;\r\n  height: auto;\r\n  z-index: 1;\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n}\r\n\r\n#innerMainPlayer {\r\n  /* border: 2px white solid; */\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n}\r\n\r\n.browseSongsAlert {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 1.3em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  /* justify-content: space-between; */\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  /* padding-top: 10px; */\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  /* width: 100%; */\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  /* margin-left: 10px;\r\n  margin-right: 10px; */\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n  /* background-color: rgba(126, 124, 124, 0.521); */\r\n  /* box-shadow: 0px 10px 40px 10px rgba(255, 255, 255, 0.568); */\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  /* backdrop-filter: blur(5px); */\r\n  /* background-color: rgba(156, 155, 155, 0.521); */\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n  /* table-layout: fixed; */\r\n  /* padding-bottom: 70px; */\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  /* margin-left: 10vw; */\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.loopOn {\r\n  color: orange !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n/* table > tr {\r\n  padding-top: 20px;\r\n} */\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  /* margin-left: 18px;\r\n  margin-right: 18px; */\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"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","sourcesContent":["body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* Header space */\r\n  /* padding-top: 92px; */\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPadding {\r\n  /* padding-bottom: 100px; */\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  /* padding-bottom: 140px; */\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.logoutOption {\r\n  cursor: pointer;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n  /* height: 30px;\r\n  width: 30px; */\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  /* margin-right: 6vw;\r\n  margin-left: 6vw; */\r\n  /* margin-bottom: 80px; */\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  /* font-size: min(max(0.85vw, 12px), 17px); */\r\n  font-size: min(max(0.977vw, 13.55px), 18px);\r\n  /* position: absolute;\r\n  padding-left: 4px;\r\n  top: 86.8%;\r\n  background-color: rgba(128, 128, 128, 0.479);\r\n  border-radius: 0px 0px 0px 1.15vw; */\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  /* margin-left: 8vw;\r\n  margin-right: 8vw; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: 95%;\r\n  height: auto;\r\n  z-index: 1;\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n}\r\n\r\n#innerMainPlayer {\r\n  /* border: 2px white solid; */\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n}\r\n\r\n.browseSongsAlert {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 1.3em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  /* justify-content: space-between; */\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  /* padding-top: 10px; */\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  /* width: 100%; */\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  /* margin-left: 10px;\r\n  margin-right: 10px; */\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n  /* background-color: rgba(126, 124, 124, 0.521); */\r\n  /* box-shadow: 0px 10px 40px 10px rgba(255, 255, 255, 0.568); */\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  /* backdrop-filter: blur(5px); */\r\n  /* background-color: rgba(156, 155, 155, 0.521); */\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n  /* table-layout: fixed; */\r\n  /* padding-bottom: 70px; */\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  /* margin-left: 10vw; */\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.loopOn {\r\n  color: orange !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n/* table > tr {\r\n  padding-top: 20px;\r\n} */\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  /* margin-left: 18px;\r\n  margin-right: 18px; */\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* Header space */\r\n  /* padding-top: 92px; */\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\nh4,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPadding {\r\n  /* padding-bottom: 100px; */\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  /* padding-bottom: 140px; */\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n  /* height: 30px;\r\n  width: 30px; */\r\n}\r\n\r\n.modalButton {\r\n  margin-top: 10px;\r\n}\r\n\r\n.modalText {\r\n  font-size: 16.7px;\r\n}\r\n\r\n.noRecipientPadding {\r\n  padding-bottom: 14px;\r\n}\r\n\r\n.modalTextPadding {\r\n  padding-bottom: 2px;\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.burgerName {\r\n  margin-top: 0px;\r\n  font-size: 130%;\r\n  /* font-size: 2.2vmin; */\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  max-width: 100%;\r\n  margin-bottom: 18px;\r\n}\r\n\r\n.burgerLogout {\r\n  cursor: pointer;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.tempoPlayArrow {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  /* margin-right: 6vw;\r\n  margin-left: 6vw; */\r\n  /* margin-bottom: 80px; */\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  font-size: min(max(0.977vw, 13.46px), 18px);\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  /* margin-left: 8vw;\r\n  margin-right: 8vw; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: 95%;\r\n  height: auto;\r\n  /* z-index: 1; */\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n}\r\n\r\n#innerMainPlayer {\r\n  /* border: 2px white solid; */\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n}\r\n\r\n.browseSongsAlert {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 1.3em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  /* justify-content: space-between; */\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  /* padding-top: 10px; */\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.isPlaying {\r\n  color:rgb(255, 251, 0) !important;\r\n  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);\r\n}\r\n\r\n.resumeStatus {\r\n  color:rgba(255, 251, 0, 0.616) !important;\r\n}\r\n\r\n.listenedCollectionSong {\r\n  color: rgb(126, 126, 126);\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  /* width: 100%; */\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  /* margin-left: 10px;\r\n  margin-right: 10px; */\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n  /* background-color: rgba(126, 124, 124, 0.521); */\r\n  /* box-shadow: 0px 10px 40px 10px rgba(255, 255, 255, 0.568); */\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n  backdrop-filter: 0;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  /* backdrop-filter: blur(5px); */\r\n  /* background-color: rgba(156, 155, 155, 0.521); */\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n  /* table-layout: fixed; */\r\n  /* padding-bottom: 70px; */\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  /* margin-left: 10vw; */\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.loopOn {\r\n  /* color:rgb(255, 208, 0) !important; */\r\n  color:rgb(255, 251, 0) !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n/* table > tr {\r\n  padding-top: 20px;\r\n} */\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  /* margin-left: 18px;\r\n  margin-right: 18px; */\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.toggleSearchByBPMBox {\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"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","sourcesContent":["body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* Header space */\r\n  /* padding-top: 92px; */\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\nh4,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPadding {\r\n  /* padding-bottom: 100px; */\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  /* padding-bottom: 140px; */\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n  /* height: 30px;\r\n  width: 30px; */\r\n}\r\n\r\n.modalButton {\r\n  margin-top: 10px;\r\n}\r\n\r\n.modalText {\r\n  font-size: 16.7px;\r\n}\r\n\r\n.noRecipientPadding {\r\n  padding-bottom: 14px;\r\n}\r\n\r\n.modalTextPadding {\r\n  padding-bottom: 2px;\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.burgerName {\r\n  margin-top: 0px;\r\n  font-size: 130%;\r\n  /* font-size: 2.2vmin; */\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  max-width: 100%;\r\n  margin-bottom: 18px;\r\n}\r\n\r\n.burgerLogout {\r\n  cursor: pointer;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.tempoPlayArrow {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  /* margin-right: 6vw;\r\n  margin-left: 6vw; */\r\n  /* margin-bottom: 80px; */\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  font-size: min(max(0.977vw, 13.46px), 18px);\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  /* margin-left: 8vw;\r\n  margin-right: 8vw; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: 95%;\r\n  height: auto;\r\n  /* z-index: 1; */\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n}\r\n\r\n#innerMainPlayer {\r\n  /* border: 2px white solid; */\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n}\r\n\r\n.browseSongsAlert {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 1.3em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  /* justify-content: space-between; */\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  /* padding-top: 10px; */\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.isPlaying {\r\n  color:rgb(255, 251, 0) !important;\r\n  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);\r\n}\r\n\r\n.resumeStatus {\r\n  color:rgba(255, 251, 0, 0.616) !important;\r\n}\r\n\r\n.listenedCollectionSong {\r\n  color: rgb(126, 126, 126);\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  /* width: 100%; */\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  /* margin-left: 10px;\r\n  margin-right: 10px; */\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n  /* background-color: rgba(126, 124, 124, 0.521); */\r\n  /* box-shadow: 0px 10px 40px 10px rgba(255, 255, 255, 0.568); */\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n  backdrop-filter: 0;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  /* backdrop-filter: blur(5px); */\r\n  /* background-color: rgba(156, 155, 155, 0.521); */\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n  /* table-layout: fixed; */\r\n  /* padding-bottom: 70px; */\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  /* margin-left: 10vw; */\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.loopOn {\r\n  /* color:rgb(255, 208, 0) !important; */\r\n  color:rgb(255, 251, 0) !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n/* table > tr {\r\n  padding-top: 20px;\r\n} */\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  /* margin-left: 18px;\r\n  margin-right: 18px; */\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.toggleSearchByBPMBox {\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38733,6 +41903,27 @@ module.exports.polyfill = function(object) {
   object.requestAnimationFrame = raf
   object.cancelAnimationFrame = caf
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/react-anime/dist/react-anime.modern.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/react-anime/dist/react-anime.modern.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "anime": () => (/* reexport safe */ animejs__WEBPACK_IMPORTED_MODULE_2__.default),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var animejs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! animejs */ "./node_modules/animejs/lib/anime.es.js");
+function l(){return(l=Object.assign||function(r){for(var e=1;e<arguments.length;e++){var t=arguments[e];for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(r[n]=t[n])}return r}).apply(this,arguments)}function i(r){const e=[];return a(r,e),e}function a(r,e){for(let t=0;t<r.length;t++){const n=r[t];Array.isArray(n)?a(n,e):e.push(n)}}function s(a){const s=(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)([]),f=(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)([]),m=(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)([]),p=(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(new Set),h=()=>{for(let r of s.current)r.completed&&(s.current=s.current.filter(e=>e!=r));f.current=f.current.filter(r=>null!=r&&null!=r),m.current=m.current.filter(r=>r&&null!=r.current)},d=(0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>{(r=>{h(),f.current.length>0&&animejs__WEBPACK_IMPORTED_MODULE_2__.default.remove(f),f.current=[];for(let r of m.current)r.current&&!p.current.has(r.current)&&f.current.push(r.current);const e=l({},r,{targets:f.current,complete:e=>{r.complete&&r.complete(e),e.animatables.map(r=>p.current.add(r.target)),h()}});delete e.children,s.current.push((0,animejs__WEBPACK_IMPORTED_MODULE_2__.default)(e))})(a)},[a]);(0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{d()},[d]);const g=m.current;let y=Array.isArray(a.children)?a.children:[a.children];return y=i(y),(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment,{children:y.map((e,t)=>(g.push((0,react__WEBPACK_IMPORTED_MODULE_1__.createRef)()),(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(a.component?a.component:"div",Object.assign({ref:g[g.length-1]},{children:e}),`__anime__${t}`)))},void 0)}/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (s);
+//# sourceMappingURL=react-anime.modern.js.map
 
 
 /***/ }),
@@ -74218,6 +77409,393 @@ function pathToRegexp (path, keys, options) {
 
 /***/ }),
 
+/***/ "./node_modules/react-transition-group/esm/TransitionGroup.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/TransitionGroup.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _TransitionGroupContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./TransitionGroupContext */ "./node_modules/react-transition-group/esm/TransitionGroupContext.js");
+/* harmony import */ var _utils_ChildMapping__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/ChildMapping */ "./node_modules/react-transition-group/esm/utils/ChildMapping.js");
+
+
+
+
+
+
+
+
+
+var values = Object.values || function (obj) {
+  return Object.keys(obj).map(function (k) {
+    return obj[k];
+  });
+};
+
+var defaultProps = {
+  component: 'div',
+  childFactory: function childFactory(child) {
+    return child;
+  }
+};
+/**
+ * The `<TransitionGroup>` component manages a set of transition components
+ * (`<Transition>` and `<CSSTransition>`) in a list. Like with the transition
+ * components, `<TransitionGroup>` is a state machine for managing the mounting
+ * and unmounting of components over time.
+ *
+ * Consider the example below. As items are removed or added to the TodoList the
+ * `in` prop is toggled automatically by the `<TransitionGroup>`.
+ *
+ * Note that `<TransitionGroup>`  does not define any animation behavior!
+ * Exactly _how_ a list item animates is up to the individual transition
+ * component. This means you can mix and match animations across different list
+ * items.
+ */
+
+var TransitionGroup = /*#__PURE__*/function (_React$Component) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__.default)(TransitionGroup, _React$Component);
+
+  function TransitionGroup(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+
+    var handleExited = _this.handleExited.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this)); // Initial children should all be entering, dependent on appear
+
+
+    _this.state = {
+      contextValue: {
+        isMounting: true
+      },
+      handleExited: handleExited,
+      firstRender: true
+    };
+    return _this;
+  }
+
+  var _proto = TransitionGroup.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.mounted = true;
+    this.setState({
+      contextValue: {
+        isMounting: false
+      }
+    });
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.mounted = false;
+  };
+
+  TransitionGroup.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, _ref) {
+    var prevChildMapping = _ref.children,
+        handleExited = _ref.handleExited,
+        firstRender = _ref.firstRender;
+    return {
+      children: firstRender ? (0,_utils_ChildMapping__WEBPACK_IMPORTED_MODULE_6__.getInitialChildMapping)(nextProps, handleExited) : (0,_utils_ChildMapping__WEBPACK_IMPORTED_MODULE_6__.getNextChildMapping)(nextProps, prevChildMapping, handleExited),
+      firstRender: false
+    };
+  } // node is `undefined` when user provided `nodeRef` prop
+  ;
+
+  _proto.handleExited = function handleExited(child, node) {
+    var currentChildMapping = (0,_utils_ChildMapping__WEBPACK_IMPORTED_MODULE_6__.getChildMapping)(this.props.children);
+    if (child.key in currentChildMapping) return;
+
+    if (child.props.onExited) {
+      child.props.onExited(node);
+    }
+
+    if (this.mounted) {
+      this.setState(function (state) {
+        var children = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, state.children);
+
+        delete children[child.key];
+        return {
+          children: children
+        };
+      });
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        Component = _this$props.component,
+        childFactory = _this$props.childFactory,
+        props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__.default)(_this$props, ["component", "childFactory"]);
+
+    var contextValue = this.state.contextValue;
+    var children = values(this.state.children).map(childFactory);
+    delete props.appear;
+    delete props.enter;
+    delete props.exit;
+
+    if (Component === null) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__.createElement(_TransitionGroupContext__WEBPACK_IMPORTED_MODULE_7__.default.Provider, {
+        value: contextValue
+      }, children);
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__.createElement(_TransitionGroupContext__WEBPACK_IMPORTED_MODULE_7__.default.Provider, {
+      value: contextValue
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__.createElement(Component, props, children));
+  };
+
+  return TransitionGroup;
+}(react__WEBPACK_IMPORTED_MODULE_5__.Component);
+
+TransitionGroup.propTypes =  true ? {
+  /**
+   * `<TransitionGroup>` renders a `<div>` by default. You can change this
+   * behavior by providing a `component` prop.
+   * If you use React v16+ and would like to avoid a wrapping `<div>` element
+   * you can pass in `component={null}`. This is useful if the wrapping div
+   * borks your css styles.
+   */
+  component: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().any),
+
+  /**
+   * A set of `<Transition>` components, that are toggled `in` and out as they
+   * leave. the `<TransitionGroup>` will inject specific transition props, so
+   * remember to spread them through if you are wrapping the `<Transition>` as
+   * with our `<Fade>` example.
+   *
+   * While this component is meant for multiple `Transition` or `CSSTransition`
+   * children, sometimes you may want to have a single transition child with
+   * content that you want to be transitioned out and in when you change it
+   * (e.g. routes, images etc.) In that case you can change the `key` prop of
+   * the transition child as you change its content, this will cause
+   * `TransitionGroup` to transition the child out and back in.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().node),
+
+  /**
+   * A convenience prop that enables or disables appear animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  appear: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),
+
+  /**
+   * A convenience prop that enables or disables enter animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  enter: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),
+
+  /**
+   * A convenience prop that enables or disables exit animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  exit: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),
+
+  /**
+   * You may need to apply reactive updates to a child as it is exiting.
+   * This is generally done by using `cloneElement` however in the case of an exiting
+   * child the element has already been removed and not accessible to the consumer.
+   *
+   * If you do need to update a child as it leaves you can provide a `childFactory`
+   * to wrap every child, even the ones that are leaving.
+   *
+   * @type Function(child: ReactElement) -> ReactElement
+   */
+  childFactory: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func)
+} : 0;
+TransitionGroup.defaultProps = defaultProps;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TransitionGroup);
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/TransitionGroupContext.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/TransitionGroupContext.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0__.createContext(null));
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/utils/ChildMapping.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/utils/ChildMapping.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getChildMapping": () => (/* binding */ getChildMapping),
+/* harmony export */   "mergeChildMappings": () => (/* binding */ mergeChildMappings),
+/* harmony export */   "getInitialChildMapping": () => (/* binding */ getInitialChildMapping),
+/* harmony export */   "getNextChildMapping": () => (/* binding */ getNextChildMapping)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+/**
+ * Given `this.props.children`, return an object mapping key to child.
+ *
+ * @param {*} children `this.props.children`
+ * @return {object} Mapping of key to child
+ */
+
+function getChildMapping(children, mapFn) {
+  var mapper = function mapper(child) {
+    return mapFn && (0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(child) ? mapFn(child) : child;
+  };
+
+  var result = Object.create(null);
+  if (children) react__WEBPACK_IMPORTED_MODULE_0__.Children.map(children, function (c) {
+    return c;
+  }).forEach(function (child) {
+    // run the map function here instead so that the key is the computed one
+    result[child.key] = mapper(child);
+  });
+  return result;
+}
+/**
+ * When you're adding or removing children some may be added or removed in the
+ * same render pass. We want to show *both* since we want to simultaneously
+ * animate elements in and out. This function takes a previous set of keys
+ * and a new set of keys and merges them with its best guess of the correct
+ * ordering. In the future we may expose some of the utilities in
+ * ReactMultiChild to make this easy, but for now React itself does not
+ * directly have this concept of the union of prevChildren and nextChildren
+ * so we implement it here.
+ *
+ * @param {object} prev prev children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @param {object} next next children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @return {object} a key set that contains all keys in `prev` and all keys
+ * in `next` in a reasonable order.
+ */
+
+function mergeChildMappings(prev, next) {
+  prev = prev || {};
+  next = next || {};
+
+  function getValueForKey(key) {
+    return key in next ? next[key] : prev[key];
+  } // For each key of `next`, the list of keys to insert before that key in
+  // the combined list
+
+
+  var nextKeysPending = Object.create(null);
+  var pendingKeys = [];
+
+  for (var prevKey in prev) {
+    if (prevKey in next) {
+      if (pendingKeys.length) {
+        nextKeysPending[prevKey] = pendingKeys;
+        pendingKeys = [];
+      }
+    } else {
+      pendingKeys.push(prevKey);
+    }
+  }
+
+  var i;
+  var childMapping = {};
+
+  for (var nextKey in next) {
+    if (nextKeysPending[nextKey]) {
+      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+        var pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+      }
+    }
+
+    childMapping[nextKey] = getValueForKey(nextKey);
+  } // Finally, add the keys which didn't appear before any key in `next`
+
+
+  for (i = 0; i < pendingKeys.length; i++) {
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  }
+
+  return childMapping;
+}
+
+function getProp(child, prop, props) {
+  return props[prop] != null ? props[prop] : child.props[prop];
+}
+
+function getInitialChildMapping(props, onExited) {
+  return getChildMapping(props.children, function (child) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child, {
+      onExited: onExited.bind(null, child),
+      in: true,
+      appear: getProp(child, 'appear', props),
+      enter: getProp(child, 'enter', props),
+      exit: getProp(child, 'exit', props)
+    });
+  });
+}
+function getNextChildMapping(nextProps, prevChildMapping, onExited) {
+  var nextChildMapping = getChildMapping(nextProps.children);
+  var children = mergeChildMappings(prevChildMapping, nextChildMapping);
+  Object.keys(children).forEach(function (key) {
+    var child = children[key];
+    if (!(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(child)) return;
+    var hasPrev = (key in prevChildMapping);
+    var hasNext = (key in nextChildMapping);
+    var prevChild = prevChildMapping[key];
+    var isLeaving = (0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(prevChild) && !prevChild.props.in; // item is new (entering)
+
+    if (hasNext && (!hasPrev || isLeaving)) {
+      // console.log('entering', key)
+      children[key] = (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child, {
+        onExited: onExited.bind(null, child),
+        in: true,
+        exit: getProp(child, 'exit', nextProps),
+        enter: getProp(child, 'enter', nextProps)
+      });
+    } else if (!hasNext && hasPrev && !isLeaving) {
+      // item is old (exiting)
+      // console.log('leaving', key)
+      children[key] = (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child, {
+        in: false
+      });
+    } else if (hasNext && hasPrev && (0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(prevChild)) {
+      // item hasn't changed transition states
+      // copy over the last transition props;
+      // console.log('unchanged', key)
+      children[key] = (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child, {
+        onExited: onExited.bind(null, child),
+        in: prevChild.props.in,
+        exit: getProp(child, 'exit', nextProps),
+        enter: getProp(child, 'enter', nextProps)
+      });
+    }
+  });
+  return children;
+}
+
+/***/ }),
+
 /***/ "./node_modules/react/cjs/react-jsx-runtime.development.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/react/cjs/react-jsx-runtime.development.js ***!
@@ -89862,6 +93440,27 @@ if (__DEV__) {
 
 module.exports = warning;
 
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _assertThisInitialized)
+/* harmony export */ });
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
 
 /***/ }),
 

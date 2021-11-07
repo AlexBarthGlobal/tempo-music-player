@@ -22710,7 +22710,8 @@ var FooterControlsMobile = /*#__PURE__*/function (_React$Component) {
 
           },
           '& .MuiSlider-track': {
-            color: 'orange'
+            // color: 'rgb(255, 251, 0)',
+            color: '#d4af37'
           },
           '& .MuiSlider-rail': {
             color: 'gray',
@@ -23904,7 +23905,11 @@ var MainPlayerSlider = function MainPlayerSlider(props) {
         boxShadow: "0px 0px 5px 6px grey"
       }), _defineProperty(_MuiSliderThumb, '&.Mui-active', {
         boxShadow: "0px 0px 10px 4px #FDFDFD"
-      }), _MuiSliderThumb)
+      }), _MuiSliderThumb),
+      '& .MuiSlider-rail': {
+        color: 'gray' // opacity: 1,
+
+      }
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "mainPlayerTimestamps"

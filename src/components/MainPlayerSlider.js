@@ -58,6 +58,10 @@ const MainPlayerSlider = (props) => {
                         boxShadow: `0px 0px 10px 4px #FDFDFD`,
                       },
                     },
+                    '& .MuiSlider-rail': {
+                      color: 'gray',
+                      // opacity: 1,
+                    },
                   }}
                 />
               </div>

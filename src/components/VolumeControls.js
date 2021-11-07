@@ -10,6 +10,7 @@ const VolumeControls = (props) => {
     const [mouseDown, setMouseDown] = useState(false)
     const [preMutedVolume, setPreMutedVolume] = useState(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100))
     const [muted, setMuted] = useState(false)
+    const [visible, setVisible] = useState(false)
 
     function preventHorizontalKeyboardNavigation(event) {
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -22,11 +23,17 @@ const VolumeControls = (props) => {
         const clicker = () => {
             console.log('mouseUp')
             setMouseDown(false)
-            setMouseOver(false)
+            console.log('from listener', mouseOver)
+            if (!mouseOver) setVisible(false);
         }
         window.addEventListener('mouseup', clicker)
         return () => window.removeEventListener('mouseup', clicker)
-    }, [mouseDown])
+    }, [mouseDown, mouseOver])
+
+    useEffect(() => {
+        console.log(mouseOver)
+        if (!mouseOver && !mouseDown) setVisible(false); 
+    }, [mouseOver])
 
     useEffect(() => {
         props.setVolume(volume/100)
@@ -42,13 +49,12 @@ const VolumeControls = (props) => {
     };
 
     const toggleMute = () => {
-        if (!muted) {
-            sessionStorage.setItem('preMutedVolume', volume); //60
+        if (!muted) { //mute it here
+            sessionStorage.setItem('preMutedVolume', volume);
             setPreMutedVolume(volume);
             props.setVolume(0)
             setVolume(0)
-            // setMuted(true)
-        } else {
+        } else { //unmute it here
             props.setVolume(preMutedVolume/100);
             setVolume(preMutedVolume);
             setMuted(false)
@@ -56,9 +62,9 @@ const VolumeControls = (props) => {
     };
 
     return (
-        <div className='volumeControls' onMouseLeave={mouseDown ? null : () => setMouseOver(false)}>
-            <div className={`volumeWrapper ${mouseOver ? null : 'hidden'}`}></div>
-            <div className={`volumeSlider ${mouseOver ? null : 'hidden'}`}><Slider
+        <div className='volumeControls' onMouseLeave={() => setMouseOver(false)}>
+            <div className={`volumeWrapper ${visible ? null : 'hidden'}`}></div>
+            <div className={`volumeSlider ${visible ? null : 'hidden'}`}><Slider
                   min={0}
                   defaultValue={0}
                   max={100}
@@ -74,9 +80,11 @@ const VolumeControls = (props) => {
                   onMouseDown={() => {
                       console.log('Clicked')
                       setMouseDown(true)
+                      sessionStorage.setItem('preMutedVolume', volume);
+                      setPreMutedVolume(volume);
                   }}
                   sx={{
-                    visibility: `${mouseOver ? 'visible' : 'hidden'}`,
+                    visibility: `${visible ? 'visible' : 'hidden'}`,
                     '& input[type="range"]': {
                         WebkitAppearance: 'slider-vertical',
                     },
@@ -97,7 +105,10 @@ const VolumeControls = (props) => {
                     },
                   }}
                 /></div>
-            <div id='volumeButton' onMouseEnter={() => setMouseOver(true)}>
+            <div id='volumeButton' onMouseEnter={() => {
+                setMouseOver(true)
+                setVisible(true)
+            }}>
                 <VolumeUpIcon onClick={toggleMute} sx={{fontSize: 27}}/>
             </div>
         </div>

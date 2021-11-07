@@ -6,6 +6,8 @@ import {deleteCollectionThunk, removeCollectionThunk} from '../redux/musicDispat
 import Modal from 'react-modal'
 import { isBrowser, isMobile } from 'react-device-detect';
 import SpringScrollbars from './SpringScrollbars'
+import StyledButton from './StyledButton'
+import Input from '@mui/material/Input';
 
 class Collections extends React.Component {
     constructor(props) {
@@ -99,23 +101,30 @@ class Collections extends React.Component {
                         justifyContent: 'center',
                         alignItems: 'center',
                         textAlign: 'center',
-                        // minHeight: '116px',
-                        // maxHeight: '14vh',
-                        height: '118px',
-                        // maxHeight: '116px',
+                        height: '180px',
                         position: 'absolute',
                         width: '50vw',
+                        minWidth: '255px',
+                        maxWidth: '558px',
                         marginLeft: 'auto',
                         marginRight: 'auto',
                         top: '28%',
+                        border: '1px solid #00000096',
+                        paddingBottom: '30px',
+                        backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
+                        backdropFilter: 'blur(5px)'
+                    },
+                    overlay: {
+                        backgroundColor: '#36363614',
+                        zIndex: 2
                     }
                 }
             }
             >
             <form onSubmit={this.removeCollection}>
-                <div>Are you sure you want to remove {this.state.tempSelectedCollectionName} from your collections?</div>
+                <div className='modalText modalTextPaddingParagraph specialWordBreak'>Are you sure you want to remove {this.state.tempSelectedCollectionName} from your collections?</div>
                 <div>
-                    <button type='submit'>Remove</button>
+                    <StyledButton title='Remove' type='submit' />
                 </div>
             </form>
         </Modal>
@@ -131,29 +140,44 @@ class Collections extends React.Component {
                         justifyContent: 'center',
                         alignItems: 'center',
                         textAlign: 'center',
-                        // minHeight: '116px',
-                        // maxHeight: '14vh',
-                        height: '118px',
-                        // maxHeight: '116px',
+                        height: '270px',
                         position: 'absolute',
                         width: '50vw',
+                        minWidth: '255px',
+                        maxWidth: '558px',
                         marginLeft: 'auto',
                         marginRight: 'auto',
                         top: '28%',
+                        border: '1px solid #00000096',
+                        paddingBottom: '30px',
+                        backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
+                        backdropFilter: 'blur(5px)'
+                    },
+                    overlay: {
+                        backgroundColor: '#36363614',
+                        zIndex: 2
                     }
                 }   
             }
         >
         <div>
-            <div>Are you sure you want to delete {this.state.tempSelectedCollectionName}?</div>
-            <div>This will also remove it for users that have this collection shared with them.</div>
+            <div className='modalText modalTextPaddingParagraph specialWordBreak'>Are you sure you want to delete {this.state.tempSelectedCollectionName}?</div>
+            <div className='modalText modalTextPaddingParagraph'>This will also remove it for users that have this collection shared with them.</div>
             <form onSubmit={this.deleteCollection}>
-                <div>Enter "CONFIRM":</div>
+                <div className='modalText modalTextPadding'>Enter "CONFIRM"</div>
                 <div>
-                    <input name='confirmYes' value={this.state.confirmYes} onChange={this.handleChange}></input>
+                    <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontFamily: 'inherit',
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'rgb(160, 160, 160)' },
+                                            ':after': { borderBottomColor: 'white' },
+                                            }} inputProps={{ spellCheck: false, style: { textAlign: 'center' }}} name='confirmYes' id="outlined-basic" value={this.state.confirmYes} onChange={this.handleChange} variant="outlined" />
                 </div>
                 <div>
-                    <button type='submit' disabled={this.state.confirmYes !== 'CONFIRM'}>Delete</button>
+                    <StyledButton title='Delete' type='submit' disabled={this.state.confirmYes !== 'CONFIRM'} />
                 </div>
             </form>
         </div>

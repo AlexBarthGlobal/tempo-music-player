@@ -87,6 +87,10 @@ svg {
   padding-bottom: 2px;
 }
 
+.modalTextPaddingParagraph {
+  padding-bottom: 11px;
+}
+
 svg:hover {
   fill: rgb(117, 117, 117);
   transition: all 0.10s ease-in;
@@ -355,6 +359,15 @@ svg:hover {
   /* color: rgb(255, 255, 255); */
   font-size: 2em;
   text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.specialWordBreak {
+  word-break: break-word;
+  overflow-wrap: anywhere !important;
 }
 
 .browseSongsAlert {
@@ -415,6 +428,7 @@ svg:hover {
 
 .resumeStatus {
   color:rgba(255, 251, 0, 0.616) !important;
+  color: rgb(160, 160, 160)
 }
 
 .listenedCollectionSong {

@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 
 const StyledButton = (props) => {
     return (
-        <Button onClick={props.func} type={props.type} sx={{color: 'black', backgroundColor: 'white', textTransform: "none", ':hover': {bgcolor: 'gray'}}}>{props.title}</Button>
+        <Button onClick={props.func} type={props.type} sx={{color: 'black', backgroundColor: 'white', textTransform: "none", ':hover': {bgcolor: 'gray'}}} disabled={props.disabled}>{props.title}</Button>
     )
 };
 

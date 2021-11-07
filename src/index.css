@@ -403,8 +403,19 @@ svg:hover {
   display: flex;
   flex-direction: column;
   margin-left: auto;
-  padding-right: 12px;
+  padding-right: 14px;
   /* padding-bottom: 21px; */
+}
+
+.volumeWrapper {
+  border: 1px black solid;
+  position: fixed;
+  height: 204px;
+  width: 40px;
+  right: 18px;
+  bottom: 26px;
+  background-color: orange;
+  border-radius: 8px;
 }
 
 #volumeSlider {

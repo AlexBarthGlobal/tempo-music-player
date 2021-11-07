@@ -18,6 +18,7 @@ const VolumeControls = (props) => {
 
     return (
         <div className='volumeControls'>
+            <div className='volumeWrapper'></div>
             <div id='volumeSlider'><Slider
                   min={0}
                   defaultValue={0}

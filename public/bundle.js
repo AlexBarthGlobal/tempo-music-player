@@ -24459,18 +24459,20 @@ var VolumeControls = function VolumeControls(props) {
     }
   }
 
-  function clicker() {
-    console.log('mouseUp');
-    setMouseDown(false);
-    setMouseOver(false);
-  } // window.addEventListener('mousedown', clicker)
-  // useEffect (() => {
-  //     window.removeEventListener('mousedown', clicker)
-  //     return;
-  // }, [])
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!mouseDown) return;
 
+    var clicker = function clicker() {
+      console.log('mouseUp');
+      setMouseDown(false);
+      setMouseOver(false);
+    };
 
-  window.addEventListener('mouseup', clicker);
+    window.addEventListener('mouseup', clicker);
+    return function () {
+      return window.removeEventListener('mouseup', clicker);
+    };
+  }, [mouseDown]);
 
   var onChange = function onChange(evt) {
     setVolume(evt.target.value);

@@ -14,24 +14,20 @@ const VolumeControls = (props) => {
         }
     }
 
-    function clicker() {
-        console.log('mouseUp')
-        setMouseDown(false)
-        setMouseOver(false)
-    }
-
-    // window.addEventListener('mousedown', clicker)
-
-    // useEffect (() => {
-    //     window.removeEventListener('mousedown', clicker)
-    //     return;
-    // }, [])
-
-    window.addEventListener('mouseup', clicker)
+    useEffect(() => {
+        if (!mouseDown) return;
+        const clicker = () => {
+            console.log('mouseUp')
+            setMouseDown(false)
+            setMouseOver(false)
+        }
+        window.addEventListener('mouseup', clicker)
+        return () => window.removeEventListener('mouseup', clicker)
+    }, [mouseDown])
 
     const onChange = (evt) => {
         setVolume(evt.target.value);
-    }
+    };
 
     return (
         <div className='volumeControls' onMouseLeave={mouseDown ? null : () => setMouseOver(false)}>

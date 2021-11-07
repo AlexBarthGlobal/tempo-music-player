@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import VolumeDownIcon from '@mui/icons-material/VolumeDown';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { Slider } from '@mui/material';
 import {setVolumeThunk} from '../redux/playerDispatchers'
 
@@ -109,7 +111,7 @@ const VolumeControls = (props) => {
                 setMouseOver(true)
                 setVisible(true)
             }}>
-                <VolumeUpIcon onClick={toggleMute} sx={{fontSize: 27}}/>
+                {volume === 0 ? <VolumeOffIcon onClick={toggleMute} sx={{fontSize: 27}} /> : volume <= 30 ? <VolumeDownIcon onClick={toggleMute} sx={{fontSize: 27}} /> : <VolumeUpIcon onClick={toggleMute} sx={{fontSize: 27}} />}
             </div>
         </div>
     )

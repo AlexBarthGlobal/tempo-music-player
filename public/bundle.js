@@ -3716,6 +3716,62 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/VolumeDown.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@mui/icons-material/VolumeDown.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@mui/icons-material/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"
+}), 'VolumeDown');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@mui/icons-material/VolumeOff.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@mui/icons-material/VolumeOff.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@mui/icons-material/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4z"
+}), 'VolumeOff');
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/VolumeUp.js":
 /*!******************************************************!*\
   !*** ./node_modules/@mui/icons-material/VolumeUp.js ***!
@@ -24405,7 +24461,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/VolumeUp */ "./node_modules/@mui/icons-material/VolumeUp.js");
+/* harmony import */ var _mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/VolumeUp */ "./node_modules/@mui/icons-material/VolumeUp.js");
+/* harmony import */ var _mui_icons_material_VolumeDown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/VolumeDown */ "./node_modules/@mui/icons-material/VolumeDown.js");
+/* harmony import */ var _mui_icons_material_VolumeOff__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/VolumeOff */ "./node_modules/@mui/icons-material/VolumeOff.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
 /* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 function _slicedToArray(arr, i) {
@@ -24468,6 +24526,8 @@ function _iterableToArrayLimit(arr, i) {
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
+
+
 
 
 
@@ -24619,7 +24679,17 @@ var VolumeControls = function VolumeControls(props) {
       setMouseOver(true);
       setVisible(true);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_4__.default, {
+  }, volume === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeOff__WEBPACK_IMPORTED_MODULE_4__.default, {
+    onClick: toggleMute,
+    sx: {
+      fontSize: 27
+    }
+  }) : volume <= 30 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeDown__WEBPACK_IMPORTED_MODULE_5__.default, {
+    onClick: toggleMute,
+    sx: {
+      fontSize: 27
+    }
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_6__.default, {
     onClick: toggleMute,
     sx: {
       fontSize: 27

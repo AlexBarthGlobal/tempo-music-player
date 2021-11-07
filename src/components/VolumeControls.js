@@ -8,6 +8,8 @@ const VolumeControls = (props) => {
     const [volume, setVolume] = useState(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100))
     const [mouseOver, setMouseOver] = useState(false)
     const [mouseDown, setMouseDown] = useState(false)
+    const [preMutedVolume, setPreMutedVolume] = useState(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100))
+    const [muted, setMuted] = useState(false)
 
     function preventHorizontalKeyboardNavigation(event) {
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -29,12 +31,28 @@ const VolumeControls = (props) => {
     useEffect(() => {
         props.setVolume(volume/100)
         sessionStorage.setItem('volume', volume)
+        if (volume === 0) setMuted(true)
+        else if (volume > 0 && muted) setMuted(false)
     }, [volume])
 
     const onChange = (evt) => {
         if (Math.abs(evt.target.value - volume) >= 1) {
             setVolume(evt.target.value);
         };
+    };
+
+    const toggleMute = () => {
+        if (!muted) {
+            sessionStorage.setItem('preMutedVolume', volume); //60
+            setPreMutedVolume(volume);
+            props.setVolume(0)
+            setVolume(0)
+            // setMuted(true)
+        } else {
+            props.setVolume(preMutedVolume/100);
+            setVolume(preMutedVolume);
+            setMuted(false)
+        }
     };
 
     return (
@@ -80,7 +98,7 @@ const VolumeControls = (props) => {
                   }}
                 /></div>
             <div id='volumeButton' onMouseEnter={() => setMouseOver(true)}>
-                <VolumeUpIcon sx={{fontSize: 27}}/>
+                <VolumeUpIcon onClick={toggleMute} sx={{fontSize: 27}}/>
             </div>
         </div>
     )

@@ -24491,6 +24491,16 @@ var VolumeControls = function VolumeControls(props) {
       mouseDown = _useState6[0],
       setMouseDown = _useState6[1];
 
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100)),
+      _useState8 = _slicedToArray(_useState7, 2),
+      preMutedVolume = _useState8[0],
+      setPreMutedVolume = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      muted = _useState10[0],
+      setMuted = _useState10[1];
+
   function preventHorizontalKeyboardNavigation(event) {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
@@ -24517,6 +24527,7 @@ var VolumeControls = function VolumeControls(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.setVolume(volume / 100);
     sessionStorage.setItem('volume', volume);
+    if (volume === 0) setMuted(true);else if (volume > 0 && muted) setMuted(false);
   }, [volume]);
 
   var onChange = function onChange(evt) {
@@ -24525,6 +24536,20 @@ var VolumeControls = function VolumeControls(props) {
     }
 
     ;
+  };
+
+  var toggleMute = function toggleMute() {
+    if (!muted) {
+      sessionStorage.setItem('preMutedVolume', volume); //60
+
+      setPreMutedVolume(volume);
+      props.setVolume(0);
+      setVolume(0); // setMuted(true)
+    } else {
+      props.setVolume(preMutedVolume / 100);
+      setVolume(preMutedVolume);
+      setMuted(false);
+    }
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -24581,6 +24606,7 @@ var VolumeControls = function VolumeControls(props) {
       return setMouseOver(true);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_4__.default, {
+    onClick: toggleMute,
     sx: {
       fontSize: 27
     }

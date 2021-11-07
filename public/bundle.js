@@ -25161,6 +25161,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _ManageBPMSliderAndTap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ManageBPMSliderAndTap */ "./src/components/ManageBPMSliderAndTap.js");
 /* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -25340,6 +25341,7 @@ function _defineProperty(obj, key, value) {
 
 
 
+
 var Tempo = /*#__PURE__*/function (_React$Component) {
   _inherits(Tempo, _React$Component);
 
@@ -25484,18 +25486,31 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            // minHeight: '116px',
-            // maxHeight: '14vh',
-            height: '116px',
-            maxHeight: '116px',
+            height: '118px',
             position: 'absolute',
             width: '50vw',
+            minWidth: '270px',
+            maxWidth: '518px',
             marginLeft: 'auto',
             marginRight: 'auto',
-            top: '28%'
+            top: '28%',
+            border: '1px solid #00000096',
+            // paddingBottom: '30px',
+            backgroundColor: "rgb(52 52 52 ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_8__.isBrowser ? '/ 82%' : '', ")"),
+            backdropFilter: 'blur(5px)'
+          },
+          overlay: {
+            backgroundColor: '#36363614',
+            zIndex: 2
           }
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "No more music at the selected BPM!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Try a different BPM,"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "add songs, or clear listened."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText"
+      }, "No more songs at the selected BPM!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText"
+      }, "Try a different BPM,"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText"
+      }, "add songs, or clear listened."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle confirmBPMTitle"
       }, "Confirm BPM:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "centerThis"

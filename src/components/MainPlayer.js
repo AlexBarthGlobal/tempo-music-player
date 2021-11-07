@@ -47,7 +47,7 @@ class MainPlayer extends React.Component {
     };
 
     componentDidUpdate = (prevProps) => {
-        this.rap.volume = this.props.volume;
+        if (this.props.volume || this.props.volume === 0) this.rap.volume = this.props.volume;
         if (this.rap.readyState !== 4) { // Allows song to be seekable before first playing on mobile devices.
             this.rap.play();
             this.rap.pause();

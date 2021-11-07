@@ -22280,7 +22280,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
     })));
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps) {
-      _this.rap.volume = _this.props.volume;
+      if (_this.props.volume || _this.props.volume === 0) _this.rap.volume = _this.props.volume;
 
       if (_this.rap.readyState !== 4) {
         // Allows song to be seekable before first playing on mobile devices.
@@ -23534,7 +23534,7 @@ var PreviewPlayer = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function () {
-      _this.songPreview.volume = _this.props.volume;
+      if (_this.props.volume || _this.props.volume === 0) _this.songPreview.volume = _this.props.volume;
     });
 
     return _this;

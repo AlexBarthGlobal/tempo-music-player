@@ -7,7 +7,7 @@ class PreviewPlayer extends React.Component {
     };
 
     componentDidUpdate = () => {
-        this.songPreview.volume = this.props.volume;
+        if (this.props.volume || this.props.volume === 0) this.songPreview.volume = this.props.volume;
     };
 
     render() {

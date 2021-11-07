@@ -30,72 +30,8 @@ import Metronome from '../icons/metronome.svg'
 import ShareIcon from '@mui/icons-material/Share';
 // import ClearIcon from '@mui/icons-material/Clear';
 import SpringScrollbars from './SpringScrollbars';
-
-const styles = {
-    bmBurgerButton: {
-      position: 'fixed',
-      width: '28.8px',
-      height: '24px',
-    //   left: '30px',
-    //   top: '30px'
-    left: '14px',
-    top: '18px'
-    },
-    bmBurgerBars: {
-    //   background: '#373a47',
-    background: '#F3F3F3'
-    },
-    bmBurgerBarsHover: {
-      background: '#a90000'
-    },
-    bmCrossButton: {
-      height: '24px',
-      width: '24px',
-      top: '0',
-      right: '1',
-      marginTop: '3px',
-      marginLeft: '3px',
-    },
-    bmCross: {
-      background: '#bdc3c7',
-    },
-    bmMenuWrap: {
-      position: 'fixed',
-      height: '100%',
-      top: '0'
-    },
-    bmMenu: {
-      position: 'fixed',
-      top: '0',
-    //   background: '#373a47',
-      background: 'rgb(62 60 68 / 91%)',
-      backdropFilter: 'blur(5px)',
-      padding: '1.5em 1.5em 0',
-      fontSize: '1.15em',
-      paddingTop: '0px !important',
-      height: `${isBrowser ? 'calc(100vh - 90px)' : '100%' }`
-      
-    },
-    bmMorphShape: {
-      fill: '#373a47'
-    },
-    bmItemList: {
-      color: '#b8b7ad',
-      display: 'flex',
-      flexDirection: 'column',
-      minWidth: '220px',
-      maxWidth: '220px'
-    },
-    bmItem: {
-      display: 'inline-block'
-    },
-    bmOverlay: {
-      position: 'fixed',
-      top: '0',
-      background: 'rgba(0, 0, 0, 0.3)',
-      height: `${isBrowser ? 'calc(100vh - 90px)' : '100%' }`
-    }
-  }
+import StyledButton from './StyledButton';
+import Input from '@mui/material/Input';
 
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
@@ -160,6 +96,7 @@ class App extends React.Component {
     };
 
     handleChange(evt) {
+        if (this.state.shareConfirmation.length) this.setState({shareConfirmation: ''})
         this.setState({
             [evt.target.name]: evt.target.value
         });
@@ -167,7 +104,7 @@ class App extends React.Component {
 
     handleSubmit = async (evt) => {
         evt.preventDefault();
-        if (!this.state.collectionName.length) return;
+        if (!this.state.collectionName) return;
         this.setState({addCollectionModal: false})
         await this.props.createCollection(this.state.collectionName, this.state.collectionArtURL)
         this.setState({collectionName: ''})
@@ -238,6 +175,75 @@ class App extends React.Component {
     };
 
     render() {
+        const styles = {
+            bmBurgerButton: {
+              position: 'fixed',
+              width: '28.8px',
+              height: '24px',
+            //   left: '30px',
+            //   top: '30px'
+            left: '14px',
+            top: '18px'
+            },
+            bmBurgerBars: {
+            //   background: '#373a47',
+            background: '#F3F3F3'
+            },
+            bmBurgerBarsHover: {
+              background: '#a90000'
+            },
+            bmCrossButton: {
+              height: '24px',
+              width: '24px',
+              top: '0',
+              right: '1',
+              marginTop: '3px',
+              marginLeft: '3px',
+            },
+            bmCross: {
+              background: '#bdc3c7',
+            },
+            bmMenuWrap: {
+              position: 'fixed',
+            //   height: '100%',
+              height: `${isBrowser && this.props.musicInfo.activeSession ? 'calc(100vh - 90px)' : '100%' }`,
+              width: '276px',
+              top: '0',
+              backdropFilter: 'blur(5px)'
+            },
+            bmMenu: {
+              position: 'fixed',
+              top: '0',
+            //   background: '#373a47',
+            //   background: 'rgb(62 60 68 / 91%)',
+              background: 'rgba(52, 52, 52, 0.82)',
+              backdropFilter: 'blur(5px)',
+              padding: '1.5em 1.5em 0',
+              fontSize: '1.15em',
+              paddingTop: '0px !important',
+              height: `${isBrowser && this.props.musicInfo.activeSession ? 'calc(100vh - 90px)' : '100%' }`
+              
+            },
+            bmMorphShape: {
+              fill: '#373a47'
+            },
+            bmItemList: {
+              color: '#b8b7ad',
+              display: 'flex',
+              flexDirection: 'column',
+              minWidth: '220px',
+              maxWidth: '220px'
+            },
+            bmItem: {
+              display: 'inline-block'
+            },
+            bmOverlay: {
+              position: 'fixed',
+              top: '0',
+              background: 'rgba(0, 0, 0, 0.3)',
+              height: `${isBrowser && this.props.musicInfo.activeSession ? 'calc(100vh - 90px)' : '100%' }`
+            }
+        };
         console.log('Props on App.js RENDER', this.props)
         console.log('STATE', this.state)
         if (!this.props.user.id) return <Redirect to='/login' />;
@@ -282,34 +288,52 @@ class App extends React.Component {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                // minHeight: '116px',
-                                // maxHeight: '14vh',
-                                height: '118px',
-                                // maxHeight: '116px',
+                                height: '188px',
                                 position: 'absolute',
                                 width: '50vw',
+                                minWidth: '222px',
+                                maxWidth: '518px',
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
                                 top: '28%',
+                                border: '1px solid #00000096',
+                                backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
+                                backdropFilter: 'blur(5px)'
+                            },
+                            overlay: {
+                                backgroundColor: '#36363614',
+                                zIndex: 2
                             }
                         }
                     }
                 >
                     <div>
-                        <div>Name your collection:</div>
+                        <div className='modalText'>Name your collection:</div>
                         <div>
                             <form onSubmit={this.handleSubmit}>
                                 <div>
-                                    <input name='collectionName' onChange={this.handleChange} value={this.state.collectionName} />
+                                    <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                            }} inputProps={{ spellCheck: false }} name='collectionName' id="outlined-basic" value={this.state.collectionName} onChange={this.handleChange} variant="outlined" />
+                                </div>
+                                <div className='modalText'>Art URL:</div>
+                                <div>
+                                    <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                        }} inputProps={{ spellCheck: false }} name='collectionArtURL' id="outlined-basic" placeholder="Search" value={this.state.collectionArtURL} onChange={this.handleChange} placeholder={'Optional'} variant="outlined" />
                                 </div>
                                 <div>
-                                    Art URL:
-                                </div>
-                                <div>
-                                    <input name='collectionArtURL' onChange={this.handleChange} placeholder={'Optional'} value={this.state.collectionArtURL} />
-                                </div>
-                                <div>
-                                    <button type='submit'>Create</button>
+                                    <StyledButton type='submit' title='Create'/>
                                 </div>
                             </form>
                         </div>
@@ -326,35 +350,40 @@ class App extends React.Component {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                // minHeight: '116px',
-                                // maxHeight: '14vh',
-                                height: '142px',
-                                // maxHeight: '126px',
+                                height: '234px',
                                 position: 'absolute',
                                 width: '50vw',
+                                minWidth: '255px',
+                                maxWidth: '518px',
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
                                 top: '28%',
+                                border: '1px solid #00000096',
+                                paddingBottom: '24px',
+                                backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
+                                backdropFilter: 'blur(5px)'
+                            },
+                            overlay: {
+                                backgroundColor: '#36363614',
+                                zIndex: 2
                             }
                         }
                     }
                 >
                     <div>
-                        <div>No more music in this BPM range!</div>
-                        <div>
-                            Choose a different collection, or:
+                        <div className='modalText modalTextPadding'>No more songs in this BPM range!</div>
+                        <div className='modalText modalTextPadding'>Choose a different collection, or:</div>
+                        <div className='modalButton'>
+                            <StyledButton title='Change BPM' func={this.changeTempoFromModal} />
                         </div>
-                        <div>
-                            <button onClick={this.changeTempoFromModal}>Change BPM</button>
+                        <div className='modalButton'>
+                            {this.props.musicInfo.activeSession && this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionOwner === this.props.user.id ? <StyledButton title='Add songs to collection' func={this.addSongsFromModal} /> : null}
                         </div>
-                        <div>
-                            {this.props.musicInfo.activeSession && this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionOwner === this.props.user.id ? <button onClick={this.addSongsFromModal}>Add songs to collection</button> : null}
+                        <div className='modalButton'>
+                            <StyledButton title='Clear Listened' func={this.resetInfo} />
                         </div>
-                        <div>
-                            <button onClick={this.resetInfo}>Clear Listened</button>
-                        </div>
-                        <div>
-                            <button onClick={() => this.setState({noNextSong: false})}>Close</button>
+                        <div className='modalButton'>
+                            <StyledButton title='Close' func={() => this.setState({noNextSong: false})} />
                         </div>
                     </div>
                 </Modal>
@@ -369,31 +398,45 @@ class App extends React.Component {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                // minHeight: '116px',
-                                // maxHeight: '14vh',
-                                height: '116px',
-                                // maxHeight: '116px',
+                                height: '146px',
                                 position: 'absolute',
                                 width: '50vw',
+                                minWidth: '222px',
+                                maxWidth: '518px',
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
                                 top: '28%',
+                                border: '1px solid #00000096',
+                                paddingBottom: '30px',
+                                backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
+                                backdropFilter: 'blur(5px)'
+                            },
+                            overlay: {
+                                backgroundColor: '#36363614',
+                                zIndex: 2
                             }
                         }
                     }
                 >
                     <div>
-                        <div>Enter the recipient's E-mail:</div>
+                        <div className='modalText'>Enter recipient's E-mail:</div>
                         <div>
                             <form onSubmit={this.handleShare}>
                                 <div>
-                                    <input name='recipientEmail' onChange={this.handleChange} value={this.state.recipientEmail} />
+                                    <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                            }} inputProps={{ spellCheck: false }} name='recipientEmail' id="outlined-basic" value={this.state.recipientEmail} onChange={this.handleChange} variant="outlined" />
                                 </div>
-                                <div>
+                                <div className='modalText noRecipientPadding'>
                                     {this.state.shareConfirmation}
                                 </div>
                                 <div>
-                                    <button type='submit'>Share</button>
+                                    <StyledButton title='Share' type='submit' />
                                 </div>
                             </form>
                         </div>

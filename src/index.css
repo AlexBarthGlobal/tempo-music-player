@@ -75,6 +75,18 @@ svg {
   margin-top: 10px;
 }
 
+.modalText {
+  font-size: 16.7px;
+}
+
+.noRecipientPadding {
+  padding-bottom: 14px;
+}
+
+.modalTextPadding {
+  padding-bottom: 2px;
+}
+
 svg:hover {
   fill: rgb(117, 117, 117);
   transition: all 0.10s ease-in;
@@ -233,7 +245,7 @@ svg:hover {
 #mainPlayerImg {
   width: 95%;
   height: auto;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .loopMarginTop {
@@ -505,6 +517,7 @@ ul {
 .footerControlsMobile {
   display: flex;
   flex-direction: column;
+  backdrop-filter: 0;
 }
 
 .footerControlsMobileTop {

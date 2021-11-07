@@ -109,17 +109,18 @@ class CollectionSongs extends React.Component {
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     textAlign: 'center',
-                                    // minHeight: '106px',
-                                    // maxHeight: '106px',
-                                    height: '116px',
+                                    height: '118px',
                                     position: 'absolute',
                                     width: '50vw',
+                                    minWidth: '244px',
+                                    maxWidth: '518px',
                                     marginLeft: 'auto',
                                     marginRight: 'auto',
                                     top: '28%',
-                                    backgroundColor: 'rgb(52 52 52)',
                                     border: '1px solid #00000096',
                                     paddingBottom: '30px',
+                                    backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
+                                    backdropFilter: 'blur(5px)'
                                 },
                                 overlay: {
                                     backgroundColor: '#36363614',
@@ -129,7 +130,7 @@ class CollectionSongs extends React.Component {
                         }
                     >
                         <div>
-                            <div>No songs in this collection yet!</div>
+                            <div className='modalText modalTextPadding'>No songs in this collection yet!</div>
                             <div className='modalButton'>
                                 {this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? <StyledButton title='Add songs' func={() => this.props.changeScreen('BrowseSongs')} /> : null}
                             </div>

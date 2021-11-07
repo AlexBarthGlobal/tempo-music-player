@@ -5,7 +5,7 @@ import {updateSessionBpmThunk, popOneFromActiveSessionSongsThunk, applySongsInRa
 import songsInRange from '../components/songsInRange'
 import Modal from 'react-modal'
 import ManageBPMSliderAndTap from './ManageBPMSliderAndTap'
-import { setPlayingTrueThunk } from '../redux/playerReducer';
+import { setPlayingTrueThunk } from '../redux/playerDispatchers';
 import { isBrowser, isMobile } from 'react-device-detect';
 
 class Tempo extends React.Component {

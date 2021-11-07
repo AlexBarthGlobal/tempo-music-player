@@ -16,7 +16,7 @@ import songsInRange from '../components/songsInRange'
 import axios from 'axios';
 import { isBrowser, isMobile } from 'react-device-detect';
 import MainPlayer from './MainPlayer'
-import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
+import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerDispatchers'
 import { slide as Menu } from 'react-burger-menu'
 // import HomeButton from '../icons/home.svg'
 import HomeIcon from '@mui/icons-material/Home';

@@ -1,13 +1,19 @@
 const SET_PLAYING_TRUE = 'SET_PLAYING_TRUE'
 const SET_PLAYING_FALSE = 'SET_PLAYING_FALSE'
+const SET_VOLUME = 'SET_VOLUME'
 
 const setPlayingTrue = () => ({
     type: SET_PLAYING_TRUE
 });
 
-const setPlayingFalse= () => ({
+const setPlayingFalse = () => ({
     type: SET_PLAYING_FALSE
 });
+
+const setVolume = (volume) => ({
+    type: SET_VOLUME,
+    volume
+})
 
 export const setPlayingTrueThunk = () => {
     return dispatch => {
@@ -18,6 +24,12 @@ export const setPlayingTrueThunk = () => {
 export const setPlayingFalseThunk = () => {
     return dispatch => {
         dispatch(setPlayingFalse());
+    };
+};
+
+export const setVolumeThunk = (volume) => {
+    return dispatch => {
+        dispatch(setVolume(volume))
     };
 };
 
@@ -37,6 +49,11 @@ export default function playerReducer (state = initialState, action) {
                 ...state,
                 playing: false
             };
+        case SET_VOLUME:
+            return {
+                ...state,
+                volume: action.volume
+            }
         default:
             return state
     };

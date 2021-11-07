@@ -2,17 +2,18 @@ import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { Slider } from '@mui/material';
+import {setVolumeThunk} from '../redux/playerDispatchers'
 
 const VolumeControls = (props) => {
-    const [volume, setVolume] = useState(0)
+    const [volume, setVolume] = useState(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100))
     const [mouseOver, setMouseOver] = useState(false)
     const [mouseDown, setMouseDown] = useState(false)
 
     function preventHorizontalKeyboardNavigation(event) {
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
           event.preventDefault();
-        }
-    }
+        };
+    };
 
     useEffect(() => {
         if (!mouseDown) return;
@@ -25,8 +26,15 @@ const VolumeControls = (props) => {
         return () => window.removeEventListener('mouseup', clicker)
     }, [mouseDown])
 
+    useEffect(() => {
+        props.setVolume(volume/100)
+        sessionStorage.setItem('volume', volume)
+    }, [volume])
+
     const onChange = (evt) => {
-        setVolume(evt.target.value);
+        if (Math.abs(evt.target.value - volume) >= 1) {
+            setVolume(evt.target.value);
+        };
     };
 
     return (
@@ -79,16 +87,10 @@ const VolumeControls = (props) => {
 
 }
 
-const mapStateToProps = (state) => {
-    return {
-
-    }
-}
-
 const mapDispatchToProps = (dispatch) => {
     return {
-        
-    }
-}
+        setVolume: (volume) => dispatch(setVolumeThunk(volume))
+    };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(VolumeControls)
+export default connect(null, mapDispatchToProps)(VolumeControls)

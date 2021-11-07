@@ -17318,7 +17318,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 /* harmony import */ var _MainPlayer__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./MainPlayer */ "./src/components/MainPlayer.js");
-/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 /* harmony import */ var react_burger_menu__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-burger-menu */ "./node_modules/react-burger-menu/lib/BurgerMenu.js");
 /* harmony import */ var react_burger_menu__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(react_burger_menu__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material/Home */ "./node_modules/@mui/icons-material/Home.js");
@@ -18361,10 +18361,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__.setMetronomeSoundOptionThunk)(_boolean));
     },
     play: function play() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__.setPlayingTrueThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_15__.setPlayingTrueThunk)());
     },
     pause: function pause() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__.setPlayingFalseThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_15__.setPlayingFalseThunk)());
     }
   };
 };
@@ -19101,7 +19101,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 /* harmony import */ var _components_PreviewPlayer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/PreviewPlayer */ "./src/components/PreviewPlayer.js");
 /* harmony import */ var _components_BPMSlider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/BPMSlider */ "./src/components/BPMSlider.js");
-/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 /* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 /* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
@@ -19625,10 +19625,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.enqueueSongThunk)());
     },
     play: function play() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__.setPlayingTrueThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__.setPlayingTrueThunk)());
     },
     pause: function pause() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__.setPlayingFalseThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__.setPlayingFalseThunk)());
     }
   };
 };
@@ -22049,7 +22049,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 /* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
 /* harmony import */ var _FooterControlsMobile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FooterControlsMobile */ "./src/components/FooterControlsMobile.js");
@@ -22280,7 +22280,8 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
     })));
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps) {
-      // this.rap.volume = this.props.volume;
+      _this.rap.volume = _this.props.volume;
+
       if (_this.rap.readyState !== 4) {
         // Allows song to be seekable before first playing on mobile devices.
         _this.rap.play();
@@ -22493,6 +22494,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
     playing: state.playerReducer.playing,
+    volume: state.playerReducer.volume,
     musicInfo: state.musicReducer,
     screenStr: state.screenReducer.screenStr,
     playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
@@ -22502,10 +22504,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     play: function play() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__.setPlayingTrueThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__.setPlayingTrueThunk)());
     },
     pause: function pause() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__.setPlayingFalseThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__.setPlayingFalseThunk)());
     },
     incrementSongPlayed: function incrementSongPlayed(songId) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.incrementSongPlayedThunk)(songId));
@@ -23381,6 +23383,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -23500,6 +23503,22 @@ function _getPrototypeOf(o) {
   return _getPrototypeOf(o);
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+
 
 
 var PreviewPlayer = /*#__PURE__*/function (_React$Component) {
@@ -23508,25 +23527,34 @@ var PreviewPlayer = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(PreviewPlayer);
 
   function PreviewPlayer(props) {
+    var _this;
+
     _classCallCheck(this, PreviewPlayer);
 
-    return _super.call(this);
+    _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function () {
+      _this.songPreview.volume = _this.props.volume;
+    });
+
+    return _this;
   }
 
   _createClass(PreviewPlayer, [{
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
+      console.log('REFRESHED PREVIEW PLAYER');
       var previewPlayer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.props.songURL,
         preload: "auto",
         autoPlay: true,
         onEnded: function onEnded() {
-          return _this.props.previewEnded();
+          return _this2.props.previewEnded();
         },
         ref: function ref(element) {
-          _this.songPreview = element;
+          _this2.songPreview = element;
         }
       });
 
@@ -23543,7 +23571,14 @@ var PreviewPlayer = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 ;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PreviewPlayer);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    volume: state.playerReducer.volume
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(PreviewPlayer));
 
 /***/ }),
 
@@ -23951,7 +23986,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _ManageBPMSliderAndTap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ManageBPMSliderAndTap */ "./src/components/ManageBPMSliderAndTap.js");
-/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
@@ -24348,7 +24383,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_3__.fetchOnTempoChangeThunk)(selectedCollectionId, newBPM));
     },
     play: function play() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__.setPlayingTrueThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__.setPlayingTrueThunk)());
     }
   };
 };
@@ -24370,8 +24405,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/icons-material/VolumeUp */ "./node_modules/@mui/icons-material/VolumeUp.js");
-/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
+/* harmony import */ var _mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/VolumeUp */ "./node_modules/@mui/icons-material/VolumeUp.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
+/* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
@@ -24438,8 +24474,9 @@ function _arrayWithHoles(arr) {
 
 
 
+
 var VolumeControls = function VolumeControls(props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100)),
       _useState2 = _slicedToArray(_useState, 2),
       volume = _useState2[0],
       setVolume = _useState2[1];
@@ -24458,8 +24495,11 @@ var VolumeControls = function VolumeControls(props) {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
     }
+
+    ;
   }
 
+  ;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (!mouseDown) return;
 
@@ -24474,9 +24514,17 @@ var VolumeControls = function VolumeControls(props) {
       return window.removeEventListener('mouseup', clicker);
     };
   }, [mouseDown]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    props.setVolume(volume / 100);
+    sessionStorage.setItem('volume', volume);
+  }, [volume]);
 
   var onChange = function onChange(evt) {
-    setVolume(evt.target.value);
+    if (Math.abs(evt.target.value - volume) >= 1) {
+      setVolume(evt.target.value);
+    }
+
+    ;
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -24488,7 +24536,7 @@ var VolumeControls = function VolumeControls(props) {
     className: "volumeWrapper ".concat(mouseOver ? null : 'hidden')
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "volumeSlider ".concat(mouseOver ? null : 'hidden')
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_2__.default, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default, {
     min: 0,
     defaultValue: 0,
     max: 100,
@@ -24532,22 +24580,22 @@ var VolumeControls = function VolumeControls(props) {
     onMouseEnter: function onMouseEnter() {
       return setMouseOver(true);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_3__.default, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_4__.default, {
     sx: {
       fontSize: 27
     }
   })));
 };
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {};
-};
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    setVolume: function setVolume(volume) {
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__.setVolumeThunk)(volume));
+    }
+  };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(VolumeControls));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps)(VolumeControls));
 
 /***/ }),
 
@@ -24784,7 +24832,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _userDispatchers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./userDispatchers */ "./src/redux/userDispatchers.js");
 /* harmony import */ var _musicDispatchers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _screenDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./screenDispatchers */ "./src/redux/screenDispatchers.js");
-/* harmony import */ var _playerReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _playerDispatchers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./playerDispatchers */ "./src/redux/playerDispatchers.js");
 
 
 
@@ -24794,7 +24842,7 @@ var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
   userReducer: _userDispatchers__WEBPACK_IMPORTED_MODULE_0__.default,
   musicReducer: _musicDispatchers__WEBPACK_IMPORTED_MODULE_1__.default,
   screenReducer: _screenDispatchers__WEBPACK_IMPORTED_MODULE_2__.default,
-  playerReducer: _playerReducer__WEBPACK_IMPORTED_MODULE_3__.default
+  playerReducer: _playerDispatchers__WEBPACK_IMPORTED_MODULE_3__.default
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (appReducer);
 
@@ -26310,10 +26358,10 @@ function musicReducer() {
 
 /***/ }),
 
-/***/ "./src/redux/playerReducer.js":
-/*!************************************!*\
-  !*** ./src/redux/playerReducer.js ***!
-  \************************************/
+/***/ "./src/redux/playerDispatchers.js":
+/*!****************************************!*\
+  !*** ./src/redux/playerDispatchers.js ***!
+  \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -26321,6 +26369,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setPlayingTrueThunk": () => (/* binding */ setPlayingTrueThunk),
 /* harmony export */   "setPlayingFalseThunk": () => (/* binding */ setPlayingFalseThunk),
+/* harmony export */   "setVolumeThunk": () => (/* binding */ setVolumeThunk),
 /* harmony export */   "default": () => (/* binding */ playerReducer)
 /* harmony export */ });
 function ownKeys(object, enumerableOnly) {
@@ -26378,6 +26427,7 @@ function _defineProperty(obj, key, value) {
 
 var SET_PLAYING_TRUE = 'SET_PLAYING_TRUE';
 var SET_PLAYING_FALSE = 'SET_PLAYING_FALSE';
+var SET_VOLUME = 'SET_VOLUME';
 
 var setPlayingTrue = function setPlayingTrue() {
   return {
@@ -26391,6 +26441,13 @@ var setPlayingFalse = function setPlayingFalse() {
   };
 };
 
+var setVolume = function setVolume(volume) {
+  return {
+    type: SET_VOLUME,
+    volume: volume
+  };
+};
+
 var setPlayingTrueThunk = function setPlayingTrueThunk() {
   return function (dispatch) {
     dispatch(setPlayingTrue());
@@ -26399,6 +26456,11 @@ var setPlayingTrueThunk = function setPlayingTrueThunk() {
 var setPlayingFalseThunk = function setPlayingFalseThunk() {
   return function (dispatch) {
     dispatch(setPlayingFalse());
+  };
+};
+var setVolumeThunk = function setVolumeThunk(volume) {
+  return function (dispatch) {
+    dispatch(setVolume(volume));
   };
 };
 var initialState = {
@@ -26417,6 +26479,11 @@ function playerReducer() {
     case SET_PLAYING_FALSE:
       return _objectSpread(_objectSpread({}, state), {}, {
         playing: false
+      });
+
+    case SET_VOLUME:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        volume: action.volume
       });
 
     default:

@@ -5,7 +5,7 @@ import BrowseSongsSingleSong from './BrowseSongsSingleSong'
 import songsInRange from '../components/songsInRange'
 import PreviewPlayer from '../components/PreviewPlayer'
 import BPMSlider from '../components/BPMSlider'
-import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
+import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerDispatchers'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { isBrowser, isMobile } from 'react-device-detect';
 import Input from '@mui/material/Input';

@@ -399,6 +399,25 @@ svg:hover {
   padding-right: 10px;
 }
 
+.volumeControls {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  padding-right: 12px;
+  /* padding-bottom: 21px; */
+}
+
+#volumeSlider {
+  position: relative;
+  height: 140px;
+  bottom: 138px;
+}
+
+#volumeButton {
+  position: fixed;
+  top: 29px;
+}
+
 .secondButtons {
   display: flex;
   justify-content: flex-end;

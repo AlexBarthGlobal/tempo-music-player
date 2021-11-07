@@ -23,7 +23,7 @@ const BPMSlider = (props) => {
     return (
         <div>
             <div className='BPMText'>{!props.toggleDisabledBPM ? `${sliderBPM}` : props.disabledBPM ? 'Any BPM' : `${sliderBPM}`}</div>
-            {props.toggleDisabledBPM ? <input name='Toggle Search by BPM' type='checkbox' checked={!props.disabledBPM} onChange={props.toggleDisabledBPM}/> : null}
+            {props.toggleDisabledBPM ? <input className='toggleSearchByBPMBox' name='Toggle Search by BPM' type='checkbox' checked={!props.disabledBPM} onChange={props.toggleDisabledBPM}/> : null}
             <div className={isBrowser ? 'horizontalSlider' : 'horizontalSliderMobile'}>
             <Slider
                 min={80}

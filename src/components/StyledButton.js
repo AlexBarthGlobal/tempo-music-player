@@ -1,14 +1,9 @@
 import React, {useState} from 'react';
+import Button from '@mui/material/Button';
 
-
-// func, restingImg, activeImg, className, size, isDisabled (bool), disabledImg
-//                                   *                                   *
 const StyledButton = (props) => {
-    const [isActive, setActive] = useState(false)
-
-
     return (
-        <img onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)} className={props.className ? props.className : null} width={props.size} height={props.size} src={props.isDisabled ? props.disabledImg : isActive ? props.activeImg : props.restingImg} /*onClick={props.function()}*/ />
+        <Button onClick={props.func} sx={{color: 'black', backgroundColor: 'white', textTransform: "none", ':hover': {bgcolor: 'gray'}}}>{props.title}</Button>
     )
 };
 

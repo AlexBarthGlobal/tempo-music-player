@@ -8,6 +8,8 @@ import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import Metronome from '../icons/metronome.svg'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { isBrowser, isMobile } from 'react-device-detect';
+import Button from '@mui/material/Button';
+import StyledButton from './StyledButton'
 
 class CollectionSongs extends React.Component {
     constructor(props) {
@@ -109,28 +111,30 @@ class CollectionSongs extends React.Component {
                                     textAlign: 'center',
                                     // minHeight: '106px',
                                     // maxHeight: '106px',
-                                    height: '106px',
+                                    height: '116px',
                                     position: 'absolute',
                                     width: '50vw',
                                     marginLeft: 'auto',
                                     marginRight: 'auto',
                                     top: '28%',
                                     backgroundColor: 'rgb(52 52 52)',
-                                    border: '1px solid #00000096'
+                                    border: '1px solid #00000096',
+                                    paddingBottom: '30px',
                                 },
                                 overlay: {
-                                    backgroundColor: '#36363614'
+                                    backgroundColor: '#36363614',
+                                    zIndex: 2
                                 }
                             }
                         }
                     >
                         <div>
                             <div>No songs in this collection yet!</div>
-                            <div>
-                                {this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? <button onClick={() => this.props.changeScreen('BrowseSongs')}>Add Songs</button> : null}
+                            <div className='modalButton'>
+                                {this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? <StyledButton title='Add songs' func={() => this.props.changeScreen('BrowseSongs')} /> : null}
                             </div>
-                            <div>
-                                <button onClick={() => this.props.selectCollectionAndChangeScreen(null, 'Collections')}>Go back</button>
+                            <div className='modalButton'>
+                                <StyledButton title='Go back' func={() => this.props.selectCollectionAndChangeScreen(null, 'Collections')} />
                             </div>
                         </div>
                     </Modal>

@@ -71,6 +71,10 @@ svg {
   width: 30px; */
 }
 
+.modalButton {
+  margin-top: 10px;
+}
+
 svg:hover {
   fill: rgb(117, 117, 117);
   transition: all 0.10s ease-in;
@@ -914,6 +918,11 @@ tr {
 
 .BPMText {
   font-size: 36px;
+  padding-bottom: 5px;
+}
+
+.toggleSearchByBPMBox {
+  margin-bottom: 14px;
 }
 
 .BPMTapPad {

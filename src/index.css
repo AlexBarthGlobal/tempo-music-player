@@ -87,6 +87,10 @@ svg {
   padding-bottom: 2px;
 }
 
+.modalTextPaddingParagraph {
+  padding-bottom: 11px;
+}
+
 svg:hover {
   fill: rgb(117, 117, 117);
   transition: all 0.10s ease-in;
@@ -171,6 +175,7 @@ svg:hover {
   margin-left: 6vw; */
   /* margin-bottom: 80px; */
   margin-bottom: max(80px, min(10vw, 180px));
+  position: relative;
 }
 
 .imgAndStatus {
@@ -354,6 +359,15 @@ svg:hover {
   /* color: rgb(255, 255, 255); */
   font-size: 2em;
   text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.specialWordBreak {
+  word-break: break-word;
+  overflow-wrap: anywhere !important;
 }
 
 .browseSongsAlert {
@@ -385,6 +399,40 @@ svg:hover {
   padding-right: 10px;
 }
 
+.volumeControls {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  padding-right: 14px;
+  /* padding-bottom: 21px; */
+}
+
+.volumeWrapper {
+  border: 1px black solid;
+  position: fixed;
+  height: 208px;
+  width: 40px;
+  right: 18px;
+  bottom: 26px;
+  background-color: #edb303;
+  border-radius: 8px;
+}
+
+.volumeSlider {
+  position: relative;
+  height: 140px;
+  bottom: 138px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+#volumeButton {
+  position: fixed;
+  top: 29px;
+}
+
 .secondButtons {
   display: flex;
   justify-content: flex-end;
@@ -404,12 +452,25 @@ svg:hover {
   text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);
 }
 
+#collectionClearIcon {
+  position: absolute;
+  top: 0.4vw;
+  left: 0.4vw;
+  background-color: #000000c7;
+  border-radius: 6px;
+}
+
 .resumeStatus {
   color:rgba(255, 251, 0, 0.616) !important;
+  color: rgb(160, 160, 160)
 }
 
 .listenedCollectionSong {
   color: rgb(126, 126, 126);
+}
+
+#tempoPlayArrow {
+  color: rgb(255, 251, 0);
 }
 
 ul {

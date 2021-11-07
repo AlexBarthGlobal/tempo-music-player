@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import userReducer from './userDispatchers'
 import musicReducer from './musicDispatchers'
 import screenReducer from './screenDispatchers'
-import playerReducer from './playerReducer'
+import playerReducer from './playerDispatchers'
 
 const appReducer = combineReducers({
   userReducer,

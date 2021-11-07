@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setPlayingTrueThunk, setPlayingFalseThunk } from '../redux/playerReducer';
+import { setPlayingTrueThunk, setPlayingFalseThunk } from '../redux/playerDispatchers';
 import { isBrowser, isMobile } from 'react-device-detect';
 import FooterControls from './FooterControls'
 import FooterControlsMobile from './FooterControlsMobile'
@@ -47,6 +47,7 @@ class MainPlayer extends React.Component {
     };
 
     componentDidUpdate = (prevProps) => {
+        if (this.props.volume || this.props.volume === 0) this.rap.volume = this.props.volume;
         if (this.rap.readyState !== 4) { // Allows song to be seekable before first playing on mobile devices.
             this.rap.play();
             this.rap.pause();
@@ -135,6 +136,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.userReducer.user,
         playing: state.playerReducer.playing,
+        volume: state.playerReducer.volume,
         musicInfo: state.musicReducer,
         screenStr: state.screenReducer.screenStr,
         playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null

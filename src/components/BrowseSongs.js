@@ -5,7 +5,7 @@ import BrowseSongsSingleSong from './BrowseSongsSingleSong'
 import songsInRange from '../components/songsInRange'
 import PreviewPlayer from '../components/PreviewPlayer'
 import BPMSlider from '../components/BPMSlider'
-import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
+import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerDispatchers'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { isBrowser, isMobile } from 'react-device-detect';
 import Input from '@mui/material/Input';
@@ -134,7 +134,7 @@ const BrowseSongs = (props) => {
                             ':not($focused)': { borderBottomColor: 'white' },
                             ':before': { borderBottomColor: 'grey' },
                             ':after': { borderBottomColor: 'white' },
-                        }} inputProps={{ spellCheck: false }} name='searchInput' id="outlined-basic" placeholder="Search" value={searchInput} onChange={handleChange} variant="outlined" />
+                        }} inputProps={{ spellCheck: false, style: { textAlign: 'center' }}} name='searchInput' id="outlined-basic" placeholder="Search" value={searchInput} onChange={handleChange} variant="outlined" />
                 </div>
                 <div>
                     <BPMSlider localBPM={BPMInput} setLocalBPM={setBrowseBPMInput} toggleDisabledBPM={toggleDisabledBPM} disabledBPM={disabledBPM}/>

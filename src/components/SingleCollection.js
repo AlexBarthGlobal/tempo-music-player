@@ -1,4 +1,5 @@
 import React from 'react';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const SingleCollection = (props) => {
     const {collectionId, collectionName, collectionArt, selectCollectionAndChangeScreen, isActive, hasSession, BPM, editMode, removeCollection, deleteCollection, userOwns} = props;
@@ -16,7 +17,7 @@ const SingleCollection = (props) => {
                 </div>
                 <div className='collectionName'>{collectionName}</div>  
             </div>
-            <div>{props.editMode ? userOwns ? <button onClick={() => deleteCollection(collectionId)}>Delete</button> : <button onClick={() => removeCollection(collectionId)}>Remove</button> : null}</div>
+            <div>{props.editMode ? userOwns ? <ClearIcon id='collectionClearIcon' sx={{fontSize: 25}} onClick={() => deleteCollection(collectionId)} /> : <ClearIcon id='collectionClearIcon' onClick={() => removeCollection(collectionId)}/> : null}</div>
         </div>
     )
 };

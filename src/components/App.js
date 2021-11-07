@@ -16,7 +16,7 @@ import songsInRange from '../components/songsInRange'
 import axios from 'axios';
 import { isBrowser, isMobile } from 'react-device-detect';
 import MainPlayer from './MainPlayer'
-import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerReducer'
+import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerDispatchers'
 import { slide as Menu } from 'react-burger-menu'
 // import HomeButton from '../icons/home.svg'
 import HomeIcon from '@mui/icons-material/Home';
@@ -334,7 +334,7 @@ class App extends React.Component {
                                         }} inputProps={{ spellCheck: false }} name='collectionArtURL' id="outlined-basic" placeholder="Search" value={this.state.collectionArtURL} onChange={this.handleChange} placeholder={'Optional'} variant="outlined" />
                                 </div>
                                 <div>
-                                    <StyledButton type='submit' title='Create'/>
+                                    <StyledButton type='submit' title='Create' disabled={this.state.collectionName.length > 30}/>
                                 </div>
                             </form>
                         </div>
@@ -399,7 +399,7 @@ class App extends React.Component {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                height: '146px',
+                                height: '150px',
                                 position: 'absolute',
                                 width: '50vw',
                                 minWidth: '222px',
@@ -443,7 +443,7 @@ class App extends React.Component {
                         </div>
                     </div>
                 </Modal>
-                {this.props.screenStr !== 'PlayerScreen' && isBrowser ? <SpringScrollbars ref='scrollbars' style={{ height: this.props.musicInfo.activeSession ? `calc(100vh - 90px)` : `100vh`}}>
+                {this.props.screenStr !== 'PlayerScreen' && isBrowser ? <SpringScrollbars ref='scrollbars' style={{height: this.props.musicInfo.activeSession ? `calc(100vh - 90px)` : `100vh`}}>
                 <div id='headerContainer'>
                     <div className='topButtons'>{homeLogout}{editSongs}{clearListened}</div>
                     <div className='secondButtons'>{navToCollectionSongs}{changeTempo}{shareCollection}{createOrAddToCollection}</div>

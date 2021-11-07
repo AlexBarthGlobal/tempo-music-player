@@ -8,8 +8,8 @@ import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import Metronome from '../icons/metronome.svg'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { isBrowser, isMobile } from 'react-device-detect';
-import Button from '@mui/material/Button';
 import StyledButton from './StyledButton'
+import Input from '@mui/material/Input';
 
 class CollectionSongs extends React.Component {
     constructor(props) {
@@ -144,7 +144,6 @@ class CollectionSongs extends React.Component {
                             {this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
                         </div>
                         <div>
-                            {/* <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button> */}
                             <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
                         </div>
                     </div>
@@ -154,7 +153,15 @@ class CollectionSongs extends React.Component {
             <div>
                 <div className='screenTitle'>
                     <div>
-                        {this.props.editMode ? <input name='editedCollectionName' onFocus={this.clearNameOnFocus} value={this.state.editedCollectionName} onChange={this.handleChange}></input> : this.state.collectionName}
+                        {this.props.editMode ? <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontFamily: 'inherit',
+                                            fontSize: 30,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'rgb(160, 160, 160)' },
+                                            ':after': { borderBottomColor: 'white' },
+                                            }} inputProps={{ spellCheck: false, style: { textAlign: 'center' }}} name='editedCollectionName' id="outlined-basic" onFocus={this.clearNameOnFocus} value={this.state.editedCollectionName} onChange={this.handleChange} variant="outlined" /> : this.state.collectionName}
                     </div>
                     <div>
                         <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />

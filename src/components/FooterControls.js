@@ -6,6 +6,7 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PlayArrow from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+import VolumeControls from './VolumeControls'
 
 class FooterControls extends React.Component {
     render() {
@@ -33,7 +34,7 @@ class FooterControls extends React.Component {
             <FooterSlider currTime={currTime} duration={duration} seekTime={seekTime} />
           </div>
           <div className='footerBox3'/* 3 */>
-            <div>Audio</div>
+              <VolumeControls />
           </div>
         </div>
       )

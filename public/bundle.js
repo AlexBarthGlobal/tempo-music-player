@@ -3716,6 +3716,90 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/VolumeDown.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@mui/icons-material/VolumeDown.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@mui/icons-material/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"
+}), 'VolumeDown');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@mui/icons-material/VolumeOff.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@mui/icons-material/VolumeOff.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@mui/icons-material/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4z"
+}), 'VolumeOff');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@mui/icons-material/VolumeUp.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@mui/icons-material/VolumeUp.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@mui/icons-material/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+}), 'VolumeUp');
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/node_modules/@babel/runtime/helpers/interopRequireDefault.js":
 /*!*******************************************************************************************************!*\
   !*** ./node_modules/@mui/icons-material/node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
@@ -15361,1331 +15445,6 @@ module.exports = function(name, value) {
 
 /***/ }),
 
-/***/ "./node_modules/animejs/lib/anime.es.js":
-/*!**********************************************!*\
-  !*** ./node_modules/animejs/lib/anime.es.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/*
- * anime.js v3.2.1
- * (c) 2020 Julian Garnier
- * Released under the MIT license
- * animejs.com
- */
-
-// Defaults
-
-var defaultInstanceSettings = {
-  update: null,
-  begin: null,
-  loopBegin: null,
-  changeBegin: null,
-  change: null,
-  changeComplete: null,
-  loopComplete: null,
-  complete: null,
-  loop: 1,
-  direction: 'normal',
-  autoplay: true,
-  timelineOffset: 0
-};
-
-var defaultTweenSettings = {
-  duration: 1000,
-  delay: 0,
-  endDelay: 0,
-  easing: 'easeOutElastic(1, .5)',
-  round: 0
-};
-
-var validTransforms = ['translateX', 'translateY', 'translateZ', 'rotate', 'rotateX', 'rotateY', 'rotateZ', 'scale', 'scaleX', 'scaleY', 'scaleZ', 'skew', 'skewX', 'skewY', 'perspective', 'matrix', 'matrix3d'];
-
-// Caching
-
-var cache = {
-  CSS: {},
-  springs: {}
-};
-
-// Utils
-
-function minMax(val, min, max) {
-  return Math.min(Math.max(val, min), max);
-}
-
-function stringContains(str, text) {
-  return str.indexOf(text) > -1;
-}
-
-function applyArguments(func, args) {
-  return func.apply(null, args);
-}
-
-var is = {
-  arr: function (a) { return Array.isArray(a); },
-  obj: function (a) { return stringContains(Object.prototype.toString.call(a), 'Object'); },
-  pth: function (a) { return is.obj(a) && a.hasOwnProperty('totalLength'); },
-  svg: function (a) { return a instanceof SVGElement; },
-  inp: function (a) { return a instanceof HTMLInputElement; },
-  dom: function (a) { return a.nodeType || is.svg(a); },
-  str: function (a) { return typeof a === 'string'; },
-  fnc: function (a) { return typeof a === 'function'; },
-  und: function (a) { return typeof a === 'undefined'; },
-  nil: function (a) { return is.und(a) || a === null; },
-  hex: function (a) { return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(a); },
-  rgb: function (a) { return /^rgb/.test(a); },
-  hsl: function (a) { return /^hsl/.test(a); },
-  col: function (a) { return (is.hex(a) || is.rgb(a) || is.hsl(a)); },
-  key: function (a) { return !defaultInstanceSettings.hasOwnProperty(a) && !defaultTweenSettings.hasOwnProperty(a) && a !== 'targets' && a !== 'keyframes'; },
-};
-
-// Easings
-
-function parseEasingParameters(string) {
-  var match = /\(([^)]+)\)/.exec(string);
-  return match ? match[1].split(',').map(function (p) { return parseFloat(p); }) : [];
-}
-
-// Spring solver inspired by Webkit Copyright © 2016 Apple Inc. All rights reserved. https://webkit.org/demos/spring/spring.js
-
-function spring(string, duration) {
-
-  var params = parseEasingParameters(string);
-  var mass = minMax(is.und(params[0]) ? 1 : params[0], .1, 100);
-  var stiffness = minMax(is.und(params[1]) ? 100 : params[1], .1, 100);
-  var damping = minMax(is.und(params[2]) ? 10 : params[2], .1, 100);
-  var velocity =  minMax(is.und(params[3]) ? 0 : params[3], .1, 100);
-  var w0 = Math.sqrt(stiffness / mass);
-  var zeta = damping / (2 * Math.sqrt(stiffness * mass));
-  var wd = zeta < 1 ? w0 * Math.sqrt(1 - zeta * zeta) : 0;
-  var a = 1;
-  var b = zeta < 1 ? (zeta * w0 + -velocity) / wd : -velocity + w0;
-
-  function solver(t) {
-    var progress = duration ? (duration * t) / 1000 : t;
-    if (zeta < 1) {
-      progress = Math.exp(-progress * zeta * w0) * (a * Math.cos(wd * progress) + b * Math.sin(wd * progress));
-    } else {
-      progress = (a + b * progress) * Math.exp(-progress * w0);
-    }
-    if (t === 0 || t === 1) { return t; }
-    return 1 - progress;
-  }
-
-  function getDuration() {
-    var cached = cache.springs[string];
-    if (cached) { return cached; }
-    var frame = 1/6;
-    var elapsed = 0;
-    var rest = 0;
-    while(true) {
-      elapsed += frame;
-      if (solver(elapsed) === 1) {
-        rest++;
-        if (rest >= 16) { break; }
-      } else {
-        rest = 0;
-      }
-    }
-    var duration = elapsed * frame * 1000;
-    cache.springs[string] = duration;
-    return duration;
-  }
-
-  return duration ? solver : getDuration;
-
-}
-
-// Basic steps easing implementation https://developer.mozilla.org/fr/docs/Web/CSS/transition-timing-function
-
-function steps(steps) {
-  if ( steps === void 0 ) steps = 10;
-
-  return function (t) { return Math.ceil((minMax(t, 0.000001, 1)) * steps) * (1 / steps); };
-}
-
-// BezierEasing https://github.com/gre/bezier-easing
-
-var bezier = (function () {
-
-  var kSplineTableSize = 11;
-  var kSampleStepSize = 1.0 / (kSplineTableSize - 1.0);
-
-  function A(aA1, aA2) { return 1.0 - 3.0 * aA2 + 3.0 * aA1 }
-  function B(aA1, aA2) { return 3.0 * aA2 - 6.0 * aA1 }
-  function C(aA1)      { return 3.0 * aA1 }
-
-  function calcBezier(aT, aA1, aA2) { return ((A(aA1, aA2) * aT + B(aA1, aA2)) * aT + C(aA1)) * aT }
-  function getSlope(aT, aA1, aA2) { return 3.0 * A(aA1, aA2) * aT * aT + 2.0 * B(aA1, aA2) * aT + C(aA1) }
-
-  function binarySubdivide(aX, aA, aB, mX1, mX2) {
-    var currentX, currentT, i = 0;
-    do {
-      currentT = aA + (aB - aA) / 2.0;
-      currentX = calcBezier(currentT, mX1, mX2) - aX;
-      if (currentX > 0.0) { aB = currentT; } else { aA = currentT; }
-    } while (Math.abs(currentX) > 0.0000001 && ++i < 10);
-    return currentT;
-  }
-
-  function newtonRaphsonIterate(aX, aGuessT, mX1, mX2) {
-    for (var i = 0; i < 4; ++i) {
-      var currentSlope = getSlope(aGuessT, mX1, mX2);
-      if (currentSlope === 0.0) { return aGuessT; }
-      var currentX = calcBezier(aGuessT, mX1, mX2) - aX;
-      aGuessT -= currentX / currentSlope;
-    }
-    return aGuessT;
-  }
-
-  function bezier(mX1, mY1, mX2, mY2) {
-
-    if (!(0 <= mX1 && mX1 <= 1 && 0 <= mX2 && mX2 <= 1)) { return; }
-    var sampleValues = new Float32Array(kSplineTableSize);
-
-    if (mX1 !== mY1 || mX2 !== mY2) {
-      for (var i = 0; i < kSplineTableSize; ++i) {
-        sampleValues[i] = calcBezier(i * kSampleStepSize, mX1, mX2);
-      }
-    }
-
-    function getTForX(aX) {
-
-      var intervalStart = 0;
-      var currentSample = 1;
-      var lastSample = kSplineTableSize - 1;
-
-      for (; currentSample !== lastSample && sampleValues[currentSample] <= aX; ++currentSample) {
-        intervalStart += kSampleStepSize;
-      }
-
-      --currentSample;
-
-      var dist = (aX - sampleValues[currentSample]) / (sampleValues[currentSample + 1] - sampleValues[currentSample]);
-      var guessForT = intervalStart + dist * kSampleStepSize;
-      var initialSlope = getSlope(guessForT, mX1, mX2);
-
-      if (initialSlope >= 0.001) {
-        return newtonRaphsonIterate(aX, guessForT, mX1, mX2);
-      } else if (initialSlope === 0.0) {
-        return guessForT;
-      } else {
-        return binarySubdivide(aX, intervalStart, intervalStart + kSampleStepSize, mX1, mX2);
-      }
-
-    }
-
-    return function (x) {
-      if (mX1 === mY1 && mX2 === mY2) { return x; }
-      if (x === 0 || x === 1) { return x; }
-      return calcBezier(getTForX(x), mY1, mY2);
-    }
-
-  }
-
-  return bezier;
-
-})();
-
-var penner = (function () {
-
-  // Based on jQuery UI's implemenation of easing equations from Robert Penner (http://www.robertpenner.com/easing)
-
-  var eases = { linear: function () { return function (t) { return t; }; } };
-
-  var functionEasings = {
-    Sine: function () { return function (t) { return 1 - Math.cos(t * Math.PI / 2); }; },
-    Circ: function () { return function (t) { return 1 - Math.sqrt(1 - t * t); }; },
-    Back: function () { return function (t) { return t * t * (3 * t - 2); }; },
-    Bounce: function () { return function (t) {
-      var pow2, b = 4;
-      while (t < (( pow2 = Math.pow(2, --b)) - 1) / 11) {}
-      return 1 / Math.pow(4, 3 - b) - 7.5625 * Math.pow(( pow2 * 3 - 2 ) / 22 - t, 2)
-    }; },
-    Elastic: function (amplitude, period) {
-      if ( amplitude === void 0 ) amplitude = 1;
-      if ( period === void 0 ) period = .5;
-
-      var a = minMax(amplitude, 1, 10);
-      var p = minMax(period, .1, 2);
-      return function (t) {
-        return (t === 0 || t === 1) ? t : 
-          -a * Math.pow(2, 10 * (t - 1)) * Math.sin((((t - 1) - (p / (Math.PI * 2) * Math.asin(1 / a))) * (Math.PI * 2)) / p);
-      }
-    }
-  };
-
-  var baseEasings = ['Quad', 'Cubic', 'Quart', 'Quint', 'Expo'];
-
-  baseEasings.forEach(function (name, i) {
-    functionEasings[name] = function () { return function (t) { return Math.pow(t, i + 2); }; };
-  });
-
-  Object.keys(functionEasings).forEach(function (name) {
-    var easeIn = functionEasings[name];
-    eases['easeIn' + name] = easeIn;
-    eases['easeOut' + name] = function (a, b) { return function (t) { return 1 - easeIn(a, b)(1 - t); }; };
-    eases['easeInOut' + name] = function (a, b) { return function (t) { return t < 0.5 ? easeIn(a, b)(t * 2) / 2 : 
-      1 - easeIn(a, b)(t * -2 + 2) / 2; }; };
-    eases['easeOutIn' + name] = function (a, b) { return function (t) { return t < 0.5 ? (1 - easeIn(a, b)(1 - t * 2)) / 2 : 
-      (easeIn(a, b)(t * 2 - 1) + 1) / 2; }; };
-  });
-
-  return eases;
-
-})();
-
-function parseEasings(easing, duration) {
-  if (is.fnc(easing)) { return easing; }
-  var name = easing.split('(')[0];
-  var ease = penner[name];
-  var args = parseEasingParameters(easing);
-  switch (name) {
-    case 'spring' : return spring(easing, duration);
-    case 'cubicBezier' : return applyArguments(bezier, args);
-    case 'steps' : return applyArguments(steps, args);
-    default : return applyArguments(ease, args);
-  }
-}
-
-// Strings
-
-function selectString(str) {
-  try {
-    var nodes = document.querySelectorAll(str);
-    return nodes;
-  } catch(e) {
-    return;
-  }
-}
-
-// Arrays
-
-function filterArray(arr, callback) {
-  var len = arr.length;
-  var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
-  var result = [];
-  for (var i = 0; i < len; i++) {
-    if (i in arr) {
-      var val = arr[i];
-      if (callback.call(thisArg, val, i, arr)) {
-        result.push(val);
-      }
-    }
-  }
-  return result;
-}
-
-function flattenArray(arr) {
-  return arr.reduce(function (a, b) { return a.concat(is.arr(b) ? flattenArray(b) : b); }, []);
-}
-
-function toArray(o) {
-  if (is.arr(o)) { return o; }
-  if (is.str(o)) { o = selectString(o) || o; }
-  if (o instanceof NodeList || o instanceof HTMLCollection) { return [].slice.call(o); }
-  return [o];
-}
-
-function arrayContains(arr, val) {
-  return arr.some(function (a) { return a === val; });
-}
-
-// Objects
-
-function cloneObject(o) {
-  var clone = {};
-  for (var p in o) { clone[p] = o[p]; }
-  return clone;
-}
-
-function replaceObjectProps(o1, o2) {
-  var o = cloneObject(o1);
-  for (var p in o1) { o[p] = o2.hasOwnProperty(p) ? o2[p] : o1[p]; }
-  return o;
-}
-
-function mergeObjects(o1, o2) {
-  var o = cloneObject(o1);
-  for (var p in o2) { o[p] = is.und(o1[p]) ? o2[p] : o1[p]; }
-  return o;
-}
-
-// Colors
-
-function rgbToRgba(rgbValue) {
-  var rgb = /rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(rgbValue);
-  return rgb ? ("rgba(" + (rgb[1]) + ",1)") : rgbValue;
-}
-
-function hexToRgba(hexValue) {
-  var rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  var hex = hexValue.replace(rgx, function (m, r, g, b) { return r + r + g + g + b + b; } );
-  var rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  var r = parseInt(rgb[1], 16);
-  var g = parseInt(rgb[2], 16);
-  var b = parseInt(rgb[3], 16);
-  return ("rgba(" + r + "," + g + "," + b + ",1)");
-}
-
-function hslToRgba(hslValue) {
-  var hsl = /hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(hslValue) || /hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(hslValue);
-  var h = parseInt(hsl[1], 10) / 360;
-  var s = parseInt(hsl[2], 10) / 100;
-  var l = parseInt(hsl[3], 10) / 100;
-  var a = hsl[4] || 1;
-  function hue2rgb(p, q, t) {
-    if (t < 0) { t += 1; }
-    if (t > 1) { t -= 1; }
-    if (t < 1/6) { return p + (q - p) * 6 * t; }
-    if (t < 1/2) { return q; }
-    if (t < 2/3) { return p + (q - p) * (2/3 - t) * 6; }
-    return p;
-  }
-  var r, g, b;
-  if (s == 0) {
-    r = g = b = l;
-  } else {
-    var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    var p = 2 * l - q;
-    r = hue2rgb(p, q, h + 1/3);
-    g = hue2rgb(p, q, h);
-    b = hue2rgb(p, q, h - 1/3);
-  }
-  return ("rgba(" + (r * 255) + "," + (g * 255) + "," + (b * 255) + "," + a + ")");
-}
-
-function colorToRgb(val) {
-  if (is.rgb(val)) { return rgbToRgba(val); }
-  if (is.hex(val)) { return hexToRgba(val); }
-  if (is.hsl(val)) { return hslToRgba(val); }
-}
-
-// Units
-
-function getUnit(val) {
-  var split = /[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(val);
-  if (split) { return split[1]; }
-}
-
-function getTransformUnit(propName) {
-  if (stringContains(propName, 'translate') || propName === 'perspective') { return 'px'; }
-  if (stringContains(propName, 'rotate') || stringContains(propName, 'skew')) { return 'deg'; }
-}
-
-// Values
-
-function getFunctionValue(val, animatable) {
-  if (!is.fnc(val)) { return val; }
-  return val(animatable.target, animatable.id, animatable.total);
-}
-
-function getAttribute(el, prop) {
-  return el.getAttribute(prop);
-}
-
-function convertPxToUnit(el, value, unit) {
-  var valueUnit = getUnit(value);
-  if (arrayContains([unit, 'deg', 'rad', 'turn'], valueUnit)) { return value; }
-  var cached = cache.CSS[value + unit];
-  if (!is.und(cached)) { return cached; }
-  var baseline = 100;
-  var tempEl = document.createElement(el.tagName);
-  var parentEl = (el.parentNode && (el.parentNode !== document)) ? el.parentNode : document.body;
-  parentEl.appendChild(tempEl);
-  tempEl.style.position = 'absolute';
-  tempEl.style.width = baseline + unit;
-  var factor = baseline / tempEl.offsetWidth;
-  parentEl.removeChild(tempEl);
-  var convertedUnit = factor * parseFloat(value);
-  cache.CSS[value + unit] = convertedUnit;
-  return convertedUnit;
-}
-
-function getCSSValue(el, prop, unit) {
-  if (prop in el.style) {
-    var uppercasePropName = prop.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-    var value = el.style[prop] || getComputedStyle(el).getPropertyValue(uppercasePropName) || '0';
-    return unit ? convertPxToUnit(el, value, unit) : value;
-  }
-}
-
-function getAnimationType(el, prop) {
-  if (is.dom(el) && !is.inp(el) && (!is.nil(getAttribute(el, prop)) || (is.svg(el) && el[prop]))) { return 'attribute'; }
-  if (is.dom(el) && arrayContains(validTransforms, prop)) { return 'transform'; }
-  if (is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) { return 'css'; }
-  if (el[prop] != null) { return 'object'; }
-}
-
-function getElementTransforms(el) {
-  if (!is.dom(el)) { return; }
-  var str = el.style.transform || '';
-  var reg  = /(\w+)\(([^)]*)\)/g;
-  var transforms = new Map();
-  var m; while (m = reg.exec(str)) { transforms.set(m[1], m[2]); }
-  return transforms;
-}
-
-function getTransformValue(el, propName, animatable, unit) {
-  var defaultVal = stringContains(propName, 'scale') ? 1 : 0 + getTransformUnit(propName);
-  var value = getElementTransforms(el).get(propName) || defaultVal;
-  if (animatable) {
-    animatable.transforms.list.set(propName, value);
-    animatable.transforms['last'] = propName;
-  }
-  return unit ? convertPxToUnit(el, value, unit) : value;
-}
-
-function getOriginalTargetValue(target, propName, unit, animatable) {
-  switch (getAnimationType(target, propName)) {
-    case 'transform': return getTransformValue(target, propName, animatable, unit);
-    case 'css': return getCSSValue(target, propName, unit);
-    case 'attribute': return getAttribute(target, propName);
-    default: return target[propName] || 0;
-  }
-}
-
-function getRelativeValue(to, from) {
-  var operator = /^(\*=|\+=|-=)/.exec(to);
-  if (!operator) { return to; }
-  var u = getUnit(to) || 0;
-  var x = parseFloat(from);
-  var y = parseFloat(to.replace(operator[0], ''));
-  switch (operator[0][0]) {
-    case '+': return x + y + u;
-    case '-': return x - y + u;
-    case '*': return x * y + u;
-  }
-}
-
-function validateValue(val, unit) {
-  if (is.col(val)) { return colorToRgb(val); }
-  if (/\s/g.test(val)) { return val; }
-  var originalUnit = getUnit(val);
-  var unitLess = originalUnit ? val.substr(0, val.length - originalUnit.length) : val;
-  if (unit) { return unitLess + unit; }
-  return unitLess;
-}
-
-// getTotalLength() equivalent for circle, rect, polyline, polygon and line shapes
-// adapted from https://gist.github.com/SebLambla/3e0550c496c236709744
-
-function getDistance(p1, p2) {
-  return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
-}
-
-function getCircleLength(el) {
-  return Math.PI * 2 * getAttribute(el, 'r');
-}
-
-function getRectLength(el) {
-  return (getAttribute(el, 'width') * 2) + (getAttribute(el, 'height') * 2);
-}
-
-function getLineLength(el) {
-  return getDistance(
-    {x: getAttribute(el, 'x1'), y: getAttribute(el, 'y1')}, 
-    {x: getAttribute(el, 'x2'), y: getAttribute(el, 'y2')}
-  );
-}
-
-function getPolylineLength(el) {
-  var points = el.points;
-  var totalLength = 0;
-  var previousPos;
-  for (var i = 0 ; i < points.numberOfItems; i++) {
-    var currentPos = points.getItem(i);
-    if (i > 0) { totalLength += getDistance(previousPos, currentPos); }
-    previousPos = currentPos;
-  }
-  return totalLength;
-}
-
-function getPolygonLength(el) {
-  var points = el.points;
-  return getPolylineLength(el) + getDistance(points.getItem(points.numberOfItems - 1), points.getItem(0));
-}
-
-// Path animation
-
-function getTotalLength(el) {
-  if (el.getTotalLength) { return el.getTotalLength(); }
-  switch(el.tagName.toLowerCase()) {
-    case 'circle': return getCircleLength(el);
-    case 'rect': return getRectLength(el);
-    case 'line': return getLineLength(el);
-    case 'polyline': return getPolylineLength(el);
-    case 'polygon': return getPolygonLength(el);
-  }
-}
-
-function setDashoffset(el) {
-  var pathLength = getTotalLength(el);
-  el.setAttribute('stroke-dasharray', pathLength);
-  return pathLength;
-}
-
-// Motion path
-
-function getParentSvgEl(el) {
-  var parentEl = el.parentNode;
-  while (is.svg(parentEl)) {
-    if (!is.svg(parentEl.parentNode)) { break; }
-    parentEl = parentEl.parentNode;
-  }
-  return parentEl;
-}
-
-function getParentSvg(pathEl, svgData) {
-  var svg = svgData || {};
-  var parentSvgEl = svg.el || getParentSvgEl(pathEl);
-  var rect = parentSvgEl.getBoundingClientRect();
-  var viewBoxAttr = getAttribute(parentSvgEl, 'viewBox');
-  var width = rect.width;
-  var height = rect.height;
-  var viewBox = svg.viewBox || (viewBoxAttr ? viewBoxAttr.split(' ') : [0, 0, width, height]);
-  return {
-    el: parentSvgEl,
-    viewBox: viewBox,
-    x: viewBox[0] / 1,
-    y: viewBox[1] / 1,
-    w: width,
-    h: height,
-    vW: viewBox[2],
-    vH: viewBox[3]
-  }
-}
-
-function getPath(path, percent) {
-  var pathEl = is.str(path) ? selectString(path)[0] : path;
-  var p = percent || 100;
-  return function(property) {
-    return {
-      property: property,
-      el: pathEl,
-      svg: getParentSvg(pathEl),
-      totalLength: getTotalLength(pathEl) * (p / 100)
-    }
-  }
-}
-
-function getPathProgress(path, progress, isPathTargetInsideSVG) {
-  function point(offset) {
-    if ( offset === void 0 ) offset = 0;
-
-    var l = progress + offset >= 1 ? progress + offset : 0;
-    return path.el.getPointAtLength(l);
-  }
-  var svg = getParentSvg(path.el, path.svg);
-  var p = point();
-  var p0 = point(-1);
-  var p1 = point(+1);
-  var scaleX = isPathTargetInsideSVG ? 1 : svg.w / svg.vW;
-  var scaleY = isPathTargetInsideSVG ? 1 : svg.h / svg.vH;
-  switch (path.property) {
-    case 'x': return (p.x - svg.x) * scaleX;
-    case 'y': return (p.y - svg.y) * scaleY;
-    case 'angle': return Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI;
-  }
-}
-
-// Decompose value
-
-function decomposeValue(val, unit) {
-  // const rgx = /-?\d*\.?\d+/g; // handles basic numbers
-  // const rgx = /[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g; // handles exponents notation
-  var rgx = /[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g; // handles exponents notation
-  var value = validateValue((is.pth(val) ? val.totalLength : val), unit) + '';
-  return {
-    original: value,
-    numbers: value.match(rgx) ? value.match(rgx).map(Number) : [0],
-    strings: (is.str(val) || unit) ? value.split(rgx) : []
-  }
-}
-
-// Animatables
-
-function parseTargets(targets) {
-  var targetsArray = targets ? (flattenArray(is.arr(targets) ? targets.map(toArray) : toArray(targets))) : [];
-  return filterArray(targetsArray, function (item, pos, self) { return self.indexOf(item) === pos; });
-}
-
-function getAnimatables(targets) {
-  var parsed = parseTargets(targets);
-  return parsed.map(function (t, i) {
-    return {target: t, id: i, total: parsed.length, transforms: { list: getElementTransforms(t) } };
-  });
-}
-
-// Properties
-
-function normalizePropertyTweens(prop, tweenSettings) {
-  var settings = cloneObject(tweenSettings);
-  // Override duration if easing is a spring
-  if (/^spring/.test(settings.easing)) { settings.duration = spring(settings.easing); }
-  if (is.arr(prop)) {
-    var l = prop.length;
-    var isFromTo = (l === 2 && !is.obj(prop[0]));
-    if (!isFromTo) {
-      // Duration divided by the number of tweens
-      if (!is.fnc(tweenSettings.duration)) { settings.duration = tweenSettings.duration / l; }
-    } else {
-      // Transform [from, to] values shorthand to a valid tween value
-      prop = {value: prop};
-    }
-  }
-  var propArray = is.arr(prop) ? prop : [prop];
-  return propArray.map(function (v, i) {
-    var obj = (is.obj(v) && !is.pth(v)) ? v : {value: v};
-    // Default delay value should only be applied to the first tween
-    if (is.und(obj.delay)) { obj.delay = !i ? tweenSettings.delay : 0; }
-    // Default endDelay value should only be applied to the last tween
-    if (is.und(obj.endDelay)) { obj.endDelay = i === propArray.length - 1 ? tweenSettings.endDelay : 0; }
-    return obj;
-  }).map(function (k) { return mergeObjects(k, settings); });
-}
-
-
-function flattenKeyframes(keyframes) {
-  var propertyNames = filterArray(flattenArray(keyframes.map(function (key) { return Object.keys(key); })), function (p) { return is.key(p); })
-  .reduce(function (a,b) { if (a.indexOf(b) < 0) { a.push(b); } return a; }, []);
-  var properties = {};
-  var loop = function ( i ) {
-    var propName = propertyNames[i];
-    properties[propName] = keyframes.map(function (key) {
-      var newKey = {};
-      for (var p in key) {
-        if (is.key(p)) {
-          if (p == propName) { newKey.value = key[p]; }
-        } else {
-          newKey[p] = key[p];
-        }
-      }
-      return newKey;
-    });
-  };
-
-  for (var i = 0; i < propertyNames.length; i++) loop( i );
-  return properties;
-}
-
-function getProperties(tweenSettings, params) {
-  var properties = [];
-  var keyframes = params.keyframes;
-  if (keyframes) { params = mergeObjects(flattenKeyframes(keyframes), params); }
-  for (var p in params) {
-    if (is.key(p)) {
-      properties.push({
-        name: p,
-        tweens: normalizePropertyTweens(params[p], tweenSettings)
-      });
-    }
-  }
-  return properties;
-}
-
-// Tweens
-
-function normalizeTweenValues(tween, animatable) {
-  var t = {};
-  for (var p in tween) {
-    var value = getFunctionValue(tween[p], animatable);
-    if (is.arr(value)) {
-      value = value.map(function (v) { return getFunctionValue(v, animatable); });
-      if (value.length === 1) { value = value[0]; }
-    }
-    t[p] = value;
-  }
-  t.duration = parseFloat(t.duration);
-  t.delay = parseFloat(t.delay);
-  return t;
-}
-
-function normalizeTweens(prop, animatable) {
-  var previousTween;
-  return prop.tweens.map(function (t) {
-    var tween = normalizeTweenValues(t, animatable);
-    var tweenValue = tween.value;
-    var to = is.arr(tweenValue) ? tweenValue[1] : tweenValue;
-    var toUnit = getUnit(to);
-    var originalValue = getOriginalTargetValue(animatable.target, prop.name, toUnit, animatable);
-    var previousValue = previousTween ? previousTween.to.original : originalValue;
-    var from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
-    var fromUnit = getUnit(from) || getUnit(originalValue);
-    var unit = toUnit || fromUnit;
-    if (is.und(to)) { to = previousValue; }
-    tween.from = decomposeValue(from, unit);
-    tween.to = decomposeValue(getRelativeValue(to, from), unit);
-    tween.start = previousTween ? previousTween.end : 0;
-    tween.end = tween.start + tween.delay + tween.duration + tween.endDelay;
-    tween.easing = parseEasings(tween.easing, tween.duration);
-    tween.isPath = is.pth(tweenValue);
-    tween.isPathTargetInsideSVG = tween.isPath && is.svg(animatable.target);
-    tween.isColor = is.col(tween.from.original);
-    if (tween.isColor) { tween.round = 1; }
-    previousTween = tween;
-    return tween;
-  });
-}
-
-// Tween progress
-
-var setProgressValue = {
-  css: function (t, p, v) { return t.style[p] = v; },
-  attribute: function (t, p, v) { return t.setAttribute(p, v); },
-  object: function (t, p, v) { return t[p] = v; },
-  transform: function (t, p, v, transforms, manual) {
-    transforms.list.set(p, v);
-    if (p === transforms.last || manual) {
-      var str = '';
-      transforms.list.forEach(function (value, prop) { str += prop + "(" + value + ") "; });
-      t.style.transform = str;
-    }
-  }
-};
-
-// Set Value helper
-
-function setTargetsValue(targets, properties) {
-  var animatables = getAnimatables(targets);
-  animatables.forEach(function (animatable) {
-    for (var property in properties) {
-      var value = getFunctionValue(properties[property], animatable);
-      var target = animatable.target;
-      var valueUnit = getUnit(value);
-      var originalValue = getOriginalTargetValue(target, property, valueUnit, animatable);
-      var unit = valueUnit || getUnit(originalValue);
-      var to = getRelativeValue(validateValue(value, unit), originalValue);
-      var animType = getAnimationType(target, property);
-      setProgressValue[animType](target, property, to, animatable.transforms, true);
-    }
-  });
-}
-
-// Animations
-
-function createAnimation(animatable, prop) {
-  var animType = getAnimationType(animatable.target, prop.name);
-  if (animType) {
-    var tweens = normalizeTweens(prop, animatable);
-    var lastTween = tweens[tweens.length - 1];
-    return {
-      type: animType,
-      property: prop.name,
-      animatable: animatable,
-      tweens: tweens,
-      duration: lastTween.end,
-      delay: tweens[0].delay,
-      endDelay: lastTween.endDelay
-    }
-  }
-}
-
-function getAnimations(animatables, properties) {
-  return filterArray(flattenArray(animatables.map(function (animatable) {
-    return properties.map(function (prop) {
-      return createAnimation(animatable, prop);
-    });
-  })), function (a) { return !is.und(a); });
-}
-
-// Create Instance
-
-function getInstanceTimings(animations, tweenSettings) {
-  var animLength = animations.length;
-  var getTlOffset = function (anim) { return anim.timelineOffset ? anim.timelineOffset : 0; };
-  var timings = {};
-  timings.duration = animLength ? Math.max.apply(Math, animations.map(function (anim) { return getTlOffset(anim) + anim.duration; })) : tweenSettings.duration;
-  timings.delay = animLength ? Math.min.apply(Math, animations.map(function (anim) { return getTlOffset(anim) + anim.delay; })) : tweenSettings.delay;
-  timings.endDelay = animLength ? timings.duration - Math.max.apply(Math, animations.map(function (anim) { return getTlOffset(anim) + anim.duration - anim.endDelay; })) : tweenSettings.endDelay;
-  return timings;
-}
-
-var instanceID = 0;
-
-function createNewInstance(params) {
-  var instanceSettings = replaceObjectProps(defaultInstanceSettings, params);
-  var tweenSettings = replaceObjectProps(defaultTweenSettings, params);
-  var properties = getProperties(tweenSettings, params);
-  var animatables = getAnimatables(params.targets);
-  var animations = getAnimations(animatables, properties);
-  var timings = getInstanceTimings(animations, tweenSettings);
-  var id = instanceID;
-  instanceID++;
-  return mergeObjects(instanceSettings, {
-    id: id,
-    children: [],
-    animatables: animatables,
-    animations: animations,
-    duration: timings.duration,
-    delay: timings.delay,
-    endDelay: timings.endDelay
-  });
-}
-
-// Core
-
-var activeInstances = [];
-
-var engine = (function () {
-  var raf;
-
-  function play() {
-    if (!raf && (!isDocumentHidden() || !anime.suspendWhenDocumentHidden) && activeInstances.length > 0) {
-      raf = requestAnimationFrame(step);
-    }
-  }
-  function step(t) {
-    // memo on algorithm issue:
-    // dangerous iteration over mutable `activeInstances`
-    // (that collection may be updated from within callbacks of `tick`-ed animation instances)
-    var activeInstancesLength = activeInstances.length;
-    var i = 0;
-    while (i < activeInstancesLength) {
-      var activeInstance = activeInstances[i];
-      if (!activeInstance.paused) {
-        activeInstance.tick(t);
-        i++;
-      } else {
-        activeInstances.splice(i, 1);
-        activeInstancesLength--;
-      }
-    }
-    raf = i > 0 ? requestAnimationFrame(step) : undefined;
-  }
-
-  function handleVisibilityChange() {
-    if (!anime.suspendWhenDocumentHidden) { return; }
-
-    if (isDocumentHidden()) {
-      // suspend ticks
-      raf = cancelAnimationFrame(raf);
-    } else { // is back to active tab
-      // first adjust animations to consider the time that ticks were suspended
-      activeInstances.forEach(
-        function (instance) { return instance ._onDocumentVisibility(); }
-      );
-      engine();
-    }
-  }
-  if (typeof document !== 'undefined') {
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-  }
-
-  return play;
-})();
-
-function isDocumentHidden() {
-  return !!document && document.hidden;
-}
-
-// Public Instance
-
-function anime(params) {
-  if ( params === void 0 ) params = {};
-
-
-  var startTime = 0, lastTime = 0, now = 0;
-  var children, childrenLength = 0;
-  var resolve = null;
-
-  function makePromise(instance) {
-    var promise = window.Promise && new Promise(function (_resolve) { return resolve = _resolve; });
-    instance.finished = promise;
-    return promise;
-  }
-
-  var instance = createNewInstance(params);
-  var promise = makePromise(instance);
-
-  function toggleInstanceDirection() {
-    var direction = instance.direction;
-    if (direction !== 'alternate') {
-      instance.direction = direction !== 'normal' ? 'normal' : 'reverse';
-    }
-    instance.reversed = !instance.reversed;
-    children.forEach(function (child) { return child.reversed = instance.reversed; });
-  }
-
-  function adjustTime(time) {
-    return instance.reversed ? instance.duration - time : time;
-  }
-
-  function resetTime() {
-    startTime = 0;
-    lastTime = adjustTime(instance.currentTime) * (1 / anime.speed);
-  }
-
-  function seekChild(time, child) {
-    if (child) { child.seek(time - child.timelineOffset); }
-  }
-
-  function syncInstanceChildren(time) {
-    if (!instance.reversePlayback) {
-      for (var i = 0; i < childrenLength; i++) { seekChild(time, children[i]); }
-    } else {
-      for (var i$1 = childrenLength; i$1--;) { seekChild(time, children[i$1]); }
-    }
-  }
-
-  function setAnimationsProgress(insTime) {
-    var i = 0;
-    var animations = instance.animations;
-    var animationsLength = animations.length;
-    while (i < animationsLength) {
-      var anim = animations[i];
-      var animatable = anim.animatable;
-      var tweens = anim.tweens;
-      var tweenLength = tweens.length - 1;
-      var tween = tweens[tweenLength];
-      // Only check for keyframes if there is more than one tween
-      if (tweenLength) { tween = filterArray(tweens, function (t) { return (insTime < t.end); })[0] || tween; }
-      var elapsed = minMax(insTime - tween.start - tween.delay, 0, tween.duration) / tween.duration;
-      var eased = isNaN(elapsed) ? 1 : tween.easing(elapsed);
-      var strings = tween.to.strings;
-      var round = tween.round;
-      var numbers = [];
-      var toNumbersLength = tween.to.numbers.length;
-      var progress = (void 0);
-      for (var n = 0; n < toNumbersLength; n++) {
-        var value = (void 0);
-        var toNumber = tween.to.numbers[n];
-        var fromNumber = tween.from.numbers[n] || 0;
-        if (!tween.isPath) {
-          value = fromNumber + (eased * (toNumber - fromNumber));
-        } else {
-          value = getPathProgress(tween.value, eased * toNumber, tween.isPathTargetInsideSVG);
-        }
-        if (round) {
-          if (!(tween.isColor && n > 2)) {
-            value = Math.round(value * round) / round;
-          }
-        }
-        numbers.push(value);
-      }
-      // Manual Array.reduce for better performances
-      var stringsLength = strings.length;
-      if (!stringsLength) {
-        progress = numbers[0];
-      } else {
-        progress = strings[0];
-        for (var s = 0; s < stringsLength; s++) {
-          var a = strings[s];
-          var b = strings[s + 1];
-          var n$1 = numbers[s];
-          if (!isNaN(n$1)) {
-            if (!b) {
-              progress += n$1 + ' ';
-            } else {
-              progress += n$1 + b;
-            }
-          }
-        }
-      }
-      setProgressValue[anim.type](animatable.target, anim.property, progress, animatable.transforms);
-      anim.currentValue = progress;
-      i++;
-    }
-  }
-
-  function setCallback(cb) {
-    if (instance[cb] && !instance.passThrough) { instance[cb](instance); }
-  }
-
-  function countIteration() {
-    if (instance.remaining && instance.remaining !== true) {
-      instance.remaining--;
-    }
-  }
-
-  function setInstanceProgress(engineTime) {
-    var insDuration = instance.duration;
-    var insDelay = instance.delay;
-    var insEndDelay = insDuration - instance.endDelay;
-    var insTime = adjustTime(engineTime);
-    instance.progress = minMax((insTime / insDuration) * 100, 0, 100);
-    instance.reversePlayback = insTime < instance.currentTime;
-    if (children) { syncInstanceChildren(insTime); }
-    if (!instance.began && instance.currentTime > 0) {
-      instance.began = true;
-      setCallback('begin');
-    }
-    if (!instance.loopBegan && instance.currentTime > 0) {
-      instance.loopBegan = true;
-      setCallback('loopBegin');
-    }
-    if (insTime <= insDelay && instance.currentTime !== 0) {
-      setAnimationsProgress(0);
-    }
-    if ((insTime >= insEndDelay && instance.currentTime !== insDuration) || !insDuration) {
-      setAnimationsProgress(insDuration);
-    }
-    if (insTime > insDelay && insTime < insEndDelay) {
-      if (!instance.changeBegan) {
-        instance.changeBegan = true;
-        instance.changeCompleted = false;
-        setCallback('changeBegin');
-      }
-      setCallback('change');
-      setAnimationsProgress(insTime);
-    } else {
-      if (instance.changeBegan) {
-        instance.changeCompleted = true;
-        instance.changeBegan = false;
-        setCallback('changeComplete');
-      }
-    }
-    instance.currentTime = minMax(insTime, 0, insDuration);
-    if (instance.began) { setCallback('update'); }
-    if (engineTime >= insDuration) {
-      lastTime = 0;
-      countIteration();
-      if (!instance.remaining) {
-        instance.paused = true;
-        if (!instance.completed) {
-          instance.completed = true;
-          setCallback('loopComplete');
-          setCallback('complete');
-          if (!instance.passThrough && 'Promise' in window) {
-            resolve();
-            promise = makePromise(instance);
-          }
-        }
-      } else {
-        startTime = now;
-        setCallback('loopComplete');
-        instance.loopBegan = false;
-        if (instance.direction === 'alternate') {
-          toggleInstanceDirection();
-        }
-      }
-    }
-  }
-
-  instance.reset = function() {
-    var direction = instance.direction;
-    instance.passThrough = false;
-    instance.currentTime = 0;
-    instance.progress = 0;
-    instance.paused = true;
-    instance.began = false;
-    instance.loopBegan = false;
-    instance.changeBegan = false;
-    instance.completed = false;
-    instance.changeCompleted = false;
-    instance.reversePlayback = false;
-    instance.reversed = direction === 'reverse';
-    instance.remaining = instance.loop;
-    children = instance.children;
-    childrenLength = children.length;
-    for (var i = childrenLength; i--;) { instance.children[i].reset(); }
-    if (instance.reversed && instance.loop !== true || (direction === 'alternate' && instance.loop === 1)) { instance.remaining++; }
-    setAnimationsProgress(instance.reversed ? instance.duration : 0);
-  };
-
-  // internal method (for engine) to adjust animation timings before restoring engine ticks (rAF)
-  instance._onDocumentVisibility = resetTime;
-
-  // Set Value helper
-
-  instance.set = function(targets, properties) {
-    setTargetsValue(targets, properties);
-    return instance;
-  };
-
-  instance.tick = function(t) {
-    now = t;
-    if (!startTime) { startTime = now; }
-    setInstanceProgress((now + (lastTime - startTime)) * anime.speed);
-  };
-
-  instance.seek = function(time) {
-    setInstanceProgress(adjustTime(time));
-  };
-
-  instance.pause = function() {
-    instance.paused = true;
-    resetTime();
-  };
-
-  instance.play = function() {
-    if (!instance.paused) { return; }
-    if (instance.completed) { instance.reset(); }
-    instance.paused = false;
-    activeInstances.push(instance);
-    resetTime();
-    engine();
-  };
-
-  instance.reverse = function() {
-    toggleInstanceDirection();
-    instance.completed = instance.reversed ? false : true;
-    resetTime();
-  };
-
-  instance.restart = function() {
-    instance.reset();
-    instance.play();
-  };
-
-  instance.remove = function(targets) {
-    var targetsArray = parseTargets(targets);
-    removeTargetsFromInstance(targetsArray, instance);
-  };
-
-  instance.reset();
-
-  if (instance.autoplay) { instance.play(); }
-
-  return instance;
-
-}
-
-// Remove targets from animation
-
-function removeTargetsFromAnimations(targetsArray, animations) {
-  for (var a = animations.length; a--;) {
-    if (arrayContains(targetsArray, animations[a].animatable.target)) {
-      animations.splice(a, 1);
-    }
-  }
-}
-
-function removeTargetsFromInstance(targetsArray, instance) {
-  var animations = instance.animations;
-  var children = instance.children;
-  removeTargetsFromAnimations(targetsArray, animations);
-  for (var c = children.length; c--;) {
-    var child = children[c];
-    var childAnimations = child.animations;
-    removeTargetsFromAnimations(targetsArray, childAnimations);
-    if (!childAnimations.length && !child.children.length) { children.splice(c, 1); }
-  }
-  if (!animations.length && !children.length) { instance.pause(); }
-}
-
-function removeTargetsFromActiveInstances(targets) {
-  var targetsArray = parseTargets(targets);
-  for (var i = activeInstances.length; i--;) {
-    var instance = activeInstances[i];
-    removeTargetsFromInstance(targetsArray, instance);
-  }
-}
-
-// Stagger helpers
-
-function stagger(val, params) {
-  if ( params === void 0 ) params = {};
-
-  var direction = params.direction || 'normal';
-  var easing = params.easing ? parseEasings(params.easing) : null;
-  var grid = params.grid;
-  var axis = params.axis;
-  var fromIndex = params.from || 0;
-  var fromFirst = fromIndex === 'first';
-  var fromCenter = fromIndex === 'center';
-  var fromLast = fromIndex === 'last';
-  var isRange = is.arr(val);
-  var val1 = isRange ? parseFloat(val[0]) : parseFloat(val);
-  var val2 = isRange ? parseFloat(val[1]) : 0;
-  var unit = getUnit(isRange ? val[1] : val) || 0;
-  var start = params.start || 0 + (isRange ? val1 : 0);
-  var values = [];
-  var maxValue = 0;
-  return function (el, i, t) {
-    if (fromFirst) { fromIndex = 0; }
-    if (fromCenter) { fromIndex = (t - 1) / 2; }
-    if (fromLast) { fromIndex = t - 1; }
-    if (!values.length) {
-      for (var index = 0; index < t; index++) {
-        if (!grid) {
-          values.push(Math.abs(fromIndex - index));
-        } else {
-          var fromX = !fromCenter ? fromIndex%grid[0] : (grid[0]-1)/2;
-          var fromY = !fromCenter ? Math.floor(fromIndex/grid[0]) : (grid[1]-1)/2;
-          var toX = index%grid[0];
-          var toY = Math.floor(index/grid[0]);
-          var distanceX = fromX - toX;
-          var distanceY = fromY - toY;
-          var value = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-          if (axis === 'x') { value = -distanceX; }
-          if (axis === 'y') { value = -distanceY; }
-          values.push(value);
-        }
-        maxValue = Math.max.apply(Math, values);
-      }
-      if (easing) { values = values.map(function (val) { return easing(val / maxValue) * maxValue; }); }
-      if (direction === 'reverse') { values = values.map(function (val) { return axis ? (val < 0) ? val * -1 : -val : Math.abs(maxValue - val); }); }
-    }
-    var spacing = isRange ? (val2 - val1) / maxValue : val1;
-    return start + (spacing * (Math.round(values[i] * 100) / 100)) + unit;
-  }
-}
-
-// Timeline
-
-function timeline(params) {
-  if ( params === void 0 ) params = {};
-
-  var tl = anime(params);
-  tl.duration = 0;
-  tl.add = function(instanceParams, timelineOffset) {
-    var tlIndex = activeInstances.indexOf(tl);
-    var children = tl.children;
-    if (tlIndex > -1) { activeInstances.splice(tlIndex, 1); }
-    function passThrough(ins) { ins.passThrough = true; }
-    for (var i = 0; i < children.length; i++) { passThrough(children[i]); }
-    var insParams = mergeObjects(instanceParams, replaceObjectProps(defaultTweenSettings, params));
-    insParams.targets = insParams.targets || params.targets;
-    var tlDuration = tl.duration;
-    insParams.autoplay = false;
-    insParams.direction = tl.direction;
-    insParams.timelineOffset = is.und(timelineOffset) ? tlDuration : getRelativeValue(timelineOffset, tlDuration);
-    passThrough(tl);
-    tl.seek(insParams.timelineOffset);
-    var ins = anime(insParams);
-    passThrough(ins);
-    children.push(ins);
-    var timings = getInstanceTimings(children, params);
-    tl.delay = timings.delay;
-    tl.endDelay = timings.endDelay;
-    tl.duration = timings.duration;
-    tl.seek(0);
-    tl.reset();
-    if (tl.autoplay) { tl.play(); }
-    return tl;
-  };
-  return tl;
-}
-
-anime.version = '3.2.1';
-anime.speed = 1;
-// TODO:#review: naming, documentation
-anime.suspendWhenDocumentHidden = true;
-anime.running = activeInstances;
-anime.remove = removeTargetsFromActiveInstances;
-anime.get = getOriginalTargetValue;
-anime.set = setTargetsValue;
-anime.convertPx = convertPxToUnit;
-anime.path = getPath;
-anime.setDashoffset = setDashoffset;
-anime.stagger = stagger;
-anime.timeline = timeline;
-anime.easing = parseEasings;
-anime.penner = penner;
-anime.random = function (min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; };
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (anime);
-
-
-/***/ }),
-
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -18615,7 +17374,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 /* harmony import */ var _MainPlayer__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./MainPlayer */ "./src/components/MainPlayer.js");
-/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 /* harmony import */ var react_burger_menu__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-burger-menu */ "./node_modules/react-burger-menu/lib/BurgerMenu.js");
 /* harmony import */ var react_burger_menu__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(react_burger_menu__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @mui/icons-material/Home */ "./node_modules/@mui/icons-material/Home.js");
@@ -19444,7 +18203,8 @@ var App = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleChange
       }, _defineProperty(_React$createElement, "placeholder", 'Optional'), _defineProperty(_React$createElement, "variant", "outlined"), _React$createElement))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_19__.default, {
         type: "submit",
-        title: "Create"
+        title: "Create",
+        disabled: this.state.collectionName.length > 30
       })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_2___default()), {
         isOpen: this.state.noNextSong,
         onRequestClose: function onRequestClose() {
@@ -19520,7 +18280,7 @@ var App = /*#__PURE__*/function (_React$Component) {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            height: '146px',
+            height: '150px',
             position: 'absolute',
             width: '50vw',
             minWidth: '222px',
@@ -19657,10 +18417,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0,_redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__.setMetronomeSoundOptionThunk)(_boolean));
     },
     play: function play() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__.setPlayingTrueThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_15__.setPlayingTrueThunk)());
     },
     pause: function pause() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_15__.setPlayingFalseThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_15__.setPlayingFalseThunk)());
     }
   };
 };
@@ -20397,7 +19157,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_songsInRange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/songsInRange */ "./src/components/songsInRange.js");
 /* harmony import */ var _components_PreviewPlayer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/PreviewPlayer */ "./src/components/PreviewPlayer.js");
 /* harmony import */ var _components_BPMSlider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/BPMSlider */ "./src/components/BPMSlider.js");
-/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 /* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 /* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
@@ -20857,7 +19617,10 @@ var BrowseSongs = function BrowseSongs(props) {
       }
     },
     inputProps: {
-      spellCheck: false
+      spellCheck: false,
+      style: {
+        textAlign: 'center'
+      }
     },
     name: "searchInput",
     id: "outlined-basic",
@@ -20918,10 +19681,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.enqueueSongThunk)());
     },
     play: function play() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__.setPlayingTrueThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__.setPlayingTrueThunk)());
     },
     pause: function pause() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__.setPlayingFalseThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__.setPlayingFalseThunk)());
     }
   };
 };
@@ -21097,9 +19860,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../icons/metronome.svg */ "./src/icons/metronome.svg");
-/* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
+/* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 /* harmony import */ var _StyledButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./StyledButton */ "./src/components/StyledButton.js");
+/* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -21666,11 +20430,34 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
         }))));
       } else return /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle"
-      }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.editMode ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.editMode ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_9__.default, {
+        className: "browseSongsInput",
+        sx: {
+          fontFamily: 'inherit',
+          fontSize: 30,
+          color: 'white',
+          ':not($focused)': {
+            borderBottomColor: 'white'
+          },
+          ':before': {
+            borderBottomColor: 'rgb(160, 160, 160)'
+          },
+          ':after': {
+            borderBottomColor: 'white'
+          }
+        },
+        inputProps: {
+          spellCheck: false,
+          style: {
+            textAlign: 'center'
+          }
+        },
         name: "editedCollectionName",
+        id: "outlined-basic",
         onFocus: this.clearNameOnFocus,
         value: this.state.editedCollectionName,
-        onChange: this.handleChange
+        onChange: this.handleChange,
+        variant: "outlined"
       }) : this.state.collectionName), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__.default, {
         id: "metronomeMain",
         onClick: function onClick() {
@@ -21680,7 +20467,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
         className: "collectionSongsTable ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_7__.isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile')
       }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Title"), react_device_detect__WEBPACK_IMPORTED_MODULE_7__.isBrowser ? /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Album") : null, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "BPM"), /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
         id: "durationIconContainer"
-      }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_9__.default, {
+      }, /*#__PURE__*/React__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_10__.default, {
         id: "durationIcon"
       }))), songList))));
     }
@@ -21744,6 +20531,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 /* harmony import */ var _SpringScrollbars__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./SpringScrollbars */ "./src/components/SpringScrollbars.js");
+/* harmony import */ var _StyledButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./StyledButton */ "./src/components/StyledButton.js");
+/* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -21913,6 +20702,8 @@ function _defineProperty(obj, key, value) {
 
   return obj;
 }
+
+
 
 
 
@@ -22122,22 +20913,32 @@ var Collections = /*#__PURE__*/function (_React$Component) {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            // minHeight: '116px',
-            // maxHeight: '14vh',
-            height: '118px',
-            // maxHeight: '116px',
+            height: '180px',
             position: 'absolute',
             width: '50vw',
+            minWidth: '255px',
+            maxWidth: '558px',
             marginLeft: 'auto',
             marginRight: 'auto',
-            top: '28%'
+            top: '28%',
+            border: '1px solid #00000096',
+            paddingBottom: '30px',
+            backgroundColor: "rgb(52 52 52 ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_6__.isBrowser ? '/ 82%' : '', ")"),
+            backdropFilter: 'blur(5px)'
+          },
+          overlay: {
+            backgroundColor: '#36363614',
+            zIndex: 2
           }
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.removeCollection
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Are you sure you want to remove ", this.state.tempSelectedCollectionName, " from your collections?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText modalTextPaddingParagraph specialWordBreak"
+      }, "Are you sure you want to remove ", this.state.tempSelectedCollectionName, " from your collections?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_8__.default, {
+        title: "Remove",
         type: "submit"
-      }, "Remove"))));
+      }))));
       var deleteCollectionModal = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_5___default()), {
         isOpen: this.state.confirmDelete,
         onRequestClose: function onRequestClose() {
@@ -22155,27 +20956,64 @@ var Collections = /*#__PURE__*/function (_React$Component) {
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            // minHeight: '116px',
-            // maxHeight: '14vh',
-            height: '118px',
-            // maxHeight: '116px',
+            height: '270px',
             position: 'absolute',
             width: '50vw',
+            minWidth: '255px',
+            maxWidth: '558px',
             marginLeft: 'auto',
             marginRight: 'auto',
-            top: '28%'
+            top: '28%',
+            border: '1px solid #00000096',
+            paddingBottom: '30px',
+            backgroundColor: "rgb(52 52 52 ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_6__.isBrowser ? '/ 82%' : '', ")"),
+            backdropFilter: 'blur(5px)'
+          },
+          overlay: {
+            backgroundColor: '#36363614',
+            zIndex: 2
           }
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Are you sure you want to delete ", this.state.tempSelectedCollectionName, "?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "This will also remove it for users that have this collection shared with them."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText modalTextPaddingParagraph specialWordBreak"
+      }, "Are you sure you want to delete ", this.state.tempSelectedCollectionName, "?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText modalTextPaddingParagraph"
+      }, "This will also remove it for users that have this collection shared with them."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.deleteCollection
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Enter \"CONFIRM\":"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalText modalTextPadding"
+      }, "Enter \"CONFIRM\""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_9__.default, {
+        className: "browseSongsInput",
+        sx: {
+          fontFamily: 'inherit',
+          fontSize: 16,
+          color: 'white',
+          ':not($focused)': {
+            borderBottomColor: 'white'
+          },
+          ':before': {
+            borderBottomColor: 'rgb(160, 160, 160)'
+          },
+          ':after': {
+            borderBottomColor: 'white'
+          }
+        },
+        inputProps: {
+          spellCheck: false,
+          style: {
+            textAlign: 'center'
+          }
+        },
         name: "confirmYes",
+        id: "outlined-basic",
         value: this.state.confirmYes,
-        onChange: this.handleChange
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onChange: this.handleChange,
+        variant: "outlined"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_8__.default, {
+        title: "Delete",
         type: "submit",
         disabled: this.state.confirmYes !== 'CONFIRM'
-      }, "Delete")))));
+      })))));
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, removeCollectionModal, deleteCollectionModal, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "screenTitle collectionsTitle"
       }, "Collections"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -22230,11 +21068,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _FooterSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FooterSlider */ "./src/components/FooterSlider.js");
-/* harmony import */ var _mui_icons_material_SkipNext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/SkipNext */ "./node_modules/@mui/icons-material/SkipNext.js");
-/* harmony import */ var _mui_icons_material_SkipPrevious__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/icons-material/SkipPrevious */ "./node_modules/@mui/icons-material/SkipPrevious.js");
-/* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
-/* harmony import */ var _mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/Pause */ "./node_modules/@mui/icons-material/Pause.js");
-/* harmony import */ var _mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/AllInclusive */ "./node_modules/@mui/icons-material/AllInclusive.js");
+/* harmony import */ var _mui_icons_material_SkipNext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/SkipNext */ "./node_modules/@mui/icons-material/SkipNext.js");
+/* harmony import */ var _mui_icons_material_SkipPrevious__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/SkipPrevious */ "./node_modules/@mui/icons-material/SkipPrevious.js");
+/* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
+/* harmony import */ var _mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/Pause */ "./node_modules/@mui/icons-material/Pause.js");
+/* harmony import */ var _mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/icons-material/AllInclusive */ "./node_modules/@mui/icons-material/AllInclusive.js");
+/* harmony import */ var _VolumeControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./VolumeControls */ "./src/components/VolumeControls.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -22363,6 +21202,7 @@ function _getPrototypeOf(o) {
 
 
 
+
 var FooterControls = /*#__PURE__*/function (_React$Component) {
   _inherits(FooterControls, _React$Component);
 
@@ -22421,25 +21261,25 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
         onClick: function onClick() {
           return selectCollectionAndChangeScreen(_this.props.musicInfo.activeSession.collectionId, 'Tempo');
         }
-      }, this.props.musicInfo.activeSession.currBPM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_SkipPrevious__WEBPACK_IMPORTED_MODULE_3__.default, {
+      }, this.props.musicInfo.activeSession.currBPM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_SkipPrevious__WEBPACK_IMPORTED_MODULE_4__.default, {
         className: "centerVertical",
         onClick: prevTrack
-      }), playing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_4__.default, {
+      }), playing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Pause__WEBPACK_IMPORTED_MODULE_5__.default, {
         className: "footerCenterItem playPausePadding",
         sx: {
           fontSize: 36
         },
         onClick: pause
-      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_5__.default, {
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_6__.default, {
         className: "footerCenterItem playPausePadding",
         sx: {
           fontSize: 36
         },
         onClick: play
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_SkipNext__WEBPACK_IMPORTED_MODULE_6__.default, {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_SkipNext__WEBPACK_IMPORTED_MODULE_7__.default, {
         className: "centerVertical",
         onClick: nextTrack
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_7__.default, {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AllInclusive__WEBPACK_IMPORTED_MODULE_8__.default, {
         onClick: toggleLoop,
         className: "footerCenterTopRight centerVertical touchPaddingTop ".concat(isLooping ? 'loopOn' : null)
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FooterSlider__WEBPACK_IMPORTED_MODULE_2__.default, {
@@ -22450,7 +21290,7 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
         className: "footerBox3"
         /* 3 */
 
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Audio")));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_VolumeControls__WEBPACK_IMPORTED_MODULE_3__.default, null)));
     }
   }]);
 
@@ -23265,7 +22105,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 /* harmony import */ var _FooterControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FooterControls */ "./src/components/FooterControls.js");
 /* harmony import */ var _FooterControlsMobile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FooterControlsMobile */ "./src/components/FooterControlsMobile.js");
@@ -23496,6 +22336,8 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
     })));
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps) {
+      if (_this.props.volume || _this.props.volume === 0) _this.rap.volume = _this.props.volume;
+
       if (_this.rap.readyState !== 4) {
         // Allows song to be seekable before first playing on mobile devices.
         _this.rap.play();
@@ -23708,6 +22550,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
     playing: state.playerReducer.playing,
+    volume: state.playerReducer.volume,
     musicInfo: state.musicReducer,
     screenStr: state.screenReducer.screenStr,
     playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
@@ -23717,10 +22560,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     play: function play() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__.setPlayingTrueThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__.setPlayingTrueThunk)());
     },
     pause: function pause() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_2__.setPlayingFalseThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__.setPlayingFalseThunk)());
     },
     incrementSongPlayed: function incrementSongPlayed(songId) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_6__.incrementSongPlayedThunk)(songId));
@@ -23964,8 +22807,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BPMTap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BPMTap */ "./src/components/BPMTap.js");
 /* harmony import */ var _BPMLight__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BPMLight */ "./src/components/BPMLight.js");
 /* harmony import */ var _MetronomeSounds__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MetronomeSounds */ "./src/components/MetronomeSounds.js");
-/* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
-/* harmony import */ var react_anime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-anime */ "./node_modules/react-anime/dist/react-anime.modern.js");
+/* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -24108,7 +22950,6 @@ function _defineProperty(obj, key, value) {
 
 
 
-
 var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
   _inherits(ManageBPMSliderAndTap, _React$Component);
 
@@ -24167,7 +23008,7 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BPMTap__WEBPACK_IMPORTED_MODULE_2__.default, {
         setLocalBPM: this.setLocalBPM,
         resetTapPadTrigger: this.state.resetTapPadTrigger
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_6__.default, {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_5__.default, {
         sx: {
           fontSize: 70
         },
@@ -24175,7 +23016,7 @@ var ManageBPMSliderAndTap = /*#__PURE__*/function (_React$Component) {
         onClick: function onClick() {
           return _this2.props.handleSubmit(_this2.state.localBPM);
         }
-      }));
+      })));
     }
   }]);
 
@@ -24598,6 +23439,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -24717,6 +23559,22 @@ function _getPrototypeOf(o) {
   return _getPrototypeOf(o);
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+
 
 
 var PreviewPlayer = /*#__PURE__*/function (_React$Component) {
@@ -24725,25 +23583,34 @@ var PreviewPlayer = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(PreviewPlayer);
 
   function PreviewPlayer(props) {
+    var _this;
+
     _classCallCheck(this, PreviewPlayer);
 
-    return _super.call(this);
+    _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function () {
+      if (_this.props.volume || _this.props.volume === 0) _this.songPreview.volume = _this.props.volume;
+    });
+
+    return _this;
   }
 
   _createClass(PreviewPlayer, [{
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
+      console.log('REFRESHED PREVIEW PLAYER');
       var previewPlayer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.props.songURL,
         preload: "auto",
         autoPlay: true,
         onEnded: function onEnded() {
-          return _this.props.previewEnded();
+          return _this2.props.previewEnded();
         },
         ref: function ref(element) {
-          _this.songPreview = element;
+          _this2.songPreview = element;
         }
       });
 
@@ -24760,7 +23627,14 @@ var PreviewPlayer = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 ;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PreviewPlayer);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    volume: state.playerReducer.volume
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(PreviewPlayer));
 
 /***/ }),
 
@@ -24812,6 +23686,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _mui_icons_material_Clear__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mui/icons-material/Clear */ "./node_modules/@mui/icons-material/Clear.js");
+
 
 
 var SingleCollection = function SingleCollection(props) {
@@ -24850,15 +23726,20 @@ var SingleCollection = function SingleCollection(props) {
     className: "sessionStatus"
   }, sessionStatus)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "collectionName"
-  }, collectionName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, props.editMode ? userOwns ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  }, collectionName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, props.editMode ? userOwns ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Clear__WEBPACK_IMPORTED_MODULE_1__.default, {
+    id: "collectionClearIcon",
+    sx: {
+      fontSize: 25
+    },
     onClick: function onClick() {
       return deleteCollection(collectionId);
     }
-  }, "Delete") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Clear__WEBPACK_IMPORTED_MODULE_1__.default, {
+    id: "collectionClearIcon",
     onClick: function onClick() {
       return removeCollection(collectionId);
     }
-  }, "Remove") : null));
+  }) : null));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleCollection);
@@ -25133,7 +24014,8 @@ var StyledButton = function StyledButton(props) {
       ':hover': {
         bgcolor: 'gray'
       }
-    }
+    },
+    disabled: props.disabled
   }, props.title);
 };
 
@@ -25160,7 +24042,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _ManageBPMSliderAndTap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ManageBPMSliderAndTap */ "./src/components/ManageBPMSliderAndTap.js");
-/* harmony import */ var _redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
@@ -25557,12 +24439,273 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_3__.fetchOnTempoChangeThunk)(selectedCollectionId, newBPM));
     },
     play: function play() {
-      return dispatch((0,_redux_playerReducer__WEBPACK_IMPORTED_MODULE_7__.setPlayingTrueThunk)());
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__.setPlayingTrueThunk)());
     }
   };
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(Tempo));
+
+/***/ }),
+
+/***/ "./src/components/VolumeControls.js":
+/*!******************************************!*\
+  !*** ./src/components/VolumeControls.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/VolumeUp */ "./node_modules/@mui/icons-material/VolumeUp.js");
+/* harmony import */ var _mui_icons_material_VolumeDown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/icons-material/VolumeDown */ "./node_modules/@mui/icons-material/VolumeDown.js");
+/* harmony import */ var _mui_icons_material_VolumeOff__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/VolumeOff */ "./node_modules/@mui/icons-material/VolumeOff.js");
+/* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Slider/Slider.js");
+/* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+
+
+
+
+
+
+
+
+var VolumeControls = function VolumeControls(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100)),
+      _useState2 = _slicedToArray(_useState, 2),
+      volume = _useState2[0],
+      setVolume = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      mouseOver = _useState4[0],
+      setMouseOver = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      mouseDown = _useState6[0],
+      setMouseDown = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100)),
+      _useState8 = _slicedToArray(_useState7, 2),
+      preMutedVolume = _useState8[0],
+      setPreMutedVolume = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      muted = _useState10[0],
+      setMuted = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState12 = _slicedToArray(_useState11, 2),
+      visible = _useState12[0],
+      setVisible = _useState12[1];
+
+  function preventHorizontalKeyboardNavigation(event) {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      event.preventDefault();
+    }
+
+    ;
+  }
+
+  ;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!mouseDown) return;
+
+    var clicker = function clicker() {
+      console.log('mouseUp');
+      setMouseDown(false);
+      console.log('from listener', mouseOver);
+      if (!mouseOver) setVisible(false);
+    };
+
+    window.addEventListener('mouseup', clicker);
+    return function () {
+      return window.removeEventListener('mouseup', clicker);
+    };
+  }, [mouseDown, mouseOver]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    console.log(mouseOver);
+    if (!mouseOver && !mouseDown) setVisible(false);
+  }, [mouseOver]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    props.setVolume(volume / 100);
+    sessionStorage.setItem('volume', volume);
+    if (volume === 0) setMuted(true);else if (volume > 0 && muted) setMuted(false);
+  }, [volume]);
+
+  var onChange = function onChange(evt) {
+    if (Math.abs(evt.target.value - volume) >= 1) {
+      setVolume(evt.target.value);
+    }
+
+    ;
+  };
+
+  var toggleMute = function toggleMute() {
+    if (!muted) {
+      //mute it here
+      sessionStorage.setItem('preMutedVolume', volume);
+      setPreMutedVolume(volume);
+      props.setVolume(0);
+      setVolume(0);
+    } else {
+      //unmute it here
+      props.setVolume(preMutedVolume / 100);
+      setVolume(preMutedVolume);
+      setMuted(false);
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "volumeControls",
+    onMouseLeave: function onMouseLeave() {
+      return setMouseOver(false);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "volumeWrapper ".concat(visible ? null : 'hidden')
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "volumeSlider ".concat(visible ? null : 'hidden')
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material__WEBPACK_IMPORTED_MODULE_3__.default, {
+    min: 0,
+    defaultValue: 0,
+    max: 100,
+    value: volume,
+    onChange: onChange,
+    valueLabelDisplay: "auto",
+    orientation: "vertical" //   valueLabelFormat={() => secondsToTimestamp(currTime)}
+    //   onChange={onChange}
+    //   onChangeCommitted={onCommit}
+    ,
+    step: 1,
+    onKeyDown: preventHorizontalKeyboardNavigation,
+    onMouseDown: function onMouseDown() {
+      console.log('Clicked');
+      setMouseDown(true);
+      sessionStorage.setItem('preMutedVolume', volume);
+      setPreMutedVolume(volume);
+    },
+    sx: {
+      visibility: "".concat(visible ? 'visible' : 'hidden'),
+      '& input[type="range"]': {
+        WebkitAppearance: 'slider-vertical'
+      },
+      color: 'black',
+      '& .MuiSlider-thumb': {
+        width: 18,
+        height: 18,
+        backgroundColor: '#fff',
+        '&:before': {
+          boxShadow: '0 4px 8px rgba(0,0,0,0.4)'
+        },
+        '&:hover, &.Mui-focusVisible': {
+          // This is the hover/glow
+          boxShadow: "0px 0px 5px 6px grey"
+        },
+        '&.Mui-active': {
+          boxShadow: "0px 0px 10px 4px #FDFDFD"
+        }
+      }
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    id: "volumeButton",
+    onMouseEnter: function onMouseEnter() {
+      setMouseOver(true);
+      setVisible(true);
+    }
+  }, volume === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeOff__WEBPACK_IMPORTED_MODULE_4__.default, {
+    onClick: toggleMute,
+    sx: {
+      fontSize: 27
+    }
+  }) : volume <= 30 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeDown__WEBPACK_IMPORTED_MODULE_5__.default, {
+    onClick: toggleMute,
+    sx: {
+      fontSize: 27
+    }
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeUp__WEBPACK_IMPORTED_MODULE_6__.default, {
+    onClick: toggleMute,
+    sx: {
+      fontSize: 27
+    }
+  })));
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setVolume: function setVolume(volume) {
+      return dispatch((0,_redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_2__.setVolumeThunk)(volume));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(null, mapDispatchToProps)(VolumeControls));
 
 /***/ }),
 
@@ -25799,7 +24942,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _userDispatchers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./userDispatchers */ "./src/redux/userDispatchers.js");
 /* harmony import */ var _musicDispatchers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _screenDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./screenDispatchers */ "./src/redux/screenDispatchers.js");
-/* harmony import */ var _playerReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./playerReducer */ "./src/redux/playerReducer.js");
+/* harmony import */ var _playerDispatchers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./playerDispatchers */ "./src/redux/playerDispatchers.js");
 
 
 
@@ -25809,7 +24952,7 @@ var appReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
   userReducer: _userDispatchers__WEBPACK_IMPORTED_MODULE_0__.default,
   musicReducer: _musicDispatchers__WEBPACK_IMPORTED_MODULE_1__.default,
   screenReducer: _screenDispatchers__WEBPACK_IMPORTED_MODULE_2__.default,
-  playerReducer: _playerReducer__WEBPACK_IMPORTED_MODULE_3__.default
+  playerReducer: _playerDispatchers__WEBPACK_IMPORTED_MODULE_3__.default
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (appReducer);
 
@@ -27325,10 +26468,10 @@ function musicReducer() {
 
 /***/ }),
 
-/***/ "./src/redux/playerReducer.js":
-/*!************************************!*\
-  !*** ./src/redux/playerReducer.js ***!
-  \************************************/
+/***/ "./src/redux/playerDispatchers.js":
+/*!****************************************!*\
+  !*** ./src/redux/playerDispatchers.js ***!
+  \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -27336,6 +26479,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setPlayingTrueThunk": () => (/* binding */ setPlayingTrueThunk),
 /* harmony export */   "setPlayingFalseThunk": () => (/* binding */ setPlayingFalseThunk),
+/* harmony export */   "setVolumeThunk": () => (/* binding */ setVolumeThunk),
 /* harmony export */   "default": () => (/* binding */ playerReducer)
 /* harmony export */ });
 function ownKeys(object, enumerableOnly) {
@@ -27393,6 +26537,7 @@ function _defineProperty(obj, key, value) {
 
 var SET_PLAYING_TRUE = 'SET_PLAYING_TRUE';
 var SET_PLAYING_FALSE = 'SET_PLAYING_FALSE';
+var SET_VOLUME = 'SET_VOLUME';
 
 var setPlayingTrue = function setPlayingTrue() {
   return {
@@ -27406,6 +26551,13 @@ var setPlayingFalse = function setPlayingFalse() {
   };
 };
 
+var setVolume = function setVolume(volume) {
+  return {
+    type: SET_VOLUME,
+    volume: volume
+  };
+};
+
 var setPlayingTrueThunk = function setPlayingTrueThunk() {
   return function (dispatch) {
     dispatch(setPlayingTrue());
@@ -27414,6 +26566,11 @@ var setPlayingTrueThunk = function setPlayingTrueThunk() {
 var setPlayingFalseThunk = function setPlayingFalseThunk() {
   return function (dispatch) {
     dispatch(setPlayingFalse());
+  };
+};
+var setVolumeThunk = function setVolumeThunk(volume) {
+  return function (dispatch) {
+    dispatch(setVolume(volume));
   };
 };
 var initialState = {
@@ -27432,6 +26589,11 @@ function playerReducer() {
     case SET_PLAYING_FALSE:
       return _objectSpread(_objectSpread({}, state), {}, {
         playing: false
+      });
+
+    case SET_VOLUME:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        volume: action.volume
       });
 
     default:
@@ -38942,7 +38104,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* Header space */\r\n  /* padding-top: 92px; */\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\nh4,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPadding {\r\n  /* padding-bottom: 100px; */\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  /* padding-bottom: 140px; */\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n  /* height: 30px;\r\n  width: 30px; */\r\n}\r\n\r\n.modalButton {\r\n  margin-top: 10px;\r\n}\r\n\r\n.modalText {\r\n  font-size: 16.7px;\r\n}\r\n\r\n.noRecipientPadding {\r\n  padding-bottom: 14px;\r\n}\r\n\r\n.modalTextPadding {\r\n  padding-bottom: 2px;\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.burgerName {\r\n  margin-top: 0px;\r\n  font-size: 130%;\r\n  /* font-size: 2.2vmin; */\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  max-width: 100%;\r\n  margin-bottom: 18px;\r\n}\r\n\r\n.burgerLogout {\r\n  cursor: pointer;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.tempoPlayArrow {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  /* margin-right: 6vw;\r\n  margin-left: 6vw; */\r\n  /* margin-bottom: 80px; */\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  font-size: min(max(0.977vw, 13.46px), 18px);\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  /* margin-left: 8vw;\r\n  margin-right: 8vw; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: 95%;\r\n  height: auto;\r\n  /* z-index: 1; */\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n}\r\n\r\n#innerMainPlayer {\r\n  /* border: 2px white solid; */\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n}\r\n\r\n.browseSongsAlert {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 1.3em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  /* justify-content: space-between; */\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  /* padding-top: 10px; */\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.isPlaying {\r\n  color:rgb(255, 251, 0) !important;\r\n  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);\r\n}\r\n\r\n.resumeStatus {\r\n  color:rgba(255, 251, 0, 0.616) !important;\r\n}\r\n\r\n.listenedCollectionSong {\r\n  color: rgb(126, 126, 126);\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  /* width: 100%; */\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  /* margin-left: 10px;\r\n  margin-right: 10px; */\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n  /* background-color: rgba(126, 124, 124, 0.521); */\r\n  /* box-shadow: 0px 10px 40px 10px rgba(255, 255, 255, 0.568); */\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n  backdrop-filter: 0;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  /* backdrop-filter: blur(5px); */\r\n  /* background-color: rgba(156, 155, 155, 0.521); */\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n  /* table-layout: fixed; */\r\n  /* padding-bottom: 70px; */\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  /* margin-left: 10vw; */\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.loopOn {\r\n  /* color:rgb(255, 208, 0) !important; */\r\n  color:rgb(255, 251, 0) !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n/* table > tr {\r\n  padding-top: 20px;\r\n} */\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  /* margin-left: 18px;\r\n  margin-right: 18px; */\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.toggleSearchByBPMBox {\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"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","sourcesContent":["body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* Header space */\r\n  /* padding-top: 92px; */\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\nh4,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPadding {\r\n  /* padding-bottom: 100px; */\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  /* padding-bottom: 140px; */\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n  /* height: 30px;\r\n  width: 30px; */\r\n}\r\n\r\n.modalButton {\r\n  margin-top: 10px;\r\n}\r\n\r\n.modalText {\r\n  font-size: 16.7px;\r\n}\r\n\r\n.noRecipientPadding {\r\n  padding-bottom: 14px;\r\n}\r\n\r\n.modalTextPadding {\r\n  padding-bottom: 2px;\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.burgerName {\r\n  margin-top: 0px;\r\n  font-size: 130%;\r\n  /* font-size: 2.2vmin; */\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  max-width: 100%;\r\n  margin-bottom: 18px;\r\n}\r\n\r\n.burgerLogout {\r\n  cursor: pointer;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.tempoPlayArrow {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  /* margin-right: 6vw;\r\n  margin-left: 6vw; */\r\n  /* margin-bottom: 80px; */\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  font-size: min(max(0.977vw, 13.46px), 18px);\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  /* margin-left: 8vw;\r\n  margin-right: 8vw; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: 95%;\r\n  height: auto;\r\n  /* z-index: 1; */\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n}\r\n\r\n#innerMainPlayer {\r\n  /* border: 2px white solid; */\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n}\r\n\r\n.browseSongsAlert {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 1.3em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  /* justify-content: space-between; */\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  /* padding-top: 10px; */\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.isPlaying {\r\n  color:rgb(255, 251, 0) !important;\r\n  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);\r\n}\r\n\r\n.resumeStatus {\r\n  color:rgba(255, 251, 0, 0.616) !important;\r\n}\r\n\r\n.listenedCollectionSong {\r\n  color: rgb(126, 126, 126);\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  /* width: 100%; */\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  /* margin-left: 10px;\r\n  margin-right: 10px; */\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n  /* background-color: rgba(126, 124, 124, 0.521); */\r\n  /* box-shadow: 0px 10px 40px 10px rgba(255, 255, 255, 0.568); */\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n  backdrop-filter: 0;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  /* backdrop-filter: blur(5px); */\r\n  /* background-color: rgba(156, 155, 155, 0.521); */\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n  /* table-layout: fixed; */\r\n  /* padding-bottom: 70px; */\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  /* margin-left: 10vw; */\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.loopOn {\r\n  /* color:rgb(255, 208, 0) !important; */\r\n  color:rgb(255, 251, 0) !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n/* table > tr {\r\n  padding-top: 20px;\r\n} */\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  /* margin-left: 18px;\r\n  margin-right: 18px; */\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.toggleSearchByBPMBox {\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* Header space */\r\n  /* padding-top: 92px; */\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\nh4,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPadding {\r\n  /* padding-bottom: 100px; */\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  /* padding-bottom: 140px; */\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n  /* height: 30px;\r\n  width: 30px; */\r\n}\r\n\r\n.modalButton {\r\n  margin-top: 10px;\r\n}\r\n\r\n.modalText {\r\n  font-size: 16.7px;\r\n}\r\n\r\n.noRecipientPadding {\r\n  padding-bottom: 14px;\r\n}\r\n\r\n.modalTextPadding {\r\n  padding-bottom: 2px;\r\n}\r\n\r\n.modalTextPaddingParagraph {\r\n  padding-bottom: 11px;\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.burgerName {\r\n  margin-top: 0px;\r\n  font-size: 130%;\r\n  /* font-size: 2.2vmin; */\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  max-width: 100%;\r\n  margin-bottom: 18px;\r\n}\r\n\r\n.burgerLogout {\r\n  cursor: pointer;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.tempoPlayArrow {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  /* margin-right: 6vw;\r\n  margin-left: 6vw; */\r\n  /* margin-bottom: 80px; */\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n  position: relative;\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  font-size: min(max(0.977vw, 13.46px), 18px);\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  /* margin-left: 8vw;\r\n  margin-right: 8vw; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: 95%;\r\n  height: auto;\r\n  /* z-index: 1; */\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n}\r\n\r\n#innerMainPlayer {\r\n  /* border: 2px white solid; */\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n  padding-left: 20px;\r\n  padding-right: 20px;\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere;\r\n}\r\n\r\n.specialWordBreak {\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere !important;\r\n}\r\n\r\n.browseSongsAlert {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 1.3em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  /* justify-content: space-between; */\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.volumeControls {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-left: auto;\r\n  padding-right: 14px;\r\n  /* padding-bottom: 21px; */\r\n}\r\n\r\n.volumeWrapper {\r\n  border: 1px black solid;\r\n  position: fixed;\r\n  height: 208px;\r\n  width: 40px;\r\n  right: 18px;\r\n  bottom: 26px;\r\n  background-color: #edb303;\r\n  border-radius: 8px;\r\n}\r\n\r\n.volumeSlider {\r\n  position: relative;\r\n  height: 140px;\r\n  bottom: 138px;\r\n}\r\n\r\n.hidden {\r\n  visibility: hidden;\r\n}\r\n\r\n#volumeButton {\r\n  position: fixed;\r\n  top: 29px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  /* padding-top: 10px; */\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.isPlaying {\r\n  color:rgb(255, 251, 0) !important;\r\n  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);\r\n}\r\n\r\n#collectionClearIcon {\r\n  position: absolute;\r\n  top: 0.4vw;\r\n  left: 0.4vw;\r\n  background-color: #000000c7;\r\n  border-radius: 6px;\r\n}\r\n\r\n.resumeStatus {\r\n  color:rgba(255, 251, 0, 0.616) !important;\r\n  color: rgb(160, 160, 160)\r\n}\r\n\r\n.listenedCollectionSong {\r\n  color: rgb(126, 126, 126);\r\n}\r\n\r\n#tempoPlayArrow {\r\n  color: rgb(255, 251, 0);\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  /* width: 100%; */\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  /* margin-left: 10px;\r\n  margin-right: 10px; */\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n  /* background-color: rgba(126, 124, 124, 0.521); */\r\n  /* box-shadow: 0px 10px 40px 10px rgba(255, 255, 255, 0.568); */\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n  backdrop-filter: 0;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  /* backdrop-filter: blur(5px); */\r\n  /* background-color: rgba(156, 155, 155, 0.521); */\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n  /* table-layout: fixed; */\r\n  /* padding-bottom: 70px; */\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  /* margin-left: 10vw; */\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.loopOn {\r\n  /* color:rgb(255, 208, 0) !important; */\r\n  color:rgb(255, 251, 0) !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n/* table > tr {\r\n  padding-top: 20px;\r\n} */\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  /* margin-left: 18px;\r\n  margin-right: 18px; */\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.toggleSearchByBPMBox {\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"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","sourcesContent":["body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24);\r\n  /* Header space */\r\n  /* padding-top: 92px; */\r\n  /* background-color: #111111; */\r\n \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\nh4,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPadding {\r\n  /* padding-bottom: 100px; */\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  /* padding-bottom: 140px; */\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n  /* height: 30px;\r\n  width: 30px; */\r\n}\r\n\r\n.modalButton {\r\n  margin-top: 10px;\r\n}\r\n\r\n.modalText {\r\n  font-size: 16.7px;\r\n}\r\n\r\n.noRecipientPadding {\r\n  padding-bottom: 14px;\r\n}\r\n\r\n.modalTextPadding {\r\n  padding-bottom: 2px;\r\n}\r\n\r\n.modalTextPaddingParagraph {\r\n  padding-bottom: 11px;\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.burgerName {\r\n  margin-top: 0px;\r\n  font-size: 130%;\r\n  /* font-size: 2.2vmin; */\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  max-width: 100%;\r\n  margin-bottom: 18px;\r\n}\r\n\r\n.burgerLogout {\r\n  cursor: pointer;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.tempoPlayArrow {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  /* margin-right: 6vw;\r\n  margin-left: 6vw; */\r\n  /* margin-bottom: 80px; */\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n  position: relative;\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  font-size: min(max(0.977vw, 13.46px), 18px);\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  /* margin-left: 8vw;\r\n  margin-right: 8vw; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: 95%;\r\n  height: auto;\r\n  /* z-index: 1; */\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n}\r\n\r\n#innerMainPlayer {\r\n  /* border: 2px white solid; */\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 2em;\r\n  text-align: center;\r\n  padding-left: 20px;\r\n  padding-right: 20px;\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere;\r\n}\r\n\r\n.specialWordBreak {\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere !important;\r\n}\r\n\r\n.browseSongsAlert {\r\n  /* color: rgb(255, 255, 255); */\r\n  font-size: 1.3em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  /* justify-content: space-between; */\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.volumeControls {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-left: auto;\r\n  padding-right: 14px;\r\n  /* padding-bottom: 21px; */\r\n}\r\n\r\n.volumeWrapper {\r\n  border: 1px black solid;\r\n  position: fixed;\r\n  height: 208px;\r\n  width: 40px;\r\n  right: 18px;\r\n  bottom: 26px;\r\n  background-color: #edb303;\r\n  border-radius: 8px;\r\n}\r\n\r\n.volumeSlider {\r\n  position: relative;\r\n  height: 140px;\r\n  bottom: 138px;\r\n}\r\n\r\n.hidden {\r\n  visibility: hidden;\r\n}\r\n\r\n#volumeButton {\r\n  position: fixed;\r\n  top: 29px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  /* padding-top: 10px; */\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.isPlaying {\r\n  color:rgb(255, 251, 0) !important;\r\n  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);\r\n}\r\n\r\n#collectionClearIcon {\r\n  position: absolute;\r\n  top: 0.4vw;\r\n  left: 0.4vw;\r\n  background-color: #000000c7;\r\n  border-radius: 6px;\r\n}\r\n\r\n.resumeStatus {\r\n  color:rgba(255, 251, 0, 0.616) !important;\r\n  color: rgb(160, 160, 160)\r\n}\r\n\r\n.listenedCollectionSong {\r\n  color: rgb(126, 126, 126);\r\n}\r\n\r\n#tempoPlayArrow {\r\n  color: rgb(255, 251, 0);\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n  /* height: 10vh; */\r\n  /* background: rgba(128, 128, 128, 0.473); */\r\n  /* pointer-events: none; */\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  /* width: 100%; */\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n  /* padding-left: 200px;\r\n  padding-right: 200px; */\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  /* margin-left: 8px;\r\n  margin-right: 8px; */\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterItem {\r\n  /* margin-left: 10px;\r\n  margin-right: 10px; */\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n  /* background-color: rgba(126, 124, 124, 0.521); */\r\n  /* box-shadow: 0px 10px 40px 10px rgba(255, 255, 255, 0.568); */\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n  backdrop-filter: 0;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  /* min-height: 40px; */\r\n  height: 52px;\r\n  /* padding: 10px 10px 10px 10px; */\r\n  /* backdrop-filter: blur(5px); */\r\n  /* background-color: rgba(156, 155, 155, 0.521); */\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  /* border: 1px black solid; */\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  /* display: flex;\r\n  flex-direction: column;\r\n  justify-content: center; */\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  /* max-width: 98%; */\r\n  /* width: 400px; */\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  /* border: 1px red solid; */\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n/* .footerText {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n} */\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  /* margin-top: auto;\r\n  margin-bottom: auto; */\r\n  margin-right: 5px;\r\n  /* margin-left: 6px; */\r\n}\r\n\r\n/* .footerCenterBottom {\r\n  display: flex;\r\n  justify-content: row;\r\n} */\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n  /* table-layout: fixed; */\r\n  /* padding-bottom: 70px; */\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  /* margin-left: 10vw; */\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-top-left-radius: 25px;\r\n  border-top-right-radius: 25px; */\r\n}\r\n\r\n.loopOn {\r\n  /* color:rgb(255, 208, 0) !important; */\r\n  color:rgb(255, 251, 0) !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  /* border: black solid 1px; */\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  /* backdrop-filter: blur(5px); */\r\n  /* border-bottom-left-radius: 25px;\r\n  border-bottom-right-radius: 25px; */\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n/* table > tr {\r\n  padding-top: 20px;\r\n} */\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  /* margin-left: 18px;\r\n  margin-right: 18px; */\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  /* height: 5px; */\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  /* margin-left: auto;\r\n  margin-right: auto;\r\n  width: 8em */\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  /* padding:10px; */\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  /* margin-left: auto;\r\n  margin-right: auto; */\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.toggleSearchByBPMBox {\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -41903,27 +41065,6 @@ module.exports.polyfill = function(object) {
   object.requestAnimationFrame = raf
   object.cancelAnimationFrame = caf
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/react-anime/dist/react-anime.modern.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/react-anime/dist/react-anime.modern.js ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "anime": () => (/* reexport safe */ animejs__WEBPACK_IMPORTED_MODULE_2__.default),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var animejs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! animejs */ "./node_modules/animejs/lib/anime.es.js");
-function l(){return(l=Object.assign||function(r){for(var e=1;e<arguments.length;e++){var t=arguments[e];for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(r[n]=t[n])}return r}).apply(this,arguments)}function i(r){const e=[];return a(r,e),e}function a(r,e){for(let t=0;t<r.length;t++){const n=r[t];Array.isArray(n)?a(n,e):e.push(n)}}function s(a){const s=(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)([]),f=(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)([]),m=(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)([]),p=(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(new Set),h=()=>{for(let r of s.current)r.completed&&(s.current=s.current.filter(e=>e!=r));f.current=f.current.filter(r=>null!=r&&null!=r),m.current=m.current.filter(r=>r&&null!=r.current)},d=(0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(()=>{(r=>{h(),f.current.length>0&&animejs__WEBPACK_IMPORTED_MODULE_2__.default.remove(f),f.current=[];for(let r of m.current)r.current&&!p.current.has(r.current)&&f.current.push(r.current);const e=l({},r,{targets:f.current,complete:e=>{r.complete&&r.complete(e),e.animatables.map(r=>p.current.add(r.target)),h()}});delete e.children,s.current.push((0,animejs__WEBPACK_IMPORTED_MODULE_2__.default)(e))})(a)},[a]);(0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{d()},[d]);const g=m.current;let y=Array.isArray(a.children)?a.children:[a.children];return y=i(y),(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment,{children:y.map((e,t)=>(g.push((0,react__WEBPACK_IMPORTED_MODULE_1__.createRef)()),(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(a.component?a.component:"div",Object.assign({ref:g[g.length-1]},{children:e}),`__anime__${t}`)))},void 0)}/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (s);
-//# sourceMappingURL=react-anime.modern.js.map
 
 
 /***/ }),

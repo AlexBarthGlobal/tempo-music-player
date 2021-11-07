@@ -24448,11 +24448,29 @@ var VolumeControls = function VolumeControls(props) {
       mouseOver = _useState4[0],
       setMouseOver = _useState4[1];
 
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      mouseDown = _useState6[0],
+      setMouseDown = _useState6[1];
+
   function preventHorizontalKeyboardNavigation(event) {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
     }
   }
+
+  function clicker() {
+    console.log('mouseUp');
+    setMouseDown(false);
+    setMouseOver(false);
+  } // window.addEventListener('mousedown', clicker)
+  // useEffect (() => {
+  //     window.removeEventListener('mousedown', clicker)
+  //     return;
+  // }, [])
+
+
+  window.addEventListener('mouseup', clicker);
 
   var onChange = function onChange(evt) {
     setVolume(evt.target.value);
@@ -24460,7 +24478,7 @@ var VolumeControls = function VolumeControls(props) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "volumeControls",
-    onMouseLeave: function onMouseLeave() {
+    onMouseLeave: mouseDown ? null : function () {
       return setMouseOver(false);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -24479,6 +24497,10 @@ var VolumeControls = function VolumeControls(props) {
     //   onChangeCommitted={onCommit}
     ,
     onKeyDown: preventHorizontalKeyboardNavigation,
+    onMouseDown: function onMouseDown() {
+      console.log('Clicked');
+      setMouseDown(true);
+    },
     sx: {
       visibility: "".concat(mouseOver ? 'visible' : 'hidden'),
       '& input[type="range"]': {

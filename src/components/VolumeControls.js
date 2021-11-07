@@ -6,6 +6,7 @@ import { Slider } from '@mui/material';
 const VolumeControls = (props) => {
     const [volume, setVolume] = useState(0)
     const [mouseOver, setMouseOver] = useState(false)
+    const [mouseDown, setMouseDown] = useState(false)
 
     function preventHorizontalKeyboardNavigation(event) {
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -13,12 +14,27 @@ const VolumeControls = (props) => {
         }
     }
 
+    function clicker() {
+        console.log('mouseUp')
+        setMouseDown(false)
+        setMouseOver(false)
+    }
+
+    // window.addEventListener('mousedown', clicker)
+
+    // useEffect (() => {
+    //     window.removeEventListener('mousedown', clicker)
+    //     return;
+    // }, [])
+
+    window.addEventListener('mouseup', clicker)
+
     const onChange = (evt) => {
         setVolume(evt.target.value);
     }
 
     return (
-        <div className='volumeControls' onMouseLeave={() => setMouseOver(false)}>
+        <div className='volumeControls' onMouseLeave={mouseDown ? null : () => setMouseOver(false)}>
             <div className={`volumeWrapper ${mouseOver ? null : 'hidden'}`}></div>
             <div className={`volumeSlider ${mouseOver ? null : 'hidden'}`}><Slider
                   min={0}
@@ -32,6 +48,10 @@ const VolumeControls = (props) => {
                 //   onChange={onChange}
                 //   onChangeCommitted={onCommit}
                   onKeyDown={preventHorizontalKeyboardNavigation}
+                  onMouseDown={() => {
+                      console.log('Clicked')
+                      setMouseDown(true)
+                  }}
                   sx={{
                     visibility: `${mouseOver ? 'visible' : 'hidden'}`,
                     '& input[type="range"]': {

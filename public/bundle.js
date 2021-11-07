@@ -19196,7 +19196,8 @@ var App = /*#__PURE__*/function (_React$Component) {
           marginLeft: '3px'
         },
         bmCross: {
-          background: '#bdc3c7'
+          background: '#bdc3c7' //   backgroundColor: 'white'
+
         },
         bmMenuWrap: {
           position: 'fixed',

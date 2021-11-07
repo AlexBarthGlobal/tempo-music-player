@@ -202,6 +202,7 @@ class App extends React.Component {
             },
             bmCross: {
               background: '#bdc3c7',
+            //   backgroundColor: 'white'
             },
             bmMenuWrap: {
               position: 'fixed',

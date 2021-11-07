@@ -5,6 +5,7 @@ import { Slider } from '@mui/material';
 
 const VolumeControls = (props) => {
     const [volume, setVolume] = useState(0)
+    const [mouseOver, setMouseOver] = useState(false)
 
     function preventHorizontalKeyboardNavigation(event) {
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -17,9 +18,9 @@ const VolumeControls = (props) => {
     }
 
     return (
-        <div className='volumeControls'>
-            <div className='volumeWrapper'></div>
-            <div id='volumeSlider'><Slider
+        <div className='volumeControls' onMouseLeave={() => setMouseOver(false)}>
+            <div className={`volumeWrapper ${mouseOver ? null : 'hidden'}`}></div>
+            <div className={`volumeSlider ${mouseOver ? null : 'hidden'}`}><Slider
                   min={0}
                   defaultValue={0}
                   max={100}
@@ -32,6 +33,7 @@ const VolumeControls = (props) => {
                 //   onChangeCommitted={onCommit}
                   onKeyDown={preventHorizontalKeyboardNavigation}
                   sx={{
+                    visibility: `${mouseOver ? 'visible' : 'hidden'}`,
                     '& input[type="range"]': {
                         WebkitAppearance: 'slider-vertical',
                     },
@@ -52,7 +54,7 @@ const VolumeControls = (props) => {
                     },
                   }}
                 /></div>
-            <div id='volumeButton'>
+            <div id='volumeButton' onMouseEnter={() => setMouseOver(true)}>
                 <VolumeUpIcon sx={{fontSize: 27}}/>
             </div>
         </div>

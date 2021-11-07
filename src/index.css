@@ -410,18 +410,22 @@ svg:hover {
 .volumeWrapper {
   border: 1px black solid;
   position: fixed;
-  height: 204px;
+  height: 208px;
   width: 40px;
   right: 18px;
   bottom: 26px;
-  background-color: orange;
+  background-color: #edb303;
   border-radius: 8px;
 }
 
-#volumeSlider {
+.volumeSlider {
   position: relative;
   height: 140px;
   bottom: 138px;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 #volumeButton {

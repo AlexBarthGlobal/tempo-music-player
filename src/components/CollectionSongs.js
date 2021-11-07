@@ -10,6 +10,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { isBrowser, isMobile } from 'react-device-detect';
 import Button from '@mui/material/Button';
 import StyledButton from './StyledButton'
+import Anime, {anime} from 'react-anime';
 
 class CollectionSongs extends React.Component {
     constructor(props) {
@@ -144,7 +145,6 @@ class CollectionSongs extends React.Component {
                             {this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
                         </div>
                         <div>
-                            {/* <button onClick={() => this.props.changeScreen('Tempo')}>{buttonLabel}</button> */}
                             <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
                         </div>
                     </div>

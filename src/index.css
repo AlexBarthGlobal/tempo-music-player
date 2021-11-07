@@ -412,6 +412,10 @@ svg:hover {
   color: rgb(126, 126, 126);
 }
 
+#tempoPlayArrow {
+  /* color: rgb(255, 251, 0); */
+}
+
 ul {
   padding-left: 0;
   list-style-type: none;

@@ -171,6 +171,7 @@ svg:hover {
   margin-left: 6vw; */
   /* margin-bottom: 80px; */
   margin-bottom: max(80px, min(10vw, 180px));
+  position: relative;
 }
 
 .imgAndStatus {
@@ -404,6 +405,14 @@ svg:hover {
   text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);
 }
 
+#collectionClearIcon {
+  position: absolute;
+  top: 0.4vw;
+  left: 0.4vw;
+  background-color: #000000c7;
+  border-radius: 6px;
+}
+
 .resumeStatus {
   color:rgba(255, 251, 0, 0.616) !important;
 }
@@ -413,7 +422,7 @@ svg:hover {
 }
 
 #tempoPlayArrow {
-  /* color: rgb(255, 251, 0); */
+  color: rgb(255, 251, 0);
 }
 
 ul {

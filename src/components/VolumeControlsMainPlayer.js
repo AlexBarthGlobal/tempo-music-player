@@ -63,10 +63,10 @@ const VolumeControls = (props) => {
         }
     };
 
-    return (
-        <div className='volumeControls' onMouseLeave={() => setMouseOver(false)}>
-            <div className={`volumeWrapper ${visible ? null : 'hidden'}`}></div>
-            <div className={`volumeSlider ${visible ? null : 'hidden'}`}><Slider
+    return ( //${visible ? null : 'hidden'}
+        <div className='volumeControlsMainPlayer' onMouseLeave={() => setMouseOver(false)}>
+            <div className={`volumeWrapperMainPlayer ${visible ? null : 'hidden'}`}></div>
+            <div className={`volumeSliderMainPlayer ${visible ? null : 'hidden'}`}><Slider
                   min={0}
                   defaultValue={0}
                   max={100}
@@ -87,7 +87,7 @@ const VolumeControls = (props) => {
                         setPreMutedVolume(volume);
                       };
                   }}
-                  sx={{
+                  sx={{ //${visible ? 'visible' : 'hidden'}
                     visibility: `${visible ? 'visible' : 'hidden'}`,
                     '& input[type="range"]': {
                         WebkitAppearance: 'slider-vertical',
@@ -109,7 +109,7 @@ const VolumeControls = (props) => {
                     },
                   }}
                 /></div>
-            <div id='volumeButton' onMouseEnter={() => {
+            <div id='volumeButtonMainPlayer' onMouseEnter={() => {
                 setMouseOver(true)
                 setVisible(true)
             }}>

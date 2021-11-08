@@ -222,7 +222,7 @@ svg:hover {
 
 #mainPlayer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   /* margin-left: 8vw;
   margin-right: 8vw; */
@@ -263,6 +263,8 @@ svg:hover {
 
 #innerMainPlayerContainer {
   padding-top: min(4vw, 28px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #innerMainPlayer {
@@ -404,7 +406,15 @@ svg:hover {
   flex-direction: column;
   margin-left: auto;
   padding-right: 14px;
-  /* padding-bottom: 21px; */
+}
+
+.volumeControlsMainPlayer {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  padding-right: 14px;
+  position: relative;
+  bottom: 210px;
 }
 
 .volumeWrapper {
@@ -413,7 +423,18 @@ svg:hover {
   height: 208px;
   width: 40px;
   right: 18px;
-  bottom: 26px;
+  bottom: 24px;
+  background-color: #edb303;
+  border-radius: 8px;
+}
+
+.volumeWrapperMainPlayer {
+  border: 1px black solid;
+  position: relative;
+  height: 208px;
+  width: 40px;
+  right: 6px;
+  bottom: -35px;
   background-color: #edb303;
   border-radius: 8px;
 }
@@ -421,7 +442,13 @@ svg:hover {
 .volumeSlider {
   position: relative;
   height: 140px;
-  bottom: 138px;
+  bottom: 134px;
+}
+
+.volumeSliderMainPlayer {
+  position: relative;
+  height: 140px;
+  bottom: 153px;
 }
 
 .hidden {
@@ -430,7 +457,14 @@ svg:hover {
 
 #volumeButton {
   position: fixed;
-  top: 29px;
+  top: 31px;
+  padding-left: 1px;
+}
+
+#volumeButtonMainPlayer {
+  position: relative;
+  bottom: 140px;
+  padding-left: 1px;
 }
 
 .secondButtons {
@@ -521,6 +555,14 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.mainPlayerSideBox {
+  height: 40px;
+  width: 40px;
+  margin-top: auto;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .footerColumn {

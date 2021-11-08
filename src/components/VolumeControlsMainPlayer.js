@@ -21,21 +21,17 @@ const VolumeControls = (props) => {
     };
 
     useEffect(() => {
+        if (!mouseOver && !mouseDown) setTimeout(() => {setVisible(false)}, 300)
         if (!mouseDown) return;
         const clicker = () => {
             console.log('mouseUp')
             setMouseDown(false)
             console.log('from listener', mouseOver)
-            if (!mouseOver) setVisible(false);
+            if (!mouseOver) setTimeout(() => {setVisible(false)}, 300)
         }
         window.addEventListener('mouseup', clicker)
         return () => window.removeEventListener('mouseup', clicker)
     }, [mouseDown, mouseOver])
-
-    useEffect(() => {
-        console.log(mouseOver)
-        if (!mouseOver && !mouseDown) setVisible(false); 
-    }, [mouseOver])
 
     useEffect(() => {
         props.setVolume(volume/100)

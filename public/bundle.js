@@ -24584,13 +24584,18 @@ var VolumeControls = function VolumeControls(props) {
 
   ;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!mouseOver && !mouseDown) setTimeout(function () {
+      setVisible(false);
+    }, 300);
     if (!mouseDown) return;
 
     var clicker = function clicker() {
       console.log('mouseUp');
       setMouseDown(false);
       console.log('from listener', mouseOver);
-      if (!mouseOver) setVisible(false);
+      if (!mouseOver) setTimeout(function () {
+        setVisible(false);
+      }, 300);
     };
 
     window.addEventListener('mouseup', clicker);
@@ -24598,10 +24603,6 @@ var VolumeControls = function VolumeControls(props) {
       return window.removeEventListener('mouseup', clicker);
     };
   }, [mouseDown, mouseOver]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    console.log(mouseOver);
-    if (!mouseOver && !mouseDown) setVisible(false);
-  }, [mouseOver]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.setVolume(volume / 100);
     sessionStorage.setItem('volume', volume);
@@ -24850,13 +24851,18 @@ var VolumeControls = function VolumeControls(props) {
 
   ;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!mouseOver && !mouseDown) setTimeout(function () {
+      setVisible(false);
+    }, 300);
     if (!mouseDown) return;
 
     var clicker = function clicker() {
       console.log('mouseUp');
       setMouseDown(false);
       console.log('from listener', mouseOver);
-      if (!mouseOver) setVisible(false);
+      if (!mouseOver) setTimeout(function () {
+        setVisible(false);
+      }, 300);
     };
 
     window.addEventListener('mouseup', clicker);
@@ -24864,10 +24870,6 @@ var VolumeControls = function VolumeControls(props) {
       return window.removeEventListener('mouseup', clicker);
     };
   }, [mouseDown, mouseOver]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    console.log(mouseOver);
-    if (!mouseOver && !mouseDown) setVisible(false);
-  }, [mouseOver]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.setVolume(volume / 100);
     sessionStorage.setItem('volume', volume);

@@ -122,6 +122,7 @@ async function registerGuest (req, res, next) {
   };
 };
 
+// Call this after Guest signs up
 router.get('/clearInactiveGuests', async (req, res, next) => {
   const inactiveGuests = await User.findAll({
     // order: [[ 'createdAt', 'DESC' ]],
@@ -133,13 +134,39 @@ router.get('/clearInactiveGuests', async (req, res, next) => {
   res.status(200).json(inactiveGuests)
 })
 
-// router.put('/upgradeToUser', async (req, res, next) => {
-//   try {
+router.put('/upgradeToUser', async (req, res, next) => {
+  try {
+    const userExists = await User.findOne({
+      where: {
+        email: req.body.uname
+      }
+    });
+  
+    if (userExists !== null) {
+      res.sendStatus(403)
+    };
 
-//   } catch (error) {
-//     next(error)
-//   };
-// });
+    const saltHash = genPassword(req.body.pw);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
+    await User.update({
+      email: req.body.uname,
+      hash: hash,
+      salt: salt,
+      userType: 'USER'
+    },
+    {
+      where: {
+        id: req.session.passport.user,
+      }
+    });
+
+    res.status(200).send('You are now a user.')
+  } catch (err) {
+    next(err)
+  };
+});
 
 router.get('/logout', isAuthLogin, (req, res, next) => {
     req.logout();

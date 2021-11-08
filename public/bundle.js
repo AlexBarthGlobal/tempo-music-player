@@ -21981,7 +21981,7 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 11:
-                _context.next = 24;
+                _context.next = 23;
                 break;
 
               case 13:
@@ -21993,33 +21993,29 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 16:
-                _context.next = 18;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/login', {
-                  uname: this.state.uname,
-                  pw: this.state.pw
-                });
-
-              case 18:
                 window.location.reload();
-                _context.next = 24;
+                _context.next = 22;
                 break;
 
-              case 21:
-                _context.prev = 21;
+              case 19:
+                _context.prev = 19;
                 _context.t1 = _context["catch"](13);
                 this.setState({
                   error: 'Email already exists.'
                 });
 
-              case 24:
+              case 22:
                 ;
 
-              case 25:
+              case 23:
+                ;
+
+              case 24:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 8], [13, 21]]);
+        }, _callee, this, [[2, 8], [13, 19]]);
       }));
 
       function handleSubmit(_x) {

@@ -30,11 +30,10 @@ class Login extends React.Component {
         } else {
             try {
                 await axios.post('/auth/register', {uname: this.state.uname, pw: this.state.pw});
-                await axios.post('/auth/login', {uname: this.state.uname, pw: this.state.pw});
                 window.location.reload()
             } catch(err) {
                 this.setState({error: 'Email already exists.'})
-            }
+            };
         };
     };
 

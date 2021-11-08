@@ -44,9 +44,10 @@ router.get('/me', async (req, res, next) => {
 
 router.post('/login', passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}));
 
-router.post('/register', async (req, res, next) => {
-  try {
+router.post('/register', register, passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}));
 
+async function register (req, res, next) {
+  try {
     const userExists = await User.findOne({
       where: {
         email: req.body.uname
@@ -72,11 +73,12 @@ router.post('/register', async (req, res, next) => {
 
     // Put any pre-made collections here
 
-    res.status(200).json('Registered')
+    next()
+    // res.status(200).json('Registered')
   } catch (error) {
     next(error)
   }
-})
+};
 
 router.post('/enterAsGuest', registerGuest, passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}))
 

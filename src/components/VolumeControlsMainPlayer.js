@@ -82,8 +82,10 @@ const VolumeControls = (props) => {
                   onMouseDown={() => {
                       console.log('Clicked')
                       setMouseDown(true)
-                      sessionStorage.setItem('preMutedVolume', volume);
-                      setPreMutedVolume(volume);
+                      if (volume !== 0) {
+                        sessionStorage.setItem('preMutedVolume', volume);
+                        setPreMutedVolume(volume);
+                      };
                   }}
                   sx={{ //${visible ? 'visible' : 'hidden'}
                     visibility: `${visible ? 'visible' : 'hidden'}`,

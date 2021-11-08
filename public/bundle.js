@@ -24656,8 +24656,13 @@ var VolumeControls = function VolumeControls(props) {
     onMouseDown: function onMouseDown() {
       console.log('Clicked');
       setMouseDown(true);
-      sessionStorage.setItem('preMutedVolume', volume);
-      setPreMutedVolume(volume);
+
+      if (volume !== 0) {
+        sessionStorage.setItem('preMutedVolume', volume);
+        setPreMutedVolume(volume);
+      }
+
+      ;
     },
     sx: {
       visibility: "".concat(visible ? 'visible' : 'hidden'),
@@ -24920,8 +24925,13 @@ var VolumeControls = function VolumeControls(props) {
       onMouseDown: function onMouseDown() {
         console.log('Clicked');
         setMouseDown(true);
-        sessionStorage.setItem('preMutedVolume', volume);
-        setPreMutedVolume(volume);
+
+        if (volume !== 0) {
+          sessionStorage.setItem('preMutedVolume', volume);
+          setPreMutedVolume(volume);
+        }
+
+        ;
       },
       sx: {
         //${visible ? 'visible' : 'hidden'}

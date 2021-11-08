@@ -24569,10 +24569,20 @@ var VolumeControls = function VolumeControls(props) {
       muted = _useState10[0],
       setMuted = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
       _useState12 = _slicedToArray(_useState11, 2),
-      visible = _useState12[0],
-      setVisible = _useState12[1];
+      preVisible = _useState12[0],
+      setPreVisible = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      visible = _useState14[0],
+      setVisible = _useState14[1];
+
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState16 = _slicedToArray(_useState15, 2),
+      counter = _useState16[0],
+      setCounter = _useState16[1];
 
   function preventHorizontalKeyboardNavigation(event) {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -24584,18 +24594,34 @@ var VolumeControls = function VolumeControls(props) {
 
   ;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!mouseOver && !mouseDown) setTimeout(function () {
+    var timer;
+    if (!preVisible) timer = setTimeout(function () {
+      return setCounter(counter + 1);
+    }, 1000);
+
+    if (!preVisible && counter >= 1) {
+      setPreVisible(true);
+      setCounter(0);
       setVisible(false);
-    }, 300);
+    }
+
+    ;
+    return function () {
+      return clearTimeout(timer);
+    };
+  }, [counter, preVisible]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setCounter(0);
+  }, [preVisible]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!mouseOver && !mouseDown) setPreVisible(false);
     if (!mouseDown) return;
 
     var clicker = function clicker() {
       console.log('mouseUp');
       setMouseDown(false);
       console.log('from listener', mouseOver);
-      if (!mouseOver) setTimeout(function () {
-        setVisible(false);
-      }, 300);
+      if (!mouseOver) setPreVisible(false);
     };
 
     window.addEventListener('mouseup', clicker);
@@ -24634,8 +24660,13 @@ var VolumeControls = function VolumeControls(props) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "volumeControls",
+    onMouseEnter: function onMouseEnter() {
+      setPreVisible(true);
+      console.log('ENTERED');
+    },
     onMouseLeave: function onMouseLeave() {
-      return setMouseOver(false);
+      setMouseOver(false);
+      setPreVisible(false);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "volumeWrapper ".concat(visible ? null : 'hidden')
@@ -24657,6 +24688,7 @@ var VolumeControls = function VolumeControls(props) {
     onMouseDown: function onMouseDown() {
       console.log('Clicked');
       setMouseDown(true);
+      setPreVisible(true);
 
       if (volume !== 0) {
         sessionStorage.setItem('preMutedVolume', volume);
@@ -24692,6 +24724,7 @@ var VolumeControls = function VolumeControls(props) {
     onMouseEnter: function onMouseEnter() {
       setMouseOver(true);
       setVisible(true);
+      setPreVisible(true);
     }
   }, volume === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeOff__WEBPACK_IMPORTED_MODULE_4__.default, {
     onClick: toggleMute,

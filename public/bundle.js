@@ -24665,7 +24665,7 @@ var VolumeControls = function VolumeControls(props) {
       console.log('ENTERED');
     },
     onMouseLeave: function onMouseLeave() {
-      setMouseOver(false);
+      // setMouseOver(false)
       setPreVisible(false);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -24679,15 +24679,12 @@ var VolumeControls = function VolumeControls(props) {
     value: volume,
     onChange: onChange,
     valueLabelDisplay: "auto",
-    orientation: "vertical" //   valueLabelFormat={() => secondsToTimestamp(currTime)}
-    //   onChange={onChange}
-    //   onChangeCommitted={onCommit}
-    ,
+    orientation: "vertical",
     step: 1,
     onKeyDown: preventHorizontalKeyboardNavigation,
     onMouseDown: function onMouseDown() {
-      console.log('Clicked');
-      setMouseDown(true);
+      console.log('Clicked'); //   setMouseDown(true)
+
       setPreVisible(true);
 
       if (volume !== 0) {
@@ -24722,7 +24719,7 @@ var VolumeControls = function VolumeControls(props) {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "volumeButton",
     onMouseEnter: function onMouseEnter() {
-      setMouseOver(true);
+      // setMouseOver(true)
       setVisible(true);
       setPreVisible(true);
     }

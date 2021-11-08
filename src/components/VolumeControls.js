@@ -81,7 +81,7 @@ const VolumeControls = (props) => {
             setPreVisible(true)
             console.log('ENTERED')
         }} onMouseLeave={() => {
-            setMouseOver(false)
+            // setMouseOver(false)
             setPreVisible(false)
             }}>
             <div className={`volumeWrapper ${visible ? null : 'hidden'}`}></div>
@@ -93,14 +93,11 @@ const VolumeControls = (props) => {
                   onChange={onChange}
                   valueLabelDisplay='auto'
                   orientation='vertical'
-                //   valueLabelFormat={() => secondsToTimestamp(currTime)}
-                //   onChange={onChange}
-                //   onChangeCommitted={onCommit}
                   step={1}
                   onKeyDown={preventHorizontalKeyboardNavigation}
                   onMouseDown={() => {
                       console.log('Clicked')
-                      setMouseDown(true)
+                    //   setMouseDown(true)
                       setPreVisible(true)
                       if (volume !== 0) {
                         sessionStorage.setItem('preMutedVolume', volume);
@@ -130,7 +127,7 @@ const VolumeControls = (props) => {
                   }}
                 /></div>
             <div id='volumeButton' onMouseEnter={() => {
-                setMouseOver(true)
+                // setMouseOver(true)
                 setVisible(true)
                 setPreVisible(true)
             }}>

@@ -8,11 +8,12 @@ import {setVolumeThunk} from '../redux/playerDispatchers'
 
 const VolumeControls = (props) => {
     const [volume, setVolume] = useState(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100))
-    const [mouseOver, setMouseOver] = useState(false)
     const [mouseDown, setMouseDown] = useState(false)
     const [preMutedVolume, setPreMutedVolume] = useState(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100))
     const [muted, setMuted] = useState(false)
+    const [preVisible, setPreVisible] = useState(true)
     const [visible, setVisible] = useState(false)
+    const [counter, setCounter] = useState(0)
 
     function preventHorizontalKeyboardNavigation(event) {
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -21,17 +22,31 @@ const VolumeControls = (props) => {
     };
 
     useEffect(() => {
-        if (!mouseOver && !mouseDown) setTimeout(() => {setVisible(false)}, 300)
+        let timer;
+        console.log(preVisible)
+        if (!preVisible) timer = setTimeout(() => setCounter(counter + 1), 1000);
+        if (!preVisible && counter >= 1) {
+            setPreVisible(true);
+            setCounter(0)
+            setVisible(false);
+        };
+        return () => clearTimeout(timer)
+    }, [counter, preVisible]);
+
+    useEffect(() => {
+        setCounter(0);
+    }, [preVisible])
+
+    useEffect(() => {
         if (!mouseDown) return;
         const clicker = () => {
             console.log('mouseUp')
             setMouseDown(false)
-            console.log('from listener', mouseOver)
-            if (!mouseOver) setTimeout(() => {setVisible(false)}, 300)
+            setPreVisible(false);
         }
         window.addEventListener('mouseup', clicker)
         return () => window.removeEventListener('mouseup', clicker)
-    }, [mouseDown, mouseOver])
+    }, [mouseDown])
 
     useEffect(() => {
         props.setVolume(volume/100)
@@ -59,8 +74,8 @@ const VolumeControls = (props) => {
         }
     };
 
-    return ( //${visible ? null : 'hidden'}
-        <div className='volumeControlsMainPlayer' onMouseLeave={() => setMouseOver(false)}>
+    return (
+        <div className='volumeControlsMainPlayer' onMouseEnter={() => setPreVisible(true)} onMouseLeave={() => setPreVisible(false)}>
             <div className={`volumeWrapperMainPlayer ${visible ? null : 'hidden'}`}></div>
             <div className={`volumeSliderMainPlayer ${visible ? null : 'hidden'}`}><Slider
                   min={0}
@@ -70,20 +85,16 @@ const VolumeControls = (props) => {
                   onChange={onChange}
                   valueLabelDisplay='auto'
                   orientation='vertical'
-                //   valueLabelFormat={() => secondsToTimestamp(currTime)}
-                //   onChange={onChange}
-                //   onChangeCommitted={onCommit}
                   step={1}
                   onKeyDown={preventHorizontalKeyboardNavigation}
                   onMouseDown={() => {
-                      console.log('Clicked')
-                      setMouseDown(true)
+                      setPreVisible(true)
                       if (volume !== 0) {
                         sessionStorage.setItem('preMutedVolume', volume);
                         setPreMutedVolume(volume);
                       };
                   }}
-                  sx={{ //${visible ? 'visible' : 'hidden'}
+                  sx={{
                     visibility: `${visible ? 'visible' : 'hidden'}`,
                     '& input[type="range"]': {
                         WebkitAppearance: 'slider-vertical',
@@ -105,10 +116,7 @@ const VolumeControls = (props) => {
                     },
                   }}
                 /></div>
-            <div id='volumeButtonMainPlayer' onMouseEnter={() => {
-                setMouseOver(true)
-                setVisible(true)
-            }}>
+            <div id='volumeButtonMainPlayer' onMouseEnter={() => setVisible(true)}>
                 {volume === 0 ? <VolumeOffIcon onClick={toggleMute} sx={{fontSize: 27}} /> : volume <= 30 ? <VolumeDownIcon onClick={toggleMute} sx={{fontSize: 27}} /> : <VolumeUpIcon onClick={toggleMute} sx={{fontSize: 27}} />}
             </div>
         </div>

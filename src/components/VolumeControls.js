@@ -23,6 +23,7 @@ const VolumeControls = (props) => {
 
     useEffect(() => {
         let timer;
+        console.log(preVisible)
         if (!preVisible) timer = setTimeout(() => setCounter(counter + 1), 1000);
         if (!preVisible && counter >= 1) {
             setPreVisible(true);
@@ -37,10 +38,7 @@ const VolumeControls = (props) => {
     }, [preVisible])
 
     useEffect(() => {
-        if (!mouseDown) {
-            setPreVisible(false);
-            return;
-        };
+        if (!mouseDown) return;
         const clicker = () => {
             console.log('mouseUp')
             setMouseDown(false)
@@ -118,10 +116,7 @@ const VolumeControls = (props) => {
                     },
                   }}
                 /></div>
-            <div id='volumeButton' onMouseEnter={() => {
-                setVisible(true)
-                setPreVisible(true)
-            }}>
+            <div id='volumeButton' onMouseEnter={() => setVisible(true)}>
                 {volume === 0 ? <VolumeOffIcon onClick={toggleMute} sx={{fontSize: 27}} /> : volume <= 30 ? <VolumeDownIcon onClick={toggleMute} sx={{fontSize: 27}} /> : <VolumeUpIcon onClick={toggleMute} sx={{fontSize: 27}} />}
             </div>
         </div>

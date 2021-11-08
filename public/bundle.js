@@ -24590,6 +24590,7 @@ var VolumeControls = function VolumeControls(props) {
   ;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var timer;
+    console.log(preVisible);
     if (!preVisible) timer = setTimeout(function () {
       return setCounter(counter + 1);
     }, 1000);
@@ -24609,12 +24610,7 @@ var VolumeControls = function VolumeControls(props) {
     setCounter(0);
   }, [preVisible]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!mouseDown) {
-      setPreVisible(false);
-      return;
-    }
-
-    ;
+    if (!mouseDown) return;
 
     var clicker = function clicker() {
       console.log('mouseUp');
@@ -24713,8 +24709,7 @@ var VolumeControls = function VolumeControls(props) {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "volumeButton",
     onMouseEnter: function onMouseEnter() {
-      setVisible(true);
-      setPreVisible(true);
+      return setVisible(true);
     }
   }, volume === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_VolumeOff__WEBPACK_IMPORTED_MODULE_4__.default, {
     onClick: toggleMute,

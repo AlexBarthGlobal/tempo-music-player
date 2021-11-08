@@ -73,8 +73,8 @@ async function register (req, res, next) {
 
     // Put any pre-made collections here
 
-    next()
-    // res.status(200).json('Registered')
+    next();
+    
   } catch (error) {
     next(error)
   }
@@ -86,13 +86,12 @@ async function registerGuest (req, res, next) {
   try {
     const mostRecentUser = await User.findOne({
       order: [[ 'createdAt', 'DESC' ]],
-    })
+    });
 
-    // if (!mostRecentUser) {   // Write logic if there are no users for whatever reason.
-    //   res.sendStatus(403)
-    // };
-
-    const mostRecentId = mostRecentUser.id;
+    let mostRecentId;
+    if (!mostRecentUser) {   // Write logic if there are no users for whatever reason.
+      mostRecentId = 1;
+    } else mostRecentId = mostRecentUser.id;
 
     const newEmail = 'user' + (mostRecentId+1337) + '@tempomusicplayer.io'
     const naivePass = naivePw(12)
@@ -110,16 +109,15 @@ async function registerGuest (req, res, next) {
     const listened = await Listened.create()
     await newUser.setListened(listened)
 
-    // // Put any pre-made collections here
+    // Put any pre-made collections here
 
     req.body.uname = newEmail;
     req.body.pw = naivePass;
-
-    // res.status(200).json('Registered')
     next();
+
   } catch (error) {
     next(error)
-  }
+  };
 };
 
 // router.put('/upgradeToUser', async (req, res, next) => {

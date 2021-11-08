@@ -5,6 +5,7 @@ const connection = require('../db/database');
 const {Song, User, Collection, CollectionSession, Listened} = require('../db/index');
 const isAuthLogin = require('./authMiddleware').isAuthLogin;
 const naivePw = require('../lib/naivePw')
+const Sequelize = require('sequelize');
 
 router.get('/', (req, res, next) => {
   res.redirect('/')
@@ -74,7 +75,7 @@ async function register (req, res, next) {
     // Put any pre-made collections here
 
     next();
-    
+
   } catch (error) {
     next(error)
   }
@@ -103,7 +104,8 @@ async function registerGuest (req, res, next) {
     const newUser = await User.create({
       email: newEmail,
       hash: hash,
-      salt: salt
+      salt: salt,
+      userType: 'GUEST'
     });
 
     const listened = await Listened.create()
@@ -119,6 +121,17 @@ async function registerGuest (req, res, next) {
     next(error)
   };
 };
+
+router.get('/clearInactiveGuests', async (req, res, next) => {
+  const inactiveGuests = await User.findAll({
+    // order: [[ 'createdAt', 'DESC' ]],
+    where: {
+      userType: 'GUEST'
+    }
+  });
+
+  res.status(200).json(inactiveGuests)
+})
 
 // router.put('/upgradeToUser', async (req, res, next) => {
 //   try {

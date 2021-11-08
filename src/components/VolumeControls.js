@@ -8,7 +8,6 @@ import {setVolumeThunk} from '../redux/playerDispatchers'
 
 const VolumeControls = (props) => {
     const [volume, setVolume] = useState(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100))
-    const [mouseOver, setMouseOver] = useState(false)
     const [mouseDown, setMouseDown] = useState(false)
     const [preMutedVolume, setPreMutedVolume] = useState(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100))
     const [muted, setMuted] = useState(false)
@@ -38,17 +37,18 @@ const VolumeControls = (props) => {
     }, [preVisible])
 
     useEffect(() => {
-        if (!mouseOver && !mouseDown) setPreVisible(false);
-        if (!mouseDown) return;
+        if (!mouseDown) {
+            setPreVisible(false);
+            return;
+        };
         const clicker = () => {
             console.log('mouseUp')
             setMouseDown(false)
-            console.log('from listener', mouseOver)
-            if (!mouseOver) setPreVisible(false);
+            setPreVisible(false);
         }
         window.addEventListener('mouseup', clicker)
         return () => window.removeEventListener('mouseup', clicker)
-    }, [mouseDown, mouseOver])
+    }, [mouseDown])
 
     useEffect(() => {
         props.setVolume(volume/100)
@@ -77,13 +77,7 @@ const VolumeControls = (props) => {
     };
 
     return (
-        <div className='volumeControls' onMouseEnter={() => {
-            setPreVisible(true)
-            console.log('ENTERED')
-        }} onMouseLeave={() => {
-            // setMouseOver(false)
-            setPreVisible(false)
-            }}>
+        <div className='volumeControls' onMouseEnter={() => setPreVisible(true)} onMouseLeave={() => setPreVisible(false)}>
             <div className={`volumeWrapper ${visible ? null : 'hidden'}`}></div>
             <div className={`volumeSlider ${visible ? null : 'hidden'}`}><Slider
                   min={0}
@@ -96,8 +90,6 @@ const VolumeControls = (props) => {
                   step={1}
                   onKeyDown={preventHorizontalKeyboardNavigation}
                   onMouseDown={() => {
-                      console.log('Clicked')
-                    //   setMouseDown(true)
                       setPreVisible(true)
                       if (volume !== 0) {
                         sessionStorage.setItem('preMutedVolume', volume);
@@ -127,7 +119,6 @@ const VolumeControls = (props) => {
                   }}
                 /></div>
             <div id='volumeButton' onMouseEnter={() => {
-                // setMouseOver(true)
                 setVisible(true)
                 setPreVisible(true)
             }}>

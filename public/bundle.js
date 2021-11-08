@@ -24551,38 +24551,33 @@ var VolumeControls = function VolumeControls(props) {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      mouseOver = _useState4[0],
-      setMouseOver = _useState4[1];
+      mouseDown = _useState4[0],
+      setMouseDown = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100)),
       _useState6 = _slicedToArray(_useState5, 2),
-      mouseDown = _useState6[0],
-      setMouseDown = _useState6[1];
+      preMutedVolume = _useState6[0],
+      setPreMutedVolume = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100)),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      preMutedVolume = _useState8[0],
-      setPreMutedVolume = _useState8[1];
+      muted = _useState8[0],
+      setMuted = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
       _useState10 = _slicedToArray(_useState9, 2),
-      muted = _useState10[0],
-      setMuted = _useState10[1];
+      preVisible = _useState10[0],
+      setPreVisible = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      preVisible = _useState12[0],
-      setPreVisible = _useState12[1];
+      visible = _useState12[0],
+      setVisible = _useState12[1];
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState14 = _slicedToArray(_useState13, 2),
-      visible = _useState14[0],
-      setVisible = _useState14[1];
-
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState16 = _slicedToArray(_useState15, 2),
-      counter = _useState16[0],
-      setCounter = _useState16[1];
+      counter = _useState14[0],
+      setCounter = _useState14[1];
 
   function preventHorizontalKeyboardNavigation(event) {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -24614,21 +24609,24 @@ var VolumeControls = function VolumeControls(props) {
     setCounter(0);
   }, [preVisible]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!mouseOver && !mouseDown) setPreVisible(false);
-    if (!mouseDown) return;
+    if (!mouseDown) {
+      setPreVisible(false);
+      return;
+    }
+
+    ;
 
     var clicker = function clicker() {
       console.log('mouseUp');
       setMouseDown(false);
-      console.log('from listener', mouseOver);
-      if (!mouseOver) setPreVisible(false);
+      setPreVisible(false);
     };
 
     window.addEventListener('mouseup', clicker);
     return function () {
       return window.removeEventListener('mouseup', clicker);
     };
-  }, [mouseDown, mouseOver]);
+  }, [mouseDown]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.setVolume(volume / 100);
     sessionStorage.setItem('volume', volume);
@@ -24661,12 +24659,10 @@ var VolumeControls = function VolumeControls(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "volumeControls",
     onMouseEnter: function onMouseEnter() {
-      setPreVisible(true);
-      console.log('ENTERED');
+      return setPreVisible(true);
     },
     onMouseLeave: function onMouseLeave() {
-      // setMouseOver(false)
-      setPreVisible(false);
+      return setPreVisible(false);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "volumeWrapper ".concat(visible ? null : 'hidden')
@@ -24683,8 +24679,6 @@ var VolumeControls = function VolumeControls(props) {
     step: 1,
     onKeyDown: preventHorizontalKeyboardNavigation,
     onMouseDown: function onMouseDown() {
-      console.log('Clicked'); //   setMouseDown(true)
-
       setPreVisible(true);
 
       if (volume !== 0) {
@@ -24719,7 +24713,6 @@ var VolumeControls = function VolumeControls(props) {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "volumeButton",
     onMouseEnter: function onMouseEnter() {
-      // setMouseOver(true)
       setVisible(true);
       setPreVisible(true);
     }

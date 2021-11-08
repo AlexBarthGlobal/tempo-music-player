@@ -6,6 +6,7 @@ const {Song, User, Collection, CollectionSession, Listened} = require('../db/ind
 const isAuthLogin = require('./authMiddleware').isAuthLogin;
 const naivePw = require('../lib/naivePw')
 const Sequelize = require('sequelize');
+const { Op } = require('Sequelize');
 
 router.get('/', (req, res, next) => {
   res.redirect('/')
@@ -81,7 +82,7 @@ async function register (req, res, next) {
   }
 };
 
-router.post('/enterAsGuest', registerGuest, passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}))
+router.post('/enterAsGuest', registerGuest, clearInactiveGuests, passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}))
 
 async function registerGuest (req, res, next) {
   try {
@@ -137,17 +138,25 @@ router.delete('/logoutGuest', async (req, res, next) => {
   };
 });
 
-// Call this after Guest signs up
-router.get('/clearInactiveGuests', async (req, res, next) => {
-  const inactiveGuests = await User.findAll({
-    // order: [[ 'createdAt', 'DESC' ]],
-    where: {
-      userType: 'GUEST'
-    }
-  });
+// Call this anytime someone enters as guest. Deletes guests with createdAt older than 3 days.
+async function clearInactiveGuests (req, res, next) {
+  try {
+    const ThreeDays = (86400000 * 3);
+    await User.destroy({
+      order: [['createdAt', 'ASC']],
+      where: {
+        userType: 'GUEST',
+        createdAt: {
+          [Op.lte]: new Date(Date.now() - ThreeDays)
+        }
+      }
+    });
+  next();
 
-  res.status(200).json(inactiveGuests)
-})
+  } catch (err) {
+    res.status(403)
+  }
+};
 
 router.put('/upgradeToUser', async (req, res, next) => {
   try {

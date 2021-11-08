@@ -55,8 +55,8 @@ async function register (req, res, next) {
       }
     });
 
-    if (userExists !== null) {
-      res.sendStatus(403)
+    if (userExists) {
+      res.sendStatus(409)
     };
 
     const saltHash = genPassword(req.body.pw);
@@ -142,8 +142,8 @@ router.put('/upgradeToUser', async (req, res, next) => {
       }
     });
   
-    if (userExists !== null) {
-      res.sendStatus(403)
+    if (userExists) {
+      res.sendStatus(409)
     };
 
     const saltHash = genPassword(req.body.pw);

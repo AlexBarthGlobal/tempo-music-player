@@ -21942,6 +21942,7 @@ var Login = /*#__PURE__*/function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.viewPw = _this.viewPw.bind(_assertThisInitialized(_this));
+    _this.enterAsGuest = _this.enterAsGuest.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -22028,6 +22029,45 @@ var Login = /*#__PURE__*/function (_React$Component) {
       return handleSubmit;
     }()
   }, {
+    key: "enterAsGuest",
+    value: function () {
+      var _enterAsGuest = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/enterAsGuest');
+
+              case 3:
+                window.location.reload();
+                _context2.next = 9;
+                break;
+
+              case 6:
+                _context2.prev = 6;
+                _context2.t0 = _context2["catch"](0);
+                console.log('error creating guest');
+
+              case 9:
+                ;
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 6]]);
+      }));
+
+      function enterAsGuest() {
+        return _enterAsGuest.apply(this, arguments);
+      }
+
+      return enterAsGuest;
+    }()
+  }, {
     key: "handleChange",
     value: function handleChange(evt) {
       this.setState(_defineProperty({}, evt.target.name, evt.target.value));
@@ -22069,7 +22109,7 @@ var Login = /*#__PURE__*/function (_React$Component) {
         value: "Submit"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.viewPw
-      }, this.state.viewPw ? 'Hide password' : 'View password')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      }, this.state.viewPw ? 'Hide password' : 'View password')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: this.state.screen === 'login' ? function () {
           return _this2.setState({
             screen: 'signup',
@@ -22081,7 +22121,9 @@ var Login = /*#__PURE__*/function (_React$Component) {
             error: null
           });
         }
-      }, this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'));
+      }, this.state.screen === 'login' ? 'Sign up instead' : 'Login instead')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: this.enterAsGuest
+      }, "Enter as Guest")));
     }
   }]);
 

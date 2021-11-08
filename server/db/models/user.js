@@ -22,7 +22,7 @@ module.exports = db.define('users', {
         type: Sequelize.STRING
     },
     userType: {
-        type: Sequelize.ENUM('USER', 'CREATOR', 'ADMIN'),
+        type: Sequelize.ENUM('GUEST', 'USER', 'ADMIN'),
         defaultValue: 'USER',
         allowNull: false
     },

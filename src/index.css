@@ -560,6 +560,7 @@ ul {
 .mainPlayerSideBox {
   height: 40px;
   width: 40px;
+  min-width: 40px;
   margin-top: auto;
   margin-bottom: 10px;
   margin-right: 10px;

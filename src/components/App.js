@@ -70,6 +70,7 @@ class App extends React.Component {
         this.handleRegister = this.handleRegister.bind(this)
         this.closeMenu = this.closeMenu.bind(this)
         this.handleStateChange = this.handleStateChange.bind(this)
+        this.logoutGuest = this.logoutGuest.bind(this)
     };
 
     checkPlayerReady() {
@@ -136,7 +137,6 @@ class App extends React.Component {
         try {
             await axios.put('/auth/upgradeToUser', {uname: this.state.registerUsername, pw: this.state.registerPw});
             window.location.reload()
-            // this.forceUpdate();
         } catch(err) {
             // this.setState({error: 'Email already exists.'})
             console.log('There was an error')
@@ -196,6 +196,15 @@ class App extends React.Component {
 
     handleStateChange (state) {
         this.setState({menuOpen: state.isOpen})  
+    };
+
+    logoutGuest = async() => {
+        try {
+            await axios.delete('/auth/logoutGuest', {uname: this.state.registerUsername, pw: this.state.registerPw});
+            location.href = "/auth/logout"
+        } catch (err) {
+            console.log(err)
+        };
     };
 
     render() {
@@ -296,7 +305,7 @@ class App extends React.Component {
         const burgerMenu = <Menu styles={styles} isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)} disableAutoFocus>
             <h4 className='burgerName'>{this.props.user.userType === 'GUEST' ? 'Guest' : this.props.user.email}</h4>
             {this.props.user.userType === 'GUEST' ? <div id='guestSignUp' className='burgerMenuItem' onClick={() => this.setState({menuOpen: false, registerModal: true})}>Sign Up</div> : null}
-            {this.props.user.userType === 'GUEST' ? <div className='burgerMenuItem' onClick={()=> console.log('Guest Exit')}>Exit</div> : <div onClick={logout} className='burgerMenuItem'>Logout</div>}
+            {this.props.user.userType === 'GUEST' ? <div className='burgerMenuItem' onClick={this.logoutGuest}>Exit</div> : <div onClick={logout} className='burgerMenuItem'>Logout</div>}
         </Menu>
         // const escapeExitSongs = this.state.editCollection ? <ClearIcon onClick={() => this.setState({editCollection: false})} className='navButton'/> : null;
 

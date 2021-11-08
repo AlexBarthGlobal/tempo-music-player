@@ -17735,8 +17735,7 @@ var App = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 4:
-                window.location.reload(); // this.forceUpdate();
-
+                window.location.reload();
                 _context3.next = 10;
                 break;
 
@@ -17866,6 +17865,39 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, _callee5);
     })));
 
+    _defineProperty(_assertThisInitialized(_this), "logoutGuest", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+      return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.prev = 0;
+              _context6.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_12___default().delete('/auth/logoutGuest', {
+                uname: _this.state.registerUsername,
+                pw: _this.state.registerPw
+              });
+
+            case 3:
+              location.href = "/auth/logout";
+              _context6.next = 9;
+              break;
+
+            case 6:
+              _context6.prev = 6;
+              _context6.t0 = _context6["catch"](0);
+              console.log(_context6.t0);
+
+            case 9:
+              ;
+
+            case 10:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[0, 6]]);
+    })));
+
     _this.state = {
       addCollectionModal: false,
       addSongModal: false,
@@ -17896,6 +17928,7 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.handleRegister = _this.handleRegister.bind(_assertThisInitialized(_this));
     _this.closeMenu = _this.closeMenu.bind(_assertThisInitialized(_this));
     _this.handleStateChange = _this.handleStateChange.bind(_assertThisInitialized(_this));
+    _this.logoutGuest = _this.logoutGuest.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -18186,9 +18219,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       }, "Sign Up") : null, this.props.user.userType === 'GUEST' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "burgerMenuItem",
-        onClick: function onClick() {
-          return console.log('Guest Exit');
-        }
+        onClick: this.logoutGuest
       }, "Exit") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: logout,
         className: "burgerMenuItem"

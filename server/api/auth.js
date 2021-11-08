@@ -122,6 +122,21 @@ async function registerGuest (req, res, next) {
   };
 };
 
+router.delete('/logoutGuest', async (req, res, next) => {
+  try {
+    await User.destroy({
+      where: {
+        id: req.session.passport.user,
+        userType: 'GUEST'
+      }
+    });
+    req.logout();
+    res.redirect('/login')
+  } catch (err) {
+    res.sendStatus(403)
+  };
+});
+
 // Call this after Guest signs up
 router.get('/clearInactiveGuests', async (req, res, next) => {
   const inactiveGuests = await User.findAll({
@@ -158,7 +173,7 @@ router.put('/upgradeToUser', async (req, res, next) => {
     },
     {
       where: {
-        id: req.session.passport.user,
+        id: req.session.passport.user
       }
     });
 

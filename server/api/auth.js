@@ -141,13 +141,13 @@ router.delete('/logoutGuest', async (req, res, next) => {
 // Call this anytime someone enters as guest. Deletes guests with createdAt older than 3 days.
 async function clearInactiveGuests (req, res, next) {
   try {
-    const ThreeDays = (86400000 * 3);
+    const threeDays = (86400000 * 3);
     await User.destroy({
       order: [['createdAt', 'ASC']],
       where: {
         userType: 'GUEST',
         createdAt: {
-          [Op.lte]: new Date(Date.now() - ThreeDays)
+          [Op.lte]: new Date(Date.now() - threeDays)
         }
       }
     });

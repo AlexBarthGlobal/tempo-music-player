@@ -18444,7 +18444,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         onSubmit: this.handleRegister
       }, this.props.signUpStatusMessage !== 'Signed up successfully.' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "modalText"
-      }, "Username"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_29__.default, {
+      }, "E-mail"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_29__.default, {
         className: "browseSongsInput",
         sx: {
           fontSize: 16,

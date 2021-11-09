@@ -517,7 +517,7 @@ class App extends React.Component {
                         <div>
                             <form onSubmit={this.handleRegister}>
                                 {this.props.signUpStatusMessage !== 'Signed up successfully.' ? <div>
-                                    <div className='modalText'>Username</div>
+                                    <div className='modalText'>E-mail</div>
                                     <Input className='browseSongsInput' 
                                         sx={{
                                             fontSize: 16,

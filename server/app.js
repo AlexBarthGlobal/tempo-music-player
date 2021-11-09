@@ -24,8 +24,8 @@ app.use(session({
   store: dbStore,
   resave: false,
   saveUninitialized: true,
-  cookie: { // cookie lasts for 1 day
-    maxAge: 1000 * 60 * 60 * 24
+  cookie: { // cookie lasts for 1 week
+    maxAge: (1000 * 60 * 60 * 24)*7
   }
 }));
 

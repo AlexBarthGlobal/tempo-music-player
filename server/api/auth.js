@@ -4,6 +4,13 @@ const genPassword = require('../lib/passwordUtils').genPassword;
 const connection = require('../db/database');
 const {Song, User, Collection, CollectionSession, Listened} = require('../db/index');
 const isAuthLogin = require('./authMiddleware').isAuthLogin;
+const naivePw = require('../lib/naivePw')
+const Sequelize = require('sequelize');
+const { Op } = require('Sequelize');
+
+router.get('/', (req, res, next) => {
+  res.redirect('/')
+})
 
 router.get('/me', async (req, res, next) => {
     try {
@@ -37,50 +44,25 @@ router.get('/me', async (req, res, next) => {
     }
   });
 
-// router.delete('/logout', (req, res, next) => {
-//   req.logout()
-//   req.session.destroy((err) => {
-//     if (err) return next(err)
-//     res.status(204).end();
-//   })
-// })
-
 router.post('/login', passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}));
 
-router.get('/', (req, res, next) => {
-    res.redirect('/')
-})
+router.post('/register', register, passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}));
 
-router.post('/register', async (req, res, next) => {
+async function register (req, res, next) {
   try {
-
     const userExists = await User.findOne({
       where: {
         email: req.body.uname
       }
     });
 
-    if (userExists !== null) {
-      // res.redirect('/login');
-      res.sendStatus(403)
-      // throw new Error('Email already exists.')
-    }
+    if (userExists) {
+      res.sendStatus(409)
+    };
 
     const saltHash = genPassword(req.body.pw);
-
     const salt = saltHash.salt;
     const hash = saltHash.hash;
-
-    // const newUser = new User({
-    //     email: req.body.uname,
-    //     hash: hash,
-    //     salt: salt
-    // })
-
-    // newUser.save()
-    // .then((user) => {
-    //     console.log(user);
-    // });
 
     const newUser = await User.create({
       email: req.body.uname,
@@ -91,19 +73,124 @@ router.post('/register', async (req, res, next) => {
     const listened = await Listened.create()
     await newUser.setListened(listened)
 
-    
     // Put any pre-made collections here
 
-    // res.redirect('/');
-    res.status(200).json('Registered')
+    next();
+
   } catch (error) {
     next(error)
   }
-})
+};
 
-// router.get('/login', (req, res, next) => {
-//     res.send('<p>Login<p>')
-// })
+router.post('/enterAsGuest', registerGuest, clearInactiveGuests, passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}))
+
+async function registerGuest (req, res, next) {
+  try {
+    const mostRecentUser = await User.findOne({
+      order: [[ 'createdAt', 'DESC' ]],
+    });
+
+    let mostRecentId;
+    if (!mostRecentUser) {   // Write logic if there are no users for whatever reason.
+      mostRecentId = 1;
+    } else mostRecentId = mostRecentUser.id;
+
+    const newEmail = 'user' + (mostRecentId+1337) + '@tempomusicplayer.io'
+    const naivePass = naivePw(12)
+
+    const saltHash = genPassword(naivePass);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
+    const newUser = await User.create({
+      email: newEmail,
+      hash: hash,
+      salt: salt,
+      userType: 'GUEST'
+    });
+
+    const listened = await Listened.create()
+    await newUser.setListened(listened)
+
+    // Put any pre-made collections here
+
+    req.body.uname = newEmail;
+    req.body.pw = naivePass;
+    next();
+
+  } catch (error) {
+    next(error)
+  };
+};
+
+router.delete('/logoutGuest', async (req, res, next) => {
+  try {
+    await User.destroy({
+      where: {
+        id: req.session.passport.user,
+        userType: 'GUEST'
+      }
+    });
+    req.logout();
+    res.redirect('/login')
+  } catch (err) {
+    res.sendStatus(403)
+  };
+});
+
+// Call this anytime someone enters as guest. Deletes guests with createdAt older than 3 days.
+async function clearInactiveGuests (req, res, next) {
+  try {
+    const threeDays = (86400000 * 3);
+    await User.destroy({
+      order: [['createdAt', 'ASC']],
+      where: {
+        userType: 'GUEST',
+        createdAt: {
+          [Op.lte]: new Date(Date.now() - threeDays)
+        }
+      }
+    });
+  next();
+
+  } catch (err) {
+    res.status(403)
+  }
+};
+
+router.put('/upgradeToUser', async (req, res, next) => {
+  try {
+    const userExists = await User.findOne({
+      where: {
+        email: req.body.uname
+      }
+    });
+  
+    if (userExists) {
+      res.sendStatus(409)
+    };
+
+    const saltHash = genPassword(req.body.pw);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
+    await User.update({
+      email: req.body.uname,
+      hash: hash,
+      salt: salt,
+      userType: 'USER'
+    },
+    {
+      where: {
+        id: req.session.passport.user
+      }
+    });
+
+    res.status(200).send('You are now a user.')
+  } catch (err) {
+    next(err)
+  };
+});
 
 router.get('/logout', isAuthLogin, (req, res, next) => {
     req.logout();

@@ -49,6 +49,10 @@ class App extends React.Component {
           shareConfirmation: '',
           editCollection: false,
           editCollections: false,
+          registerModal: false,
+          registerUsername: '',
+          registerPw: '',
+          menuOpen: false
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
@@ -63,6 +67,10 @@ class App extends React.Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleShare = this.handleShare.bind(this)
+        this.handleRegister = this.handleRegister.bind(this)
+        this.closeMenu = this.closeMenu.bind(this)
+        this.handleStateChange = this.handleStateChange.bind(this)
+        this.logoutGuest = this.logoutGuest.bind(this)
     };
 
     checkPlayerReady() {
@@ -86,13 +94,10 @@ class App extends React.Component {
                 editCollections: false
             })
         };
+        if (prevState.registerUsername !== this.state.registerUsername || prevState.registerPw !== this.state.registerPw) return;
         //Modal stuff above
 
-        if (this.checkPlayerReady()) {
-            this.checkIfListened();
-        } else {
-            // this.rap.src = null;
-        }
+        if (this.checkPlayerReady()) this.checkIfListened();
     };
 
     handleChange(evt) {
@@ -125,6 +130,17 @@ class App extends React.Component {
         };
         
         this.setState({recipientEmail: ''});
+    };
+    
+    handleRegister = async (evt) => {
+        evt.preventDefault()
+        try {
+            await axios.put('/auth/upgradeToUser', {uname: this.state.registerUsername, pw: this.state.registerPw});
+            window.location.reload()
+        } catch(err) {
+            // this.setState({error: 'Email already exists.'})
+            console.log('There was an error')
+        };
     };
 
     resetInfo = async () => {
@@ -172,6 +188,23 @@ class App extends React.Component {
 
     showSettings (event) {
         event.preventDefault();
+    };
+
+    closeMenu() {
+        this.setState({menuOpen: false})
+    };
+
+    handleStateChange (state) {
+        this.setState({menuOpen: state.isOpen})  
+    };
+
+    logoutGuest = async() => {
+        try {
+            await axios.delete('/auth/logoutGuest', {uname: this.state.registerUsername, pw: this.state.registerPw});
+            location.href = "/auth/logout"
+        } catch (err) {
+            console.log(err)
+        };
     };
 
     render() {
@@ -269,9 +302,10 @@ class App extends React.Component {
         let shareCollection;
         if (this.props.screenStr === 'CollectionSongs') shareCollection = <ShareIcon className='navButton' onClick={() => this.setState({shareCollectionModal: true})} />
         
-        const burgerMenu = <Menu styles={styles} disableAutoFocus>
-            <h4 onClick={ this.showSettings } className='burgerName'>{this.props.user.email}</h4>
-        <   div onClick={logout} className='burgerLogout'>Logout</div>
+        const burgerMenu = <Menu styles={styles} isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)} disableAutoFocus>
+            <h4 className='burgerName'>{this.props.user.userType === 'GUEST' ? 'Guest' : this.props.user.email}</h4>
+            {this.props.user.userType === 'GUEST' ? <div id='guestSignUp' className='burgerMenuItem' onClick={() => this.setState({menuOpen: false, registerModal: true})}>Sign Up</div> : null}
+            {this.props.user.userType === 'GUEST' ? <div className='burgerMenuItem' onClick={this.logoutGuest}>Exit</div> : <div onClick={logout} className='burgerMenuItem'>Logout</div>}
         </Menu>
         // const escapeExitSongs = this.state.editCollection ? <ClearIcon onClick={() => this.setState({editCollection: false})} className='navButton'/> : null;
 
@@ -438,6 +472,69 @@ class App extends React.Component {
                                 </div>
                                 <div>
                                     <StyledButton title='Share' type='submit' />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal 
+                    isOpen={this.state.registerModal} 
+                    onRequestClose={() => this.setState({registerModal: false, registerUsername: '', registerPw: ''})}
+                    style={
+                        {
+                            content: {
+                                borderRadius: '8px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                height: '188px',
+                                position: 'absolute',
+                                width: '50vw',
+                                minWidth: '222px',
+                                maxWidth: '518px',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                top: '28%',
+                                border: '1px solid #00000096',
+                                backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
+                                backdropFilter: 'blur(5px)'
+                            },
+                            overlay: {
+                                backgroundColor: '#36363614',
+                                zIndex: 2
+                            }
+                        }
+                    }
+                >
+                    <div>
+                        {/* <div className='modalText'>Username</div> */}
+                        <div>
+                            <form onSubmit={this.handleRegister}>
+                                <div>
+                                    <div className='modalText'>Username</div>
+                                    <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                            }} inputProps={{ spellCheck: false }} name='registerUsername' id="outlined-basic" value={this.state.registerUsername} onChange={this.handleChange} variant="outlined" />
+                                </div>
+                                <div className='modalText'>Password</div>
+                                <div>
+                                    <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                        }} inputProps={{ spellCheck: false }} name='registerPw' id="outlined-basic" value={this.state.regsiterPw} onChange={this.handleChange} variant="outlined" />
+                                </div>
+                                <div>
+                                    <StyledButton type='submit' title='Sign Up' /*disabled={this.state.collectionName.length > 30}*//>
                                 </div>
                             </form>
                         </div>

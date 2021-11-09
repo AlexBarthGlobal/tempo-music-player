@@ -15,6 +15,7 @@ class Login extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.viewPw = this.viewPw.bind(this)
+        this.enterAsGuest = this.enterAsGuest.bind(this)
     }
 
     async handleSubmit(evt) {
@@ -29,11 +30,19 @@ class Login extends React.Component {
         } else {
             try {
                 await axios.post('/auth/register', {uname: this.state.uname, pw: this.state.pw});
-                await axios.post('/auth/login', {uname: this.state.uname, pw: this.state.pw});
                 window.location.reload()
             } catch(err) {
                 this.setState({error: 'Email already exists.'})
-            }
+            };
+        };
+    };
+
+    async enterAsGuest() {
+        try {
+            await axios.post('/auth/enterAsGuest')
+            window.location.reload()
+        } catch (err) {
+            console.log('error creating guest')
         };
     };
 
@@ -64,7 +73,12 @@ class Login extends React.Component {
                     <input type="submit" value="Submit"></input>
                     <button onClick={this.viewPw}>{this.state.viewPw ? 'Hide password' : 'View password'}</button>
                 </form>
-                <button onClick={this.state.screen === 'login' ? () => this.setState({screen: 'signup', error: null}) : () => this.setState({screen: 'login', error: null})}>{this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'}</button>
+                <div>
+                    <button onClick={this.state.screen === 'login' ? () => this.setState({screen: 'signup', error: null}) : () => this.setState({screen: 'login', error: null})}>{this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'}</button>
+                </div>
+                <div>
+                    <button onClick={this.enterAsGuest}>Enter as Guest</button>
+                </div>
             </div>
         )
     }

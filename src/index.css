@@ -128,11 +128,22 @@ svg:hover {
   overflow: hidden;
   white-space: nowrap;
   max-width: 100%;
-  margin-bottom: 18px;
+  margin-bottom: 28px;
 }
 
-.burgerLogout {
+.burgerMenuItem {
   cursor: pointer;
+  margin-bottom: 28px;
+  transition: all 0.25s ease-out;
+}
+
+#guestSignUp:hover {
+  color: #edb303;
+}
+
+.burgerMenuItem:hover {
+  color: #838383;
+  transition: all 0.10s ease-in;
 }
 
 .burgerCross {

@@ -22182,7 +22182,7 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 evt.preventDefault();
 
                 if (!(this.state.screen === 'login')) {
-                  _context.next = 17;
+                  _context.next = 18;
                   break;
                 }
 
@@ -22198,32 +22198,35 @@ var Login = /*#__PURE__*/function (_React$Component) {
 
               case 5:
                 ;
-                _context.prev = 6;
-                _context.next = 9;
+                if (!PasswordValidator(this.state.pw)) this.setState({
+                  error: "That's not an ideal password."
+                });
+                _context.prev = 7;
+                _context.next = 10;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/login', {
                   uname: this.state.uname.toLowerCase(),
                   pw: this.state.pw
                 });
 
-              case 9:
+              case 10:
                 window.location.reload();
-                _context.next = 15;
+                _context.next = 16;
                 break;
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](6);
+              case 13:
+                _context.prev = 13;
+                _context.t0 = _context["catch"](7);
                 this.setState({
                   error: 'Wrong email/password combination.'
                 });
 
-              case 15:
-                _context.next = 31;
+              case 16:
+                _context.next = 32;
                 break;
 
-              case 17:
+              case 18:
                 if (!(!email_validator__WEBPACK_IMPORTED_MODULE_3__.validate(this.state.uname) || this.state.uname.includes('@tempomusicplayer.io'))) {
-                  _context.next = 20;
+                  _context.next = 21;
                   break;
                 }
 
@@ -22232,39 +22235,39 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
                 return _context.abrupt("return");
 
-              case 20:
+              case 21:
                 ;
-                _context.prev = 21;
-                _context.next = 24;
+                _context.prev = 22;
+                _context.next = 25;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/register', {
                   uname: this.state.uname.toLowerCase(),
                   pw: this.state.pw
                 });
 
-              case 24:
+              case 25:
                 window.location.reload();
-                _context.next = 30;
+                _context.next = 31;
                 break;
 
-              case 27:
-                _context.prev = 27;
-                _context.t1 = _context["catch"](21);
+              case 28:
+                _context.prev = 28;
+                _context.t1 = _context["catch"](22);
                 this.setState({
                   error: 'Email already exists.'
                 });
-
-              case 30:
-                ;
 
               case 31:
                 ;
 
               case 32:
+                ;
+
+              case 33:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[6, 12], [21, 27]]);
+        }, _callee, this, [[7, 13], [22, 28]]);
       }));
 
       function handleSubmit(_x) {

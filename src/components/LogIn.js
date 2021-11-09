@@ -29,6 +29,8 @@ class Login extends React.Component {
                 this.setState({error: "That's not a valid email address."})
                 return;
             };
+
+            if (!PasswordValidator(this.state.pw)) this.setState({error: "That's not an ideal password."})
             try {
                 await axios.post('/auth/login', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
                 window.location.reload()

@@ -83,9 +83,9 @@ class App extends React.Component {
     };
     //Instead of above check, check this.state.currSrc
 
-    checkIfListened() {
-        if (/*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/ !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
-            this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
+    async checkIfListened() {
+        if (/*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/this.props.user && this.props.user.listened && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
+            await this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
         };
     };
 
@@ -543,7 +543,7 @@ class App extends React.Component {
                                             ':after': { borderBottomColor: 'white' },
                                         }} inputProps={{ spellCheck: false }} type='password' name='registerPw' value={this.state.regsiterPw} onChange={this.handleChange} variant="outlined" />
                                 </div> : null}
-                                <div className='modalText modalErrorPadding'>{this.props.signUpStatusMessage === 'Signed up successfully.' ? this.props.signUpStatusMessage : this.state.registerMessage}</div>
+                                <div className='modalText modalErrorPadding'>{this.props.signUpStatusMessage === 'Signed up successfully.' || this.props.signUpStatusMessage === "Email already exists." ? this.props.signUpStatusMessage : this.state.registerMessage}</div>
                                 {this.props.signUpStatusMessage !== 'Signed up successfully.' ? <div>
                                     <StyledButton type='submit' title='Sign Up' /*disabled={this.state.collectionName.length > 30}*//>
                                 </div> : null}

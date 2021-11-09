@@ -17931,15 +17931,39 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "checkIfListened",
     value: //Instead of above check, check this.state.currSrc
-    function checkIfListened() {
-      if (
-      /*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/
-      !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
-        this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
+    function () {
+      var _checkIfListened = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                if (!(
+                /*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/
+                this.props.user && this.props.user.listened && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id])) {
+                  _context6.next = 3;
+                  break;
+                }
+
+                _context6.next = 3;
+                return this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id);
+
+              case 3:
+                ;
+
+              case 4:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this);
+      }));
+
+      function checkIfListened() {
+        return _checkIfListened.apply(this, arguments);
       }
 
-      ;
-    }
+      return checkIfListened;
+    }()
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
@@ -18519,17 +18543,17 @@ var App = /*#__PURE__*/function (_React$Component) {
         variant: "outlined"
       })) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "modalText modalErrorPadding"
-      }, this.props.signUpStatusMessage === 'Signed up successfully.' ? this.props.signUpStatusMessage : this.state.registerMessage), this.props.signUpStatusMessage !== 'Signed up successfully.' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_19__.default, {
+      }, this.props.signUpStatusMessage === 'Signed up successfully.' || this.props.signUpStatusMessage === "Email already exists." ? this.props.signUpStatusMessage : this.state.registerMessage), this.props.signUpStatusMessage !== 'Signed up successfully.' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_19__.default, {
         type: "submit",
         title: "Sign Up"
         /*disabled={this.state.collectionName.length > 30}*/
 
       })) : null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_2___default()), {
         isOpen: this.props.user.initialLogin,
-        onRequestClose: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-          return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        onRequestClose: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+          return regeneratorRuntime.wrap(function _callee7$(_context7) {
             while (1) {
-              switch (_context6.prev = _context6.next) {
+              switch (_context7.prev = _context7.next) {
                 case 0:
                   _this2.setState({
                     initialLoginModal: false
@@ -18539,10 +18563,10 @@ var App = /*#__PURE__*/function (_React$Component) {
 
                 case 2:
                 case "end":
-                  return _context6.stop();
+                  return _context7.stop();
               }
             }
-          }, _callee6);
+          }, _callee7);
         })),
         style: {
           content: {
@@ -20641,7 +20665,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
               editMode: this.props.editMode,
               removeSongFromCollection: this.removeSongFromCollection,
               listenedBool: !!this.props.user.listened.songs[_song.id],
-              songIsPlaying: this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs.length && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx] && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === _song.id
+              songIsPlaying: this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx] && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === _song.id
             });
             idx++;
           }
@@ -28168,6 +28192,7 @@ function userReducer() {
 
     case UPGRADE_TO_USER:
       action.upgradedUserAndMessage.upgradedUser.signUpStatusMessage = action.upgradedUserAndMessage.message;
+      action.upgradedUserAndMessage.upgradedUser.listened = _objectSpread({}, state.user.listened);
       return {
         user: action.upgradedUserAndMessage.upgradedUser
       };

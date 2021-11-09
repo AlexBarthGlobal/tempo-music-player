@@ -237,6 +237,7 @@ export default function userReducer (state = initialState, action) {
       }
     case UPGRADE_TO_USER:
       action.upgradedUserAndMessage.upgradedUser.signUpStatusMessage = action.upgradedUserAndMessage.message;
+      action.upgradedUserAndMessage.upgradedUser.listened = {...state.user.listened};
       return {
         user: action.upgradedUserAndMessage.upgradedUser
       }

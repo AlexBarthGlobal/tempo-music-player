@@ -34,6 +34,7 @@ import StyledButton from './StyledButton';
 import Input from '@mui/material/Input';
 import * as EmailValidator from 'email-validator'
 import PasswordValidator from '../../server/lib/validatePw'
+import PlayArrow from '@mui/icons-material/PlayArrow';
 
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
@@ -564,14 +565,14 @@ class App extends React.Component {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                height: '188px',
+                                height: '360px',
                                 position: 'absolute',
                                 width: '50vw',
                                 minWidth: '222px',
                                 maxWidth: '518px',
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
-                                top: '28%',
+                                top: '20%',
                                 border: '1px solid #00000096',
                                 backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
                                 backdropFilter: 'blur(5px)'
@@ -585,8 +586,14 @@ class App extends React.Component {
                 >
                     <div>
                         <div>
-                            <div>
-                                <div className='modalText'>Welcome to Tempo Music Player</div>
+                            <div id='welcomeModal'>
+                                <div className='modalText modalWelcomeDone' >Welcome to Tempo Music Player</div>
+                                <div className='modalWelcomePadding'>Tempo keeps track of the songs you've played to ensure that you don't hear the same song twice across your collections.</div>
+                                <div><RestartAltIcon className='modalWelcomeIcon' sx={{fontSize: 24}}/> Resets your played history</div>
+                                <div className='modalWelcomeDone'>
+                                    <Metronome className='modalWelcomeIcon' id='metronomeWelcomeModal'/> Navigates you to the metronome screen, where you can select a BPM then press <PlayArrow className='modalWelcomePlayIcon' sx={{fontSize: 24}}/> to play music.
+                                </div>
+                                <div>First, select a collection.</div>
                             </div>
                         </div>
                     </div>

@@ -258,6 +258,12 @@ svg:hover {
   height: 100%;
 }
 
+#noCollectionsYet {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+}
+
 #mainPlayerImg {
   width: 95%;
   height: auto;

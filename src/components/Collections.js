@@ -72,7 +72,6 @@ class Collections extends React.Component {
         };
         
         const {collections} = this.props.musicInfo;
-        const noCollections = 'No collections yet. Create a new one!'
         const collectionComponents = [];
         for (const key in collections) {
             collectionComponents.push(collections[key]);
@@ -191,9 +190,9 @@ class Collections extends React.Component {
                 <div className='screenTitle collectionsTitle'>
                     Collections
                 </div>
-                <div className={`collections ${isBrowser ? 'clearFooterPadding' : 'clearFooterPaddingMobile'}`}>
-                    {collectionComponents.length ? collectionComponents : noCollections}
-                </div>
+                {collectionComponents.length ? <div className={`collections ${isBrowser ? 'clearFooterPadding' : 'clearFooterPaddingMobile'}`}>
+                    {collectionComponents}
+                </div> : <div id='noCollectionsYet'>No collections yet. Create a new one!</div>}
                 
             </div>     
         )

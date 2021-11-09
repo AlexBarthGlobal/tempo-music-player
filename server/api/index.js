@@ -664,11 +664,35 @@ router.post('/addTempoRequest', async (req, res, next) => {
             BPM: req.body.selectedBPM,
             collectionId: req.body.collectionId
         })
-        
+
         res.status('201').json('Done')
     } catch (err) {
         next(err)
     }
 })
+
+router.put('/incrementBurgerSignups', async (req, res, next) => {
+    try {
+        await User.increment('burgerSignups', {by: 1, where: {
+            id: req.session.passport.user
+        }})
+
+        res.sendStatus('201')
+    } catch (err) {
+        next(err)
+    };
+});
+
+router.put('/incrementModalSignups', async (req, res, next) => {
+    try {
+        await User.increment('modalSignups', {by: 1, where: {
+            id: req.session.passport.user
+        }})
+
+        res.sendStatus('201')
+    } catch (err) {
+        next(err)
+    };
+});
 
 module.exports = router;

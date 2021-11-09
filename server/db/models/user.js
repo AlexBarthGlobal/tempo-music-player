@@ -30,11 +30,11 @@ module.exports = db.define('users', {
         type: Sequelize.BOOLEAN,
         defaultValue: true
     },
-    modalGuestClicks: {
+    burgerSignups: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },
-    guestSignup: {
+    modalSignups: {
         type: Sequelize.INTEGER,
         defaultValue: 0
     },

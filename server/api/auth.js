@@ -100,7 +100,7 @@ async function register (req, res, next) {
   }
 };
 
-router.post('/enterAsGuest', registerGuest, clearInactiveGuests, passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}))
+router.post('/enterAsGuest', registerGuest, /*clearInactiveGuests,*/ passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}))
 
 async function registerGuest (req, res, next) {
   try {
@@ -141,40 +141,40 @@ async function registerGuest (req, res, next) {
   };
 };
 
-router.delete('/logoutGuest', async (req, res, next) => {
-  try {
-    await User.destroy({
-      where: {
-        id: req.session.passport.user,
-        userType: 'GUEST'
-      }
-    });
-    req.logout();
-    res.redirect('/login')
-  } catch (err) {
-    res.sendStatus(403)
-  };
-});
+// router.delete('/logoutGuest', async (req, res, next) => {
+//   try {
+//     await User.destroy({
+//       where: {
+//         id: req.session.passport.user,
+//         userType: 'GUEST'
+//       }
+//     });
+//     req.logout();
+//     res.redirect('/login')
+//   } catch (err) {
+//     res.sendStatus(403)
+//   };
+// });
 
 // Call this anytime someone enters as guest. Deletes guests with createdAt older than 3 days.
-async function clearInactiveGuests (req, res, next) {
-  try {
-    const threeDays = (86400000 * 3);
-    await User.destroy({
-      order: [['createdAt', 'ASC']],
-      where: {
-        userType: 'GUEST',
-        createdAt: {
-          [Op.lte]: new Date(Date.now() - threeDays)
-        }
-      }
-    });
-  next();
+// async function clearInactiveGuests (req, res, next) {
+//   try {
+//     const threeDays = (86400000 * 3);
+//     await User.destroy({
+//       order: [['createdAt', 'ASC']],
+//       where: {
+//         userType: 'GUEST',
+//         createdAt: {
+//           [Op.lte]: new Date(Date.now() - threeDays)
+//         }
+//       }
+//     });
+//   next();
 
-  } catch (err) {
-    res.status(403)
-  }
-};
+//   } catch (err) {
+//     res.status(403)
+//   }
+// };
 
 router.put('/upgradeToUser', async (req, res, next) => {
   try {
@@ -209,23 +209,6 @@ router.put('/upgradeToUser', async (req, res, next) => {
     next(err)
   };
 });
-
-// async function logLogout (userId, next) {
-//   try {
-//     await User.update({
-//       recentLogout: new Date()
-//     },
-//     {
-//       where: {
-//         id: userId
-//       }
-//     });
-
-//     res.sendStatus(201)
-//   } catch (err) {
-//     next(err)
-//   };
-// };
 
 router.get('/logout', isAuthLogin, async (req, res, next) => {
   try {

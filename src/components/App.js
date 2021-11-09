@@ -70,7 +70,7 @@ class App extends React.Component {
         this.handleRegister = this.handleRegister.bind(this)
         this.closeMenu = this.closeMenu.bind(this)
         this.handleStateChange = this.handleStateChange.bind(this)
-        this.logoutGuest = this.logoutGuest.bind(this)
+        // this.logoutGuest = this.logoutGuest.bind(this)
     };
 
     checkPlayerReady() {
@@ -198,14 +198,14 @@ class App extends React.Component {
         this.setState({menuOpen: state.isOpen})  
     };
 
-    logoutGuest = async() => {
-        try {
-            await axios.delete('/auth/logoutGuest', {uname: this.state.registerUsername, pw: this.state.registerPw});
-            location.href = "/auth/logout"
-        } catch (err) {
-            console.log(err)
-        };
-    };
+    // logoutGuest = async() => {
+    //     try {
+    //         await axios.delete('/auth/logoutGuest', {uname: this.state.registerUsername, pw: this.state.registerPw});
+    //         location.href = "/auth/logout"
+    //     } catch (err) {
+    //         console.log(err)
+    //     };
+    // };
 
     render() {
         const styles = {
@@ -304,8 +304,10 @@ class App extends React.Component {
         
         const burgerMenu = <Menu styles={styles} isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)} disableAutoFocus>
             <h4 className='burgerName'>{this.props.user.userType === 'GUEST' ? 'Guest' : this.props.user.email}</h4>
-            {this.props.user.userType === 'GUEST' ? <div id='guestSignUp' className='burgerMenuItem' onClick={() => this.setState({menuOpen: false, registerModal: true})}>Sign Up</div> : null}
-            {this.props.user.userType === 'GUEST' ? <div className='burgerMenuItem' onClick={this.logoutGuest}>Exit</div> : <div onClick={logout} className='burgerMenuItem'>Logout</div>}
+            {this.props.user.userType === 'GUEST' ? <div id='guestSignUp' className='burgerMenuItem' onClick={() => {
+                this.setState({menuOpen: false, registerModal: true})
+                axios.put('/api/incrementBurgerSignups')}}>Sign Up</div> : null}
+            {this.props.user.userType === 'GUEST' ? <div className='burgerMenuItem' onClick={logout}>Exit</div> : <div onClick={logout} className='burgerMenuItem'>Logout</div>}
         </Menu>
         // const escapeExitSongs = this.state.editCollection ? <ClearIcon onClick={() => this.setState({editCollection: false})} className='navButton'/> : null;
 
@@ -534,7 +536,7 @@ class App extends React.Component {
                                         }} inputProps={{ spellCheck: false }} name='registerPw' id="outlined-basic" value={this.state.regsiterPw} onChange={this.handleChange} variant="outlined" />
                                 </div>
                                 <div>
-                                    <StyledButton type='submit' title='Sign Up' /*disabled={this.state.collectionName.length > 30}*//>
+                                    <StyledButton type='submit' title='Sign Up' func={() => axios.put('/api/incrementModalSignups')} /*disabled={this.state.collectionName.length > 30}*//>
                                 </div>
                             </form>
                         </div>

@@ -17865,39 +17865,6 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, _callee5);
     })));
 
-    _defineProperty(_assertThisInitialized(_this), "logoutGuest", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-      return regeneratorRuntime.wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              _context6.prev = 0;
-              _context6.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_12___default().delete('/auth/logoutGuest', {
-                uname: _this.state.registerUsername,
-                pw: _this.state.registerPw
-              });
-
-            case 3:
-              location.href = "/auth/logout";
-              _context6.next = 9;
-              break;
-
-            case 6:
-              _context6.prev = 6;
-              _context6.t0 = _context6["catch"](0);
-              console.log(_context6.t0);
-
-            case 9:
-              ;
-
-            case 10:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6, null, [[0, 6]]);
-    })));
-
     _this.state = {
       addCollectionModal: false,
       addSongModal: false,
@@ -17927,8 +17894,8 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this.handleShare = _this.handleShare.bind(_assertThisInitialized(_this));
     _this.handleRegister = _this.handleRegister.bind(_assertThisInitialized(_this));
     _this.closeMenu = _this.closeMenu.bind(_assertThisInitialized(_this));
-    _this.handleStateChange = _this.handleStateChange.bind(_assertThisInitialized(_this));
-    _this.logoutGuest = _this.logoutGuest.bind(_assertThisInitialized(_this));
+    _this.handleStateChange = _this.handleStateChange.bind(_assertThisInitialized(_this)); // this.logoutGuest = this.logoutGuest.bind(this)
+
     return _this;
   }
 
@@ -18019,7 +17986,15 @@ var App = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "render",
-    value: function render() {
+    value: // logoutGuest = async() => {
+    //     try {
+    //         await axios.delete('/auth/logoutGuest', {uname: this.state.registerUsername, pw: this.state.registerPw});
+    //         location.href = "/auth/logout"
+    //     } catch (err) {
+    //         console.log(err)
+    //     };
+    // };
+    function render() {
       var _this2 = this,
           _React$createElement;
 
@@ -18212,14 +18187,16 @@ var App = /*#__PURE__*/function (_React$Component) {
         id: "guestSignUp",
         className: "burgerMenuItem",
         onClick: function onClick() {
-          return _this2.setState({
+          _this2.setState({
             menuOpen: false,
             registerModal: true
           });
+
+          axios__WEBPACK_IMPORTED_MODULE_12___default().put('/api/incrementBurgerSignups');
         }
       }, "Sign Up") : null, this.props.user.userType === 'GUEST' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "burgerMenuItem",
-        onClick: this.logoutGuest
+        onClick: logout
       }, "Exit") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         onClick: logout,
         className: "burgerMenuItem"
@@ -18526,7 +18503,10 @@ var App = /*#__PURE__*/function (_React$Component) {
         variant: "outlined"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_19__.default, {
         type: "submit",
-        title: "Sign Up"
+        title: "Sign Up",
+        func: function func() {
+          return axios__WEBPACK_IMPORTED_MODULE_12___default().put('/api/incrementModalSignups');
+        }
         /*disabled={this.state.collectionName.length > 30}*/
 
       })))))), this.props.screenStr !== 'PlayerScreen' && react_device_detect__WEBPACK_IMPORTED_MODULE_13__.isBrowser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SpringScrollbars__WEBPACK_IMPORTED_MODULE_18__.default, {

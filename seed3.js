@@ -7,13 +7,13 @@ const seed = async () => {
 
         const turnUp = await Collection.create({
             collectionName: 'Turn Up',
-            collectionOwner: 'Tempo Music Player',
+            collectionOwner: null,
             collectionArtUrl: 'https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/http___cdn.cnn.com_cnnnext_dam_assets_210701131326-worlds-largest-yacht--credit--winch-design-3.jpg'
         });
 
         const beachChill = await Collection.create({
             collectionName: 'Beach Chill',
-            collectionOwner: 'Tempo Music Player',
+            collectionOwner: null,
             collectionArtURL: 'https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/16927716876_bf44bf456f_b.jpg'
         })
 
@@ -465,7 +465,7 @@ const seed = async () => {
 
     /////
 
-    const mobTies = await Song.create({
+    const woodwork = await Song.create({
         songName: 'Woodwork',
         artistName: 'Vic Sage',
         albumName: 'B-Sides',
@@ -475,7 +475,7 @@ const seed = async () => {
         artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer/Woodwork+152/ab67616d0000b2736003452d33948192f07cb730.jfif"
     });
 
-    // await turnUp.addSong(mobTies);
+    // await turnUp.addSong(woodwork);
 
     /////
 
@@ -649,20 +649,6 @@ const seed = async () => {
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
-    });
-
-    await beachChill.addSong(mobTies);
-
-    /////
-
     const makeItUp = await Song.create({
         songName: 'Make It Up',
         artistName: 'Far West',
@@ -716,20 +702,6 @@ const seed = async () => {
     });
 
     await beachChill.addSong(motion);
-
-    /////
-
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
-    });
-
-    await beachChill.addSong(mobTies);
 
     /////
 

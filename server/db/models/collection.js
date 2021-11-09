@@ -8,7 +8,8 @@ module.exports = db.define('collections', {
         allowNull: false,
     },
     collectionOwner: {
-        type: Sequelize.SMALLINT
+        type: Sequelize.SMALLINT,
+        // allowNull: true
     },
     totalTime: {
         type: Sequelize.SMALLINT,

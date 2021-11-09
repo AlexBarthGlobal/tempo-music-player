@@ -11,7 +11,8 @@
     "build-watch": "webpack -w",
     "build": "webpack",
     "seed": "node seed.js",
-    "seed2": "node seed2.js"
+    "seed2": "node seed2.js",
+    "seed3": "node seed3.js"
   },
   "author": "",
   "license": "ISC",

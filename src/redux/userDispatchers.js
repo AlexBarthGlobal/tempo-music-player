@@ -61,7 +61,6 @@ export const fetchUser = () => {
     dispatch(setFetchingStatus(true))
     try {
       const response = await axios.get('/auth/me')
-      // console.log('This is response', response.data.listened)
       const listenedSongs = {};
       if (response.data.listened) {
         for (const song of response.data.listened.songs) {
@@ -70,8 +69,6 @@ export const fetchUser = () => {
           };
       };
       response.data.listened.songs = listenedSongs;
-
-      console.log('This is NEW response', listenedSongs)
 
       dispatch(gotMe(response.data))
     } catch (error) {
@@ -94,23 +91,11 @@ export const addToListenedAndSessionThunk = (song, collectionSessionId) => {
   };
 };
 
-// export const signUp = credentials => {
-//   return async dispatch => {
-//     try {
-//       const response = await axios.post('/auth/signup', credentials)
-//       dispatch(gotMe(response.data))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   };
-// }
-
 export const logout = () => {
   return async dispatch => {
     try {
       await axios.get('/auth/logout')
       dispatch(logoutUser())
-      // history.push('/login')
     } catch (err) {
       console.error(err)
     }
@@ -130,10 +115,8 @@ export const clearListenedThunk = (listenedId) => {
 };
 
 export const setMetronomeSoundOptionThunk = (boolean) => {
-  console.log('Called thunk')
   return async dispatch => {
     try {
-      console.log('METRONOME BOOLEAN', boolean)
       await axios.put('/api/setMetronomeSoundOption', {data:{boolean}})
       dispatch(setMetronomeSoundOption(boolean))
     } catch (err) {
@@ -164,30 +147,6 @@ export const upgradeToUserThunk = (registerUsername, registerPw) => {
     };
   };
 };
-
-// export const login = credentials => {
-//   return async dispatch => {
-//     try {
-//       console.log('THESE ARE CREDS', credentials)
-//       const response = await axios.post('/auth/login', credentials)
-//       console.log('THIS IS RESPONSE', response)
-//       dispatch(gotMe(response.data))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   };
-// }
-
-// export const logout = () => {
-//   return async dispatch => {
-//     try {
-//       await axios.delete('/auth/logout')
-//       dispatch(gotMe({}))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
-// }
 
 const initialState = {
   user: {
@@ -223,7 +182,6 @@ export default function userReducer (state = initialState, action) {
         user: {...state.user, listened: listenedCopy}
       };
     case SET_UPDATED_LISTENED:
-      console.log('DISPATCH LISTENED', action.updatedListened)
       return {
         user: {...state.user, listened: action.updatedListened}
       };

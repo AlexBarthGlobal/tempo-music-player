@@ -20,9 +20,7 @@ const BPMLight = (props) => {
     };
 
     return (
-        <div className={blink ? 'BPMLightActive' : 'BPMLight'}>
-            
-        </div>
+        <div className={blink ? 'BPMLightActive' : 'BPMLight'}></div>
     )
 }
 

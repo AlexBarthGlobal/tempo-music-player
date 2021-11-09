@@ -15,11 +15,9 @@ router.get('/', (req, res, next) => {
 
 router.get('/me', async (req, res, next) => {
     try {
-      // console.log(req.session)
       if (!req.session.passport.user) {
         res.sendStatus(401);
       } else {
-        // const user = await User.findByPk(req.session.passport.user);
         const user = await User.findOne({
           where: {
             id: req.session.passport.user
@@ -46,24 +44,6 @@ router.get('/me', async (req, res, next) => {
   });
 
 router.post('/login', passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}));
-
-// async function logLogin (req, res, next) {
-//   try {
-//     console.log('HELLO THERE')
-//     await User.update({
-//       recentLogin: new Date()
-//     },
-//     {
-//       where: {
-//         id: req.session.passport.user
-//       }
-//     });
-
-//     res.sendStatus(201)
-//   } catch (err) {
-//     next(err)
-//   };
-// };
 
 router.post('/register', register, passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}));
 
@@ -107,8 +87,6 @@ async function register (req, res, next) {
     await newUser.addCollection(beachChill);
     await newUser.addCollection(turnUp);
 
-    // Put any pre-made collections here
-
     next();
 
   } catch (error) {
@@ -125,7 +103,7 @@ async function registerGuest (req, res, next) {
     });
 
     let mostRecentId;
-    if (!mostRecentUser) {   // Write logic if there are no users for whatever reason.
+    if (!mostRecentUser) {
       mostRecentId = 1;
     } else mostRecentId = mostRecentUser.id + 1;
 
@@ -158,8 +136,6 @@ async function registerGuest (req, res, next) {
     const listened = await Listened.create()
     await newUser.setListened(listened)
 
-    // Put any pre-made collections here
-
     req.body.uname = newEmail;
     req.body.pw = naivePass;
     next();
@@ -168,6 +144,8 @@ async function registerGuest (req, res, next) {
     next(error)
   };
 };
+
+// Use this logout route to delete guest after logout
 
 // router.delete('/logoutGuest', async (req, res, next) => {
 //   try {
@@ -184,7 +162,9 @@ async function registerGuest (req, res, next) {
 //   };
 // });
 
+
 // Call this anytime someone enters as guest. Deletes guests with createdAt older than 3 days.
+
 // async function clearInactiveGuests (req, res, next) {
 //   try {
 //     const threeDays = (86400000 * 3);
@@ -253,7 +233,6 @@ router.put('/clearInitialLogin', async (req, res, next) => {
         id: req.session.passport.user
       }
     });
-    console.log('LAMBO', updatedUser)
   res.status(201).json(updatedUser)
   } catch (err) {
     next(err)

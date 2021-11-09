@@ -21,7 +21,6 @@ const MainPlayerSlider = (props) => {
     }
 
     const onCommit = () => {
-      console.log('SETTING NEW TIME', currTime)
       props.seekTime(currTime);
       setSeeking(false);
     }
@@ -34,7 +33,6 @@ const MainPlayerSlider = (props) => {
                   defaultValue={currTime}
                   max={Math.round(props.duration)}
                   value={Math.round(currTime)}
-                //   defaultValue={0}
                   valueLabelFormat={() => secondsToTimestamp(currTime)}
                   onChange={onChange}
                   onChangeCommitted={onCommit}
@@ -60,7 +58,6 @@ const MainPlayerSlider = (props) => {
                     },
                     '& .MuiSlider-rail': {
                       color: 'gray',
-                      // opacity: 1,
                     },
                   }}
                 />
@@ -69,7 +66,7 @@ const MainPlayerSlider = (props) => {
                 <div className='singleMainPlayerTimestamp'>{secondsToTimestamp(props.currTime)}</div>
                   <div id='mainPlayerControls'>
                     <SkipPreviousIcon sx={{fontSize: 36}} onClick={prevTrack} />
-                    {playing ? <PauseIcon className='footerCenterItem mainPlayerPlayPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='footerCenterItem mainPlayerPlayPausePadding' sx={{fontSize: 36}} onClick={play} />}
+                    {playing ? <PauseIcon className='mainPlayerPlayPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='mainPlayerPlayPausePadding' sx={{fontSize: 36}} onClick={play} />}
                     <SkipNextIcon sx={{fontSize: 36}} onClick={nextTrack} />
                   </div>
                 <div className='singleMainPlayerTimestamp'>{secondsToTimestamp(props.duration)}</div>

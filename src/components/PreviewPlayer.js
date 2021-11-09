@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 class PreviewPlayer extends React.Component {
-    constructor(props) {
+    constructor() {
         super()
     };
 
@@ -11,7 +11,6 @@ class PreviewPlayer extends React.Component {
     };
 
     render() {
-        console.log('REFRESHED PREVIEW PLAYER')
         const previewPlayer = <audio src={this.props.songURL} preload="auto" autoPlay={true} onEnded={() => this.props.previewEnded()} ref={(element) => {this.songPreview = element}}/>
         if (this.songPreview) {
             if (this.props.songURL === null) this.songPreview.pause();

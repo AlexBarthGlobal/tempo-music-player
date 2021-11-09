@@ -18,9 +18,6 @@ router.put('/clearSessions', async (req, res, next) => {
 });
 
 router.put('/searchSongs', async (req, res, next) => {
-
-    console.log('RARI', req.body.searchInput, req.body.BPMInput)
-
     const searchInputAndBPMInput = {
         where: {    //searchInput and BPMInput are filled
             [Op.or]: [ 
@@ -87,7 +84,7 @@ router.put('/searchSongs', async (req, res, next) => {
     const noInput = {   //Neither searchInput or BPMInput are specified, so simply query 15 most played songs.
         limit: 15,
         order: [['plays', 'DESC']]
-    }
+    };
 
     try {
         let condition = req.body.searchInput && req.body.BPMInput ? searchInputAndBPMInput : req.body.searchInput ? searchInput : req.body.BPMInput ? BPMInput : noInput;
@@ -107,11 +104,7 @@ router.post('/shareCollection', async (req, res, next) => {
             }
         });
 
-        console.log('Blackberry', recipient.dataValues.id)
-
-        if (!recipient) res.sendStatus(403) //Recipient doesn't exist
-
-        //check if the user already has the collection
+        if (!recipient) res.sendStatus(403)
 
         const checkIfAlreadyHasCollection = await UserCollection.findOne({
             where: {
@@ -125,10 +118,8 @@ router.post('/shareCollection', async (req, res, next) => {
             const collectionToShare = await Collection.findByPk(req.body.collectionId)
             await recipient.addCollection(collectionToShare)
             res.status('201').send('Shared successfully.')
-            console.log('Dog')
         } else {
             res.status('201').send('Recipient already has the collection.')
-            console.log('Cat')
         };
     } catch (err) {
         next(err)
@@ -232,7 +223,7 @@ router.post('/addSongToListenedAndSession', async (req, res, next) => {
 
         res.json('Done')
     } catch (err) {
-        console.log(err)
+        next(err)
     };
 });
 
@@ -245,7 +236,7 @@ router.put('/incrementPlayIdx', async (req, res, next) => {
 
         res.status(200).send('Done')
     } catch (err) {
-        console.log(err)
+        next(err)
     }
 })
 
@@ -258,12 +249,11 @@ router.put('/decrementPlayIdx', async (req, res, next) => {
 
         res.status(200).send('Done')
     } catch (err) {
-        console.log(err)
+        next(err)
     }
 })
 
 router.put('/updateOrCreateSessionBpm', async (req, res, next) => {
-    console.log('cherry', req.body.data.newBPM)
     try {
         const currentSession = await CollectionSession.findOne({
             where: {
@@ -272,10 +262,7 @@ router.put('/updateOrCreateSessionBpm', async (req, res, next) => {
             },
         });
 
-        console.log('cherries', currentSession)
-
         if (currentSession) {
-            console.log('mango', req.body.data.newBPM)
             await CollectionSession.update(
                 {currBPM: req.body.data.newBPM,
                 active: true},
@@ -285,7 +272,6 @@ router.put('/updateOrCreateSessionBpm', async (req, res, next) => {
                 }}
             );
         } else {
-            console.log('rari')
             const newSession = await CollectionSession.create({
                 currBPM: req.body.data.newBPM
             });
@@ -298,9 +284,8 @@ router.put('/updateOrCreateSessionBpm', async (req, res, next) => {
         };
 
         res.status(200).send('Done')
-
     } catch (err) {
-        console.log(err)
+        next(err)
     }
 })
 
@@ -363,21 +348,13 @@ router.post('/fetchCollectionAndCollectionSongsAndCollectionSessionAndSessionSon
             sessionSongs: sessionSongs     
         });
     } catch (err) {
-        console.log(err)
+        next(err)
     };
 })
 
 
 router.put('/updateUserCollectionSessionsToInactive', async (req, res, next) => {
     try {
-        // await CollectionSession.update({
-        //     active: false,
-        //     where: {
-        //         userId: req.session.passport.user,
-        //         id: {$not: req.body.data.collectionSessionId}
-        //     }
-        // });
-        console.log('apple', req.body.data)
         await CollectionSession.update(
             {active: false},
             {where: {
@@ -390,9 +367,9 @@ router.put('/updateUserCollectionSessionsToInactive', async (req, res, next) => 
 
         res.status(201).send('Done')
     } catch (err) {
-        console.log(err)
-    }
-})
+        next(err)
+    };
+});
 
 router.get('/fetchCollectionAndSessions', async (req, res, next) => {
     try {
@@ -415,7 +392,7 @@ router.get('/fetchCollectionAndSessions', async (req, res, next) => {
         res.json(user);
 
     } catch(err) {
-        console.log(err)
+        next(err)
     }
 })
 
@@ -446,9 +423,9 @@ router.post('/fetchCurrentCollectionAndSongs', async (req, res, next) => {
         res.json(collection);
 
     } catch (err) {
-        console.log(err)
-    }
-})
+        next(err)
+    };
+});
 
 router.get('fetchSongsFromListened', async (req, res, next) => {
     try {
@@ -460,9 +437,8 @@ router.get('fetchSongsFromListened', async (req, res, next) => {
         })
 
         res.json(listened);
-
     } catch (err) {
-        console.log(err)
+        next(err)
     }
 });
 
@@ -487,7 +463,7 @@ router.post('/fetchSongsFromSession', async (req, res, next) => {
         res.json(sessionSongs);
 
     } catch (err) {
-        console.log(err)
+        next(err)
     }
 })
 
@@ -579,7 +555,6 @@ router.put('/updateCollectionName', async (req, res, next) => {
 });
 
 router.delete('/deleteCollection', async (req, res, next) => {
-    console.log('Tux')
     try {
         await CollectionSession.destroy({
             where: {

@@ -7,7 +7,7 @@ import PreviewPlayer from '../components/PreviewPlayer'
 import BPMSlider from '../components/BPMSlider'
 import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerDispatchers'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { isBrowser, isMobile } from 'react-device-detect';
+import { isBrowser } from 'react-device-detect';
 import Input from '@mui/material/Input';
 
 const BrowseSongs = (props) => {
@@ -33,7 +33,6 @@ const BrowseSongs = (props) => {
 
     const selectSong = (selectedSongURL) => {
         props.pause();
-        console.log('SelectedURL', selectedSongURL, 'playingURL', songURL)
         if (playing && selectedSongURL === songURL) {
             setSongURL(null);
             setPlaying(false);
@@ -126,7 +125,6 @@ const BrowseSongs = (props) => {
             </div>
             <div className='centerThis'>
                 <div>
-                    {/* <input type='text' name='searchInput' placeholder='Search for songs, albums or artists' value={searchInput} onChange={handleChange}></input>*/}
                     <Input className='browseSongsInput' 
                         sx={{
                             fontSize: 22,

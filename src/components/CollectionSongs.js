@@ -7,7 +7,7 @@ import Modal from 'react-modal'
 import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import Metronome from '../icons/metronome.svg'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { isBrowser, isMobile } from 'react-device-detect';
+import { isBrowser } from 'react-device-detect';
 import StyledButton from './StyledButton'
 import Input from '@mui/material/Input';
 
@@ -68,12 +68,10 @@ class CollectionSongs extends React.Component {
     }
 
     removeSongFromCollection = async (songId) => {
-        console.log('REMOVED', songId)
         await this.props.removeSongFromCollection(this.props.selectedCollection, songId, !!this.props.user.listened.songs[songId]);
     };
     
     render() {
-        const buttonLabel = this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === this.props.selectedCollection ? 'Change Tempo' : 'Select Tempo and Play'
         const songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
             for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
@@ -82,7 +80,6 @@ class CollectionSongs extends React.Component {
             songList.sort((a,b) => a.BPM-b.BPM)
             let idx = 0;
             for (const song of songList) {
-                console.log(song.artURL)
                 songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} songIsPlaying={this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx] && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === song.id} />
                 idx++;
             };
@@ -188,7 +185,6 @@ class CollectionSongs extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        // selectedCollectionName: state.musicReducer.collections[state.screenReducer.selectedCollection].collectionName,
         user: state.userReducer.user,
         musicInfo: state.musicReducer,
         screenStr: state.screenReducer.screenStr,

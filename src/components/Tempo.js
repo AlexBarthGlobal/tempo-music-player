@@ -6,18 +6,16 @@ import songsInRange from '../components/songsInRange'
 import Modal from 'react-modal'
 import ManageBPMSliderAndTap from './ManageBPMSliderAndTap'
 import { setPlayingTrueThunk } from '../redux/playerDispatchers';
-import { isBrowser, isMobile } from 'react-device-detect';
+import { isBrowser } from 'react-device-detect';
 import axios from 'axios'
 
 class Tempo extends React.Component {
     constructor (props) {
-        console.log('PROPS from Constructor',props)
         super()
         this.state = {
             noMoreMusic: false
         };
 
-    // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.isActive = this.isActive.bind(this)
     };
@@ -33,7 +31,6 @@ class Tempo extends React.Component {
             if (this.isActive(this.props.selectedCollection)) this.props.popOneFromActiveSessionSongs();     
             if (this.isActive(this.props.selectedCollection)) await this.props.updateSessionBpm(this.props.selectedCollection, selectedBPM) //update the BPM of the already activeSession or create new session
             else await this.props.fetchOnTempoChange(this.props.selectedCollection, selectedBPM); //load the session and its sessionSongs 
-            // if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
             this.props.applySongsInRange(results[0]);
             this.props.changeScreen('PlayerScreen')
             let idx = this.props.musicInfo.activeSession.playIdx
@@ -42,10 +39,8 @@ class Tempo extends React.Component {
                 await this.props.next();
             };
             this.props.play();
-            // }
         } else {
             this.setState({noMoreMusic: true})
-            console.log('No more music')
         }
     };
 
@@ -56,14 +51,12 @@ class Tempo extends React.Component {
     };
 
     changeBPM = (newBPM) => {
-        console.log('CHANGE BPM', newBPM)
         this.setState({
             BPM: Number(newBPM)
         });
     };
 
     render() {
-        console.log('PROPS from TEMPO', this.props)
         const { BPM } = this.state;
         return (
             <div>
@@ -87,7 +80,6 @@ class Tempo extends React.Component {
                                 marginRight: 'auto',
                                 top: '28%',
                                 border: '1px solid #00000096',
-                                // paddingBottom: '30px',
                                 backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
                                 backdropFilter: 'blur(5px)'
                             },
@@ -102,9 +94,6 @@ class Tempo extends React.Component {
                         <div className='modalText'>No more songs at the selected BPM!</div>
                         <div className='modalText'>Try a different BPM,</div>
                         <div className='modalText'>add songs, or clear listened.</div>
-                        {/* <div>
-                            
-                        </div> */}
                     </div>
                 </Modal>
                 <div>

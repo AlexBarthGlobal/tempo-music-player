@@ -124,7 +124,6 @@ export const createCollectionThunk = (collectionName, collectionArtURL) => {
     return async dispatch => {
         try {
             const newCollection = await axios.post('/api/createCollection', {data:{collectionName, collectionArtURL}})
-            console.log('THIS IS THE NEW COLLECTION', newCollection)
             dispatch(createCollection(newCollection.data))
         } catch (err) {
             console.error(err)
@@ -138,7 +137,6 @@ export const fetchCollectionsAndSessions = () => {
         dispatch(setFetchingStatus(true))
         try {
             const response = await axios.get('/api/fetchCollectionAndSessions')
-            // console.log('FETCHED COLLECTIONS & SESSIONS', response.data)
             let activeSession;
             const collectionsObj = {};
             for (const collection of response.data.collections) {
@@ -150,12 +148,9 @@ export const fetchCollectionsAndSessions = () => {
                 };
             };
             response.data.collections = collectionsObj;
-            // console.log('THIS IS THE ACTIVE SESSION', activeSession)
             if (activeSession) {
                 // get all songs from the session descending order so you get most recent songs first
                 const sessionSongs = await axios.post('/api/fetchSongsFromSession', {data: activeSession.id});
-                console.log('SESSION SONGS,', sessionSongs)
-                // console.log('SESSIONSONGS THUNK', sessionSongs)
                 activeSession.songs = [];
                 if (sessionSongs) {
                     for (const key in sessionSongs.data.songs) {
@@ -174,7 +169,6 @@ export const fetchCollectionsAndSessions = () => {
 
 export const fetchActiveCollectionSongs = (activeCollectionId) => {
     return async dispatch => {
-        // dispatch(setFetchingStatus(true))
         try {
             const activeCollectionSongs = await axios.post('/api/fetchCurrentCollectionAndSongs', {data: activeCollectionId})
             let data = {};
@@ -188,8 +182,6 @@ export const fetchActiveCollectionSongs = (activeCollectionId) => {
             dispatch(setActiveCollectionSongs(data))
         } catch (error) {
             console.error(error)
-        } finally {
-            // dispatch(setFetchingStatus(false))
         }
     };
 };
@@ -211,7 +203,6 @@ export const fetchOnTempoChangeThunk = (selectedCollectionId, newBPM) => {
         try {
             await axios.put('/api/updateOrCreateSessionBpm', {data:{selectedCollectionId, newBPM}});
             let results = await axios.post('/api/fetchCollectionSessionAndSessionSongs', {data: selectedCollectionId})
-            console.log('SESSION RESULTS', results)
             await axios.put('/api/updateUserCollectionSessionsToInactive', {data: selectedCollectionId});        
             dispatch(dispatchLoadSessionAndSessionSongs(results.data))
         } catch (err) {
@@ -335,9 +326,7 @@ export const updateCollectionNameThunk = (newCollectionName, collectionId) => {
 export const deleteCollectionThunk = (collectionId, isActiveBool) => {
     return async dispatch => {
         try {
-            console.log('THUNK PARAMS', collectionId, isActiveBool)
             await axios.delete('/api/deleteCollection', {data:{collectionId}})
-            console.log('COLLECTION DELETED from Thunk')
             dispatch(deleteCollection({collectionId, isActiveBool}))
         } catch(err) {
             console.log(err)
@@ -348,7 +337,6 @@ export const deleteCollectionThunk = (collectionId, isActiveBool) => {
 export const removeCollectionThunk = (collectionId, isActiveBool) => {
     return async dispatch => {
         try {
-            console.log('THUNK PARAMS', collectionId, isActiveBool)
             await axios.delete('/api/removeCollection', {data:{collectionId}})
             dispatch(removeCollection({collectionId, isActiveBool}))
         } catch(err) {
@@ -360,7 +348,6 @@ export const removeCollectionThunk = (collectionId, isActiveBool) => {
 export const incrementSongPlayedThunk = (songId) => {
     return async dispatch => {
         try {
-            console.log('SONGID', songId);
             await axios.put('/api/incrementSongPlayed', {data: songId});
         } catch(err) {
             console.log(err)
@@ -369,9 +356,6 @@ export const incrementSongPlayedThunk = (songId) => {
 };
 
 const initialState = {
-    // musicInfo: {
-    //     isFetching: true,
-    // }
     isFetching: true
 };
 
@@ -387,7 +371,6 @@ let isActive
 export default function musicReducer (state = initialState, action) {
     switch (action.type) {
         case FETCH_COLLECTIONS_AND_SESSIONS:
-            // console.log('FROM MUSIC REDUCER', action)
             return {
                 ...state,
                 collections: action.data.collectionsAndSessions,
@@ -402,7 +385,6 @@ export default function musicReducer (state = initialState, action) {
                 activeSession: action.sessionAndSessionSongs
             }
         case SET_ACTIVE_COLLECTION_SONGS:
-            //loop over session here and rename songs to 'S'
             const collectionsCopy = {...state.collections}
             collectionsCopy[action.data.activeCollectionId].songs = action.data.activeCollectionSongs
             return {
@@ -464,11 +446,6 @@ export default function musicReducer (state = initialState, action) {
                 ...state,
                 activeSession: {...state.activeSession, songs: songsCopy}
             };
-        // case SET_CURRENT_SONG:
-        //     return {
-        //         ...state,
-        //         currentSong: action.song
-        //     }
         case CLEAR_SESSIONS:
             collectionCopy = {...state.collections};
             for (const key in collectionCopy) {
@@ -489,7 +466,6 @@ export default function musicReducer (state = initialState, action) {
             action.newCollection.collectionSessions = [];
             collectionCopy = {...state.collections};
             collectionCopy[action.newCollection.id] = action.newCollection
-            console.log(action.newCollection)
             return {
                 ...state,
                 collections: collectionCopy

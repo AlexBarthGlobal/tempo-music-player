@@ -5,11 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(26, 24, 24);
-  /* Header space */
-  /* padding-top: 92px; */
-  /* background-color: #111111; */
- 
+  background-color: rgb(26, 24, 24); 
 }
 
 /* disable blue highlight (especially on mobile) */
@@ -27,12 +23,7 @@ a {
   margin-top: 92px;
 }
 
-.clearFooterPadding {
-  /* padding-bottom: 100px; */
-}
-
 .clearFooterPaddingDesktopSongs {
-  /* padding-bottom: 140px; */
   padding-bottom: 60px;
 }
 
@@ -76,15 +67,10 @@ a {
   text-align: center;
   border: 1px solid #7575756b;
   border-radius: 3vw;
-  /* min-width: 278px; */
-  /* max-width: 400px;
-  width: 1vw;
-  min-width: 258px; */
   width: max(258px, min(400px, 50vw));
-  /* width: 400px; */
   -webkit-box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44); 
-box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44);
-animation: mymove 8s infinite;
+  box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44);
+  animation: mymove 8s infinite;
 }
 
 @keyframes mymove {
@@ -102,10 +88,8 @@ animation: mymove 8s infinite;
 }
 
 #loginScreenWrapper {
-  /* padding-top: 40px; */
   display: flex;
   justify-content: center;
-  /* border: 1px solid orange; */
 }
 
 .buttonsOnLogin {
@@ -127,10 +111,7 @@ svg {
   fill: white;
   color: white;
   transition: all 0.05s ease-out;
-  /* height: 30px;
-  width: 30px; */
 }
-
 
 #welcomeModal {
   display: flex;
@@ -213,7 +194,6 @@ svg:hover {
 .burgerName {
   margin-top: 0px;
   font-size: 130%;
-  /* font-size: 2.2vmin; */
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -272,9 +252,6 @@ svg:hover {
   min-height: 125px;
   max-width: 250px;
   max-height: 250px;
-  /* margin-right: 6vw;
-  margin-left: 6vw; */
-  /* margin-bottom: 80px; */
   margin-bottom: max(80px, min(10vw, 180px));
   position: relative;
 }
@@ -325,8 +302,6 @@ svg:hover {
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* margin-left: 8vw;
-  margin-right: 8vw; */
   margin-left: auto;
   margin-right: auto;
   border: 1px rgb(114, 114, 114) solid;
@@ -374,7 +349,6 @@ svg:hover {
 }
 
 #innerMainPlayer {
-  /* border: 2px white solid; */
   margin-left: 4vw;
   margin-right: 4vw;
 }
@@ -465,7 +439,6 @@ svg:hover {
 }
 
 .screenTitle {
-  /* color: rgb(255, 255, 255); */
   font-size: 2em;
   text-align: center;
   padding-left: 20px;
@@ -480,7 +453,6 @@ svg:hover {
 }
 
 .browseSongsAlert {
-  /* color: rgb(255, 255, 255); */
   font-size: 1.3em;
   text-align: center;
   padding-left: 30px;
@@ -502,7 +474,6 @@ svg:hover {
 
 .topButtons {
   display: flex;
-  /* justify-content: space-between; */
   justify-content: flex-end;
   padding-top: 10px;
   padding-right: 10px;
@@ -577,7 +548,6 @@ svg:hover {
 .secondButtons {
   display: flex;
   justify-content: flex-end;
-  /* padding-top: 10px; */
   padding-top: 6px;
   padding-right: 10px;
 }
@@ -642,9 +612,6 @@ ul {
   position: fixed;
   bottom: 0;
   width: 100%;
-  /* height: 10vh; */
-  /* background: rgba(128, 128, 128, 0.473); */
-  /* pointer-events: none; */
 }
 
 .footerRow {
@@ -654,7 +621,6 @@ ul {
 #mainPlayerTimestamps {
   display: flex;
   flex-direction: row;
-  /* width: 100%; */
   justify-content: space-between;
 }
 
@@ -682,15 +648,11 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* padding-left: 200px;
-  padding-right: 200px; */
 }
 
 .footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */
   margin-top: 5px;
   margin-bottom: 5px;
-  /* margin-left: 8px;
-  margin-right: 8px; */
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
@@ -700,11 +662,6 @@ ul {
 .footerCenterTopLeft {
   margin-left: 0px;
   margin-right: 10px;
-}
-
-.footerCenterItem {
-  /* margin-left: 10px;
-  margin-right: 10px; */
 }
 
 .footerCenterTopRight {
@@ -721,8 +678,6 @@ ul {
   backdrop-filter: blur(5px);
   background-color: rgba(156, 155, 155, 0.521);
   border-top: 0.5px solid rgba(56, 56, 56, 0.644);
-  /* background-color: rgba(126, 124, 124, 0.521); */
-  /* box-shadow: 0px 10px 40px 10px rgba(255, 255, 255, 0.568); */
 }
 
 .footerControlsMobile {
@@ -735,11 +690,7 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* min-height: 40px; */
   height: 52px;
-  /* padding: 10px 10px 10px 10px; */
-  /* backdrop-filter: blur(5px); */
-  /* background-color: rgba(156, 155, 155, 0.521); */
   background-color: rgb(102, 101, 101);
 }
 
@@ -747,7 +698,6 @@ ul {
   display: flex;
   width: 40vw;
   min-width: 114px;
-  /* border: 1px black solid; */
   cursor: pointer;
   transition: all 0.25s ease-out;
   border-radius: 10px;
@@ -763,7 +713,6 @@ ul {
   display: flex;
   width: 62vw;
   min-width: 114px;
-  /* border: 1px black solid; */
 }
 
 #footerControlsBPM {
@@ -788,7 +737,6 @@ ul {
   justify-content: flex-end;
   width: 40vw;
   min-width: 114px;
-  /* border: 1px black solid; */
   margin-top: auto;
   margin-bottom: auto;
 }
@@ -799,7 +747,6 @@ ul {
   justify-content: flex-end;
   width: 40vw;
   min-width: 114px;
-  /* border: 1px black solid; */
   margin-top: auto;
   margin-bottom: auto;
   padding-right: 8px;
@@ -815,17 +762,11 @@ ul {
 }
 
 .footerTextContainer {
-  /* max-width: 98%; */
-  /* width: 400px; */
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
   width: 40vw;
   min-width: 40px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  /* border: 1px red solid; */
 }
 
 .footerTextContainer > div {
@@ -836,8 +777,6 @@ ul {
 }
 
 .footerTextContainerMobile {
-  /* max-width: 98%; */
-  /* width: 400px; */
   letter-spacing: 0.6px;
   display: flex;
   flex-direction: column;
@@ -847,7 +786,6 @@ ul {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  /* border: 1px red solid; */
 }
 
 .footerTextContainerMobile > div {
@@ -857,13 +795,6 @@ ul {
   white-space: nowrap;
   font-size: 13px;
 }
-
-/* .footerText {
-  max-width: 98%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-} */
 
 .footerArt {
   min-width: 52px;
@@ -881,16 +812,8 @@ ul {
   min-height: 52px;
   max-width: 52px;
   max-height: 52px;
-  /* margin-top: auto;
-  margin-bottom: auto; */
   margin-right: 5px;
-  /* margin-left: 6px; */
 }
-
-/* .footerCenterBottom {
-  display: flex;
-  justify-content: row;
-} */
 
 .maxWidth {
   width: 100%;
@@ -931,12 +854,9 @@ ul {
   padding-left: 6px;
   padding-right: 12px;
   text-align: left;
-  /* table-layout: fixed; */
-  /* padding-bottom: 70px; */
 }
 
 .collectionSongsTableDesktop {
-  /* margin-left: 10vw; */
   padding-left: 100px;
 }
 
@@ -951,28 +871,19 @@ ul {
 .controlsTop {
   display: flex;
   justify-content: space-between;
-  /* border: black solid 1px; */
   flex-direction: row;
   background-color: rgba(156, 155, 155, 0.521);
-  /* backdrop-filter: blur(5px); */
-  /* border-top-left-radius: 25px;
-  border-top-right-radius: 25px; */
 }
 
 .loopOn {
-  /* color:rgb(255, 208, 0) !important; */
   color:rgb(255, 251, 0) !important;
 }
 
 .controlsBottom {
   display: flex;
   justify-content: space-between;
-  /* border: black solid 1px; */
   flex-direction: row;
   background-color: rgba(156, 155, 155, 0.521);
-  /* backdrop-filter: blur(5px); */
-  /* border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px; */
 }
 
 .trackpadAndDuration {
@@ -988,10 +899,6 @@ ul {
   margin-top: auto;
   margin-bottom: auto;
 }
-
-/* table > tr {
-  padding-top: 20px;
-} */
 
 tr {
   height: 60px;
@@ -1023,13 +930,10 @@ tr {
   width: 94%;
   margin-left: auto;
   margin-right: auto;
-  /* margin-left: 18px;
-  margin-right: 18px; */
 }
 
 .footerSliderMobile {
   width: 100%;
-  /* height: 5px; */
   display: flex;
 }
 
@@ -1066,9 +970,6 @@ tr {
 }
 
 .centerThis {
-  /* margin-left: auto;
-  margin-right: auto;
-  width: 8em */
   text-align: center;
 }
 
@@ -1091,7 +992,6 @@ tr {
 
 .horizontalSlider {
   width: 47%;
-  /* padding:10px; */
   margin-left: auto;
   margin-right: auto;
   height: 40px;
@@ -1100,7 +1000,6 @@ tr {
 
 .horizontalSliderMobile {
   width: 72%;
-  /* padding:10px; */
   margin-left: auto;
   margin-right: auto;
   height: 40px;
@@ -1108,8 +1007,6 @@ tr {
 }
 
 .exampleTrack {
-  /* margin-left: auto;
-  margin-right: auto; */
   height: 20px;
   width: 47%;
   background: grey;

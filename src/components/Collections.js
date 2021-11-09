@@ -4,8 +4,7 @@ import SingleCollection from './SingleCollection'
 import {selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {deleteCollectionThunk, removeCollectionThunk} from '../redux/musicDispatchers'
 import Modal from 'react-modal'
-import { isBrowser, isMobile } from 'react-device-detect';
-import SpringScrollbars from './SpringScrollbars'
+import { isBrowser } from 'react-device-detect';
 import StyledButton from './StyledButton'
 import Input from '@mui/material/Input';
 
@@ -33,14 +32,12 @@ class Collections extends React.Component {
 
     deleteCollection = async (evt) => {
         evt.preventDefault();
-        /*await*/ console.log('deleting collection', this.state.tempSelectedCollection) //call thunk
         await this.props.deleteCollection(this.state.tempSelectedCollection, !!(this.props.activeSession && this.props.activeSession.collectionId === this.state.tempSelectedCollection));
         this.setState({confirmDelete: false, tempSelectedCollection: '', tempSelectedCollectionName: '', confirmYes: ''})
     };
 
     removeCollection = async (evt) => {
         evt.preventDefault();
-        /*await*/ console.log('removing collection', this.state.tempSelectedCollection) //call thunk
         await this.props.removeCollection(this.state.tempSelectedCollection, !!(this.props.activeSession && this.props.activeSession.collectionId === this.state.tempSelectedCollection));
         this.setState({confirmRemove: false, tempSelectedCollection: '', tempSelectedCollectionName: ''})
     };
@@ -58,7 +55,6 @@ class Collections extends React.Component {
     }
 
     render() {
-        console.log('PROPS FROM COLLECTIONS', this.props)
         const isActive = (collectionId) => {
             return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === collectionId)
         };
@@ -190,7 +186,7 @@ class Collections extends React.Component {
                 <div className='screenTitle collectionsTitle'>
                     Collections
                 </div>
-                {collectionComponents.length ? <div className={`collections ${isBrowser ? 'clearFooterPadding' : 'clearFooterPaddingMobile'}`}>
+                {collectionComponents.length ? <div className={`collections ${isBrowser ? null : 'clearFooterPaddingMobile'}`}>
                     {collectionComponents}
                 </div> : <div id='noCollectionsYet'>No collections yet. Create a new one!</div>}
                 
@@ -204,7 +200,6 @@ const mapStateToProps = (state) => {
         user: state.userReducer.user,
         musicInfo: state.musicReducer,
         activeSession: state.musicReducer.activeSession
-        // screenInfo: state.screenReducer
     }
   }
   

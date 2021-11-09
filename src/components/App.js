@@ -4,21 +4,18 @@ import Modal from 'react-modal'
 import Collections from './Collections'
 import Tempo from './Tempo'
 import PlayerScreen from './PlayerScreen'
-// import AddSongs from './AddSongs'
 import BrowseSongs from './BrowseSongs'
 import CollectionSongs from './CollectionSongs'
-// import {logout} from '../redux/isLogged'
 import {Redirect} from 'react-router-dom'
-import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk, clearActiveSessionThunk, popOneFromActiveSessionSongsThunk, updateSessionBpmThunk, applySongsInRange} from '../redux/musicDispatchers'
+import {enqueueSongThunk, incrementPlayIdxThunk, clearSessionsThunk, createCollectionThunk, clearActiveSessionThunk, popOneFromActiveSessionSongsThunk, updateSessionBpmThunk, applySongsInRange} from '../redux/musicDispatchers'
 import {changeScreenThunk, selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
 import {addToListenedAndSessionThunk, clearListenedThunk, setMetronomeSoundOptionThunk, clearInitialLoginThunk, upgradeToUserThunk} from '../redux/userDispatchers'
 import songsInRange from '../components/songsInRange'
 import axios from 'axios';
-import { isBrowser, isMobile } from 'react-device-detect';
+import { isBrowser } from 'react-device-detect';
 import MainPlayer from './MainPlayer'
 import {setPlayingTrueThunk, setPlayingFalseThunk} from '../redux/playerDispatchers'
 import { slide as Menu } from 'react-burger-menu'
-// import HomeButton from '../icons/home.svg'
 import HomeIcon from '@mui/icons-material/Home';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
@@ -61,13 +58,10 @@ class App extends React.Component {
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
-        // this.play = this.play.bind(this);
-        // this.pause = this.pause.bind(this);
         this.checkIfLoaded = this.checkPlayerReady.bind(this);
         this.resetInfo = this.resetInfo.bind(this);
         this.changeTempoFromModal = this.changeTempoFromModal.bind(this);
         this.addSongsFromModal = this.addSongsFromModal.bind(this);
-        // this.seekTime = this.seekTime.bind(this)
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -75,22 +69,20 @@ class App extends React.Component {
         this.handleRegister = this.handleRegister.bind(this)
         this.closeMenu = this.closeMenu.bind(this)
         this.handleStateChange = this.handleStateChange.bind(this)
-        // this.logoutGuest = this.logoutGuest.bind(this)
+        // this.logoutGuest = this.logoutGuest.bind(this) //Optional if want to delete guests on logout
     };
 
     checkPlayerReady() {
-        return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && /*this.props.musicInfo.activeSession.songsInRange &&*/ this.props.musicInfo.activeSession.songs[this.props.playIdx] /*&& this.props.musicInfo.activeSession.songs[this.props.playIdx] !== 'S'*/);
+        return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songsInRange && this.props.musicInfo.activeSession.songs[this.props.playIdx]);
     };
-    //Instead of above check, check this.state.currSrc
 
     async checkIfListened() {
-        if (/*this.props.musicInfo.activeSession.songs[this.props.playIdx] &&*/this.props.user && this.props.user.listened && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
-            await this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id); //pass in the songId and activeSessionId
+        if (this.props.user && this.props.user.listened && !this.props.user.listened.songs[this.props.musicInfo.activeSession.songs[this.props.playIdx].id]) {
+            await this.props.addToListenedAndSession(this.props.musicInfo.activeSession.songs[this.props.playIdx], this.props.musicInfo.activeSession.id);
         };
     };
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('UPDATED HERE')
         if (prevState.collectionName !== this.state.collectionName || prevState.collectionArtURL !== this.state.collectionArtURL) return;
         if (prevState.recipientEmail !== this.state.recipientEmail) return;
         if (prevProps.screenStr !== this.props.screenStr && (this.state.editCollection || this.state.editCollections)) {
@@ -100,7 +92,7 @@ class App extends React.Component {
             })
         };
         if (prevState.registerUsername !== this.state.registerUsername || prevState.registerPw !== this.state.registerPw) return;
-        //Modal stuff above
+        //Modal logic above
 
         if (this.checkPlayerReady()) this.checkIfListened();
     };
@@ -153,7 +145,6 @@ class App extends React.Component {
     };
 
     resetInfo = async () => {
-        console.log('RESETTING INFO')
         await this.props.clearSessions()
         await this.props.clearListened(this.props.user.listened.id)
         this.props.pause();
@@ -171,8 +162,7 @@ class App extends React.Component {
                     await this.props.updateSessionBpm(this.props.musicInfo.activeSession.collectionId, results[1])
                     this.props.applySongsInRange(results[0]);
                 } else {
-                    // if playback is at 0, pause. It means the song has ended on its own and I can set the Pause button back to where it says Play.
-                    tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession.
+                    tempActiveCollectionSession = this.props.musicInfo.activeSession.collectionId //This keeps track of the collectionId after we clear the activeSession. For modal navigation.
                     this.setState({noNextSong: true});
                 };
             };
@@ -207,6 +197,8 @@ class App extends React.Component {
         this.setState({menuOpen: state.isOpen})  
     };
 
+    //Optional for deleting guests after logout
+
     // logoutGuest = async() => {
     //     try {
     //         await axios.delete('/auth/logoutGuest', {uname: this.state.registerUsername, pw: this.state.registerPw});
@@ -222,13 +214,10 @@ class App extends React.Component {
               position: 'fixed',
               width: '28.8px',
               height: '24px',
-            //   left: '30px',
-            //   top: '30px'
             left: '14px',
             top: '18px'
             },
             bmBurgerBars: {
-            //   background: '#373a47',
             background: '#F3F3F3'
             },
             bmBurgerBarsHover: {
@@ -244,11 +233,9 @@ class App extends React.Component {
             },
             bmCross: {
               background: '#bdc3c7',
-            //   backgroundColor: 'white'
             },
             bmMenuWrap: {
               position: 'fixed',
-            //   height: '100%',
               height: `${isBrowser && this.props.musicInfo.activeSession ? 'calc(100vh - 90px)' : '100%' }`,
               width: '276px',
               top: '0',
@@ -257,8 +244,6 @@ class App extends React.Component {
             bmMenu: {
               position: 'fixed',
               top: '0',
-            //   background: '#373a47',
-            //   background: 'rgb(62 60 68 / 91%)',
               background: 'rgba(52, 52, 52, 0.82)',
               backdropFilter: 'blur(5px)',
               padding: '1.5em 1.5em 0',
@@ -287,8 +272,6 @@ class App extends React.Component {
               height: `${isBrowser && this.props.musicInfo.activeSession ? 'calc(100vh - 90px)' : '100%' }`
             }
         };
-        console.log('Props on App.js RENDER', this.props)
-        console.log('STATE', this.state)
         if (!this.props.user.id) return <Redirect to='/login' />;
 
         const logout = () => {
@@ -306,7 +289,7 @@ class App extends React.Component {
         else if (this.props.screenStr === 'PlayerScreen') {
             selectedScreen = <PlayerScreen />
             changeTempo = <Metronome id='metronomeNavButton' onClick={() => this.props.changeScreen('Tempo')} />
-        } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs play={this.play} pause={this.pause} /*playPauseBool={this.state.playing}*//>    
+        } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs play={this.play} pause={this.pause} />    
         else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs editMode={this.state.editCollection} editModeDone={() => this.setState({editCollection: false})} />
         let shareCollection;
         if (this.props.screenStr === 'CollectionSongs') shareCollection = <ShareIcon className='navButton' onClick={() => this.setState({shareCollectionModal: true})} />
@@ -318,7 +301,6 @@ class App extends React.Component {
                 axios.put('/api/incrementBurgerSignups')}}>Sign Up</div> : null}
             {this.props.user.userType === 'GUEST' ? <div className='burgerMenuItem' onClick={logout}>Exit</div> : <div onClick={logout} className='burgerMenuItem'>Logout</div>}
         </Menu>
-        // const escapeExitSongs = this.state.editCollection ? <ClearIcon onClick={() => this.setState({editCollection: false})} className='navButton'/> : null;
 
         return (
             <div>
@@ -638,7 +620,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     enqueueSong: () => dispatch(enqueueSongThunk()),
     incrementPlayIdx: (sessionId) => dispatch(incrementPlayIdxThunk(sessionId)),
-    // decrementPlayIdx: (sessionId) => dispatch(decrementPlayIdxThunk(sessionId)),
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),
     addToListenedAndSession: (song, collectionSessionId) => dispatch(addToListenedAndSessionThunk(song, collectionSessionId)),
     clearListened: (listenedId) => dispatch(clearListenedThunk(listenedId)),

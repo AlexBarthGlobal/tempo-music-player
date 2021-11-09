@@ -16,7 +16,6 @@ const FooterSlider = (props) => {
     }
 
     const onCommit = () => {
-      console.log('SETTING NEW TIME', currTime)
       props.seekTime(currTime);
       setSeeking(false);
     }
@@ -30,7 +29,6 @@ const FooterSlider = (props) => {
                   defaultValue={currTime}
                   max={Math.round(props.duration)}
                   value={Math.round(currTime)}
-                //   defaultValue={0}
                   valueLabelFormat={() => secondsToTimestamp(currTime)}
                   onChange={onChange}
                   onChangeCommitted={onCommit}

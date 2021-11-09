@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import previousTrack from '../icons/previousTrack.svg'
 import { Slider } from '@mui/material';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import PlayArrow from '@mui/icons-material/PlayArrow';
@@ -24,7 +23,7 @@ class FooterControlsMobile extends React.Component {
                 </div>
                 <div className='footerBox3Mobile'>
                     <div className='centerVertical touchPaddingBottom' onClick={() => selectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'Tempo')}>{this.props.musicInfo.activeSession.currBPM}</div>
-                    <div className='footerItemCenterMobile touchPaddingTopMobile'>{playing ? <PauseIcon className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='footerCenterItem playPausePadding' sx={{fontSize: 36}} onClick={play} />}</div>
+                    <div className='footerItemCenterMobile touchPaddingTopMobile'>{playing ? <PauseIcon className='playPausePadding' sx={{fontSize: 36}} onClick={pause} /> : <PlayArrow className='playPausePadding' sx={{fontSize: 36}} onClick={play} />}</div>
                     <SkipNextIcon onClick={nextTrack} className='touchPaddingTopMobile' sx={{fontSize: 36}}/>
                 </div>
             </div>
@@ -38,24 +37,13 @@ class FooterControlsMobile extends React.Component {
                   defaultValue={70}
                   sx={{
                     padding: '0px !important',
-                    // color: 'black',
-                    // '& .MuiSlider-root': {
-                    //     paddingTop: '0px'
-                    // },
                     '& .MuiSlider-thumb': {
                         display: 'none',
-                    //   width: 24,
-                    //   height: 24,
-                    //   backgroundColor: '#fff',
                       '&:before': {
                         boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
                       },
-                      // '&:hover, &.Mui-focusVisible, &.Mui-active': {   // This is the hover/glow
-                      //   boxShadow: 'none',
-                      // },
                     },
                     '& .MuiSlider-track': {
-                        // color: 'rgb(255, 251, 0)',
                         color: '#d4af37'
                     },
                     '& .MuiSlider-rail': {

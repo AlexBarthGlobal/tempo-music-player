@@ -1,12 +1,10 @@
 import React from 'react'
-import { isBrowser, isMobile } from 'react-device-detect';
+import { isBrowser } from 'react-device-detect';
 import secondsToTimestamp from './secondsToTimestamp'
 import AddIcon from '@mui/icons-material/Add';
 import ClearIcon from '@mui/icons-material/Clear';
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
 import StopIcon from '@mui/icons-material/Stop';
-
-{/* <button onClick={() => selectSong(songURL)}>{playingURL === songURL ? 'Stop' : 'Play'}</button>*/}
 
 const BrowseSongsSingleSong = (props) => {
     const {songId, songName, artistName, albumName, BPM, duration, songURL, artURL, addSongToCollection, removeSongFromCollection, inCollection, playingStatus, playingURL, selectSong} = props

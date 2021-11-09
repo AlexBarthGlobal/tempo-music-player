@@ -16,7 +16,7 @@ export default class MetronomeSound extends React.Component {
         this.playMetronome = this.playMetronome.bind(this)
     };
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         if (this.props.metronomeSound !== this.state.metronomeSound) {
             this.setState({metronomeSound: this.props.metronomeSound});
             if (this.state.mobileMetronome) {
@@ -43,8 +43,6 @@ export default class MetronomeSound extends React.Component {
 
         clearInterval(interval);
         this.playMetronome();
-
-        console.log('UPDATED metronomesounds')
         return;
     };
 

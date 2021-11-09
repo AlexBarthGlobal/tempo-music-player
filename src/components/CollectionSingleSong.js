@@ -1,5 +1,5 @@
 import React from 'react'
-import { isBrowser, isMobile } from 'react-device-detect';
+import { isBrowser } from 'react-device-detect';
 import secondsToTimestamp from './secondsToTimestamp'
 import ClearIcon from '@mui/icons-material/Clear';
 

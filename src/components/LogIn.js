@@ -62,7 +62,7 @@ class Login extends React.Component {
             await axios.post('/auth/enterAsGuest')
             window.location.reload()
         } catch (err) {
-            console.log('error creating guest')
+            next(err);
         };
     };
 

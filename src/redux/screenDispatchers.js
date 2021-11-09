@@ -19,7 +19,6 @@ const changeScreenAction = screen => ({
 
 export const selectCollection = (collectionId) => {
     return dispatch => {
-        console.log('FROM DISPATCHER', collectionId)
         dispatch(setSelectedCollection(collectionId))
     }
 }
@@ -47,7 +46,6 @@ const initialState = {
 export default function screenReducer (state = initialState, action) {
     switch (action.type) {
         case SELECT_COLLECTION:
-            console.log('This is action', action.collectionId)
             return {
                 ...state,
                 selectedCollection: action.collectionId
@@ -58,20 +56,11 @@ export default function screenReducer (state = initialState, action) {
                 screenStr: action.screen
             }
         case SET_SELECTED_COLLECTION_AND_SCREEN:
-            console.log('SELECTED COLLECTION AND SCREEN', action.data)
             return {
                 ...state,
                 screenStr: action.data.screen,
                 selectedCollection: action.data.collectionId
             }
-        // case SET_FETCHING_STATUS:
-        //     return {
-        //         ...state,
-        //         collections: {
-        //             ...state.collections,
-        //         isFetching: action.isFetching
-        //     }
-        // };
     default:
         return state
     }

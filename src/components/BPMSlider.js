@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
-// import ReactSlider from 'react-slider'
 import { Slider } from '@mui/material';
-import { isBrowser, isMobile } from 'react-device-detect';
+import { isBrowser } from 'react-device-detect';
 
 const BPMSlider = (props) => {
     const [sliderBPM, setSliderBPM] = useState(props.localBPM)

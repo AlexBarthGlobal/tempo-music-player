@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setPlayingTrueThunk, setPlayingFalseThunk } from '../redux/playerDispatchers';
-import { isBrowser, isMobile } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import FooterControls from './FooterControls'
 import FooterControlsMobile from './FooterControlsMobile'
 import {incrementSongPlayedThunk, decrementPlayIdxThunk} from '../redux/musicDispatchers'
@@ -10,7 +10,6 @@ import PlayerComponent from '../components/PlayerComponent'
 class MainPlayer extends React.Component {
     constructor() {
         super()
-        console.log(sessionStorage.getItem('loop'))
         this.state = {
             currentTime: 0,
             duration: 0,
@@ -26,7 +25,7 @@ class MainPlayer extends React.Component {
     componentDidMount = async () => {
         if (this.props.musicInfo.activeSession) this.setState({
             currSrc: this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL,
-            duration: this.props.musicInfo.activeSession.songs[this.props.playIdx].duration //e.target.duration
+            duration: this.props.musicInfo.activeSession.songs[this.props.playIdx].duration
         });
         this.rap.addEventListener('timeupdate', e => {
             if (Math.floor(e.target.currentTime) - Math.floor(this.state.currentTime) >= 1) {
@@ -64,7 +63,6 @@ class MainPlayer extends React.Component {
             this.rap.play();
             if (!this.props.noNextSong && this.rap.currentTime === 0 && !this.rap.loop) {
                 //Increment played in DB for the song
-                console.log('INCREMENTED PLAYED')
                 this.props.incrementSongPlayed(this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id)
             };
         };
@@ -78,11 +76,6 @@ class MainPlayer extends React.Component {
     };
 
     seekTime = async (newTime) => {
-        // if (this.rap.readyState !== 4) {
-        //     await this.rap.play();
-        //     await this.rap.pause();
-        // };
-        
         this.rap.currentTime = newTime;
         this.setState({
             currentTime: newTime
@@ -112,7 +105,6 @@ class MainPlayer extends React.Component {
     };
 
     render () {
-        console.log('REFRESHED MAINPLAYER')
         const audio = <audio src={this.state.currSrc} preload='auto' autoPlay={this.props.playing ? true : false} onEnded={this.props.nextTrack} loop={this.state.loop} ref={(element) => {this.rap = element}}/>
 
         const player = this.props.screenStr === 'PlayerScreen' ? 

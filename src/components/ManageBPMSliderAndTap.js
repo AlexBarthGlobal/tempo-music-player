@@ -3,7 +3,6 @@ import BPMSlider from './BPMSlider'
 import BPMTap from './BPMTap'
 import BPMLight from './BPMLight'
 import MetronomeSounds from './MetronomeSounds'
-import { Slider } from '@mui/material';
 import PlayArrow from '@mui/icons-material/PlayArrow';
 
 export default class ManageBPMSliderAndTap extends React.Component {
@@ -24,11 +23,6 @@ export default class ManageBPMSliderAndTap extends React.Component {
     };
 
     render() {
-        
-        // console.log('PLAYING OR NOT', this.props.playing)
-        // console.log('Metronome sound', this.props.metronomeSound)
-        // console.log('handleSubmit', this.props.handleSubmit)
-        console.log(this.state.localBPM)
         return (
             <div>
                 <div>

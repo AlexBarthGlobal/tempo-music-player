@@ -18258,7 +18258,6 @@ var App = /*#__PURE__*/function (_React$Component) {
           spellCheck: false
         },
         name: "collectionName",
-        id: "outlined-basic",
         value: this.state.collectionName,
         onChange: this.handleChange,
         variant: "outlined"
@@ -18283,7 +18282,6 @@ var App = /*#__PURE__*/function (_React$Component) {
           spellCheck: false
         },
         name: "collectionArtURL",
-        id: "outlined-basic",
         placeholder: "Search",
         value: this.state.collectionArtURL,
         onChange: this.handleChange
@@ -18407,7 +18405,6 @@ var App = /*#__PURE__*/function (_React$Component) {
           spellCheck: false
         },
         name: "recipientEmail",
-        id: "outlined-basic",
         value: this.state.recipientEmail,
         onChange: this.handleChange,
         variant: "outlined"
@@ -18472,7 +18469,6 @@ var App = /*#__PURE__*/function (_React$Component) {
           spellCheck: false
         },
         name: "registerUsername",
-        id: "outlined-basic",
         value: this.state.registerUsername,
         onChange: this.handleChange,
         variant: "outlined"
@@ -18496,8 +18492,8 @@ var App = /*#__PURE__*/function (_React$Component) {
         inputProps: {
           spellCheck: false
         },
+        type: "password",
         name: "registerPw",
-        id: "outlined-basic",
         value: this.state.regsiterPw,
         onChange: this.handleChange,
         variant: "outlined"
@@ -19802,7 +19798,6 @@ var BrowseSongs = function BrowseSongs(props) {
       }
     },
     name: "searchInput",
-    id: "outlined-basic",
     placeholder: "Search",
     value: searchInput,
     onChange: handleChange,
@@ -20632,7 +20627,6 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
           }
         },
         name: "editedCollectionName",
-        id: "outlined-basic",
         onFocus: this.clearNameOnFocus,
         value: this.state.editedCollectionName,
         onChange: this.handleChange,
@@ -21184,7 +21178,6 @@ var Collections = /*#__PURE__*/function (_React$Component) {
           }
         },
         name: "confirmYes",
-        id: "outlined-basic",
         value: this.state.confirmYes,
         onChange: this.handleChange,
         variant: "outlined"

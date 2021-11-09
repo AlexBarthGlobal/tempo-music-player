@@ -356,7 +356,7 @@ class App extends React.Component {
                                             ':not($focused)': { borderBottomColor: 'white' },
                                             ':before': { borderBottomColor: 'grey' },
                                             ':after': { borderBottomColor: 'white' },
-                                            }} inputProps={{ spellCheck: false }} name='collectionName' id="outlined-basic" value={this.state.collectionName} onChange={this.handleChange} variant="outlined" />
+                                            }} inputProps={{ spellCheck: false }} name='collectionName' value={this.state.collectionName} onChange={this.handleChange} variant="outlined" />
                                 </div>
                                 <div className='modalText'>Art URL:</div>
                                 <div>
@@ -367,7 +367,7 @@ class App extends React.Component {
                                             ':not($focused)': { borderBottomColor: 'white' },
                                             ':before': { borderBottomColor: 'grey' },
                                             ':after': { borderBottomColor: 'white' },
-                                        }} inputProps={{ spellCheck: false }} name='collectionArtURL' id="outlined-basic" placeholder="Search" value={this.state.collectionArtURL} onChange={this.handleChange} placeholder={'Optional'} variant="outlined" />
+                                        }} inputProps={{ spellCheck: false }} name='collectionArtURL' placeholder="Search" value={this.state.collectionArtURL} onChange={this.handleChange} placeholder={'Optional'} variant="outlined" />
                                 </div>
                                 <div>
                                     <StyledButton type='submit' title='Create' disabled={this.state.collectionName.length > 30}/>
@@ -467,7 +467,7 @@ class App extends React.Component {
                                             ':not($focused)': { borderBottomColor: 'white' },
                                             ':before': { borderBottomColor: 'grey' },
                                             ':after': { borderBottomColor: 'white' },
-                                            }} inputProps={{ spellCheck: false }} name='recipientEmail' id="outlined-basic" value={this.state.recipientEmail} onChange={this.handleChange} variant="outlined" />
+                                            }} inputProps={{ spellCheck: false }} name='recipientEmail' value={this.state.recipientEmail} onChange={this.handleChange} variant="outlined" />
                                 </div>
                                 <div className='modalText noRecipientPadding'>
                                     {this.state.shareConfirmation}
@@ -522,7 +522,7 @@ class App extends React.Component {
                                             ':not($focused)': { borderBottomColor: 'white' },
                                             ':before': { borderBottomColor: 'grey' },
                                             ':after': { borderBottomColor: 'white' },
-                                            }} inputProps={{ spellCheck: false }} name='registerUsername' id="outlined-basic" value={this.state.registerUsername} onChange={this.handleChange} variant="outlined" />
+                                            }} inputProps={{ spellCheck: false }} name='registerUsername' value={this.state.registerUsername} onChange={this.handleChange} variant="outlined" />
                                 </div>
                                 <div className='modalText'>Password</div>
                                 <div>
@@ -533,7 +533,7 @@ class App extends React.Component {
                                             ':not($focused)': { borderBottomColor: 'white' },
                                             ':before': { borderBottomColor: 'grey' },
                                             ':after': { borderBottomColor: 'white' },
-                                        }} inputProps={{ spellCheck: false }} name='registerPw' id="outlined-basic" value={this.state.regsiterPw} onChange={this.handleChange} variant="outlined" />
+                                        }} inputProps={{ spellCheck: false }} type='password' name='registerPw' value={this.state.regsiterPw} onChange={this.handleChange} variant="outlined" />
                                 </div>
                                 <div>
                                     <StyledButton type='submit' title='Sign Up' func={() => axios.put('/api/incrementModalSignups')} /*disabled={this.state.collectionName.length > 30}*//>

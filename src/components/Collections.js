@@ -174,7 +174,7 @@ class Collections extends React.Component {
                                             ':not($focused)': { borderBottomColor: 'white' },
                                             ':before': { borderBottomColor: 'rgb(160, 160, 160)' },
                                             ':after': { borderBottomColor: 'white' },
-                                            }} inputProps={{ spellCheck: false, style: { textAlign: 'center' }}} name='confirmYes' id="outlined-basic" value={this.state.confirmYes} onChange={this.handleChange} variant="outlined" />
+                                            }} inputProps={{ spellCheck: false, style: { textAlign: 'center' }}} name='confirmYes' value={this.state.confirmYes} onChange={this.handleChange} variant="outlined" />
                 </div>
                 <div>
                     <StyledButton title='Delete' type='submit' disabled={this.state.confirmYes !== 'CONFIRM'} />

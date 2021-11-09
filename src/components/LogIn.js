@@ -3,6 +3,7 @@ import axios from 'axios'
 import StyledButton from './StyledButton';
 import Input from '@mui/material/Input';
 import * as EmailValidator from 'email-validator'
+import PasswordValidator from '../../server/lib/validatePw'
 
 class Login extends React.Component {
     constructor() {
@@ -30,7 +31,6 @@ class Login extends React.Component {
                 return;
             };
 
-            if (!PasswordValidator(this.state.pw)) this.setState({error: "That's not an ideal password."})
             try {
                 await axios.post('/auth/login', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
                 window.location.reload()
@@ -42,6 +42,12 @@ class Login extends React.Component {
                 this.setState({error: "That's not a valid email address."})
                 return;
             };
+
+            if (!PasswordValidator.validate(this.state.pw)) {
+                this.setState({error: "Choose a stronger password."})
+                return;
+            };
+
             try {
                 await axios.post('/auth/register', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
                 window.location.reload()

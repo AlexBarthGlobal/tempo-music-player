@@ -32,6 +32,8 @@ import ShareIcon from '@mui/icons-material/Share';
 import SpringScrollbars from './SpringScrollbars';
 import StyledButton from './StyledButton';
 import Input from '@mui/material/Input';
+import * as EmailValidator from 'email-validator'
+import PasswordValidator from '../../server/lib/validatePw'
 
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
@@ -52,6 +54,7 @@ class App extends React.Component {
           registerModal: false,
           registerUsername: '',
           registerPw: '',
+          registerMessage: '',
           menuOpen: false,
           initialLoginModal: false
         }; 
@@ -135,16 +138,17 @@ class App extends React.Component {
     
     handleRegister = async (evt) => {
         evt.preventDefault()
-        // try {
-        //     this.props.upgradeToUser();
-        //     window.location.reload()
-        // } catch(err) {
-        //     // this.setState({error: 'Email already exists.'})
-        //     console.log('There was an error')
-        // };
+        if (!EmailValidator.validate(this.state.registerUsername) || this.state.registerUsername.includes('@tempomusicplayer.io')) {
+            this.setState({registerMessage: "That's not a valid email address."})
+            return;
+        };
+        if (!PasswordValidator.validate(this.state.registerPw)) {
+            this.setState({registerMessage: "Choose a stronger password."})
+            return;
+        };
+        
         axios.put('/api/incrementModalSignups')
         await this.props.upgradeToUser(this.state.registerUsername.toLowerCase(), this.state.registerPw);
-        console.log(this.props.user)
     };
 
     resetInfo = async () => {
@@ -527,8 +531,6 @@ class App extends React.Component {
                                             ':after': { borderBottomColor: 'white' },
                                             }} inputProps={{ spellCheck: false }} name='registerUsername' value={this.state.registerUsername} onChange={this.handleChange} variant="outlined" />
                                 </div> : null}
-                                <div className='modalText modalErrorPadding'>{this.props.signUpStatusMessage}</div>
-                                
                                 {this.props.signUpStatusMessage !== 'Signed up successfully.' ? <div>
                                     <div className='modalText'>Password</div>
                                     <Input className='browseSongsInput' 
@@ -540,6 +542,7 @@ class App extends React.Component {
                                             ':after': { borderBottomColor: 'white' },
                                         }} inputProps={{ spellCheck: false }} type='password' name='registerPw' value={this.state.regsiterPw} onChange={this.handleChange} variant="outlined" />
                                 </div> : null}
+                                <div className='modalText modalErrorPadding'>{this.props.signUpStatusMessage === 'Signed up successfully.' ? this.props.signUpStatusMessage : this.state.registerMessage}</div>
                                 {this.props.signUpStatusMessage !== 'Signed up successfully.' ? <div>
                                     <StyledButton type='submit' title='Sign Up' /*disabled={this.state.collectionName.length > 30}*//>
                                 </div> : null}

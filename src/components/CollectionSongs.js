@@ -24,9 +24,9 @@ class CollectionSongs extends React.Component {
         this.clearNameOnFocus = this.clearNameOnFocus.bind(this)
     };
 
-    componentDidMount() {
+    async componentDidMount() {
         window.scrollTo(0, 0);
-        this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
+        await this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
         document.addEventListener('keydown', e => {
             if (e.key === 'Enter' && this.props.editMode) {
                 this.setState({
@@ -83,7 +83,7 @@ class CollectionSongs extends React.Component {
             let idx = 0;
             for (const song of songList) {
                 console.log(song.artURL)
-                songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} songIsPlaying={this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === song.id} />
+                songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} songIsPlaying={this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs.length && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx] && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === song.id} />
                 idx++;
             };
         };

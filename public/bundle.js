@@ -20487,32 +20487,54 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
 
   _createClass(CollectionSongs, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
+    value: function () {
+      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var _this2 = this;
 
-      window.scrollTo(0, 0);
-      this.props.fetchActiveCollectionSongs(this.props.selectedCollection);
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && _this2.props.editMode) {
-          _this2.setState({
-            collectionName: _this2.state.editedCollectionName
-          });
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                window.scrollTo(0, 0);
+                _context2.next = 3;
+                return this.props.fetchActiveCollectionSongs(this.props.selectedCollection);
 
-          _this2.props.editModeDone();
-        }
+              case 3:
+                document.addEventListener('keydown', function (e) {
+                  if (e.key === 'Enter' && _this2.props.editMode) {
+                    _this2.setState({
+                      collectionName: _this2.state.editedCollectionName
+                    });
 
-        if (e.key === "Escape" && _this2.props.editMode) {
-          _this2.setState({
-            exited: true,
-            editedCollectionName: _this2.props.musicInfo.collections[_this2.props.selectedCollection].collectionName
-          });
+                    _this2.props.editModeDone();
+                  }
 
-          _this2.props.editModeDone();
-        }
+                  if (e.key === "Escape" && _this2.props.editMode) {
+                    _this2.setState({
+                      exited: true,
+                      editedCollectionName: _this2.props.musicInfo.collections[_this2.props.selectedCollection].collectionName
+                    });
 
-        ;
-      });
-    }
+                    _this2.props.editModeDone();
+                  }
+
+                  ;
+                });
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
@@ -20521,29 +20543,29 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function () {
-      var _componentDidUpdate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(prevProps) {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      var _componentDidUpdate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(prevProps) {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 if (!(prevProps.editMode && !this.props.editMode)) {
-                  _context2.next = 8;
+                  _context3.next = 8;
                   break;
                 }
 
                 if (!(!this.state.exited && this.state.editedCollectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName)) {
-                  _context2.next = 7;
+                  _context3.next = 7;
                   break;
                 }
 
                 this.setState({
                   collectionName: this.state.editedCollectionName
                 });
-                _context2.next = 5;
+                _context3.next = 5;
                 return this.props.updateCollectionName(this.state.editedCollectionName, this.props.selectedCollection);
 
               case 5:
-                _context2.next = 8;
+                _context3.next = 8;
                 break;
 
               case 7:
@@ -20556,10 +20578,10 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
 
               case 9:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
       function componentDidUpdate(_x2) {
@@ -20619,7 +20641,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
               editMode: this.props.editMode,
               removeSongFromCollection: this.removeSongFromCollection,
               listenedBool: !!this.props.user.listened.songs[_song.id],
-              songIsPlaying: this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === _song.id
+              songIsPlaying: this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs.length && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx] && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === _song.id
             });
             idx++;
           }

@@ -80,6 +80,9 @@ class Login extends React.Component {
     render() {
         const { uname, pw } = this.state;
         return (
+            <div>
+            <h1 id='mainTitle'>Tempo Music Player</h1>
+            <div id='loginScreenWrapper'>
             <div className='loginScreen'>
                 <h1>{this.state.screen === 'login' ? 'Login' : 'Sign Up'}</h1>
                 <form onSubmit={this.handleSubmit}>
@@ -113,9 +116,11 @@ class Login extends React.Component {
                 <div className='spaceBelow'>
                     <StyledButton title={this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'} func={this.state.screen === 'login' ? () => this.setState({screen: 'signup', error: null}) : () => this.setState({screen: 'login', error: null})} />
                 </div>
-                <div>
+                <div id='bottomLoginButton'>
                     <StyledButton func={this.enterAsGuest} title='Enter as Guest' />
                 </div>
+            </div>
+            </div>
             </div>
         )
     }

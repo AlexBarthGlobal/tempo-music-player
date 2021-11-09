@@ -46,6 +46,24 @@ router.get('/me', async (req, res, next) => {
 
 router.post('/login', passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}));
 
+// async function logLogin (req, res, next) {
+//   try {
+//     console.log('HELLO THERE')
+//     await User.update({
+//       recentLogin: new Date()
+//     },
+//     {
+//       where: {
+//         id: req.session.passport.user
+//       }
+//     });
+
+//     res.sendStatus(201)
+//   } catch (err) {
+//     next(err)
+//   };
+// };
+
 router.post('/register', register, passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/'}));
 
 async function register (req, res, next) {
@@ -192,9 +210,39 @@ router.put('/upgradeToUser', async (req, res, next) => {
   };
 });
 
-router.get('/logout', isAuthLogin, (req, res, next) => {
+// async function logLogout (userId, next) {
+//   try {
+//     await User.update({
+//       recentLogout: new Date()
+//     },
+//     {
+//       where: {
+//         id: userId
+//       }
+//     });
+
+//     res.sendStatus(201)
+//   } catch (err) {
+//     next(err)
+//   };
+// };
+
+router.get('/logout', isAuthLogin, async (req, res, next) => {
+  try {
+    await User.update({
+      recentLogout: new Date()
+    },
+    {
+      where: {
+        id: req.session.passport.user
+      }
+    });
+
     req.logout();
     res.redirect('/login')
+  } catch (err) {
+    next(err)
+  };   
 })
 
 module.exports = router;

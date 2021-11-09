@@ -29,5 +29,19 @@ module.exports = db.define('users', {
     metronomeSound: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
+    },
+    modalGuestClicks: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    guestSignup: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    recentLogin: {
+        type: Sequelize.DATE
+    },
+    recentLogout: {
+        type: Sequelize.DATE
     }
 });

@@ -491,173 +491,161 @@ const seed = async () => {
 
     // await turnUp.addSong(yeahThatsMe);
 
-    /////
+    ///////////////////////////////////////
+    ///////////////////////////////////////
+    ///////////////////////////////////////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const awake = await Song.create({
+        songName: 'Awake',
+        artistName: 'Agustin',
+        albumName: 'Life',
+        BPM: 120,
+        duration: 273,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Awake+120/awake+by+agustin+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Awake+120/76723_Agustin_-_Life_-_A.jpg"
     });
 
-    await turnUp.addSong(mobTies);
-
-    /////
-
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
-    });
-
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(awake);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const blue = await Song.create({
+        songName: 'Blue',
+        artistName: 'Agustin',
+        albumName: 'Electric Elements III',
+        BPM: 120,
+        duration: 478,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/blue+120/blue+by+agustin+Artlist+120.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/blue+120/558557_Agustin_-_Electric_Elements_III_-_A.jpg"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(blue);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const byThoseWhoDo = await Song.create({
+        songName: 'By Those Who Do',
+        artistName: 'Agustin',
+        albumName: 'Electric Elements III',
+        BPM: 120,
+        duration: 288,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/by+those+who+do+120/by-those-who-do+by+agustin+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/by+those+who+do+120/558557_Agustin_-_Electric_Elements_III_-_A.jpg"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(byThoseWhoDo);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const feelingGood = await Song.create({
+        songName: 'Feeling Good',
+        artistName: 'Agustin',
+        albumName: 'Life',
+        BPM: 120,
+        duration: 289,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/feeling+good+120/feeling-good+by+agustin+Artlist+120.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/feeling+good+120/76723_Agustin_-_Life_-_A.jpg"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(feelingGood);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const goodToYou = await Song.create({
+        songName: 'Good To You',
+        artistName: 'D Mills',
+        albumName: 'Agape',
+        BPM: 175,
+        duration: 297,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Good+to+you+175/good-to-you+by+d-mills+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Good+to+you+175/ab67616d0000b2731baa4cc899159f74e1cc892d.jfif"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(goodToYou);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const gotIt = await Song.create({
+        songName: 'Got It',
+        artistName: 'Veshza',
+        albumName: 'The Spark',
+        BPM: 112,
+        duration: 138,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Got+It+112/got-it+by+veshza+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Got+It+112/ab67616d0000b2730966d503196cc5df0f622693.jfif"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(gotIt);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const human = await Song.create({
+        songName: 'Human',
+        artistName: 'The Hunts',
+        albumName: 'Toxic Hearts',
+        BPM: 124,
+        duration: 416,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Human+124/human+by+the-hunts+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Human+124/ab67616d0000b273e9314acadc5f815f4d1261a2.jfif"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(human);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const iCanFeelYouInMyHeart = await Song.create({
+        songName: 'I Can Feel You In My Heart',
+        artistName: 'Agustin',
+        albumName: 'I Can Feel You In My Heart',
+        BPM: 120,
+        duration: 296,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/I+can+feel+you+in+my+heart+120/i-can-feel-you-in-my-heart+by+agustin+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/I+can+feel+you+in+my+heart+120/424324_Agustin_-_I_Can_Feel_You_in_My_Heart_-_A.jpg"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(iCanFeelYouInMyHeart);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const itsTrue = await Song.create({
+        songName: "It's True",
+        artistName: 'D Mills',
+        albumName: 'Agape',
+        BPM: 125,
+        duration: 277,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/It's+True+125/its-true+by+d-mills+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/It's+True+125/ab67616d0000b2731baa4cc899159f74e1cc892d.jfif"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(itsTrue);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const liquidDreams = await Song.create({
+        songName: 'Liquid Dreams',
+        artistName: 'Agustin',
+        albumName: 'Electric Elements III',
+        BPM: 121,
+        duration: 492,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/liquid+dreams+121/liquid-dreams+by+agustin+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/liquid+dreams+121/558557_Agustin_-_Electric_Elements_III_-_A.jpg"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(liquidDreams);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const magic = await Song.create({
+        songName: 'Magic',
+        artistName: 'I Am Fowler',
+        albumName: 'Magic',
+        BPM: 124,
+        duration: 279,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Magic+124/magic+by+i-am-fowler+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Magic+124/ab67616d0000b273997331e0a5169507a23f802a.jfif"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(magic);
 
     /////
 
@@ -671,7 +659,63 @@ const seed = async () => {
         artURL: ""
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(mobTies);
+
+    /////
+
+    const makeItUp = await Song.create({
+        songName: 'Make It Up',
+        artistName: 'Far West',
+        albumName: 'Make It Up',
+        BPM: 120,
+        duration: 235,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Make+It+Up+120/make-it-up+by+far-west+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Make+It+Up+120/ab67616d0000b273fff539e42da6e9f1ed3d45bc.jfif"
+    });
+
+    await beachChill.addSong(makeItUp);
+
+    /////
+
+    const makeMyLoveYourHome = await Song.create({
+        songName: 'Make My Love Your Home',
+        artistName: 'The Days',
+        albumName: 'Make My Love Your Home',
+        BPM: 122,
+        duration: 200,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Make+My+Love+your+home+122/make-my-love-your-home+by+the-days+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Make+My+Love+your+home+122/ab67616d0000b273bcbf5bb35008c5a62cbccc44.jfif"
+    });
+
+    await beachChill.addSong(makeMyLoveYourHome);
+
+    /////
+
+    const margaritasAtDawn = await Song.create({
+        songName: 'Margaritas At Dawn',
+        artistName: 'Lymez',
+        albumName: 'Margaritas At Dawn',
+        BPM: 124,
+        duration: 195,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Margaritas+at+Dawn+124/margaritas-at-dawn+by+lymez+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Margaritas+at+Dawn+124/ab67616d0000b2731839fc88deb06145ab1def76.jfif"
+    });
+
+    await beachChill.addSong(margaritasAtDawn);
+
+    /////
+
+    const motion = await Song.create({
+        songName: 'Motion',
+        artistName: 'Agustin',
+        albumName: 'Electric Elements III',
+        BPM: 124,
+        duration: 251,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/motion+124/motion+by+agustin+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/motion+124/558557_Agustin_-_Electric_Elements_III_-_A.jpg"
+    });
+
+    await beachChill.addSong(motion);
 
     /////
 
@@ -685,67 +729,135 @@ const seed = async () => {
         artURL: ""
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(mobTies);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const nightAndDay = await Song.create({
+        songName: 'Night and Day',
+        artistName: 'Rex Banner',
+        albumName: 'Tropical House Vol.2',
+        BPM: 116,
+        duration: 172,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Night+and+day+116/night-and-day+by+rex-banner+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Night+and+day+116/110502_Rex_Banner_-_Tropical_House_Vol._2_-_A.jpg"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(nightAndDay);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const oceanInMotion = await Song.create({
+        songName: 'Ocean In Motion',
+        artistName: 'Elder Kedem',
+        albumName: 'Ocean In Motion',
+        BPM: 147,
+        duration: 194,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Ocean+in+Motion+147/ocean-in-motion+by+eldar-kedem+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Ocean+in+Motion+147/ab67616d0000b2733d2faa7f7a2c153f85aab7b8.jfif"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(oceanInMotion);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const pulse = await Song.create({
+        songName: 'Pulse',
+        artistName: 'Agustin',
+        albumName: 'Electric Elements III',
+        BPM: 116,
+        duration: 433,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/pulse+116/pulse+by+agustin+Artlist+116.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/pulse+116/558557_Agustin_-_Electric_Elements_III_-_A.jpg"
     });
 
-    await turnUp.addSong(mobTies);
+    await beachChill.addSong(pulse);
 
     /////
 
-    const mobTies = await Song.create({
-        songName: '',
-        artistName: '',
-        albumName: '',
-        BPM: ,
-        duration: ,
-        songURL: "",
-        artURL: ""
+    const purpleHaze = await Song.create({
+        songName: 'Purple Haze',
+        artistName: 'Notize',
+        albumName: 'Purple Haze',
+        BPM: 130,
+        duration: 198,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Purple+Haze+130/purple-haze+by+notize+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Purple+Haze+130/ab67616d0000b2735e51be2653c156b77d6c86ce.jfif"
     });
 
-    await turnUp.addSong(mobTies);
+    // await beachChill.addSong(purpleHaze);
 
     /////
 
-    await turnUp.addSong(mobTies);
+    const sinking = await Song.create({
+        songName: 'Sinking',
+        artistName: 'Jane & The Boy',
+        albumName: 'Turn It Up',
+        BPM: 124,
+        duration: 162,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Sinking+124/sinking+by+jane--the-boy+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Sinking+124/ab67616d0000b273339ee264a90b83e5a4df7542.jfif"
+    });
+
+    // await beachChill.addSong(sinking);
+
+    /////
+
+    const somberLove = await Song.create({
+        songName: 'Somber Love',
+        artistName: 'Michael Drake',
+        albumName: 'Somber Love',
+        BPM: 166,
+        duration: 190,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Somber+Love+166/somber-love+by+michael-drake+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Somber+Love+166/ab67616d0000b273c40dddc8afcfc33887f24a78.jfif"
+    });
+
+    // await beachChill.addSong(somberLove);
+
+    /////
+
+    const sunshine = await Song.create({
+        songName: 'Sunshine',
+        artistName: 'Agustin',
+        albumName: 'Electric Elements III',
+        BPM: 120,
+        duration: 400,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/sunshine+120/sunshine+by+agustin+Artlist+120.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/sunshine+120/558557_Agustin_-_Electric_Elements_III_-_A.jpg"
+    });
+
+    // await beachChill.addSong(sunshine);
+
+    /////
+
+    const tellMe = await Song.create({
+        songName: 'Tell Me',
+        artistName: 'Shuhandz, High Flown',
+        albumName: 'Tell Me',
+        BPM: 130,
+        duration: 195,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Tell+me+130/tell-me+by+shuhandz+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/Tell+me+130/ab67616d0000b27362452822351ce3ce3a667454.jfif"
+    });
+
+    // await beachChill.addSong(tellMe);
+
+    /////
+
+    const theGirlYouNeed = await Song.create({
+        songName: 'The Girl You Need',
+        artistName: 'NM',
+        albumName: 'The Girl You Need',
+        BPM: 124,
+        duration: 162,
+        songURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/The+Girl+You+Need+124/the-girl-you-need+by+nm+Artlist.mp3",
+        artURL: "https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer2/The+Girl+You+Need+124/ab67616d0000b2738044a20e1057ebad9803dbc8.jfif"
+    });
+
+    // await beachChill.addSong(theGirlYouNeed);
+
+    /////
         
     } catch (err) {
         console.log(err)

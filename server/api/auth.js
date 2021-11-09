@@ -95,6 +95,18 @@ async function register (req, res, next) {
     const listened = await Listened.create()
     await newUser.setListened(listened)
 
+    const emptyCollection = await Collection.create({
+      collectionName: 'Add Songs here',
+      collectionOwner: newUser.id
+    })
+
+    const beachChill = await Collection.findByPk(2)
+    const turnUp = await Collection.findByPk(1)
+
+    await newUser.addCollection(emptyCollection);
+    await newUser.addCollection(beachChill);
+    await newUser.addCollection(turnUp);
+
     // Put any pre-made collections here
 
     next();
@@ -115,7 +127,7 @@ async function registerGuest (req, res, next) {
     let mostRecentId;
     if (!mostRecentUser) {   // Write logic if there are no users for whatever reason.
       mostRecentId = 1;
-    } else mostRecentId = mostRecentUser.id;
+    } else mostRecentId = mostRecentUser.id + 1;
 
     const newEmail = 'user' + (mostRecentId+1337) + '@tempomusicplayer.io'
     const naivePass = naivePw(12)
@@ -130,6 +142,18 @@ async function registerGuest (req, res, next) {
       salt: salt,
       userType: 'GUEST'
     });
+
+    const emptyCollection = await Collection.create({
+      collectionName: 'Add Songs here',
+      collectionOwner: newUser.id
+    })
+
+    const beachChill = await Collection.findByPk(2)
+    const turnUp = await Collection.findByPk(1)
+
+    await newUser.addCollection(emptyCollection);
+    await newUser.addCollection(beachChill);
+    await newUser.addCollection(turnUp);
 
     const listened = await Listened.create()
     await newUser.setListened(listened)

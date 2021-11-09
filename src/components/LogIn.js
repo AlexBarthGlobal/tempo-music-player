@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import StyledButton from './StyledButton';
 import Input from '@mui/material/Input';
+import * as EmailValidator from 'email-validator'
+import PasswordValidator from '../../server/lib/validatePw'
 
 class Login extends React.Component {
     constructor() {
@@ -22,16 +24,32 @@ class Login extends React.Component {
 
     async handleSubmit(evt) {
         evt.preventDefault()
+
         if (this.state.screen === 'login') {
+            if (!EmailValidator.validate(this.state.uname)) {
+                this.setState({error: "That's not a valid email address."})
+                return;
+            };
+
             try {
-                await axios.post('/auth/login', {uname: this.state.uname, pw: this.state.pw});
+                await axios.post('/auth/login', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
                 window.location.reload()
             } catch (err) {
                 this.setState({error: 'Wrong email/password combination.'})
             }
         } else {
+            if (!EmailValidator.validate(this.state.uname) || this.state.uname.includes('@tempomusicplayer.io')) {
+                this.setState({error: "That's not a valid email address."})
+                return;
+            };
+
+            if (!PasswordValidator.validate(this.state.pw)) {
+                this.setState({error: "Choose a stronger password."})
+                return;
+            };
+
             try {
-                await axios.post('/auth/register', {uname: this.state.uname, pw: this.state.pw});
+                await axios.post('/auth/register', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
                 window.location.reload()
             } catch(err) {
                 this.setState({error: 'Email already exists.'})
@@ -62,25 +80,47 @@ class Login extends React.Component {
     render() {
         const { uname, pw } = this.state;
         return (
-            <div className='centerThis'>
+            <div>
+            <h1 id='mainTitle'>Tempo Music Player</h1>
+            <div id='loginScreenWrapper'>
+            <div className='loginScreen'>
                 <h1>{this.state.screen === 'login' ? 'Login' : 'Sign Up'}</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div>
-                        <input type='text' name='uname' placeholder='E-mail' onChange={this.handleChange} value={uname}></input>
+                        <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                            }} inputProps={{ spellCheck: false }} type='text' name='uname' placeholder='E-mail' onChange={this.handleChange} value={uname} />
                     </div>
                     <div>
-                        <input type={this.state.viewPw ? 'text' : 'password'} name='pw' placeholder='Password' onChange={this.handleChange} value={pw}></input>
+                        <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                            }} inputProps={{ spellCheck: false }} type={this.state.viewPw ? 'text' : 'password'} name='pw' placeholder='Password' onChange={this.handleChange} value={pw} />
                     </div>
-                    <div>{this.state.error}</div>
-                    <input type="submit" value="Submit"></input>
-                    <button onClick={this.viewPw}>{this.state.viewPw ? 'Hide password' : 'View password'}</button>
+                    <div className='modalErrorPadding'>{this.state.error}</div>
+                    <div className='buttonsOnLogin'>
+                        <StyledButton type="submit" title='Submit' value="Submit"/>
+                        <div className='buttonSeparator'></div>
+                        <StyledButton func={this.viewPw} title={this.state.viewPw ? 'Hide password' : 'View password'} />
+                    </div>
                 </form>
-                <div>
-                    <button onClick={this.state.screen === 'login' ? () => this.setState({screen: 'signup', error: null}) : () => this.setState({screen: 'login', error: null})}>{this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'}</button>
+                <div className='spaceBelow'>
+                    <StyledButton title={this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'} func={this.state.screen === 'login' ? () => this.setState({screen: 'signup', error: null}) : () => this.setState({screen: 'login', error: null})} />
                 </div>
-                <div>
-                    <button onClick={this.enterAsGuest}>Enter as Guest</button>
+                <div id='bottomLoginButton'>
+                    <StyledButton func={this.enterAsGuest} title='Enter as Guest' />
                 </div>
+            </div>
+            </div>
             </div>
         )
     }

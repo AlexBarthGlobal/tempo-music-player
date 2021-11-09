@@ -32,6 +32,9 @@ import ShareIcon from '@mui/icons-material/Share';
 import SpringScrollbars from './SpringScrollbars';
 import StyledButton from './StyledButton';
 import Input from '@mui/material/Input';
+import * as EmailValidator from 'email-validator'
+import PasswordValidator from '../../server/lib/validatePw'
+import PlayArrow from '@mui/icons-material/PlayArrow';
 
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
@@ -52,6 +55,7 @@ class App extends React.Component {
           registerModal: false,
           registerUsername: '',
           registerPw: '',
+          registerMessage: '',
           menuOpen: false,
           initialLoginModal: false
         }; 
@@ -119,11 +123,11 @@ class App extends React.Component {
 
     handleShare = async (evt) => {
         evt.preventDefault();
-        if (this.state.recipientEmail === this.props.user.email) {
+        if (this.state.recipientEmail === this.props.user.email.toLowerCase()) {
             this.setState({shareConfirmation: `You can't share this with yourself!`});
         } else {
             try {
-                await axios.post('/api/shareCollection', {collectionId: this.props.selectedCollection, recipientEmail: this.state.recipientEmail})
+                await axios.post('/api/shareCollection', {collectionId: this.props.selectedCollection, recipientEmail: this.state.recipientEmail.toLowerCase()})
                 this.setState({shareConfirmation: 'Shared successfully.'})
             } catch (err) {
                 this.setState({shareConfirmation: `Recipient doesn't exist!`})
@@ -135,16 +139,17 @@ class App extends React.Component {
     
     handleRegister = async (evt) => {
         evt.preventDefault()
-        // try {
-        //     this.props.upgradeToUser();
-        //     window.location.reload()
-        // } catch(err) {
-        //     // this.setState({error: 'Email already exists.'})
-        //     console.log('There was an error')
-        // };
+        if (!EmailValidator.validate(this.state.registerUsername) || this.state.registerUsername.includes('@tempomusicplayer.io')) {
+            this.setState({registerMessage: "That's not a valid email address."})
+            return;
+        };
+        if (!PasswordValidator.validate(this.state.registerPw)) {
+            this.setState({registerMessage: "Choose a stronger password."})
+            return;
+        };
+        
         axios.put('/api/incrementModalSignups')
-        await this.props.upgradeToUser(this.state.registerUsername, this.state.registerPw);
-        console.log(this.props.user)
+        await this.props.upgradeToUser(this.state.registerUsername.toLowerCase(), this.state.registerPw);
     };
 
     resetInfo = async () => {
@@ -527,8 +532,6 @@ class App extends React.Component {
                                             ':after': { borderBottomColor: 'white' },
                                             }} inputProps={{ spellCheck: false }} name='registerUsername' value={this.state.registerUsername} onChange={this.handleChange} variant="outlined" />
                                 </div> : null}
-                                <div className='modalText modalErrorPadding'>{this.props.signUpStatusMessage}</div>
-                                
                                 {this.props.signUpStatusMessage !== 'Signed up successfully.' ? <div>
                                     <div className='modalText'>Password</div>
                                     <Input className='browseSongsInput' 
@@ -540,6 +543,7 @@ class App extends React.Component {
                                             ':after': { borderBottomColor: 'white' },
                                         }} inputProps={{ spellCheck: false }} type='password' name='registerPw' value={this.state.regsiterPw} onChange={this.handleChange} variant="outlined" />
                                 </div> : null}
+                                <div className='modalText modalErrorPadding'>{this.props.signUpStatusMessage === 'Signed up successfully.' ? this.props.signUpStatusMessage : this.state.registerMessage}</div>
                                 {this.props.signUpStatusMessage !== 'Signed up successfully.' ? <div>
                                     <StyledButton type='submit' title='Sign Up' /*disabled={this.state.collectionName.length > 30}*//>
                                 </div> : null}
@@ -561,14 +565,14 @@ class App extends React.Component {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                height: '188px',
+                                height: '360px',
                                 position: 'absolute',
                                 width: '50vw',
                                 minWidth: '222px',
                                 maxWidth: '518px',
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
-                                top: '28%',
+                                top: '20%',
                                 border: '1px solid #00000096',
                                 backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
                                 backdropFilter: 'blur(5px)'
@@ -582,8 +586,14 @@ class App extends React.Component {
                 >
                     <div>
                         <div>
-                            <div>
-                                <div className='modalText'>Welcome to Tempo Music Player</div>
+                            <div id='welcomeModal'>
+                                <div className='modalText modalWelcomeDone' >Welcome to Tempo Music Player</div>
+                                <div className='modalWelcomePadding'>Tempo keeps track of the songs you've played to ensure that you don't hear the same song twice across your collections.</div>
+                                <div><RestartAltIcon className='modalWelcomeIcon' sx={{fontSize: 24}}/> Resets your played history</div>
+                                <div className='modalWelcomeDone'>
+                                    <Metronome className='modalWelcomeIcon' id='metronomeWelcomeModal'/> Navigates you to the metronome screen, where you can select a BPM then press <PlayArrow className='modalWelcomePlayIcon' sx={{fontSize: 24}}/> to play music.
+                                </div>
+                                <div>First, select a collection.</div>
                             </div>
                         </div>
                     </div>

@@ -63,6 +63,66 @@ a {
   text-decoration: none;
 }
 
+#mainTitle {
+  text-align: center;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.loginScreen {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  border: 1px solid #7575756b;
+  border-radius: 3vw;
+  /* min-width: 278px; */
+  /* max-width: 400px;
+  width: 1vw;
+  min-width: 258px; */
+  width: max(258px, min(400px, 50vw));
+  /* width: 400px; */
+  -webkit-box-shadow: 0px 0px 12px 17px rgba(255,255,255,0.44); 
+box-shadow: 0px 0px 12px 17px rgba(255,255,255,0.44);
+animation: mymove 8s infinite;
+}
+
+@keyframes mymove {
+  50% {box-shadow: 0px 0px 20px 21px rgb(90, 90, 90);}
+}
+
+#bottomLoginButton {
+  margin-bottom:30px;
+}
+
+.loginCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#loginScreenWrapper {
+  /* padding-top: 40px; */
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid orange; */
+}
+
+.buttonsOnLogin {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.spaceBelow {
+  margin-bottom: 16px;
+}
+
+.buttonSeparator {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
 svg {
   fill: white;
   color: white;
@@ -71,12 +131,42 @@ svg {
   width: 30px; */
 }
 
+
+#welcomeModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#metronomeWelcomeModal {
+  height: 24px;
+  width: 24px;
+}
+
 .modalButton {
   margin-top: 10px;
 }
 
 .modalText {
   font-size: 16.7px;
+}
+
+.modalWelcomeIcon {
+  position: relative;
+  top: 4.9px;
+}
+
+.modalWelcomePlayIcon {
+  position: relative;
+  top: 6.45px;
+}
+
+.modalWelcomePadding {
+  padding-bottom: 10px;
+}
+
+.modalWelcomeDone {
+  padding-bottom: 18px;
 }
 
 .noRecipientPadding {
@@ -261,7 +351,7 @@ svg:hover {
 #noCollectionsYet {
   width: 100%;
   text-align: center;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 #mainPlayerImg {

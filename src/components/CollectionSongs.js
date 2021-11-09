@@ -161,7 +161,7 @@ class CollectionSongs extends React.Component {
                                             ':not($focused)': { borderBottomColor: 'white' },
                                             ':before': { borderBottomColor: 'rgb(160, 160, 160)' },
                                             ':after': { borderBottomColor: 'white' },
-                                            }} inputProps={{ spellCheck: false, style: { textAlign: 'center' }}} name='editedCollectionName' id="outlined-basic" onFocus={this.clearNameOnFocus} value={this.state.editedCollectionName} onChange={this.handleChange} variant="outlined" /> : this.state.collectionName}
+                                            }} inputProps={{ spellCheck: false, style: { textAlign: 'center' }}} name='editedCollectionName' onFocus={this.clearNameOnFocus} value={this.state.editedCollectionName} onChange={this.handleChange} variant="outlined" /> : this.state.collectionName}
                     </div>
                     <div>
                         <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />

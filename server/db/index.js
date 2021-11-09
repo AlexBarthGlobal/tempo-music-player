@@ -7,6 +7,7 @@ const SessionSong = require('./models/sessionSongs')
 const Listened = require('./models/listened');
 const ListenedSong = require('./models/listenedSong')
 const UserCollection = require('./models/userCollection')
+const TempoRequest = require('./models/tempoRequests')
 
 User.hasMany(CollectionSession);
 CollectionSession.belongsTo(User);
@@ -45,5 +46,6 @@ module.exports = {
     Listened,
     SessionSong,
     ListenedSong,
-    UserCollection
+    UserCollection,
+    TempoRequest
 }

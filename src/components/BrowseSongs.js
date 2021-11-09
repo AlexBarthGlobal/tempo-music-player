@@ -134,7 +134,7 @@ const BrowseSongs = (props) => {
                             ':not($focused)': { borderBottomColor: 'white' },
                             ':before': { borderBottomColor: 'grey' },
                             ':after': { borderBottomColor: 'white' },
-                        }} inputProps={{ spellCheck: false, style: { textAlign: 'center' }}} name='searchInput' id="outlined-basic" placeholder="Search" value={searchInput} onChange={handleChange} variant="outlined" />
+                        }} inputProps={{ spellCheck: false, style: { textAlign: 'center' }}} name='searchInput' placeholder="Search" value={searchInput} onChange={handleChange} variant="outlined" />
                 </div>
                 <div>
                     <BPMSlider localBPM={BPMInput} setLocalBPM={setBrowseBPMInput} toggleDisabledBPM={toggleDisabledBPM} disabledBPM={disabledBPM}/>

@@ -29,5 +29,23 @@ module.exports = db.define('users', {
     metronomeSound: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
+    },
+    burgerSignups: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    modalSignups: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    recentLogin: {
+        type: Sequelize.DATE
+    },
+    recentLogout: {
+        type: Sequelize.DATE
+    },
+    initialLogin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
     }
 });

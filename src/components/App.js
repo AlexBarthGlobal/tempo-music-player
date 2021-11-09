@@ -11,7 +11,7 @@ import CollectionSongs from './CollectionSongs'
 import {Redirect} from 'react-router-dom'
 import {enqueueSongThunk, incrementPlayIdxThunk, decrementPlayIdxThunk, setCurrentSongThunk, clearSessionsThunk, createCollectionThunk, clearActiveSessionThunk, popOneFromActiveSessionSongsThunk, updateSessionBpmThunk, applySongsInRange} from '../redux/musicDispatchers'
 import {changeScreenThunk, selectCollectionAndChangeScreenThunk} from '../redux/screenDispatchers'
-import {addToListenedAndSessionThunk, clearListenedThunk, setMetronomeSoundOptionThunk} from '../redux/userDispatchers'
+import {addToListenedAndSessionThunk, clearListenedThunk, setMetronomeSoundOptionThunk, clearInitialLoginThunk, upgradeToUserThunk} from '../redux/userDispatchers'
 import songsInRange from '../components/songsInRange'
 import axios from 'axios';
 import { isBrowser, isMobile } from 'react-device-detect';
@@ -52,7 +52,8 @@ class App extends React.Component {
           registerModal: false,
           registerUsername: '',
           registerPw: '',
-          menuOpen: false
+          menuOpen: false,
+          initialLoginModal: false
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
@@ -70,7 +71,7 @@ class App extends React.Component {
         this.handleRegister = this.handleRegister.bind(this)
         this.closeMenu = this.closeMenu.bind(this)
         this.handleStateChange = this.handleStateChange.bind(this)
-        this.logoutGuest = this.logoutGuest.bind(this)
+        // this.logoutGuest = this.logoutGuest.bind(this)
     };
 
     checkPlayerReady() {
@@ -134,13 +135,16 @@ class App extends React.Component {
     
     handleRegister = async (evt) => {
         evt.preventDefault()
-        try {
-            await axios.put('/auth/upgradeToUser', {uname: this.state.registerUsername, pw: this.state.registerPw});
-            window.location.reload()
-        } catch(err) {
-            // this.setState({error: 'Email already exists.'})
-            console.log('There was an error')
-        };
+        // try {
+        //     this.props.upgradeToUser();
+        //     window.location.reload()
+        // } catch(err) {
+        //     // this.setState({error: 'Email already exists.'})
+        //     console.log('There was an error')
+        // };
+        axios.put('/api/incrementModalSignups')
+        await this.props.upgradeToUser(this.state.registerUsername, this.state.registerPw);
+        console.log(this.props.user)
     };
 
     resetInfo = async () => {
@@ -198,14 +202,14 @@ class App extends React.Component {
         this.setState({menuOpen: state.isOpen})  
     };
 
-    logoutGuest = async() => {
-        try {
-            await axios.delete('/auth/logoutGuest', {uname: this.state.registerUsername, pw: this.state.registerPw});
-            location.href = "/auth/logout"
-        } catch (err) {
-            console.log(err)
-        };
-    };
+    // logoutGuest = async() => {
+    //     try {
+    //         await axios.delete('/auth/logoutGuest', {uname: this.state.registerUsername, pw: this.state.registerPw});
+    //         location.href = "/auth/logout"
+    //     } catch (err) {
+    //         console.log(err)
+    //     };
+    // };
 
     render() {
         const styles = {
@@ -304,8 +308,10 @@ class App extends React.Component {
         
         const burgerMenu = <Menu styles={styles} isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)} disableAutoFocus>
             <h4 className='burgerName'>{this.props.user.userType === 'GUEST' ? 'Guest' : this.props.user.email}</h4>
-            {this.props.user.userType === 'GUEST' ? <div id='guestSignUp' className='burgerMenuItem' onClick={() => this.setState({menuOpen: false, registerModal: true})}>Sign Up</div> : null}
-            {this.props.user.userType === 'GUEST' ? <div className='burgerMenuItem' onClick={this.logoutGuest}>Exit</div> : <div onClick={logout} className='burgerMenuItem'>Logout</div>}
+            {this.props.user.userType === 'GUEST' ? <div id='guestSignUp' className='burgerMenuItem' onClick={() => {
+                this.setState({menuOpen: false, registerModal: true})
+                axios.put('/api/incrementBurgerSignups')}}>Sign Up</div> : null}
+            {this.props.user.userType === 'GUEST' ? <div className='burgerMenuItem' onClick={logout}>Exit</div> : <div onClick={logout} className='burgerMenuItem'>Logout</div>}
         </Menu>
         // const escapeExitSongs = this.state.editCollection ? <ClearIcon onClick={() => this.setState({editCollection: false})} className='navButton'/> : null;
 
@@ -354,7 +360,7 @@ class App extends React.Component {
                                             ':not($focused)': { borderBottomColor: 'white' },
                                             ':before': { borderBottomColor: 'grey' },
                                             ':after': { borderBottomColor: 'white' },
-                                            }} inputProps={{ spellCheck: false }} name='collectionName' id="outlined-basic" value={this.state.collectionName} onChange={this.handleChange} variant="outlined" />
+                                            }} inputProps={{ spellCheck: false }} name='collectionName' value={this.state.collectionName} onChange={this.handleChange} variant="outlined" />
                                 </div>
                                 <div className='modalText'>Art URL:</div>
                                 <div>
@@ -365,7 +371,7 @@ class App extends React.Component {
                                             ':not($focused)': { borderBottomColor: 'white' },
                                             ':before': { borderBottomColor: 'grey' },
                                             ':after': { borderBottomColor: 'white' },
-                                        }} inputProps={{ spellCheck: false }} name='collectionArtURL' id="outlined-basic" placeholder="Search" value={this.state.collectionArtURL} onChange={this.handleChange} placeholder={'Optional'} variant="outlined" />
+                                        }} inputProps={{ spellCheck: false }} name='collectionArtURL' placeholder="Search" value={this.state.collectionArtURL} onChange={this.handleChange} placeholder={'Optional'} variant="outlined" />
                                 </div>
                                 <div>
                                     <StyledButton type='submit' title='Create' disabled={this.state.collectionName.length > 30}/>
@@ -465,7 +471,7 @@ class App extends React.Component {
                                             ':not($focused)': { borderBottomColor: 'white' },
                                             ':before': { borderBottomColor: 'grey' },
                                             ':after': { borderBottomColor: 'white' },
-                                            }} inputProps={{ spellCheck: false }} name='recipientEmail' id="outlined-basic" value={this.state.recipientEmail} onChange={this.handleChange} variant="outlined" />
+                                            }} inputProps={{ spellCheck: false }} name='recipientEmail' value={this.state.recipientEmail} onChange={this.handleChange} variant="outlined" />
                                 </div>
                                 <div className='modalText noRecipientPadding'>
                                     {this.state.shareConfirmation}
@@ -480,6 +486,73 @@ class App extends React.Component {
                 <Modal 
                     isOpen={this.state.registerModal} 
                     onRequestClose={() => this.setState({registerModal: false, registerUsername: '', registerPw: ''})}
+                    style={
+                        {
+                            content: {
+                                borderRadius: '8px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                height: '246px',
+                                position: 'absolute',
+                                width: '50vw',
+                                minWidth: '222px',
+                                maxWidth: '518px',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                top: '28%',
+                                border: '1px solid #00000096',
+                                backgroundColor: `rgb(52 52 52 ${isBrowser ? '/ 82%' : ''})`,
+                                backdropFilter: 'blur(5px)'
+                            },
+                            overlay: {
+                                backgroundColor: '#36363614',
+                                zIndex: 2
+                            }
+                        }
+                    }
+                >
+                    <div>
+                        <div>
+                            <form onSubmit={this.handleRegister}>
+                                {this.props.signUpStatusMessage !== 'Signed up successfully.' ? <div>
+                                    <div className='modalText'>Username</div>
+                                    <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                            }} inputProps={{ spellCheck: false }} name='registerUsername' value={this.state.registerUsername} onChange={this.handleChange} variant="outlined" />
+                                </div> : null}
+                                <div className='modalText modalErrorPadding'>{this.props.signUpStatusMessage}</div>
+                                
+                                {this.props.signUpStatusMessage !== 'Signed up successfully.' ? <div>
+                                    <div className='modalText'>Password</div>
+                                    <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                        }} inputProps={{ spellCheck: false }} type='password' name='registerPw' value={this.state.regsiterPw} onChange={this.handleChange} variant="outlined" />
+                                </div> : null}
+                                {this.props.signUpStatusMessage !== 'Signed up successfully.' ? <div>
+                                    <StyledButton type='submit' title='Sign Up' /*disabled={this.state.collectionName.length > 30}*//>
+                                </div> : null}
+                            </form>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal 
+                    isOpen={this.props.user.initialLogin} 
+                    onRequestClose={async () => {
+                        this.setState({initialLoginModal: false})
+                        this.props.clearInitialLogin();
+                    }}
                     style={
                         {
                             content: {
@@ -508,35 +581,10 @@ class App extends React.Component {
                     }
                 >
                     <div>
-                        {/* <div className='modalText'>Username</div> */}
                         <div>
-                            <form onSubmit={this.handleRegister}>
-                                <div>
-                                    <div className='modalText'>Username</div>
-                                    <Input className='browseSongsInput' 
-                                        sx={{
-                                            fontSize: 16,
-                                            color: 'white',
-                                            ':not($focused)': { borderBottomColor: 'white' },
-                                            ':before': { borderBottomColor: 'grey' },
-                                            ':after': { borderBottomColor: 'white' },
-                                            }} inputProps={{ spellCheck: false }} name='registerUsername' id="outlined-basic" value={this.state.registerUsername} onChange={this.handleChange} variant="outlined" />
-                                </div>
-                                <div className='modalText'>Password</div>
-                                <div>
-                                    <Input className='browseSongsInput' 
-                                        sx={{
-                                            fontSize: 16,
-                                            color: 'white',
-                                            ':not($focused)': { borderBottomColor: 'white' },
-                                            ':before': { borderBottomColor: 'grey' },
-                                            ':after': { borderBottomColor: 'white' },
-                                        }} inputProps={{ spellCheck: false }} name='registerPw' id="outlined-basic" value={this.state.regsiterPw} onChange={this.handleChange} variant="outlined" />
-                                </div>
-                                <div>
-                                    <StyledButton type='submit' title='Sign Up' /*disabled={this.state.collectionName.length > 30}*//>
-                                </div>
-                            </form>
+                            <div>
+                                <div className='modalText'>Welcome to Tempo Music Player</div>
+                            </div>
                         </div>
                     </div>
                 </Modal>
@@ -573,6 +621,7 @@ const mapStateToProps = (state) => {
         screenStr: state.screenReducer.screenStr,
         selectedCollection: state.screenReducer.selectedCollection,
         playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null,
+        signUpStatusMessage: state.userReducer.user.signUpStatusMessage
     }
 }
   
@@ -593,6 +642,8 @@ const mapDispatchToProps = (dispatch) => ({
     setMetronomeSoundOption: (boolean) => dispatch(setMetronomeSoundOptionThunk(boolean)),
     play: () => dispatch(setPlayingTrueThunk()),
     pause: () => dispatch(setPlayingFalseThunk()),
+    clearInitialLogin: () => dispatch(clearInitialLoginThunk()),
+    upgradeToUser: (registerUsername, registerPw) => dispatch(upgradeToUserThunk(registerUsername, registerPw))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

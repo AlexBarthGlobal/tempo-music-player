@@ -7,6 +7,7 @@ import Modal from 'react-modal'
 import ManageBPMSliderAndTap from './ManageBPMSliderAndTap'
 import { setPlayingTrueThunk } from '../redux/playerDispatchers';
 import { isBrowser, isMobile } from 'react-device-detect';
+import axios from 'axios'
 
 class Tempo extends React.Component {
     constructor (props) {
@@ -26,7 +27,7 @@ class Tempo extends React.Component {
     };
 
     handleSubmit = async (selectedBPM) => {
-        // evt.preventDefault();
+        await axios.post('/api/addTempoRequest', {selectedBPM, collectionId: this.props.selectedCollection});
         const results = songsInRange(this.props.user.listened.songs, this.props.musicInfo.collections[this.props.selectedCollection].songs, selectedBPM)  //Run this when updating BPM
         if (results[0].length) {
             if (this.isActive(this.props.selectedCollection)) this.props.popOneFromActiveSessionSongs();     

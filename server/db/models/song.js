@@ -33,8 +33,4 @@ module.exports = db.define('songs', {
         type: Sequelize.INTEGER,
         defaultValue: 0
     }
-    // plays: {
-    //     type: Sequelize.INTEGER,
-    //     defaultValue: 0
-    // }
 });

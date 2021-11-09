@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
-const {Song, User, Collection, CollectionSession, Listened, SessionSong, ListenedSong, UserCollection} = require('../db/index');
+const {Song, User, Collection, CollectionSession, Listened, SessionSong, ListenedSong, UserCollection, TempoRequest} = require('../db/index');
 const { Op } = require('Sequelize');
 
 router.put('/clearSessions', async (req, res, next) => {
@@ -656,5 +656,19 @@ router.put('/incrementSongPlayed', async (req, res, next) => {
         next(error)
     };
 });
+
+router.post('/addTempoRequest', async (req, res, next) => {
+    try {
+        const newTempoRequest = await TempoRequest.create({
+            userId: req.session.passport.user,
+            BPM: req.body.selectedBPM,
+            collectionId: req.body.collectionId
+        })
+        
+        res.status('201').json('Done')
+    } catch (err) {
+        next(err)
+    }
+})
 
 module.exports = router;

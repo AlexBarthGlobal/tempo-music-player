@@ -24289,6 +24289,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ManageBPMSliderAndTap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ManageBPMSliderAndTap */ "./src/components/ManageBPMSliderAndTap.js");
 /* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 /* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -24469,6 +24471,7 @@ function _defineProperty(obj, key, value) {
 
 
 
+
 var Tempo = /*#__PURE__*/function (_React$Component) {
   _inherits(Tempo, _React$Component);
 
@@ -24493,33 +24496,39 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // evt.preventDefault();
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_9___default().post('/api/addTempoRequest', {
+                  selectedBPM: selectedBPM,
+                  collectionId: _this.props.selectedCollection
+                });
+
+              case 2:
                 results = (0,_components_songsInRange__WEBPACK_IMPORTED_MODULE_4__.default)(_this.props.user.listened.songs, _this.props.musicInfo.collections[_this.props.selectedCollection].songs, selectedBPM); //Run this when updating BPM
 
                 if (!results[0].length) {
-                  _context.next = 23;
+                  _context.next = 25;
                   break;
                 }
 
                 if (_this.isActive(_this.props.selectedCollection)) _this.props.popOneFromActiveSessionSongs();
 
                 if (!_this.isActive(_this.props.selectedCollection)) {
-                  _context.next = 8;
+                  _context.next = 10;
                   break;
                 }
 
-                _context.next = 6;
+                _context.next = 8;
                 return _this.props.updateSessionBpm(_this.props.selectedCollection, selectedBPM);
 
-              case 6:
-                _context.next = 10;
+              case 8:
+                _context.next = 12;
                 break;
 
-              case 8:
-                _context.next = 10;
+              case 10:
+                _context.next = 12;
                 return _this.props.fetchOnTempoChange(_this.props.selectedCollection, selectedBPM);
 
-              case 10:
+              case 12:
                 //load the session and its sessionSongs 
                 // if (/*this.props.musicInfo.activeSession &&*/ this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].songs.length) {
                 _this.props.applySongsInRange(results[0]);
@@ -24528,37 +24537,37 @@ var Tempo = /*#__PURE__*/function (_React$Component) {
 
                 idx = _this.props.musicInfo.activeSession.playIdx;
 
-              case 13:
+              case 15:
                 if (!(_this.props.musicInfo.activeSession.songs[idx] === 'S' || _this.props.musicInfo.activeSession.songs[idx].BPM < _this.props.musicInfo.activeSession.currBPM - 2 || _this.props.musicInfo.activeSession.songs[idx].BPM > _this.props.musicInfo.activeSession.currBPM + 3 || _this.props.user.listened.songs[_this.props.musicInfo.activeSession.songs[idx].id])) {
-                  _context.next = 19;
+                  _context.next = 21;
                   break;
                 }
 
                 idx++;
-                _context.next = 17;
+                _context.next = 19;
                 return _this.props.next();
 
-              case 17:
-                _context.next = 13;
+              case 19:
+                _context.next = 15;
                 break;
 
-              case 19:
+              case 21:
                 ;
 
                 _this.props.play(); // }
 
 
-                _context.next = 25;
+                _context.next = 27;
                 break;
 
-              case 23:
+              case 25:
                 _this.setState({
                   noMoreMusic: true
                 });
 
                 console.log('No more music');
 
-              case 25:
+              case 27:
               case "end":
                 return _context.stop();
             }

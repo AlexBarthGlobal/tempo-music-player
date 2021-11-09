@@ -15,7 +15,7 @@ class FooterControlsMobile extends React.Component {
         <div /*FooterControls*/className='footerControlsMobile'>
             <div className='footerControlsMobileTop'>
                 <div className='footerBox1Mobile' onClick={() => selectCollectionAndChangeScreen(this.props.musicInfo.activeSession.collectionId, 'PlayerScreen')}>
-                    <img className='footerArtMobile' src='https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg'/>
+                    <img className='footerArtMobile' src={this.props.musicInfo.activeSession.songs[this.props.playIdx].artURL}/>
                     <div className='footerTextContainerMobile'>
                         <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].songName}</div>
                         <div>{this.props.musicInfo.activeSession.songs[this.props.playIdx].artistName}</div>

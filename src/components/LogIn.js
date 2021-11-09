@@ -66,20 +66,34 @@ class Login extends React.Component {
                 <h1>{this.state.screen === 'login' ? 'Login' : 'Sign Up'}</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div>
-                        <input type='text' name='uname' placeholder='E-mail' onChange={this.handleChange} value={uname}></input>
+                        <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                            }} inputProps={{ spellCheck: false }} type='text' name='uname' placeholder='E-mail' onChange={this.handleChange} value={uname} />
                     </div>
                     <div>
-                        <input type={this.state.viewPw ? 'text' : 'password'} name='pw' placeholder='Password' onChange={this.handleChange} value={pw}></input>
+                        <Input className='browseSongsInput' 
+                                        sx={{
+                                            fontSize: 16,
+                                            color: 'white',
+                                            ':not($focused)': { borderBottomColor: 'white' },
+                                            ':before': { borderBottomColor: 'grey' },
+                                            ':after': { borderBottomColor: 'white' },
+                                            }} inputProps={{ spellCheck: false }} type={this.state.viewPw ? 'text' : 'password'} name='pw' placeholder='Password' onChange={this.handleChange} value={pw} />
                     </div>
-                    <div>{this.state.error}</div>
-                    <input type="submit" value="Submit"></input>
-                    <button onClick={this.viewPw}>{this.state.viewPw ? 'Hide password' : 'View password'}</button>
+                    <div className='modalErrorPadding'>{this.state.error}</div>
+                    <StyledButton type="submit" title='Submit' value="Submit"/>
+                    <StyledButton func={this.viewPw} title={this.state.viewPw ? 'Hide password' : 'View password'} />
                 </form>
                 <div>
-                    <button onClick={this.state.screen === 'login' ? () => this.setState({screen: 'signup', error: null}) : () => this.setState({screen: 'login', error: null})}>{this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'}</button>
+                    <StyledButton title={this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'} func={this.state.screen === 'login' ? () => this.setState({screen: 'signup', error: null}) : () => this.setState({screen: 'login', error: null})} />
                 </div>
                 <div>
-                    <button onClick={this.enterAsGuest}>Enter as Guest</button>
+                    <StyledButton func={this.enterAsGuest} title='Enter as Guest' />
                 </div>
             </div>
         )

@@ -21968,6 +21968,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _StyledButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StyledButton */ "./src/components/StyledButton.js");
+/* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -22310,25 +22311,64 @@ var Login = /*#__PURE__*/function (_React$Component) {
         className: "centerThis"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, this.state.screen === 'login' ? 'Login' : 'Sign Up'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_3__.default, {
+        className: "browseSongsInput",
+        sx: {
+          fontSize: 16,
+          color: 'white',
+          ':not($focused)': {
+            borderBottomColor: 'white'
+          },
+          ':before': {
+            borderBottomColor: 'grey'
+          },
+          ':after': {
+            borderBottomColor: 'white'
+          }
+        },
+        inputProps: {
+          spellCheck: false
+        },
         type: "text",
         name: "uname",
         placeholder: "E-mail",
         onChange: this.handleChange,
         value: uname
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_3__.default, {
+        className: "browseSongsInput",
+        sx: {
+          fontSize: 16,
+          color: 'white',
+          ':not($focused)': {
+            borderBottomColor: 'white'
+          },
+          ':before': {
+            borderBottomColor: 'grey'
+          },
+          ':after': {
+            borderBottomColor: 'white'
+          }
+        },
+        inputProps: {
+          spellCheck: false
+        },
         type: this.state.viewPw ? 'text' : 'password',
         name: "pw",
         placeholder: "Password",
         onChange: this.handleChange,
         value: pw
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.state.error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "modalErrorPadding"
+      }, this.state.error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_2__.default, {
         type: "submit",
+        title: "Submit",
         value: "Submit"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.viewPw
-      }, this.state.viewPw ? 'Hide password' : 'View password')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.state.screen === 'login' ? function () {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_2__.default, {
+        func: this.viewPw,
+        title: this.state.viewPw ? 'Hide password' : 'View password'
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_2__.default, {
+        title: this.state.screen === 'login' ? 'Sign up instead' : 'Login instead',
+        func: this.state.screen === 'login' ? function () {
           return _this2.setState({
             screen: 'signup',
             error: null
@@ -22339,9 +22379,10 @@ var Login = /*#__PURE__*/function (_React$Component) {
             error: null
           });
         }
-      }, this.state.screen === 'login' ? 'Sign up instead' : 'Login instead')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: this.enterAsGuest
-      }, "Enter as Guest")));
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_2__.default, {
+        func: this.enterAsGuest,
+        title: "Enter as Guest"
+      })));
     }
   }]);
 

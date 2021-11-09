@@ -83,7 +83,7 @@ class CollectionSongs extends React.Component {
             let idx = 0;
             for (const song of songList) {
                 console.log(song.artURL)
-                songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} songIsPlaying={this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === song.id} />
+                songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} songIsPlaying={this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === song.id} />
                 idx++;
             };
         };

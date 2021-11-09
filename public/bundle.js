@@ -20619,7 +20619,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
               editMode: this.props.editMode,
               removeSongFromCollection: this.removeSongFromCollection,
               listenedBool: !!this.props.user.listened.songs[_song.id],
-              songIsPlaying: this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === _song.id
+              songIsPlaying: this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === _song.id
             });
             idx++;
           }
@@ -21508,7 +21508,7 @@ var FooterControls = /*#__PURE__*/function (_React$Component) {
 
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
         className: "footerArt",
-        src: "https://www.nikolapro.com/wp-content/uploads/2020/09/black_square.jpg"
+        src: this.props.musicInfo.activeSession.songs[this.props.playIdx].artURL
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "footerTextContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.activeSession.songs[this.props.playIdx].songName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.activeSession.songs[this.props.playIdx].artistName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.musicInfo.collections[this.props.musicInfo.activeSession.collectionId].collectionName))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {

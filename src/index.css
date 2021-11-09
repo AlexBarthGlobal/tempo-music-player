@@ -261,6 +261,8 @@ svg:hover {
 #mainPlayerImg {
   width: 95%;
   height: auto;
+  max-width: 500px;
+  max-height: 500px;
   /* z-index: 1; */
 }
 

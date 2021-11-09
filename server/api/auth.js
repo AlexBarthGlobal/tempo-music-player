@@ -192,7 +192,7 @@ router.put('/upgradeToUser', async (req, res, next) => {
     const salt = saltHash.salt;
     const hash = saltHash.hash;
 
-    await User.update({
+    const upgradedUser = await User.update({
       email: req.body.uname,
       hash: hash,
       salt: salt,
@@ -201,10 +201,29 @@ router.put('/upgradeToUser', async (req, res, next) => {
     {
       where: {
         id: req.session.passport.user
-      }
+      },
+      returning: true,
+      plain: true
     });
 
-    res.status(200).send('You are now a user.')
+    res.status(201).send(upgradedUser)
+  } catch (err) {
+    next(err)
+  };
+});
+
+router.put('/clearInitialLogin', async (req, res, next) => {
+  try {
+    const updatedUser = await User.update({
+      initialLogin: false
+    },
+    {
+      where: {
+        id: req.session.passport.user
+      }
+    });
+    console.log('LAMBO', updatedUser)
+  res.status(201).json(updatedUser)
   } catch (err) {
     next(err)
   };

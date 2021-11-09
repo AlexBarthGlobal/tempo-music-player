@@ -9,6 +9,9 @@ const LOGOUT_USER = 'LOGOUT_USER'
 const ADD_SONG_TO_LISTENED = 'ADD_SONG_TO_LISTENED'
 const SET_UPDATED_LISTENED = 'SET_UPDATED_LISTENED'
 const SET_METRONOME_SOUND_OPTION = 'SET_METRONOME_SOUND_OPTION'
+const CLEAR_INITIAL_LOGIN = 'CLEAR_INITIAL_LOGIN'
+const UPGRADE_TO_USER = 'UPGRADE_TO_USER'
+const SIGN_UP_STATUS_MESSAGE = 'SIGN_UP_STATUS_MESSAGE'
 
 const gotMe = user => ({
   type: GET_USER,
@@ -37,6 +40,20 @@ const setUpdatedListened = updatedListened => ({
 const setMetronomeSoundOption = boolean => ({
   type: SET_METRONOME_SOUND_OPTION,
   boolean
+})
+
+const clearInitialLogin = () => ({
+  type: CLEAR_INITIAL_LOGIN
+})
+
+const upgradeToUser = (upgradedUserAndMessage) => ({
+  type: UPGRADE_TO_USER,
+  upgradedUserAndMessage
+})
+
+const signUpStatusMessage = (signUpStatusMessage) => ({
+  type: SIGN_UP_STATUS_MESSAGE,
+  signUpStatusMessage
 })
 
 export const fetchUser = () => {
@@ -125,6 +142,29 @@ export const setMetronomeSoundOptionThunk = (boolean) => {
   };
 };
 
+export const clearInitialLoginThunk = () => {
+  return async dispatch => {
+    try {
+      axios.put('/auth/clearInitialLogin')
+      dispatch(clearInitialLogin())
+    } catch (err) {
+      console.log(err)
+    };
+  };
+};
+
+export const upgradeToUserThunk = (registerUsername, registerPw) => {
+  return async dispatch => {
+    try {
+      const upgradedUser = await axios.put('/auth/upgradeToUser', {uname: registerUsername, pw: registerPw});
+      dispatch(upgradeToUser({upgradedUser: upgradedUser.data[1], message: 'Signed up successfully.'}))
+    } catch (err) {
+      console.log(err)
+      dispatch(signUpStatusMessage('Email already exists.'))
+    };
+  };
+};
+
 // export const login = credentials => {
 //   return async dispatch => {
 //     try {
@@ -191,6 +231,19 @@ export default function userReducer (state = initialState, action) {
       return {
         user: {...state.user, metronomeSound: action.boolean}
       };
+    case CLEAR_INITIAL_LOGIN:
+      return {
+        user: {...state.user, initialLogin: false}
+      }
+    case UPGRADE_TO_USER:
+      action.upgradedUserAndMessage.upgradedUser.signUpStatusMessage = action.upgradedUserAndMessage.message;
+      return {
+        user: action.upgradedUserAndMessage.upgradedUser
+      }
+    case SIGN_UP_STATUS_MESSAGE:
+      return {
+        user: {...state.user, signUpStatusMessage: action.signUpStatusMessage}
+      }
     default:
       return state
   }

@@ -43,5 +43,9 @@ module.exports = db.define('users', {
     },
     recentLogout: {
         type: Sequelize.DATE
+    },
+    initialLogin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
     }
 });

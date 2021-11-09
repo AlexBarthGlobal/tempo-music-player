@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import StyledButton from './StyledButton';
 import Input from '@mui/material/Input';
+import * as EmailValidator from 'email-validator'
 
 class Login extends React.Component {
     constructor() {
@@ -22,16 +23,25 @@ class Login extends React.Component {
 
     async handleSubmit(evt) {
         evt.preventDefault()
+
         if (this.state.screen === 'login') {
+            if (!EmailValidator.validate(this.state.uname)) {
+                this.setState({error: "That's not a valid email address."})
+                return;
+            };
             try {
-                await axios.post('/auth/login', {uname: this.state.uname, pw: this.state.pw});
+                await axios.post('/auth/login', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
                 window.location.reload()
             } catch (err) {
                 this.setState({error: 'Wrong email/password combination.'})
             }
         } else {
+            if (!EmailValidator.validate(this.state.uname) || this.state.uname.includes('@tempomusicplayer.io')) {
+                this.setState({error: "That's not a valid email address."})
+                return;
+            };
             try {
-                await axios.post('/auth/register', {uname: this.state.uname, pw: this.state.pw});
+                await axios.post('/auth/register', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
                 window.location.reload()
             } catch(err) {
                 this.setState({error: 'Email already exists.'})
@@ -62,7 +72,7 @@ class Login extends React.Component {
     render() {
         const { uname, pw } = this.state;
         return (
-            <div className='centerThis'>
+            <div className='loginScreen'>
                 <h1>{this.state.screen === 'login' ? 'Login' : 'Sign Up'}</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div>
@@ -86,10 +96,13 @@ class Login extends React.Component {
                                             }} inputProps={{ spellCheck: false }} type={this.state.viewPw ? 'text' : 'password'} name='pw' placeholder='Password' onChange={this.handleChange} value={pw} />
                     </div>
                     <div className='modalErrorPadding'>{this.state.error}</div>
-                    <StyledButton type="submit" title='Submit' value="Submit"/>
-                    <StyledButton func={this.viewPw} title={this.state.viewPw ? 'Hide password' : 'View password'} />
+                    <div className='buttonsOnLogin'>
+                        <StyledButton type="submit" title='Submit' value="Submit"/>
+                        <div className='buttonSeparator'></div>
+                        <StyledButton func={this.viewPw} title={this.state.viewPw ? 'Hide password' : 'View password'} />
+                    </div>
                 </form>
-                <div>
+                <div className='spaceBelow'>
                     <StyledButton title={this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'} func={this.state.screen === 'login' ? () => this.setState({screen: 'signup', error: null}) : () => this.setState({screen: 'login', error: null})} />
                 </div>
                 <div>

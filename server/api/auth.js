@@ -7,6 +7,7 @@ const isAuthLogin = require('./authMiddleware').isAuthLogin;
 const naivePw = require('../lib/naivePw')
 const Sequelize = require('sequelize');
 const { Op } = require('Sequelize');
+const EmailValidator = require("email-validator")
 
 router.get('/', (req, res, next) => {
   res.redirect('/')
@@ -68,6 +69,9 @@ router.post('/register', register, passport.authenticate('local', {failureRedire
 
 async function register (req, res, next) {
   try {
+
+    if (!EmailValidator.validate(req.body.uname) || req.body.uname.includes('@tempomusicplayer.io')) res.sendStatus(403);
+
     const userExists = await User.findOne({
       where: {
         email: req.body.uname
@@ -178,6 +182,9 @@ async function registerGuest (req, res, next) {
 
 router.put('/upgradeToUser', async (req, res, next) => {
   try {
+
+    if (!EmailValidator.validate(req.body.uname) || req.body.uname.includes('@tempomusicplayer.io')) res.sendStatus(403);
+
     const userExists = await User.findOne({
       where: {
         email: req.body.uname

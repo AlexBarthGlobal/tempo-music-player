@@ -64,7 +64,7 @@ app.use('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
-app.use('/api', /*isAuthLogin,*/ api);
+app.use('/api', isAuthLogin, api);
 app.use('/auth', auth)
 
 app.use('*', isAuthLogin, (req, res) => {

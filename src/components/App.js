@@ -119,11 +119,11 @@ class App extends React.Component {
 
     handleShare = async (evt) => {
         evt.preventDefault();
-        if (this.state.recipientEmail === this.props.user.email) {
+        if (this.state.recipientEmail === this.props.user.email.toLowerCase()) {
             this.setState({shareConfirmation: `You can't share this with yourself!`});
         } else {
             try {
-                await axios.post('/api/shareCollection', {collectionId: this.props.selectedCollection, recipientEmail: this.state.recipientEmail})
+                await axios.post('/api/shareCollection', {collectionId: this.props.selectedCollection, recipientEmail: this.state.recipientEmail.toLowerCase()})
                 this.setState({shareConfirmation: 'Shared successfully.'})
             } catch (err) {
                 this.setState({shareConfirmation: `Recipient doesn't exist!`})
@@ -143,7 +143,7 @@ class App extends React.Component {
         //     console.log('There was an error')
         // };
         axios.put('/api/incrementModalSignups')
-        await this.props.upgradeToUser(this.state.registerUsername, this.state.registerPw);
+        await this.props.upgradeToUser(this.state.registerUsername.toLowerCase(), this.state.registerPw);
         console.log(this.props.user)
     };
 

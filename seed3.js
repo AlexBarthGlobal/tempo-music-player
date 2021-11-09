@@ -6,16 +6,6 @@ const seed = async () => {
     try {   
         await db.sync({force: true}) // {alter: true}
 
-        // await axios.post('http://localhost:8080/auth/register', {
-        //     pw: firstUserSecret, 
-        //     uname: "tempo@tempo.io"
-        // })
-        
-        // await User.create({
-        //     email: 'tempo@tempo.io',
-        //     password: firstUserSecret,
-        // })
-
         const turnUp = await Collection.create({
             collectionName: 'Turn Up',
             collectionOwner: null,

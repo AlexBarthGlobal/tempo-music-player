@@ -3,10 +3,6 @@ const {isAuth, isAdmin} = require('./authMiddleware')
 const {Song, User, Collection, CollectionSession, Listened, SessionSong, ListenedSong, UserCollection, TempoRequest} = require('../db/index');
 const { Op } = require('sequelize');
 
-router.get('/', async (req, res, next) => {
-    res.send('Hit the api route')
-})
-
 router.put('/clearSessions', async (req, res, next) => {
     try {
         await CollectionSession.destroy({

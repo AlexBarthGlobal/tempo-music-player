@@ -18,6 +18,7 @@
 .env.test.local
 .env.production.local
 /secrets.js
+/firebase.js
 
 npm-debug.log*
 

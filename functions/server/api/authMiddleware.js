@@ -1,6 +1,7 @@
-const isAuthLogin = (req, res, next) => {
+const isAuthLogin = async (req, res, next) => {
     if (req.isAuthenticated()) next();
     else {
+        console.log('RARI')
         res.redirect('/login')
     }
 }

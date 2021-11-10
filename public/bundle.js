@@ -22672,7 +22672,7 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 evt.preventDefault();
 
                 if (!(this.state.screen === 'login')) {
-                  _context.next = 17;
+                  _context.next = 16;
                   break;
                 }
 
@@ -22696,24 +22696,23 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 9:
-                window.location.reload();
-                _context.next = 15;
+                _context.next = 14;
                 break;
 
-              case 12:
-                _context.prev = 12;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context["catch"](6);
                 this.setState({
                   error: 'Wrong email/password combination.'
                 });
 
-              case 15:
-                _context.next = 35;
+              case 14:
+                _context.next = 34;
                 break;
 
-              case 17:
+              case 16:
                 if (!(!email_validator__WEBPACK_IMPORTED_MODULE_3__.validate(this.state.uname) || this.state.uname.includes('@tempomusicplayer.io'))) {
-                  _context.next = 20;
+                  _context.next = 19;
                   break;
                 }
 
@@ -22722,11 +22721,11 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
                 return _context.abrupt("return");
 
-              case 20:
+              case 19:
                 ;
 
                 if (_functions_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_4__.default.validate(this.state.pw)) {
-                  _context.next = 24;
+                  _context.next = 23;
                   break;
                 }
 
@@ -22735,39 +22734,39 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
                 return _context.abrupt("return");
 
-              case 24:
+              case 23:
                 ;
-                _context.prev = 25;
-                _context.next = 28;
+                _context.prev = 24;
+                _context.next = 27;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/register', {
                   uname: this.state.uname.toLowerCase(),
                   pw: this.state.pw
                 });
 
-              case 28:
+              case 27:
                 window.location.reload();
-                _context.next = 34;
+                _context.next = 33;
                 break;
 
-              case 31:
-                _context.prev = 31;
-                _context.t1 = _context["catch"](25);
+              case 30:
+                _context.prev = 30;
+                _context.t1 = _context["catch"](24);
                 this.setState({
                   error: 'Email already exists.'
                 });
+
+              case 33:
+                ;
 
               case 34:
                 ;
 
               case 35:
-                ;
-
-              case 36:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[6, 12], [25, 31]]);
+        }, _callee, this, [[6, 11], [24, 30]]);
       }));
 
       function handleSubmit(_x) {
@@ -22789,24 +22788,23 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/enterAsGuest');
 
               case 3:
-                window.location.reload();
-                _context2.next = 9;
+                _context2.next = 8;
                 break;
 
-              case 6:
-                _context2.prev = 6;
+              case 5:
+                _context2.prev = 5;
                 _context2.t0 = _context2["catch"](0);
                 console.log(_context2.t0);
 
-              case 9:
+              case 8:
                 ;
 
-              case 10:
+              case 9:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 6]]);
+        }, _callee2, null, [[0, 5]]);
       }));
 
       function enterAsGuest() {

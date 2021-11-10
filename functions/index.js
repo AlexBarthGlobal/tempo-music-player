@@ -20,6 +20,7 @@ const dbStore = new SequelizeStore({db})
 dbStore.sync(); //dbStore is only the Session table. The sessions on the server reset when the server is restarted if it is {force: true}
 
 app.use(session({
+  name: '__session',
   secret: secrets.sessionSecret,
   store: dbStore,
   resave: false,
@@ -55,20 +56,20 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(path.join(__dirname, '../public'), {
+app.use(express.static(path.join(__dirname, './functions'), {
   index: "false"
 }))
 
 app.use('/login', (req, res) => {
   if (req.isAuthenticated()) res.redirect('/')
-  res.sendFile(path.join(__dirname, '../public/index.html'))
+  res.sendFile(path.join(__dirname, './index.html'))
 })
 
 app.use('/api', isAuthLogin, api);
 app.use('/auth', auth)
 
 app.use('*', isAuthLogin, (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'))
+  res.sendFile(path.join(__dirname, './index.html'))
 });
 
 app.use((err, req, res, next) => {

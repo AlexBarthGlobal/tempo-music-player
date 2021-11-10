@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
 router.get('/me', async (req, res, next) => {
     try {
       if (!req.session.passport.user) {
-        res.sendStatus(401);
+        return res.status(401).json({error: 'User already exists.'})
       } else {
         const user = await User.findOne({
           where: {
@@ -33,11 +33,12 @@ router.get('/me', async (req, res, next) => {
         });
         
         if (!user) {
-          res.sendStatus(401);
+          return res.sendStatus(401);
         } else {
           res.json(user);
         }
       }
+
     } catch (error) {
       next(error);
     }
@@ -50,7 +51,9 @@ router.post('/register', register, passport.authenticate('local', {failureRedire
 async function register (req, res, next) {
   try {
 
-    if (!EmailValidator.validate(req.body.uname) || req.body.uname.includes('@tempomusicplayer.io')) res.sendStatus(403);
+    if (!EmailValidator.validate(req.body.uname) || req.body.uname.includes('@tempomusicplayer.io')) {
+      return res.sendStatus(403);
+    };
 
     const userExists = await User.findOne({
       where: {
@@ -59,7 +62,7 @@ async function register (req, res, next) {
     });
 
     if (userExists) {
-      res.sendStatus(409)
+      return res.sendStatus(409);
     };
 
     const saltHash = genPassword(req.body.pw);

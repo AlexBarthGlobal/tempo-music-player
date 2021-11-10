@@ -25,7 +25,7 @@ class Login extends React.Component {
     async handleSubmit(evt) {
         evt.preventDefault()
 
-        if (this.state.screen === 'login') {
+        if (this.state.screen === 'login') {    // LOGIN
             if (!EmailValidator.validate(this.state.uname)) {
                 this.setState({error: "That's not a valid email address."})
                 return;
@@ -33,11 +33,11 @@ class Login extends React.Component {
 
             try {
                 await axios.post('/auth/login', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
-                window.location.reload()
+                // window.location.reload()
             } catch (err) {
                 this.setState({error: 'Wrong email/password combination.'})
             }
-        } else {
+        } else {    // SIGN UP
             if (!EmailValidator.validate(this.state.uname) || this.state.uname.includes('@tempomusicplayer.io')) {
                 this.setState({error: "That's not a valid email address."})
                 return;
@@ -57,10 +57,10 @@ class Login extends React.Component {
         };
     };
 
-    async enterAsGuest() {
+    async enterAsGuest() {  // GUEST ENTER
         try {
             await axios.post('/auth/enterAsGuest')
-            window.location.reload()
+            // window.location.reload()
         } catch (err) {
             console.log(err)
         };

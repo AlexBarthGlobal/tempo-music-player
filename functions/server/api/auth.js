@@ -6,7 +6,7 @@ const {Song, User, Collection, CollectionSession, Listened} = require('../db/ind
 const isAuthLogin = require('./authMiddleware').isAuthLogin;
 const naivePw = require('../lib/naivePw')
 const Sequelize = require('sequelize');
-const { Op } = require('Sequelize');
+const { Op } = require('sequelize');
 const EmailValidator = require("email-validator")
 
 router.get('/', (req, res, next) => {

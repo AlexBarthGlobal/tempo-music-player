@@ -3,7 +3,7 @@ import axios from 'axios'
 import StyledButton from './StyledButton';
 import Input from '@mui/material/Input';
 import * as EmailValidator from 'email-validator'
-import PasswordValidator from '../../server/lib/validatePw'
+import PasswordValidator from '../../functions/server/lib/validatePw'
 
 class Login extends React.Component {
     constructor() {
@@ -62,7 +62,7 @@ class Login extends React.Component {
             await axios.post('/auth/enterAsGuest')
             window.location.reload()
         } catch (err) {
-            next(err);
+            console.log(err)
         };
     };
 

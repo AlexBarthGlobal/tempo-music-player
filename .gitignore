@@ -17,11 +17,9 @@
 .env.development.local
 .env.test.local
 .env.production.local
-/secrets.js
+/functions/secrets.js
+/functions/server/config/config.json
+/functions/server/config/passport.js
 
 npm-debug.log*
-
-server/config/config.json
-server/config/passport.js
-
 notes

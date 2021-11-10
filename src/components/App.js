@@ -30,7 +30,7 @@ import SpringScrollbars from './SpringScrollbars';
 import StyledButton from './StyledButton';
 import Input from '@mui/material/Input';
 import * as EmailValidator from 'email-validator'
-import PasswordValidator from '../../server/lib/validatePw'
+import PasswordValidator from '../../functions/server/lib/validatePw'
 import PlayArrow from '@mui/icons-material/PlayArrow';
 
 let tempActiveCollectionSession = null;

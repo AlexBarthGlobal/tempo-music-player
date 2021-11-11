@@ -1,6 +1,499 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./functions/node_modules/password-validator/src/constants.js":
+/*!********************************************************************!*\
+  !*** ./functions/node_modules/password-validator/src/constants.js ***!
+  \********************************************************************/
+/***/ ((module) => {
+
+module.exports = {
+  error: {
+    length: 'Length should be a valid positive number',
+    password: 'Password should be a valid string'
+  },
+  regex: {
+    digits: '(\\d.*)',
+    letters: '([a-zA-Z].*)',
+    symbols: '([`~\\!@#\\$%\\^\\&\\*\\(\\)\\-_\\=\\+\\[\\\{\\}\\]\\\\\|;:\\\'",<.>\\/\\?€£¥₹§±].*)',
+    spaces: '([\\s].*)'
+  }
+};
+
+
+/***/ }),
+
+/***/ "./functions/node_modules/password-validator/src/index.js":
+/*!****************************************************************!*\
+  !*** ./functions/node_modules/password-validator/src/index.js ***!
+  \****************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var lib = __webpack_require__(/*! ./lib */ "./functions/node_modules/password-validator/src/lib.js");
+var error = __webpack_require__(/*! ./constants */ "./functions/node_modules/password-validator/src/constants.js").error;
+var getValidationMessage = __webpack_require__(/*! ./validationMessages */ "./functions/node_modules/password-validator/src/validationMessages.js");
+
+/**
+ * Validates that a number is a valid length (positive number)
+ *
+ * @private
+ * @param {number} num - Number to validate
+ */
+function _validateLength(num) {
+  const len = Number(num);
+  if (isNaN(len) || !Number.isInteger(len) || len < 1) {
+    throw new Error(error.length);
+  }
+}
+
+/**
+ * Tests a validation and return the result
+ *
+ * @private
+ * @param {string} property - Property to validate
+ * @return {boolean} Boolean value indicting the validity
+ *           of the password against the property
+ */
+function _isPasswordValidFor(property) {
+  return lib[property.method].apply(this, property.arguments);
+}
+
+/**
+ * Registers the properties of a password-validation schema object
+ *
+ * @private
+ * @param {string} method - Property name
+ * @param {array} arguments - arguments for the func property
+ */
+function _register(method, args, description) {
+  // Add property to the schema
+  this.properties.push({ method, arguments: args, description });
+  return this;
+}
+
+class PasswordValidator {
+  /**
+   * Creates a password-validator schema
+   *
+   * @constructor
+   */
+  constructor() {
+    this.properties = [];
+  }
+
+  /**
+   * Method to validate the password against schema
+   *
+   * @param {string} pwd - password to validate
+   * @param {object} [options] - optional options to configure validation
+   * @param {boolean} [options.list] - asks for a list of validation
+   *           failures instead of just true/false
+   * @param {boolean} [options.details] - asks for more details about
+   *           failed validations including arguments, and error messages
+   * @return {boolean|array} Boolean value indicting the validity
+   *           of the password as per schema, if 'options.list' or
+   *           'options.details' is not set. Otherwise, it returns an
+   *           array of property names which failed validations
+   */
+  validate(pwd, options) {
+    this.list = Boolean(options && options.list);
+    this.details = Boolean(options && options.details);
+    this.password = String(pwd);
+
+    this.positive = true;
+
+    if (this.list || this.details) {
+      return this.properties.reduce((errorList, property) => {
+        // Applies all validations defined in lib one by one
+        if (!_isPasswordValidFor.call(this, property)) {
+          // If the validation for a property fails,
+          // add it to the error list
+          var detail = property.method;
+          // If the details option was provided,
+          // return a rich object including validation message
+          if (this.details) {
+            detail = { validation: property.method };
+            if (property.arguments && property.arguments[0]) {
+              detail.arguments = property.arguments[0];
+            }
+
+            if (!this.positive && property.method !== 'not') {
+              detail.inverted = true;
+            }
+            var description = property.arguments && property.arguments[1];
+            var validationMessage = description || getValidationMessage(property.method, detail.arguments, detail.inverted);
+            detail.message = validationMessage;
+          }
+
+          return errorList.concat(detail);
+        }
+        return errorList;
+      }, []);
+    }
+    return this.properties.every(_isPasswordValidFor.bind(this));
+  }
+
+  /**
+   * Rule to mandate the presence of letters in the password
+   *
+   * @param {number} [count] - minimum number of letters required
+   * @param {string} [description] - description of the validation
+   */
+  letters(count) {
+    count && _validateLength(count);
+    return _register.call(this, 'letters', arguments);
+  }
+
+  /**
+   * Rule to mandate the presence of digits in the password
+   *
+   * @param {number} [count] - minimum number of digits required
+   * @param {string} [description] - description of the validation
+   */
+  digits(count) {
+    count && _validateLength(count);
+    return _register.call(this, 'digits', arguments);
+  }
+
+  /**
+   * Rule to mandate the presence of symbols in the password
+   *
+   * @param {number} [count] - minimum number of symbols required
+   * @param {string} [description] - description of the validation
+   */
+  symbols(count) {
+    count && _validateLength(count);
+    return _register.call(this, 'symbols', arguments);
+  }
+
+  /**
+   * Rule to specify a minimum length of the password
+   *
+   * @param {number} num - minimum length
+   * @param {string} [description] - description of the validation
+   */
+  min(num) {
+    _validateLength(num);
+    return _register.call(this, 'min', arguments);
+  }
+
+  /**
+   * Rule to specify a maximum length of the password
+   *
+   * @param {number} num - maximum length
+   * @param {string} [description] - description of the validation
+   */
+  max(num) {
+    _validateLength(num);
+    return _register.call(this, 'max', arguments);
+  }
+
+  /**
+   * Rule to mandate the presence of lowercase letters in the password
+   *
+   * @param {number} [count] - minimum number of lowercase letters required
+   * @param {string} [description] - description of the validation
+   */
+  lowercase(count) {
+    count && _validateLength(count);
+    return _register.call(this, 'lowercase', arguments);
+  }
+
+  /**
+   * Rule to mandate the presence of uppercase letters in the password
+   *
+   * @param {number} [count] - minimum number of uppercase letters required
+   * @param {string} [description] - description of the validation
+
+   */
+  uppercase(count) {
+    count && _validateLength(count);
+    return _register.call(this, 'uppercase', arguments);
+  }
+
+  /**
+   * Rule to mandate the presence of space in the password
+   * It can be used along with 'not' to not allow spaces
+   * in the password
+   *
+   * @param {number} [count] - minimum number of spaces required
+   * @param {string} [description] - description of the validation
+   */
+  spaces(count) {
+    count && _validateLength(count);
+    return _register.call(this, 'spaces', arguments);
+  }
+
+  /**
+   * Rule to invert the effects of 'not'
+   * Apart from that, 'has' is also used
+   * to make the api readable and chainable
+   *
+   * @param {string|RegExp} [patten] - pattern to match
+   * @param {string} [description] - description of the validation
+   */
+  has() {
+    return _register.call(this, 'has', arguments);
+  }
+
+  /**
+   * Rule to invert the next applied rules.
+   * All the rules applied after 'not' will have opposite effect,
+   * until 'has' rule is applied
+   *
+   * @param {string|RegExp} [patten] - pattern to not match
+   * @param {string} [description] - description of the validation
+   */
+  not() {
+    return _register.call(this, 'not', arguments);
+  }
+
+  /**
+   * Rule to invert the effects of 'not'
+   * Apart from that, 'is' is also used
+   * to make the api readable and chainable
+   */
+  is() {
+    return _register.call(this, 'is', arguments);
+  }
+
+  /**
+   * Rule to whitelist words to be used as password
+   *
+   * @param {array} list - list of values allowed
+   * @param {string} [description] - description of the validation
+   */
+  oneOf() {
+    return _register.call(this, 'oneOf', arguments);
+  }
+}
+
+module.exports = PasswordValidator;
+
+
+/***/ }),
+
+/***/ "./functions/node_modules/password-validator/src/lib.js":
+/*!**************************************************************!*\
+  !*** ./functions/node_modules/password-validator/src/lib.js ***!
+  \**************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/**
+ * Generic method to test regex
+ *
+ * @private
+ * @param {string} regex - regex to test
+ *                           with password
+ */
+var regex = __webpack_require__(/*! ./constants */ "./functions/node_modules/password-validator/src/constants.js").regex;
+
+function _process(regexp, repeat) {
+  if (repeat && repeat > 1) {
+    const parsedRepeat = parseInt(repeat, 10);
+    return new RegExp(regexp + '{' + parsedRepeat + ',}').test(this.password) === this.positive;
+  }
+  return new RegExp(regexp).test(this.password) === this.positive;
+}
+
+module.exports = {
+
+  /**
+   * Method to invert the next validations
+   *
+   * @param {RegExp} [symbol] - custom Regex which should not be present
+   */
+  not: function not(symbol) {
+    this.positive = false;
+    if (symbol) {
+      return _process.call(this, symbol);
+    }
+    return true;
+  },
+
+  /**
+   * Method to invert the effects of not()
+   *
+   * @param {RegExp} [symbol] - custom Regex which should be present
+   */
+  has: function has(symbol) {
+    this.positive = true;
+    if (symbol) {
+      return _process.call(this, symbol);
+    }
+    return true;
+  },
+
+  /**
+   * Method to invert the effects of not() and
+   * to make the api readable and chainable
+   *
+   */
+  is: function is() {
+    this.positive = true;
+    return true;
+  },
+
+  /**
+   * Method to specify a minimum length
+   *
+   * @param {number} num - minimum length
+   */
+  min: function min(num) {
+    return this.password.length >= num;
+  },
+
+  /**
+   * Method to specify a maximum length
+   *
+   * @param {number} num - maximum length
+   */
+  max: function max(num) {
+    return this.password.length <= num;
+  },
+
+  /**
+   * Method to validate the presence of digits
+   *
+   * @param {number} repeat - count of required digits
+   */
+  digits: function digits(repeat) {
+    return _process.call(this, regex.digits, repeat);
+  },
+
+  /**
+   * Method to validate the presence of letters
+   *
+   * @param {number} repeat - count of required letters
+   */
+  letters: function letters(repeat) {
+    return _process.call(this, regex.letters, repeat);
+  },
+
+  /**
+   * Method to validate the presence of uppercase letters
+   *
+   * @param {number} repeat - count of required uppercase letters
+   */
+  uppercase: function uppercase(repeat) {
+    if (repeat && repeat > 1) {
+      let characterIndex = 0;
+      let upperCaseLetters = 0;
+
+      while ((upperCaseLetters < repeat) && (characterIndex < this.password.length)) {
+        const currentLetter = this.password.charAt(characterIndex);
+        if (currentLetter !== currentLetter.toLowerCase()) {
+          upperCaseLetters++;
+        }
+        characterIndex++;
+      }
+
+      return (upperCaseLetters === repeat) === this.positive;
+    }
+    return (this.password !== this.password.toLowerCase()) === this.positive;
+  },
+
+  /**
+   * Method to validate the presence of lowercase letters
+   *
+   * @param {number} repeat - count of required lowercase letters
+   */
+  lowercase: function lowercase(repeat) {
+    if (repeat && repeat > 1) {
+      let characterIndex = 0;
+      let lowerCaseLetters = 0;
+
+      while ((lowerCaseLetters < repeat) && (characterIndex < this.password.length)) {
+        const currentLetter = this.password.charAt(characterIndex);
+        if (currentLetter !== currentLetter.toUpperCase()) {
+          lowerCaseLetters++;
+        }
+        characterIndex++;
+      }
+
+      return (lowerCaseLetters === repeat) === this.positive;
+    }
+    return (this.password !== this.password.toUpperCase()) === this.positive;
+  },
+
+  /**
+   * Method to validate the presence of symbols
+   *
+   * @param {number} repeat - count of required symbols
+   */
+  symbols: function symbols(repeat) {
+    return _process.call(this, regex.symbols, repeat);
+  },
+
+  /**
+   * Method to validate the presence of space
+   *
+   * @param {number} repeat - count of required spaces
+   */
+  spaces: function spaces(repeat) {
+    return _process.call(this, regex.spaces, repeat);
+  },
+
+  /**
+   * Method to provide pre-defined values for password
+   *
+   * @param {array} list - list of values allowed
+   */
+  oneOf: function oneOf(list) {
+    return list.indexOf(this.password) >= 0 === this.positive;
+  }
+};
+
+
+/***/ }),
+
+/***/ "./functions/node_modules/password-validator/src/validationMessages.js":
+/*!*****************************************************************************!*\
+  !*** ./functions/node_modules/password-validator/src/validationMessages.js ***!
+  \*****************************************************************************/
+/***/ ((module) => {
+
+module.exports = function (method, arg, inverted) {
+  const msgList = inverted ? negativeMessages : positiveMessages;
+  return msgList[method] && msgList[method](arg);
+};
+
+const positiveMessages = {
+  min: (num) => `The string should have a minimum length of ${num} character${pluralify(num)}`,
+  max: (num) => `The string should have a maximum length of ${num} character${pluralify(num)}`,
+  letters: (num = 1) => `The string should have a minimum of ${num} letter${pluralify(num)}`,
+  digits: (num = 1) => `The string should have a minimum of ${num} digit${pluralify(num)}`,
+  uppercase: (num = 1) => `The string should have a minimum of ${num} uppercase letter${pluralify(num)}`,
+  lowercase: (num = 1) => `The string should have a minimum of ${num} lowercase letter${pluralify(num)}`,
+  symbols: (num = 1) => `The string should have a minimum of ${num} symbol${pluralify(num)}`,
+  spaces: (num = 1) => `The string should have a minimum of ${num} space${pluralify(num)}`,
+  oneOf: (list) => `The string should be ${list.length > 1 ? `one of ${list.slice(0, -1).join(', ')} and ` : ''}${list[list.length - 1]}`,
+  has: (pattern) => `The string should have pattern '${pattern}'`,
+  not: (pattern) => `The string should not have pattern '${pattern}'`
+};
+
+const negativeMessages = {
+  min: (num) => `The string should have a maximum length of ${num} character${pluralify(num)}`,
+  max: (num) => `The string should have a minimum length of ${num} character${pluralify(num)}`,
+  letters: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} letter${pluralify(num)}`,
+  digits: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} digit${pluralify(num)}`,
+  uppercase: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} uppercase letter${pluralify(num)}`,
+  lowercase: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} lowercase letter${pluralify(num)}`,
+  symbols: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} symbol${pluralify(num)}`,
+  spaces: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} space${pluralify(num)}`,
+  oneOf: (list) => `The string should not be ${list.length > 1 ? `one of ${list.slice(0, -1).join(', ')} and ` : ''}${list[list.length - 1]}`,
+  has: (pattern) => `The string should not have pattern '${pattern}'`,
+  not: (pattern) => `The string should have pattern '${pattern}'`
+
+};
+
+function pluralify(num) {
+  return num === 1 ? '' : 's';
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js":
 /*!***********************************************************************!*\
   !*** ./node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js ***!
@@ -17244,6 +17737,31 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./functions/server/lib/validatePw.js":
+/*!********************************************!*\
+  !*** ./functions/server/lib/validatePw.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const passwordValidator = __webpack_require__(/*! password-validator */ "./functions/node_modules/password-validator/src/index.js");
+
+const schema = new passwordValidator();
+schema.is().min(5) // Minimum length 8
+.is().max(100) // Maximum length 100
+// .has().uppercase()                              // Must have uppercase letters
+// .has().lowercase()                              // Must have lowercase letters
+// .has().digits(2)                                // Must have at least 2 digits
+.has().not().spaces() // Should not have spaces
+.is().not().oneOf(['Passw0rd', 'Password123']);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (schema);
+
+/***/ }),
+
 /***/ "./src/ReduxStore.js":
 /*!***************************!*\
   !*** ./src/ReduxStore.js ***!
@@ -17336,8 +17854,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _StyledButton__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./StyledButton */ "./src/components/StyledButton.js");
 /* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
 /* harmony import */ var email_validator__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! email-validator */ "./node_modules/email-validator/index.js");
-/* harmony import */ var _server_lib_validatePw__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../server/lib/validatePw */ "./server/lib/validatePw.js");
-/* harmony import */ var _server_lib_validatePw__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _functions_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../functions/server/lib/validatePw */ "./functions/server/lib/validatePw.js");
 /* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
@@ -17692,7 +18209,7 @@ var App = /*#__PURE__*/function (_React$Component) {
               case 4:
                 ;
 
-                if (_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_21___default().validate(_this.state.registerPw)) {
+                if (_functions_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_21__.default.validate(_this.state.registerPw)) {
                   _context3.next = 8;
                   break;
                 }
@@ -21941,8 +22458,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _StyledButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StyledButton */ "./src/components/StyledButton.js");
 /* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
 /* harmony import */ var email_validator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! email-validator */ "./node_modules/email-validator/index.js");
-/* harmony import */ var _server_lib_validatePw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../server/lib/validatePw */ "./server/lib/validatePw.js");
-/* harmony import */ var _server_lib_validatePw__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _functions_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../functions/server/lib/validatePw */ "./functions/server/lib/validatePw.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -22156,7 +22672,7 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 evt.preventDefault();
 
                 if (!(this.state.screen === 'login')) {
-                  _context.next = 17;
+                  _context.next = 18;
                   break;
                 }
 
@@ -22181,23 +22697,22 @@ var Login = /*#__PURE__*/function (_React$Component) {
 
               case 9:
                 window.location.reload();
-                _context.next = 15;
-                break;
+                return _context.abrupt("return");
 
-              case 12:
-                _context.prev = 12;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context["catch"](6);
                 this.setState({
                   error: 'Wrong email/password combination.'
                 });
 
-              case 15:
-                _context.next = 35;
+              case 16:
+                _context.next = 36;
                 break;
 
-              case 17:
+              case 18:
                 if (!(!email_validator__WEBPACK_IMPORTED_MODULE_3__.validate(this.state.uname) || this.state.uname.includes('@tempomusicplayer.io'))) {
-                  _context.next = 20;
+                  _context.next = 21;
                   break;
                 }
 
@@ -22206,11 +22721,11 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
                 return _context.abrupt("return");
 
-              case 20:
+              case 21:
                 ;
 
-                if (_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_4___default().validate(this.state.pw)) {
-                  _context.next = 24;
+                if (_functions_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_4__.default.validate(this.state.pw)) {
+                  _context.next = 25;
                   break;
                 }
 
@@ -22219,39 +22734,39 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
                 return _context.abrupt("return");
 
-              case 24:
+              case 25:
                 ;
-                _context.prev = 25;
-                _context.next = 28;
+                _context.prev = 26;
+                _context.next = 29;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/register', {
                   uname: this.state.uname.toLowerCase(),
                   pw: this.state.pw
                 });
 
-              case 28:
+              case 29:
                 window.location.reload();
-                _context.next = 34;
+                _context.next = 35;
                 break;
 
-              case 31:
-                _context.prev = 31;
-                _context.t1 = _context["catch"](25);
+              case 32:
+                _context.prev = 32;
+                _context.t1 = _context["catch"](26);
                 this.setState({
                   error: 'Email already exists.'
                 });
-
-              case 34:
-                ;
 
               case 35:
                 ;
 
               case 36:
+                ;
+
+              case 37:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[6, 12], [25, 31]]);
+        }, _callee, this, [[6, 13], [26, 32]]);
       }));
 
       function handleSubmit(_x) {
@@ -22280,7 +22795,7 @@ var Login = /*#__PURE__*/function (_React$Component) {
               case 6:
                 _context2.prev = 6;
                 _context2.t0 = _context2["catch"](0);
-                next(_context2.t0);
+                console.log(_context2.t0);
 
               case 9:
                 ;
@@ -22633,6 +23148,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              _this.rap.volume = _this.props.volume / 100;
               if (_this.props.musicInfo.activeSession) _this.setState({
                 currSrc: _this.props.musicInfo.activeSession.songs[_this.props.playIdx].songURL,
                 duration: _this.props.musicInfo.activeSession.songs[_this.props.playIdx].duration
@@ -22652,7 +23168,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
                 }
               });
 
-            case 2:
+            case 3:
             case "end":
               return _context.stop();
           }
@@ -22661,7 +23177,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
     })));
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps) {
-      if (_this.props.volume || _this.props.volume === 0) _this.rap.volume = _this.props.volume;
+      if (_this.props.volume || _this.props.volume === 0) _this.rap.volume = _this.props.volume / 100;
 
       if (_this.rap.readyState !== 4) {
         // Allows song to be seekable before first playing on mobile devices.
@@ -23906,7 +24422,7 @@ var PreviewPlayer = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function () {
-      if (_this.props.volume || _this.props.volume === 0) _this.songPreview.volume = _this.props.volume;
+      if (_this.props.volume || _this.props.volume === 0) _this.songPreview.volume = _this.props.volume / 100;
     });
 
     return _this;
@@ -24850,7 +25366,7 @@ function _arrayWithHoles(arr) {
 
 
 var VolumeControls = function VolumeControls(props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100)),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(sessionStorage.getItem('volume') !== null ? Number(sessionStorage.getItem('volume')) : 100),
       _useState2 = _slicedToArray(_useState, 2),
       volume = _useState2[0],
       setVolume = _useState2[1];
@@ -24860,7 +25376,7 @@ var VolumeControls = function VolumeControls(props) {
       mouseDown = _useState4[0],
       setMouseDown = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100)),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume')) >= 0 ? Number(sessionStorage.getItem('preMutedVolume')) : 100),
       _useState6 = _slicedToArray(_useState5, 2),
       preMutedVolume = _useState6[0],
       setPreMutedVolume = _useState6[1];
@@ -24928,7 +25444,8 @@ var VolumeControls = function VolumeControls(props) {
     };
   }, [mouseDown]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    props.setVolume(volume / 100);
+    console.log('Loaded collection volume');
+    props.setVolume(volume);
     sessionStorage.setItem('volume', volume);
     if (volume === 0) setMuted(true);else if (volume > 0 && muted) setMuted(false);
   }, [volume]);
@@ -24944,13 +25461,14 @@ var VolumeControls = function VolumeControls(props) {
   var toggleMute = function toggleMute() {
     if (!muted) {
       //mute it here
+      console.log('MUTING NOW');
       sessionStorage.setItem('preMutedVolume', volume);
       setPreMutedVolume(volume);
       props.setVolume(0);
       setVolume(0);
     } else {
       //unmute it here
-      props.setVolume(preMutedVolume / 100);
+      props.setVolume(preMutedVolume);
       setVolume(preMutedVolume);
       setMuted(false);
     }
@@ -24975,8 +25493,8 @@ var VolumeControls = function VolumeControls(props) {
     value: volume,
     onChange: onChange,
     valueLabelDisplay: "auto",
-    orientation: "vertical",
-    step: 1,
+    orientation: "vertical" //   step={1}
+    ,
     onKeyDown: preventHorizontalKeyboardNavigation,
     onMouseDown: function onMouseDown() {
       setPreVisible(true);
@@ -25133,7 +25651,7 @@ function _arrayWithHoles(arr) {
 
 
 var VolumeControls = function VolumeControls(props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100)),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(sessionStorage.getItem('volume') !== null ? Number(sessionStorage.getItem('volume')) : 100),
       _useState2 = _slicedToArray(_useState, 2),
       volume = _useState2[0],
       setVolume = _useState2[1];
@@ -25143,7 +25661,7 @@ var VolumeControls = function VolumeControls(props) {
       mouseDown = _useState4[0],
       setMouseDown = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100)),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume')) >= 0 ? Number(sessionStorage.getItem('preMutedVolume')) : 100),
       _useState6 = _slicedToArray(_useState5, 2),
       preMutedVolume = _useState6[0],
       setPreMutedVolume = _useState6[1];
@@ -25211,7 +25729,7 @@ var VolumeControls = function VolumeControls(props) {
     };
   }, [mouseDown]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    props.setVolume(volume / 100);
+    props.setVolume(volume);
     sessionStorage.setItem('volume', volume);
     if (volume === 0) setMuted(true);else if (volume > 0 && muted) setMuted(false);
   }, [volume]);
@@ -25227,13 +25745,14 @@ var VolumeControls = function VolumeControls(props) {
   var toggleMute = function toggleMute() {
     if (!muted) {
       //mute it here
+      console.log('toggling mute');
       sessionStorage.setItem('preMutedVolume', volume);
       setPreMutedVolume(volume);
       props.setVolume(0);
       setVolume(0);
     } else {
       //unmute it here
-      props.setVolume(preMutedVolume / 100);
+      props.setVolume(preMutedVolume);
       setVolume(preMutedVolume);
       setMuted(false);
     }
@@ -25258,8 +25777,8 @@ var VolumeControls = function VolumeControls(props) {
     value: volume,
     onChange: onChange,
     valueLabelDisplay: "auto",
-    orientation: "vertical",
-    step: 1,
+    orientation: "vertical" //   step={1}
+    ,
     onKeyDown: preventHorizontalKeyboardNavigation,
     onMouseDown: function onMouseDown() {
       setPreVisible(true);
@@ -27170,7 +27689,8 @@ var setVolumeThunk = function setVolumeThunk(volume) {
   };
 };
 var initialState = {
-  playing: false
+  playing: false,
+  volume: 100
 };
 function playerReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -27649,7 +28169,7 @@ var fetchUser = function fetchUser() {
             case 12:
               _context.prev = 12;
               _context.t0 = _context["catch"](1);
-              console.error(_context.t0);
+              console.log(_context.t0);
 
             case 15:
               _context.prev = 15;
@@ -28015,26 +28535,6 @@ var reportWebVitals = function reportWebVitals(onPerfEntry) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (reportWebVitals);
-
-/***/ }),
-
-/***/ "./server/lib/validatePw.js":
-/*!**********************************!*\
-  !*** ./server/lib/validatePw.js ***!
-  \**********************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var passwordValidator = __webpack_require__(/*! password-validator */ "./node_modules/password-validator/src/index.js");
-
-var schema = new passwordValidator();
-schema.is().min(5) // Minimum length 8
-.is().max(100) // Maximum length 100
-// .has().uppercase()                              // Must have uppercase letters
-// .has().lowercase()                              // Must have lowercase letters
-// .has().digits(2)                                // Must have at least 2 digits
-.has().not().spaces() // Should not have spaces
-.is().not().oneOf(['Passw0rd', 'Password123']);
-module.exports = schema;
 
 /***/ }),
 
@@ -38792,7 +39292,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24); \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\nh4,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\n#mainTitle {\r\n  text-align: center;\r\n  margin-bottom: 40px;\r\n  margin-top: 40px;\r\n}\r\n\r\n.loginScreen {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  border: 1px solid #7575756b;\r\n  border-radius: 3vw;\r\n  width: max(258px, min(400px, 50vw));\r\n  -webkit-box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44); \r\n  box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44);\r\n  animation: mymove 8s infinite;\r\n}\r\n\r\n@keyframes mymove {\r\n  50% {box-shadow: 0px 0px 20px 21px rgb(90, 90, 90);}\r\n}\r\n\r\n#bottomLoginButton {\r\n  margin-bottom:30px;\r\n}\r\n\r\n.loginCenter {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n\r\n#loginScreenWrapper {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.buttonsOnLogin {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 16px;\r\n}\r\n\r\n.spaceBelow {\r\n  margin-bottom: 16px;\r\n}\r\n\r\n.buttonSeparator {\r\n  margin-left: 8px;\r\n  margin-right: 8px;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n}\r\n\r\n#welcomeModal {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n\r\n#metronomeWelcomeModal {\r\n  height: 24px;\r\n  width: 24px;\r\n}\r\n\r\n.modalButton {\r\n  margin-top: 10px;\r\n}\r\n\r\n.modalText {\r\n  font-size: 16.7px;\r\n}\r\n\r\n.modalWelcomeIcon {\r\n  position: relative;\r\n  top: 4.9px;\r\n}\r\n\r\n.modalWelcomePlayIcon {\r\n  position: relative;\r\n  top: 6.45px;\r\n}\r\n\r\n.modalWelcomePadding {\r\n  padding-bottom: 10px;\r\n}\r\n\r\n.modalWelcomeDone {\r\n  padding-bottom: 18px;\r\n}\r\n\r\n.noRecipientPadding {\r\n  padding-bottom: 14px;\r\n}\r\n\r\n.modalErrorPadding {\r\n  padding-bottom: 26px;\r\n}\r\n\r\n.modalTextPaddingParagraph {\r\n  padding-bottom: 11px;\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.burgerName {\r\n  margin-top: 0px;\r\n  font-size: 130%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  max-width: 100%;\r\n  margin-bottom: 28px;\r\n}\r\n\r\n.burgerMenuItem {\r\n  cursor: pointer;\r\n  margin-bottom: 28px;\r\n  transition: all 0.25s ease-out;\r\n}\r\n\r\n#guestSignUp:hover {\r\n  color: #edb303;\r\n}\r\n\r\n.burgerMenuItem:hover {\r\n  color: #838383;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.tempoPlayArrow {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n  position: relative;\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  font-size: min(max(0.977vw, 13.46px), 18px);\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#noCollectionsYet {\r\n  width: 100%;\r\n  text-align: center;\r\n  font-size: 17px;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: max(258px, min(500px, 50vw));\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n#innerMainPlayer {\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  padding-bottom: 12px;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  font-size: 2em;\r\n  text-align: center;\r\n  padding-left: 20px;\r\n  padding-right: 20px;\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere;\r\n}\r\n\r\n.specialWordBreak {\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere !important;\r\n}\r\n\r\n.browseSongsAlert {\r\n  font-size: 1.3em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.volumeControls {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-left: auto;\r\n  padding-right: 14px;\r\n}\r\n\r\n.volumeControlsMainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-left: auto;\r\n  padding-right: 14px;\r\n  position: relative;\r\n  bottom: 210px;\r\n}\r\n\r\n.volumeWrapper {\r\n  border: 1px black solid;\r\n  position: fixed;\r\n  height: 208px;\r\n  width: 40px;\r\n  right: 18px;\r\n  bottom: 24px;\r\n  background-color: #edb303;\r\n  border-radius: 8px;\r\n}\r\n\r\n.volumeWrapperMainPlayer {\r\n  border: 1px black solid;\r\n  position: relative;\r\n  height: 208px;\r\n  width: 40px;\r\n  right: 6px;\r\n  bottom: -35px;\r\n  background-color: #edb303;\r\n  border-radius: 8px;\r\n}\r\n\r\n.volumeSlider {\r\n  position: relative;\r\n  height: 140px;\r\n  bottom: 134px;\r\n}\r\n\r\n.volumeSliderMainPlayer {\r\n  position: relative;\r\n  height: 140px;\r\n  bottom: 153px;\r\n}\r\n\r\n.hidden {\r\n  visibility: hidden;\r\n}\r\n\r\n#volumeButton {\r\n  position: fixed;\r\n  top: 31px;\r\n  padding-left: 1px;\r\n}\r\n\r\n#volumeButtonMainPlayer {\r\n  position: relative;\r\n  bottom: 140px;\r\n  padding-left: 1px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.isPlaying {\r\n  color:rgb(255, 251, 0) !important;\r\n  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);\r\n}\r\n\r\n#collectionClearIcon {\r\n  position: absolute;\r\n  top: 0.4vw;\r\n  left: 0.4vw;\r\n  background-color: #000000c7;\r\n  border-radius: 6px;\r\n}\r\n\r\n.resumeStatus {\r\n  color:rgba(255, 251, 0, 0.616) !important;\r\n  color: rgb(160, 160, 160)\r\n}\r\n\r\n.listenedCollectionSong {\r\n  color: rgb(126, 126, 126);\r\n}\r\n\r\n#tempoPlayArrow {\r\n  color: rgb(255, 251, 0);\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerSideBox {\r\n  height: 40px;\r\n  width: 40px;\r\n  min-width: 40px;\r\n  margin-top: auto;\r\n  margin-bottom: 10px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n  backdrop-filter: 0;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 52px;\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-right: 5px;\r\n}\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.loopOn {\r\n  color:rgb(255, 251, 0) !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.toggleSearchByBPMBox {\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"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","sourcesContent":["body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24); \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\nh4,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\n#mainTitle {\r\n  text-align: center;\r\n  margin-bottom: 40px;\r\n  margin-top: 40px;\r\n}\r\n\r\n.loginScreen {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  border: 1px solid #7575756b;\r\n  border-radius: 3vw;\r\n  width: max(258px, min(400px, 50vw));\r\n  -webkit-box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44); \r\n  box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44);\r\n  animation: mymove 8s infinite;\r\n}\r\n\r\n@keyframes mymove {\r\n  50% {box-shadow: 0px 0px 20px 21px rgb(90, 90, 90);}\r\n}\r\n\r\n#bottomLoginButton {\r\n  margin-bottom:30px;\r\n}\r\n\r\n.loginCenter {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n\r\n#loginScreenWrapper {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.buttonsOnLogin {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 16px;\r\n}\r\n\r\n.spaceBelow {\r\n  margin-bottom: 16px;\r\n}\r\n\r\n.buttonSeparator {\r\n  margin-left: 8px;\r\n  margin-right: 8px;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n}\r\n\r\n#welcomeModal {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n\r\n#metronomeWelcomeModal {\r\n  height: 24px;\r\n  width: 24px;\r\n}\r\n\r\n.modalButton {\r\n  margin-top: 10px;\r\n}\r\n\r\n.modalText {\r\n  font-size: 16.7px;\r\n}\r\n\r\n.modalWelcomeIcon {\r\n  position: relative;\r\n  top: 4.9px;\r\n}\r\n\r\n.modalWelcomePlayIcon {\r\n  position: relative;\r\n  top: 6.45px;\r\n}\r\n\r\n.modalWelcomePadding {\r\n  padding-bottom: 10px;\r\n}\r\n\r\n.modalWelcomeDone {\r\n  padding-bottom: 18px;\r\n}\r\n\r\n.noRecipientPadding {\r\n  padding-bottom: 14px;\r\n}\r\n\r\n.modalErrorPadding {\r\n  padding-bottom: 26px;\r\n}\r\n\r\n.modalTextPaddingParagraph {\r\n  padding-bottom: 11px;\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.burgerName {\r\n  margin-top: 0px;\r\n  font-size: 130%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  max-width: 100%;\r\n  margin-bottom: 28px;\r\n}\r\n\r\n.burgerMenuItem {\r\n  cursor: pointer;\r\n  margin-bottom: 28px;\r\n  transition: all 0.25s ease-out;\r\n}\r\n\r\n#guestSignUp:hover {\r\n  color: #edb303;\r\n}\r\n\r\n.burgerMenuItem:hover {\r\n  color: #838383;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.tempoPlayArrow {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n  position: relative;\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  font-size: min(max(0.977vw, 13.46px), 18px);\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#noCollectionsYet {\r\n  width: 100%;\r\n  text-align: center;\r\n  font-size: 17px;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: max(258px, min(500px, 50vw));\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n#innerMainPlayer {\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  padding-bottom: 12px;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  font-size: 2em;\r\n  text-align: center;\r\n  padding-left: 20px;\r\n  padding-right: 20px;\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere;\r\n}\r\n\r\n.specialWordBreak {\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere !important;\r\n}\r\n\r\n.browseSongsAlert {\r\n  font-size: 1.3em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.volumeControls {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-left: auto;\r\n  padding-right: 14px;\r\n}\r\n\r\n.volumeControlsMainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-left: auto;\r\n  padding-right: 14px;\r\n  position: relative;\r\n  bottom: 210px;\r\n}\r\n\r\n.volumeWrapper {\r\n  border: 1px black solid;\r\n  position: fixed;\r\n  height: 208px;\r\n  width: 40px;\r\n  right: 18px;\r\n  bottom: 24px;\r\n  background-color: #edb303;\r\n  border-radius: 8px;\r\n}\r\n\r\n.volumeWrapperMainPlayer {\r\n  border: 1px black solid;\r\n  position: relative;\r\n  height: 208px;\r\n  width: 40px;\r\n  right: 6px;\r\n  bottom: -35px;\r\n  background-color: #edb303;\r\n  border-radius: 8px;\r\n}\r\n\r\n.volumeSlider {\r\n  position: relative;\r\n  height: 140px;\r\n  bottom: 134px;\r\n}\r\n\r\n.volumeSliderMainPlayer {\r\n  position: relative;\r\n  height: 140px;\r\n  bottom: 153px;\r\n}\r\n\r\n.hidden {\r\n  visibility: hidden;\r\n}\r\n\r\n#volumeButton {\r\n  position: fixed;\r\n  top: 31px;\r\n  padding-left: 1px;\r\n}\r\n\r\n#volumeButtonMainPlayer {\r\n  position: relative;\r\n  bottom: 140px;\r\n  padding-left: 1px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.isPlaying {\r\n  color:rgb(255, 251, 0) !important;\r\n  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);\r\n}\r\n\r\n#collectionClearIcon {\r\n  position: absolute;\r\n  top: 0.4vw;\r\n  left: 0.4vw;\r\n  background-color: #000000c7;\r\n  border-radius: 6px;\r\n}\r\n\r\n.resumeStatus {\r\n  color:rgba(255, 251, 0, 0.616) !important;\r\n  color: rgb(160, 160, 160)\r\n}\r\n\r\n.listenedCollectionSong {\r\n  color: rgb(126, 126, 126);\r\n}\r\n\r\n#tempoPlayArrow {\r\n  color: rgb(255, 251, 0);\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerSideBox {\r\n  height: 40px;\r\n  width: 40px;\r\n  min-width: 40px;\r\n  margin-top: auto;\r\n  margin-bottom: 10px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n  backdrop-filter: 0;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 52px;\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-right: 5px;\r\n}\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.loopOn {\r\n  color:rgb(255, 251, 0) !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.toggleSearchByBPMBox {\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24); \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\nh4,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\n#mainTitle {\r\n  text-align: center;\r\n  margin-bottom: 40px;\r\n  margin-top: 40px;\r\n}\r\n\r\n.loginScreen {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  border: 1px solid #7575756b;\r\n  border-radius: 3vw;\r\n  width: max(258px, min(400px, 50vw));\r\n  -webkit-box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44); \r\n  box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44);\r\n  animation: mymove 8s infinite;\r\n}\r\n\r\n@keyframes mymove {\r\n  50% {box-shadow: 0px 0px 20px 21px rgb(90, 90, 90);}\r\n}\r\n\r\n#bottomLoginButton {\r\n  margin-bottom:30px;\r\n}\r\n\r\n.loginCenter {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n\r\n#loginScreenWrapper {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.buttonsOnLogin {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 16px;\r\n}\r\n\r\n.spaceBelow {\r\n  margin-bottom: 16px;\r\n}\r\n\r\n.buttonSeparator {\r\n  margin-left: 8px;\r\n  margin-right: 8px;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n}\r\n\r\n#welcomeModal {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n\r\n#metronomeWelcomeModal {\r\n  height: 24px;\r\n  width: 24px;\r\n}\r\n\r\n.modalButton {\r\n  margin-top: 10px;\r\n}\r\n\r\n.modalText {\r\n  font-size: 16.7px;\r\n}\r\n\r\n.modalWelcomeIcon {\r\n  position: relative;\r\n  top: 4.9px;\r\n}\r\n\r\n.modalWelcomePlayIcon {\r\n  position: relative;\r\n  top: 6.45px;\r\n}\r\n\r\n.modalWelcomePadding {\r\n  padding-bottom: 10px;\r\n}\r\n\r\n.modalWelcomeDone {\r\n  padding-bottom: 18px;\r\n}\r\n\r\n.noRecipientPadding {\r\n  padding-bottom: 14px;\r\n}\r\n\r\n.modalErrorPadding {\r\n  padding-bottom: 26px;\r\n}\r\n\r\n.modalTextPaddingParagraph {\r\n  padding-bottom: 11px;\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.burgerName {\r\n  margin-top: 0px;\r\n  font-size: 130%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  max-width: 100%;\r\n  margin-bottom: 28px;\r\n}\r\n\r\n.burgerMenuItem {\r\n  cursor: pointer;\r\n  margin-bottom: 28px;\r\n  transition: all 0.25s ease-out;\r\n}\r\n\r\n#guestSignUp:hover {\r\n  color: #edb303;\r\n}\r\n\r\n.burgerMenuItem:hover {\r\n  color: #838383;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.tempoPlayArrow {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n  position: relative;\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  font-size: min(max(0.977vw, 13.46px), 18px);\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#noCollectionsYet {\r\n  width: 100%;\r\n  text-align: center;\r\n  font-size: 17px;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: max(258px, min(500px, 50vw));\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n#innerMainPlayer {\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  padding-bottom: 12px;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  font-size: 2em;\r\n  text-align: center;\r\n  padding-left: 20px;\r\n  padding-right: 20px;\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere;\r\n}\r\n\r\n.specialWordBreak {\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere !important;\r\n}\r\n\r\n.browseSongsAlert {\r\n  font-size: 1.22em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.volumeControls {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-left: auto;\r\n  padding-right: 14px;\r\n}\r\n\r\n.volumeControlsMainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-left: auto;\r\n  padding-right: 14px;\r\n  position: relative;\r\n  bottom: 210px;\r\n}\r\n\r\n.volumeWrapper {\r\n  border: 1px black solid;\r\n  position: fixed;\r\n  height: 208px;\r\n  width: 40px;\r\n  right: 18px;\r\n  bottom: 24px;\r\n  background-color: #edb303;\r\n  border-radius: 8px;\r\n}\r\n\r\n.volumeWrapperMainPlayer {\r\n  border: 1px black solid;\r\n  position: relative;\r\n  height: 208px;\r\n  width: 40px;\r\n  right: 6px;\r\n  bottom: -35px;\r\n  background-color: #edb303;\r\n  border-radius: 8px;\r\n}\r\n\r\n.volumeSlider {\r\n  position: relative;\r\n  height: 140px;\r\n  bottom: 134px;\r\n}\r\n\r\n.volumeSliderMainPlayer {\r\n  position: relative;\r\n  height: 140px;\r\n  bottom: 153px;\r\n}\r\n\r\n.hidden {\r\n  visibility: hidden;\r\n}\r\n\r\n#volumeButton {\r\n  position: fixed;\r\n  top: 31px;\r\n  padding-left: 1px;\r\n}\r\n\r\n#volumeButtonMainPlayer {\r\n  position: relative;\r\n  bottom: 140px;\r\n  padding-left: 1px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.isPlaying {\r\n  color:rgb(255, 251, 0) !important;\r\n  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);\r\n}\r\n\r\n#collectionClearIcon {\r\n  position: absolute;\r\n  top: 0.4vw;\r\n  left: 0.4vw;\r\n  background-color: #000000c7;\r\n  border-radius: 6px;\r\n}\r\n\r\n.resumeStatus {\r\n  color:rgba(255, 251, 0, 0.616) !important;\r\n  color: rgb(160, 160, 160)\r\n}\r\n\r\n.listenedCollectionSong {\r\n  color: rgb(126, 126, 126);\r\n}\r\n\r\n#tempoPlayArrow {\r\n  color: rgb(255, 251, 0);\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerSideBox {\r\n  height: 40px;\r\n  width: 40px;\r\n  min-width: 40px;\r\n  margin-top: auto;\r\n  margin-bottom: 10px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n  backdrop-filter: 0;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 52px;\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-right: 5px;\r\n}\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.loopOn {\r\n  color:rgb(255, 251, 0) !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.toggleSearchByBPMBox {\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}", "",{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"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","sourcesContent":["body {\r\n  margin: 0;\r\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  background-color: rgb(26, 24, 24); \r\n}\r\n\r\n/* disable blue highlight (especially on mobile) */\r\ninput,\r\ntextarea,\r\nbutton,\r\nselect,\r\ndiv,\r\nh4,\r\na {\r\n  outline: none;\r\n}\r\n\r\n.headerRoom {\r\n  margin-top: 92px;\r\n}\r\n\r\n.clearFooterPaddingDesktopSongs {\r\n  padding-bottom: 60px;\r\n}\r\n\r\n.clearFooterPaddingMobile {\r\n  padding-bottom: 70px;\r\n}\r\n\r\ninput[type=checkbox] {\r\n  padding-top: 20px;\r\n  transform: scale(1.2);\r\n}\r\n\r\n#metronomeSoundCheckbox {\r\n  margin-left: 5.6px;\r\n}\r\n\r\ndiv {\r\n  color: rgb(255, 255, 255);\r\n}\r\n\r\ncode {\r\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\na {\r\n  display: inherit;\r\n  text-decoration: none;\r\n}\r\n\r\n#mainTitle {\r\n  text-align: center;\r\n  margin-bottom: 40px;\r\n  margin-top: 40px;\r\n}\r\n\r\n.loginScreen {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  text-align: center;\r\n  border: 1px solid #7575756b;\r\n  border-radius: 3vw;\r\n  width: max(258px, min(400px, 50vw));\r\n  -webkit-box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44); \r\n  box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44);\r\n  animation: mymove 8s infinite;\r\n}\r\n\r\n@keyframes mymove {\r\n  50% {box-shadow: 0px 0px 20px 21px rgb(90, 90, 90);}\r\n}\r\n\r\n#bottomLoginButton {\r\n  margin-bottom:30px;\r\n}\r\n\r\n.loginCenter {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n\r\n#loginScreenWrapper {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.buttonsOnLogin {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 16px;\r\n}\r\n\r\n.spaceBelow {\r\n  margin-bottom: 16px;\r\n}\r\n\r\n.buttonSeparator {\r\n  margin-left: 8px;\r\n  margin-right: 8px;\r\n}\r\n\r\nsvg {\r\n  fill: white;\r\n  color: white;\r\n  transition: all 0.05s ease-out;\r\n}\r\n\r\n#welcomeModal {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n\r\n#metronomeWelcomeModal {\r\n  height: 24px;\r\n  width: 24px;\r\n}\r\n\r\n.modalButton {\r\n  margin-top: 10px;\r\n}\r\n\r\n.modalText {\r\n  font-size: 16.7px;\r\n}\r\n\r\n.modalWelcomeIcon {\r\n  position: relative;\r\n  top: 4.9px;\r\n}\r\n\r\n.modalWelcomePlayIcon {\r\n  position: relative;\r\n  top: 6.45px;\r\n}\r\n\r\n.modalWelcomePadding {\r\n  padding-bottom: 10px;\r\n}\r\n\r\n.modalWelcomeDone {\r\n  padding-bottom: 18px;\r\n}\r\n\r\n.noRecipientPadding {\r\n  padding-bottom: 14px;\r\n}\r\n\r\n.modalErrorPadding {\r\n  padding-bottom: 26px;\r\n}\r\n\r\n.modalTextPaddingParagraph {\r\n  padding-bottom: 11px;\r\n}\r\n\r\nsvg:hover {\r\n  fill: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n  cursor: pointer;\r\n}\r\n\r\n@media (hover: none) {\r\n  svg:hover { fill: white; };\r\n}\r\n\r\n.removeSongCross {\r\n  margin-right: 8px;\r\n}\r\n\r\n.removeSongCrossMobile {\r\n  margin-right: 4px;\r\n}\r\n\r\n.collectionsTitle {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.BPMTextAndCheckbox {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: row;\r\n}\r\n\r\n.burgerName {\r\n  margin-top: 0px;\r\n  font-size: 130%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  max-width: 100%;\r\n  margin-bottom: 28px;\r\n}\r\n\r\n.burgerMenuItem {\r\n  cursor: pointer;\r\n  margin-bottom: 28px;\r\n  transition: all 0.25s ease-out;\r\n}\r\n\r\n#guestSignUp:hover {\r\n  color: #edb303;\r\n}\r\n\r\n.burgerMenuItem:hover {\r\n  color: #838383;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.burgerCross {\r\n  color: white;\r\n}\r\n\r\n.tempoPlayArrow {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.browseSongsTitle {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.collections {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fill,max(178px, 25%));\r\n  justify-content: center;\r\n}\r\n\r\n@media only screen and (min-width: 534px) {\r\n  .collections {\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n  }\r\n}\r\n\r\n.singleCollection {\r\n  margin:auto;\r\n  display: flex;\r\n  cursor: pointer;\r\n  flex-direction: column;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n  margin-bottom: max(80px, min(10vw, 180px));\r\n  position: relative;\r\n}\r\n\r\n.imgAndStatus {\r\n  position: relative;\r\n}\r\n\r\n.collectionName {\r\n  font-size: 20px;\r\n  font-weight: 500;\r\n  padding-top: 4px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.sessionStatus {\r\n  font-size: min(max(0.977vw, 13.46px), 18px);\r\n}\r\n\r\n.collectionImage {\r\n  border-radius: 1.15vw;\r\n  width: 13vw;\r\n  height: 13vw;\r\n  min-width: 125px;\r\n  min-height: 125px;\r\n  max-width: 250px;\r\n  max-height: 250px;\r\n}\r\n\r\n.singleCollectionInnerContainer {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#mainPlayerContainer {\r\n  margin-top: 20px;\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.playerWrapper {\r\n  margin-top: 102px;\r\n}\r\n\r\n#mainPlayer {\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  border: 1px rgb(114, 114, 114) solid;\r\n  border-radius: 7px 7px 7px 7px;\r\n  max-width: 940px;\r\n  box-shadow: 0px 0px 64px 10px white;\r\n}\r\n\r\n#mainPlayerImageContainer {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  position: relative;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.imagePlayerFiller {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n#noCollectionsYet {\r\n  width: 100%;\r\n  text-align: center;\r\n  font-size: 17px;\r\n}\r\n\r\n#mainPlayerImg {\r\n  width: max(258px, min(500px, 50vw));\r\n}\r\n\r\n.loopMarginTop {\r\n  margin-top: 8px;\r\n}\r\n\r\n.singleMainPlayerTimestamp {\r\n  width: 40px;\r\n} \r\n\r\n#innerMainPlayerContainer {\r\n  padding-top: min(4vw, 28px);\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n#innerMainPlayer {\r\n  margin-left: 4vw;\r\n  margin-right: 4vw;\r\n}\r\n\r\n.mainPlayerPlayPausePadding {\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#mainPlayerSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  padding-bottom: 12px;\r\n}\r\n\r\n.mainPlayerflexHorizontal {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.mainPlayerFlexCenter {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.collectionSongsList {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.collectionSongsFlexCenterVertical {\r\n  display: flex;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  width: 100%;\r\n}\r\n\r\n.mainPlayerFlexVertical {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#metronomeNavButton {\r\n  height: 30px;\r\n  width: 30px;\r\n  padding-top: 6px;\r\n  padding-right: 5px;\r\n  pointer-events: all;\r\n}\r\n\r\n#metronomeMain {\r\n  height: 80px;\r\n  width: 80px;\r\n  margin-top: 22px;\r\n  transition: all 0.10s ease-out;\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.bars2 {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  width:40.255px;\r\n  height:34.92px;\r\n  --c:linear-gradient(currentColor 0 0);\r\n  background: \r\n    var(--c) 0%   100%,\r\n    var(--c) 50%  100%,\r\n    var(--c) 100% 100%;\r\n  background-size:9px 100%;\r\n  background-repeat: no-repeat;\r\n  animation:b2 1s infinite linear;\r\n}\r\n@keyframes b2 {\r\n    20% {background-size:9px 60% ,9px 100%,9px 100%}\r\n    40% {background-size:9px 80% ,9px 60% ,9px 100%}\r\n    60% {background-size:9px 100%,9px 80% ,9px 60% }\r\n    80% {background-size:9px 100%,9px 100%,9px 80% }\r\n}\r\n\r\n.screenTitle {\r\n  font-size: 2em;\r\n  text-align: center;\r\n  padding-left: 20px;\r\n  padding-right: 20px;\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere;\r\n}\r\n\r\n.specialWordBreak {\r\n  word-break: break-word;\r\n  overflow-wrap: anywhere !important;\r\n}\r\n\r\n.browseSongsAlert {\r\n  font-size: 1.22em;\r\n  text-align: center;\r\n  padding-left: 30px;\r\n  padding-right: 30px;\r\n}\r\n\r\n.browseSongsInput {\r\n  width: 200px;\r\n  margin-bottom: 20px;\r\n}\r\n\r\n#headerContainer {\r\n  width: 100%;\r\n  position: fixed;\r\n  z-index: 1;\r\n  top: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.topButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.volumeControls {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-left: auto;\r\n  padding-right: 14px;\r\n}\r\n\r\n.volumeControlsMainPlayer {\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin-left: auto;\r\n  padding-right: 14px;\r\n  position: relative;\r\n  bottom: 210px;\r\n}\r\n\r\n.volumeWrapper {\r\n  border: 1px black solid;\r\n  position: fixed;\r\n  height: 208px;\r\n  width: 40px;\r\n  right: 18px;\r\n  bottom: 24px;\r\n  background-color: #edb303;\r\n  border-radius: 8px;\r\n}\r\n\r\n.volumeWrapperMainPlayer {\r\n  border: 1px black solid;\r\n  position: relative;\r\n  height: 208px;\r\n  width: 40px;\r\n  right: 6px;\r\n  bottom: -35px;\r\n  background-color: #edb303;\r\n  border-radius: 8px;\r\n}\r\n\r\n.volumeSlider {\r\n  position: relative;\r\n  height: 140px;\r\n  bottom: 134px;\r\n}\r\n\r\n.volumeSliderMainPlayer {\r\n  position: relative;\r\n  height: 140px;\r\n  bottom: 153px;\r\n}\r\n\r\n.hidden {\r\n  visibility: hidden;\r\n}\r\n\r\n#volumeButton {\r\n  position: fixed;\r\n  top: 31px;\r\n  padding-left: 1px;\r\n}\r\n\r\n#volumeButtonMainPlayer {\r\n  position: relative;\r\n  bottom: 140px;\r\n  padding-left: 1px;\r\n}\r\n\r\n.secondButtons {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 6px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.singleSongVertical {\r\n  padding-left: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.isPlaying {\r\n  color:rgb(255, 251, 0) !important;\r\n  text-shadow: 2px 1px 13px rgba(156, 150, 150, 0.91);\r\n}\r\n\r\n#collectionClearIcon {\r\n  position: absolute;\r\n  top: 0.4vw;\r\n  left: 0.4vw;\r\n  background-color: #000000c7;\r\n  border-radius: 6px;\r\n}\r\n\r\n.resumeStatus {\r\n  color:rgba(255, 251, 0, 0.616) !important;\r\n  color: rgb(160, 160, 160)\r\n}\r\n\r\n.listenedCollectionSong {\r\n  color: rgb(126, 126, 126);\r\n}\r\n\r\n#tempoPlayArrow {\r\n  color: rgb(255, 251, 0);\r\n}\r\n\r\nul {\r\n  padding-left: 0;\r\n  list-style-type: none;\r\n}\r\n\r\n.navButton {\r\n  height: 38px !important;\r\n  width: 38px !important;\r\n  margin-left: 8px;\r\n  pointer-events: all;\r\n}\r\n\r\n.toTheLeft {\r\n  margin-right: auto;\r\n}\r\n\r\n.toTheRight {\r\n  margin-left: auto;\r\n}\r\n\r\n.enablePointerEvents {\r\n  pointer-events: all;\r\n}\r\n\r\n.footer {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 100%;\r\n}\r\n\r\n.footerRow {\r\n  display: flex;\r\n}\r\n\r\n#mainPlayerTimestamps {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n}\r\n\r\n#mainPlayerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.mainPlayerSideBox {\r\n  height: 40px;\r\n  width: 40px;\r\n  min-width: 40px;\r\n  margin-top: auto;\r\n  margin-bottom: 10px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerColumn {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.footerCenterTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: center;\r\n}\r\n\r\n.footerCenterTop > div {  /* All divs inside of footerCenterTop will have this applied. Play/pause, next, prev, etc */\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n  -webkit-user-select: none; /* Safari */        \r\n  -moz-user-select: none; /* Firefox */\r\n  -ms-user-select: none; /* IE10+/Edge */\r\n  user-select: none; /* Standard */\r\n}\r\n\r\n.footerCenterTopLeft {\r\n  margin-left: 0px;\r\n  margin-right: 10px;\r\n}\r\n\r\n.footerCenterTopRight {\r\n  margin-right: 0px;\r\n  margin-left: 10px;\r\n}\r\n\r\n.footerControls {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 70px;\r\n  padding: 10px 10px 10px 10px;\r\n  backdrop-filter: blur(5px);\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n  border-top: 0.5px solid rgba(56, 56, 56, 0.644);\r\n}\r\n\r\n.footerControlsMobile {\r\n  display: flex;\r\n  flex-direction: column;\r\n  backdrop-filter: 0;\r\n}\r\n\r\n.footerControlsMobileTop {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  height: 52px;\r\n  background-color: rgb(102, 101, 101);\r\n}\r\n\r\n.footerBox1 {\r\n  display: flex;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  cursor: pointer;\r\n  transition: all 0.25s ease-out;\r\n  border-radius: 10px;\r\n}\r\n\r\n.footerBox1:hover {\r\n  border-radius: 10px;\r\n  background-color: grey;\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox1Mobile {\r\n  display: flex;\r\n  width: 62vw;\r\n  min-width: 114px;\r\n}\r\n\r\n#footerControlsBPM {\r\n  cursor: pointer;\r\n  transition: all 0.20s ease-out;\r\n}\r\n\r\n#footerControlsBPM:hover {\r\n  color: rgb(117, 117, 117);\r\n  transition: all 0.10s ease-in;\r\n}\r\n\r\n.footerBox2 {\r\n  width: 100%;\r\n  padding-left: 40px;\r\n  padding-right: 40px;\r\n}\r\n\r\n.footerBox3 {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\n.footerBox3Mobile {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: flex-end;\r\n  width: 40vw;\r\n  min-width: 114px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  padding-right: 8px;\r\n}\r\n\r\n.footerItemCenterMobile {\r\n  margin-right: 14px;\r\n  margin-left: 18px;\r\n}\r\n\r\n.footerItemRightMobile {\r\n  margin-right: 12px;\r\n}\r\n\r\n.footerTextContainer {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  width: 40vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainer > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile {\r\n  letter-spacing: 0.6px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  width: 62vw;\r\n  min-width: 40px;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n}\r\n\r\n.footerTextContainerMobile > div {\r\n  max-width: 98%;\r\n  text-overflow: ellipsis;\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  font-size: 13px;\r\n}\r\n\r\n.footerArt {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n  margin-right: 16px;\r\n  margin-left: 6px;\r\n}\r\n\r\n.footerArtMobile {\r\n  min-width: 52px;\r\n  min-height: 52px;\r\n  max-width: 52px;\r\n  max-height: 52px;\r\n  margin-right: 5px;\r\n}\r\n\r\n.maxWidth {\r\n  width: 100%;\r\n}\r\n\r\n.singleSongInfo {\r\n  display: flex;\r\n  width: 100%;\r\n}\r\n\r\n.playTimeEndTime {\r\n  padding-top: 2px;\r\n}\r\n\r\n.collectionSongImg {\r\n  height: 52px;\r\n  width: 52px;\r\n}\r\n\r\n#singleSongInfo {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n#durationIcon {\r\n  height: 18px;\r\n  width: 18px;\r\n}\r\n\r\n#durationIconContainer {\r\n  padding-top: 6px;\r\n  padding-left: 12px;\r\n}\r\n\r\n.collectionSongsTable {\r\n  width: 100%;\r\n  max-width: 1600px;\r\n  padding-left: 6px;\r\n  padding-right: 12px;\r\n  text-align: left;\r\n}\r\n\r\n.collectionSongsTableDesktop {\r\n  padding-left: 100px;\r\n}\r\n\r\n.removeSongCrossContainer {\r\n  width: 0px;\r\n}\r\n\r\n.singleSongBox1 {\r\n  display: flex;\r\n}\r\n\r\n.controlsTop {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.loopOn {\r\n  color:rgb(255, 251, 0) !important;\r\n}\r\n\r\n.controlsBottom {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  background-color: rgba(156, 155, 155, 0.521);\r\n}\r\n\r\n.trackpadAndDuration {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: row;\r\n  width: 80vw;\r\n  padding-left: 10px;\r\n  padding-right: 10px;\r\n}\r\n\r\n.centerVertical {\r\n  margin-top: auto;\r\n  margin-bottom: auto;\r\n}\r\n\r\ntr {\r\n  height: 60px;\r\n}\r\n\r\n.touchPaddingBottom {\r\n  padding-bottom: 3.2px;\r\n}\r\n\r\n.touchPaddingBottomSong {\r\n  padding-bottom: 3.6px;\r\n}\r\n\r\n.touchPaddingTop {\r\n  padding-top: 1.2px;\r\n}\r\n\r\n.touchPaddingTopMobile {\r\n  padding-top: 0.8px;\r\n}\r\n\r\n.footerSlider {\r\n  width: 100%;\r\n  margin-left: 18px;\r\n  margin-right: 18px;\r\n}\r\n\r\n.mainSlider {\r\n  width: 94%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.footerSliderMobile {\r\n  width: 100%;\r\n  display: flex;\r\n}\r\n\r\n.footerTopLeft {\r\n  display: flex;\r\n  flex-direction: row;\r\n}\r\n\r\n.songNameAndArtist {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsBPM {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  flex-direction: column;\r\n}\r\n\r\n.controlsDurations {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.footerIcon {\r\n  height: 22px;\r\n  width: 22px\r\n}\r\n\r\n.controlButton {\r\n  margin-left: 6px;\r\n  margin-right: 6px;\r\n}\r\n\r\n.centerThis {\r\n  text-align: center;\r\n}\r\n\r\n.previewControlsContainer {\r\n  position: relative;\r\n}\r\n\r\n.previewControls {\r\n  position: absolute;\r\n  top: 25%;\r\n  left: 25%;\r\n  transform: scale(1.25);\r\n  padding-left: 1.1px;\r\n}\r\n\r\n.centerWithMargin {\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n.horizontalSlider {\r\n  width: 47%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.horizontalSliderMobile {\r\n  width: 72%;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n  height: 40px;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.exampleTrack {\r\n  height: 20px;\r\n  width: 47%;\r\n  background: grey;\r\n  border-radius: 20px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 50%)\r\n}\r\n\r\n.inner {\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  height: 40px;\r\n}\r\n\r\n.exampleThumb {\r\n  height: 24px;\r\n  width: 24px;\r\n  border: 2px solid black;\r\n  background: black;\r\n  border-radius: 10px;\r\n  position: absolute;\r\n  margin: 0 auto;\r\n  transform: translate(0, 25%);\r\n}\r\n\r\n.spaceAbove {\r\n  margin-top: 30px;\r\n}\r\n\r\n.BPMText {\r\n  font-size: 36px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n.toggleSearchByBPMBox {\r\n  margin-bottom: 14px;\r\n}\r\n\r\n.BPMTapPad {\r\n  margin: 0 auto;\r\n  height: 120px;\r\n  width: 120px;\r\n  border: 2px solid black;\r\n  border-radius: 12px;\r\n  background-color: rgb(175, 175, 175);\r\n  margin-bottom: 9px;\r\n}\r\n\r\n.BPMTapPad:active {\r\n  background-color: rgb(128, 123, 123);\r\n}\r\n\r\n.BPMTapPadText {\r\n  padding: 25%;\r\n  font-size: 17px;\r\n}\r\n\r\n.BPMLightContainer {\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n  height: 60px;\r\n}\r\n\r\n.BPMLight {\r\n  height: 40px;\r\n  width: 40px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color: grey;\r\n  border-radius: 12px;\r\n  transition: all 0.75s ease-out;\r\n}\r\n\r\n.confirmBPMTitle {\r\n  margin-bottom: 2px;\r\n}\r\n\r\n.BPMLightActive {\r\n  height: 60px;\r\n  width: 60px;\r\n  border: 1px solid grey;\r\n  margin: auto;\r\n  background-color:rgb(194, 194, 194);\r\n  border-radius: 12px;\r\n  transition: all 0.11s ease-in;\r\n  box-shadow: 0px 0px 64px 10px rgba(255, 255, 255, 0.521);\r\n}\r\n\r\n.noSelect {\r\n  -webkit-touch-callout: none; /* iOS Safari */\r\n    -webkit-user-select: none; /* Safari */\r\n     -khtml-user-select: none; /* Konqueror HTML */\r\n       -moz-user-select: none; /* Old versions of Firefox */\r\n        -ms-user-select: none; /* Internet Explorer/Edge */\r\n            user-select: none; /* Non-prefixed version, currently\r\n                                  supported by Chrome, Edge, Opera and Firefox */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -40859,499 +41359,6 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 	return to;
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/password-validator/src/constants.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/password-validator/src/constants.js ***!
-  \**********************************************************/
-/***/ ((module) => {
-
-module.exports = {
-  error: {
-    length: 'Length should be a valid positive number',
-    password: 'Password should be a valid string'
-  },
-  regex: {
-    digits: '(\\d.*)',
-    letters: '([a-zA-Z].*)',
-    symbols: '([`~\\!@#\\$%\\^\\&\\*\\(\\)\\-_\\=\\+\\[\\\{\\}\\]\\\\\|;:\\\'",<.>\\/\\?€£¥₹§±].*)',
-    spaces: '([\\s].*)'
-  }
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/password-validator/src/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/password-validator/src/index.js ***!
-  \******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var lib = __webpack_require__(/*! ./lib */ "./node_modules/password-validator/src/lib.js");
-var error = __webpack_require__(/*! ./constants */ "./node_modules/password-validator/src/constants.js").error;
-var getValidationMessage = __webpack_require__(/*! ./validationMessages */ "./node_modules/password-validator/src/validationMessages.js");
-
-/**
- * Validates that a number is a valid length (positive number)
- *
- * @private
- * @param {number} num - Number to validate
- */
-function _validateLength(num) {
-  const len = Number(num);
-  if (isNaN(len) || !Number.isInteger(len) || len < 1) {
-    throw new Error(error.length);
-  }
-}
-
-/**
- * Tests a validation and return the result
- *
- * @private
- * @param {string} property - Property to validate
- * @return {boolean} Boolean value indicting the validity
- *           of the password against the property
- */
-function _isPasswordValidFor(property) {
-  return lib[property.method].apply(this, property.arguments);
-}
-
-/**
- * Registers the properties of a password-validation schema object
- *
- * @private
- * @param {string} method - Property name
- * @param {array} arguments - arguments for the func property
- */
-function _register(method, args, description) {
-  // Add property to the schema
-  this.properties.push({ method, arguments: args, description });
-  return this;
-}
-
-class PasswordValidator {
-  /**
-   * Creates a password-validator schema
-   *
-   * @constructor
-   */
-  constructor() {
-    this.properties = [];
-  }
-
-  /**
-   * Method to validate the password against schema
-   *
-   * @param {string} pwd - password to validate
-   * @param {object} [options] - optional options to configure validation
-   * @param {boolean} [options.list] - asks for a list of validation
-   *           failures instead of just true/false
-   * @param {boolean} [options.details] - asks for more details about
-   *           failed validations including arguments, and error messages
-   * @return {boolean|array} Boolean value indicting the validity
-   *           of the password as per schema, if 'options.list' or
-   *           'options.details' is not set. Otherwise, it returns an
-   *           array of property names which failed validations
-   */
-  validate(pwd, options) {
-    this.list = Boolean(options && options.list);
-    this.details = Boolean(options && options.details);
-    this.password = String(pwd);
-
-    this.positive = true;
-
-    if (this.list || this.details) {
-      return this.properties.reduce((errorList, property) => {
-        // Applies all validations defined in lib one by one
-        if (!_isPasswordValidFor.call(this, property)) {
-          // If the validation for a property fails,
-          // add it to the error list
-          var detail = property.method;
-          // If the details option was provided,
-          // return a rich object including validation message
-          if (this.details) {
-            detail = { validation: property.method };
-            if (property.arguments && property.arguments[0]) {
-              detail.arguments = property.arguments[0];
-            }
-
-            if (!this.positive && property.method !== 'not') {
-              detail.inverted = true;
-            }
-            var description = property.arguments && property.arguments[1];
-            var validationMessage = description || getValidationMessage(property.method, detail.arguments, detail.inverted);
-            detail.message = validationMessage;
-          }
-
-          return errorList.concat(detail);
-        }
-        return errorList;
-      }, []);
-    }
-    return this.properties.every(_isPasswordValidFor.bind(this));
-  }
-
-  /**
-   * Rule to mandate the presence of letters in the password
-   *
-   * @param {number} [count] - minimum number of letters required
-   * @param {string} [description] - description of the validation
-   */
-  letters(count) {
-    count && _validateLength(count);
-    return _register.call(this, 'letters', arguments);
-  }
-
-  /**
-   * Rule to mandate the presence of digits in the password
-   *
-   * @param {number} [count] - minimum number of digits required
-   * @param {string} [description] - description of the validation
-   */
-  digits(count) {
-    count && _validateLength(count);
-    return _register.call(this, 'digits', arguments);
-  }
-
-  /**
-   * Rule to mandate the presence of symbols in the password
-   *
-   * @param {number} [count] - minimum number of symbols required
-   * @param {string} [description] - description of the validation
-   */
-  symbols(count) {
-    count && _validateLength(count);
-    return _register.call(this, 'symbols', arguments);
-  }
-
-  /**
-   * Rule to specify a minimum length of the password
-   *
-   * @param {number} num - minimum length
-   * @param {string} [description] - description of the validation
-   */
-  min(num) {
-    _validateLength(num);
-    return _register.call(this, 'min', arguments);
-  }
-
-  /**
-   * Rule to specify a maximum length of the password
-   *
-   * @param {number} num - maximum length
-   * @param {string} [description] - description of the validation
-   */
-  max(num) {
-    _validateLength(num);
-    return _register.call(this, 'max', arguments);
-  }
-
-  /**
-   * Rule to mandate the presence of lowercase letters in the password
-   *
-   * @param {number} [count] - minimum number of lowercase letters required
-   * @param {string} [description] - description of the validation
-   */
-  lowercase(count) {
-    count && _validateLength(count);
-    return _register.call(this, 'lowercase', arguments);
-  }
-
-  /**
-   * Rule to mandate the presence of uppercase letters in the password
-   *
-   * @param {number} [count] - minimum number of uppercase letters required
-   * @param {string} [description] - description of the validation
-
-   */
-  uppercase(count) {
-    count && _validateLength(count);
-    return _register.call(this, 'uppercase', arguments);
-  }
-
-  /**
-   * Rule to mandate the presence of space in the password
-   * It can be used along with 'not' to not allow spaces
-   * in the password
-   *
-   * @param {number} [count] - minimum number of spaces required
-   * @param {string} [description] - description of the validation
-   */
-  spaces(count) {
-    count && _validateLength(count);
-    return _register.call(this, 'spaces', arguments);
-  }
-
-  /**
-   * Rule to invert the effects of 'not'
-   * Apart from that, 'has' is also used
-   * to make the api readable and chainable
-   *
-   * @param {string|RegExp} [patten] - pattern to match
-   * @param {string} [description] - description of the validation
-   */
-  has() {
-    return _register.call(this, 'has', arguments);
-  }
-
-  /**
-   * Rule to invert the next applied rules.
-   * All the rules applied after 'not' will have opposite effect,
-   * until 'has' rule is applied
-   *
-   * @param {string|RegExp} [patten] - pattern to not match
-   * @param {string} [description] - description of the validation
-   */
-  not() {
-    return _register.call(this, 'not', arguments);
-  }
-
-  /**
-   * Rule to invert the effects of 'not'
-   * Apart from that, 'is' is also used
-   * to make the api readable and chainable
-   */
-  is() {
-    return _register.call(this, 'is', arguments);
-  }
-
-  /**
-   * Rule to whitelist words to be used as password
-   *
-   * @param {array} list - list of values allowed
-   * @param {string} [description] - description of the validation
-   */
-  oneOf() {
-    return _register.call(this, 'oneOf', arguments);
-  }
-}
-
-module.exports = PasswordValidator;
-
-
-/***/ }),
-
-/***/ "./node_modules/password-validator/src/lib.js":
-/*!****************************************************!*\
-  !*** ./node_modules/password-validator/src/lib.js ***!
-  \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-/**
- * Generic method to test regex
- *
- * @private
- * @param {string} regex - regex to test
- *                           with password
- */
-var regex = __webpack_require__(/*! ./constants */ "./node_modules/password-validator/src/constants.js").regex;
-
-function _process(regexp, repeat) {
-  if (repeat && repeat > 1) {
-    const parsedRepeat = parseInt(repeat, 10);
-    return new RegExp(regexp + '{' + parsedRepeat + ',}').test(this.password) === this.positive;
-  }
-  return new RegExp(regexp).test(this.password) === this.positive;
-}
-
-module.exports = {
-
-  /**
-   * Method to invert the next validations
-   *
-   * @param {RegExp} [symbol] - custom Regex which should not be present
-   */
-  not: function not(symbol) {
-    this.positive = false;
-    if (symbol) {
-      return _process.call(this, symbol);
-    }
-    return true;
-  },
-
-  /**
-   * Method to invert the effects of not()
-   *
-   * @param {RegExp} [symbol] - custom Regex which should be present
-   */
-  has: function has(symbol) {
-    this.positive = true;
-    if (symbol) {
-      return _process.call(this, symbol);
-    }
-    return true;
-  },
-
-  /**
-   * Method to invert the effects of not() and
-   * to make the api readable and chainable
-   *
-   */
-  is: function is() {
-    this.positive = true;
-    return true;
-  },
-
-  /**
-   * Method to specify a minimum length
-   *
-   * @param {number} num - minimum length
-   */
-  min: function min(num) {
-    return this.password.length >= num;
-  },
-
-  /**
-   * Method to specify a maximum length
-   *
-   * @param {number} num - maximum length
-   */
-  max: function max(num) {
-    return this.password.length <= num;
-  },
-
-  /**
-   * Method to validate the presence of digits
-   *
-   * @param {number} repeat - count of required digits
-   */
-  digits: function digits(repeat) {
-    return _process.call(this, regex.digits, repeat);
-  },
-
-  /**
-   * Method to validate the presence of letters
-   *
-   * @param {number} repeat - count of required letters
-   */
-  letters: function letters(repeat) {
-    return _process.call(this, regex.letters, repeat);
-  },
-
-  /**
-   * Method to validate the presence of uppercase letters
-   *
-   * @param {number} repeat - count of required uppercase letters
-   */
-  uppercase: function uppercase(repeat) {
-    if (repeat && repeat > 1) {
-      let characterIndex = 0;
-      let upperCaseLetters = 0;
-
-      while ((upperCaseLetters < repeat) && (characterIndex < this.password.length)) {
-        const currentLetter = this.password.charAt(characterIndex);
-        if (currentLetter !== currentLetter.toLowerCase()) {
-          upperCaseLetters++;
-        }
-        characterIndex++;
-      }
-
-      return (upperCaseLetters === repeat) === this.positive;
-    }
-    return (this.password !== this.password.toLowerCase()) === this.positive;
-  },
-
-  /**
-   * Method to validate the presence of lowercase letters
-   *
-   * @param {number} repeat - count of required lowercase letters
-   */
-  lowercase: function lowercase(repeat) {
-    if (repeat && repeat > 1) {
-      let characterIndex = 0;
-      let lowerCaseLetters = 0;
-
-      while ((lowerCaseLetters < repeat) && (characterIndex < this.password.length)) {
-        const currentLetter = this.password.charAt(characterIndex);
-        if (currentLetter !== currentLetter.toUpperCase()) {
-          lowerCaseLetters++;
-        }
-        characterIndex++;
-      }
-
-      return (lowerCaseLetters === repeat) === this.positive;
-    }
-    return (this.password !== this.password.toUpperCase()) === this.positive;
-  },
-
-  /**
-   * Method to validate the presence of symbols
-   *
-   * @param {number} repeat - count of required symbols
-   */
-  symbols: function symbols(repeat) {
-    return _process.call(this, regex.symbols, repeat);
-  },
-
-  /**
-   * Method to validate the presence of space
-   *
-   * @param {number} repeat - count of required spaces
-   */
-  spaces: function spaces(repeat) {
-    return _process.call(this, regex.spaces, repeat);
-  },
-
-  /**
-   * Method to provide pre-defined values for password
-   *
-   * @param {array} list - list of values allowed
-   */
-  oneOf: function oneOf(list) {
-    return list.indexOf(this.password) >= 0 === this.positive;
-  }
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/password-validator/src/validationMessages.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/password-validator/src/validationMessages.js ***!
-  \*******************************************************************/
-/***/ ((module) => {
-
-module.exports = function (method, arg, inverted) {
-  const msgList = inverted ? negativeMessages : positiveMessages;
-  return msgList[method] && msgList[method](arg);
-};
-
-const positiveMessages = {
-  min: (num) => `The string should have a minimum length of ${num} character${pluralify(num)}`,
-  max: (num) => `The string should have a maximum length of ${num} character${pluralify(num)}`,
-  letters: (num = 1) => `The string should have a minimum of ${num} letter${pluralify(num)}`,
-  digits: (num = 1) => `The string should have a minimum of ${num} digit${pluralify(num)}`,
-  uppercase: (num = 1) => `The string should have a minimum of ${num} uppercase letter${pluralify(num)}`,
-  lowercase: (num = 1) => `The string should have a minimum of ${num} lowercase letter${pluralify(num)}`,
-  symbols: (num = 1) => `The string should have a minimum of ${num} symbol${pluralify(num)}`,
-  spaces: (num = 1) => `The string should have a minimum of ${num} space${pluralify(num)}`,
-  oneOf: (list) => `The string should be ${list.length > 1 ? `one of ${list.slice(0, -1).join(', ')} and ` : ''}${list[list.length - 1]}`,
-  has: (pattern) => `The string should have pattern '${pattern}'`,
-  not: (pattern) => `The string should not have pattern '${pattern}'`
-};
-
-const negativeMessages = {
-  min: (num) => `The string should have a maximum length of ${num} character${pluralify(num)}`,
-  max: (num) => `The string should have a minimum length of ${num} character${pluralify(num)}`,
-  letters: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} letter${pluralify(num)}`,
-  digits: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} digit${pluralify(num)}`,
-  uppercase: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} uppercase letter${pluralify(num)}`,
-  lowercase: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} lowercase letter${pluralify(num)}`,
-  symbols: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} symbol${pluralify(num)}`,
-  spaces: (num = 0) => `The string should ${num === 0 ? 'not have' : `have a maximum of ${num}`} space${pluralify(num)}`,
-  oneOf: (list) => `The string should not be ${list.length > 1 ? `one of ${list.slice(0, -1).join(', ')} and ` : ''}${list[list.length - 1]}`,
-  has: (pattern) => `The string should not have pattern '${pattern}'`,
-  not: (pattern) => `The string should have pattern '${pattern}'`
-
-};
-
-function pluralify(num) {
-  return num === 1 ? '' : 's';
-}
 
 
 /***/ }),

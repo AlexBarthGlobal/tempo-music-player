@@ -177,7 +177,6 @@ class Collections extends React.Component {
             </form>
         </div>
         </Modal>
-    
         return (
             
             <div>         

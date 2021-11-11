@@ -1,4 +1,4 @@
-const isAuthLogin = (req, res, next) => {
+const isAuthLogin = async (req, res, next) => {
     if (req.isAuthenticated()) next();
     else {
         res.redirect('/login')

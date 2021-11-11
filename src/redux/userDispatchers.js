@@ -69,10 +69,9 @@ export const fetchUser = () => {
           };
       };
       response.data.listened.songs = listenedSongs;
-
       dispatch(gotMe(response.data))
     } catch (error) {
-      console.error(error)
+      console.log(error)
     } finally {
       dispatch(setFetchingStatus(false))
     }

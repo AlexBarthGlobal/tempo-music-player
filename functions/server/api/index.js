@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {isAuth, isAdmin} = require('./authMiddleware')
 const {Song, User, Collection, CollectionSession, Listened, SessionSong, ListenedSong, UserCollection, TempoRequest} = require('../db/index');
-const { Op } = require('Sequelize');
+const { Op } = require('sequelize');
 
 router.put('/clearSessions', async (req, res, next) => {
     try {

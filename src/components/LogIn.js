@@ -3,7 +3,7 @@ import axios from 'axios'
 import StyledButton from './StyledButton';
 import Input from '@mui/material/Input';
 import * as EmailValidator from 'email-validator'
-import PasswordValidator from '../../server/lib/validatePw'
+import PasswordValidator from '../../functions/server/lib/validatePw'
 
 class Login extends React.Component {
     constructor() {
@@ -25,7 +25,7 @@ class Login extends React.Component {
     async handleSubmit(evt) {
         evt.preventDefault()
 
-        if (this.state.screen === 'login') {
+        if (this.state.screen === 'login') {    // LOGIN
             if (!EmailValidator.validate(this.state.uname)) {
                 this.setState({error: "That's not a valid email address."})
                 return;
@@ -34,10 +34,11 @@ class Login extends React.Component {
             try {
                 await axios.post('/auth/login', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
                 window.location.reload()
+                return;
             } catch (err) {
                 this.setState({error: 'Wrong email/password combination.'})
             }
-        } else {
+        } else {    // SIGN UP
             if (!EmailValidator.validate(this.state.uname) || this.state.uname.includes('@tempomusicplayer.io')) {
                 this.setState({error: "That's not a valid email address."})
                 return;
@@ -57,12 +58,12 @@ class Login extends React.Component {
         };
     };
 
-    async enterAsGuest() {
+    async enterAsGuest() {  // GUEST ENTER
         try {
             await axios.post('/auth/enterAsGuest')
             window.location.reload()
         } catch (err) {
-            next(err);
+            console.log(err)
         };
     };
 

@@ -2,17 +2,17 @@
   "name": "frado-music-player-webpack",
   "version": "1.0.0",
   "description": "npm run build (to build current version)\r npm run server (to start app)",
-  "main": "secrets.js",
+  "main": "./functions/secrets.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "config": "webpack --config webpack.config.js",
     "start": "npm run build-watch",
-    "server": "nodemon ./server/app.js",
+    "server": "nodemon ./functions/server/index.js",
     "build-watch": "webpack -w",
     "build": "webpack",
     "seed": "node seed.js",
     "seed2": "node seed2.js",
-    "seed3": "node seed3.js"
+    "seed3": "node ./functions/seed3.js"
   },
   "author": "",
   "license": "ISC",
@@ -31,6 +31,7 @@
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "firebase": "^9.4.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.12",
     "passport": "^0.4.1",

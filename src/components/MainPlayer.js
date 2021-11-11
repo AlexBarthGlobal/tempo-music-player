@@ -23,6 +23,7 @@ class MainPlayer extends React.Component {
     };
 
     componentDidMount = async () => {
+        this.rap.volume = this.props.volume/100;
         if (this.props.musicInfo.activeSession) this.setState({
             currSrc: this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL,
             duration: this.props.musicInfo.activeSession.songs[this.props.playIdx].duration
@@ -46,7 +47,7 @@ class MainPlayer extends React.Component {
     };
 
     componentDidUpdate = (prevProps) => {
-        if (this.props.volume || this.props.volume === 0) this.rap.volume = this.props.volume;
+        if (this.props.volume || this.props.volume === 0) this.rap.volume = this.props.volume/100;
         if (this.rap.readyState !== 4) { // Allows song to be seekable before first playing on mobile devices.
             this.rap.play();
             this.rap.pause();

@@ -1,18 +1,18 @@
+const functions = require("firebase-functions");
 const express = require('express')
-const {db} = require('./db');
-const secrets = require('../secrets')
+const {db} = require('./server/db');
+const secrets = require('./secrets')
 const passport = require('passport')
 const crypto = require('crypto')
-const api = require('./api')
-const auth = require('./api/auth')
+const api = require('./server/api')
+const auth = require('./server/api/auth')
 const path = require('path')
-const isAuth = require('./api/authMiddleware').isAuth;
-const isAuthLogin = require('./api/authMiddleware').isAuthLogin;
+const isAuth = require('./server/api/authMiddleware').isAuth;
+const isAuthLogin = require('./server/api/authMiddleware').isAuthLogin;
 
 const app = express();
 
 const session = require('express-session');
-const user = require('./db/models/user');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const dbStore = new SequelizeStore({db})
@@ -20,6 +20,7 @@ const dbStore = new SequelizeStore({db})
 dbStore.sync(); //dbStore is only the Session table. The sessions on the server reset when the server is restarted if it is {force: true}
 
 app.use(session({
+  name: '__session',
   secret: secrets.sessionSecret,
   store: dbStore,
   resave: false,
@@ -39,7 +40,7 @@ app.use(express.urlencoded({extended: true}))
 
 // -------------- Passport Authentication ---------------
 
-require('./config/passport')
+require('./server/config/passport')
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -51,24 +52,24 @@ app.use(passport.session());
 // });
 
 app.use(function(req, res, next) {
-  res.set('Cache-Control', 'no-store');
+  res.set('Cache-Control', 'private');
   next();
 });
 
-app.use(express.static(path.join(__dirname, '../public'), {
+app.use(express.static(path.join(__dirname, './functions'), {
   index: "false"
 }))
 
 app.use('/login', (req, res) => {
   if (req.isAuthenticated()) res.redirect('/')
-  res.sendFile(path.join(__dirname, '../public/index.html'))
+  else res.sendFile(path.join(__dirname, './index.html'))
 })
 
 app.use('/api', isAuthLogin, api);
 app.use('/auth', auth)
 
 app.use('*', isAuthLogin, (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'))
+  res.sendFile(path.join(__dirname, './index.html'))
 });
 
 app.use((err, req, res, next) => {
@@ -78,6 +79,4 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.listen(process.env.PORT || 8080);
-
-module.exports = {app}
+exports.app = functions.https.onRequest(app)

@@ -81,9 +81,10 @@ class Login extends React.Component {
     render() {
         const { uname, pw } = this.state;
         return (
-            <div>
-            <h1 id='mainTitle'>Tempo Music Player</h1>
+            <div id='loginOutermostWrapper'>
+            
             <div id='loginScreenWrapper'>
+                <h1 id='mainTitle'>Tempo Music Player</h1>
             <div className='loginScreen'>
                 <h1>{this.state.screen === 'login' ? 'Login' : 'Sign Up'}</h1>
                 <form onSubmit={this.handleSubmit}>

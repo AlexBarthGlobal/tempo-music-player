@@ -7,9 +7,8 @@ import {render} from 'react-dom'
 import {fetchUser} from './redux/userDispatchers'
 import {fetchCollectionsAndSessions, fetchActiveCollectionSongs, applySongsInRange} from './redux/musicDispatchers'
 import Routes from './components/Routes'
-import { BrowserRouter as Router, withRouter, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 import songsInRange from './components/songsInRange'
-import SpringScrollbars from './components/SpringScrollbars';
 
 const Main = class extends React.Component { 
 
@@ -34,8 +33,10 @@ const Main = class extends React.Component {
 
     if (isFetching()) {
       return (
-        //Loading animation while user is fetching when they refresh the page
-        <h1></h1>
+        //Loading animation while user is fetching when they refresh the app
+        <div id='#mainLoadWrapper'>
+          <div id='barsMain' className='bars2'></div>
+        </div>
       )
     }
     

@@ -1,4 +1,4 @@
-import React from 'React'
+import React, { useEffect, useState } from 'react'
 import {connect} from 'react-redux'
 import {fetchActiveCollectionSongs, removeSongFromCollectionThunk, updateCollectionNameThunk} from '../redux/musicDispatchers';
 import {changeScreenThunk} from '../redux/screenDispatchers'
@@ -11,93 +11,110 @@ import { isBrowser } from 'react-device-detect';
 import StyledButton from './StyledButton'
 import Input from '@mui/material/Input';
 
-class CollectionSongs extends React.Component {
-    constructor(props) {
-        super()
-        this.state = {
-            collectionName: props.musicInfo.collections[props.selectedCollection].collectionName,
-            editedCollectionName: props.musicInfo.collections[props.selectedCollection].collectionName,
-            exited: false
+const CollectionSongs = (props) => {
+    const [loading, setLoading] = useState(true);
+    const [collectionName, setCollectionName] = useState(props.musicInfo.collections[props.selectedCollection].collectionName)
+    const [editedCollectionName, setEditedCollectionName] = useState(props.musicInfo.collections[props.selectedCollection].collectionName)
+    const [exited, setExited] = useState(false)
+
+    useEffect(async () => {
+        window.scrollTo(0, 0);
+        await props.fetchActiveCollectionSongs(props.selectedCollection);
+        setLoading(false);
+    }, [])
+
+    useEffect(async () => {
+        if (!exited && editedCollectionName !== props.musicInfo.collections[props.selectedCollection].collectionName) {
+            setCollectionName(editedCollectionName)
+            await props.updateCollectionName(editedCollectionName, props.selectedCollection);
+        } else setExited(false);
+    }, [props.editMode])
+
+    useEffect(() => {
+        if (!props.editMode) {
+            return;
         }
 
-        this.handleChange = this.handleChange.bind(this)
-        this.clearNameOnFocus = this.clearNameOnFocus.bind(this)
-    };
-
-    async componentDidMount() {
-        window.scrollTo(0, 0);
-        await this.props.fetchActiveCollectionSongs(this.props.selectedCollection)
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Enter' && this.props.editMode) {
-                this.setState({
-                    collectionName: this.state.editedCollectionName
-                })
-                this.props.editModeDone();
-            } 
-            if (e.key === "Escape" && this.props.editMode) {
-                this.setState({
-                    exited: true,
-                    editedCollectionName: this.props.musicInfo.collections[this.props.selectedCollection].collectionName
-                })
-                this.props.editModeDone();
+        function handleEscape(e) {
+            if (e.key === 'Enter') {
+                setCollectionName(editedCollectionName)
+                props.editModeDone();
+                return;
             };
-        });
-    };
 
-    componentWillUnmount() {
-        document.removeEventListener('keypress', () => {});
-    };
-
-    async componentDidUpdate(prevProps) {
-        if (prevProps.editMode && !this.props.editMode) {
-            if (!this.state.exited && this.state.editedCollectionName !== this.props.musicInfo.collections[this.props.selectedCollection].collectionName) {
-                this.setState({collectionName: this.state.editedCollectionName})
-                await this.props.updateCollectionName(this.state.editedCollectionName, this.props.selectedCollection);
-            } else this.setState({exited: false})
-        };
-    };
-
-    handleChange = (evt) => {
-        this.setState({
-            [evt.target.name]: evt.target.value
-        });
-    };
-
-    clearNameOnFocus = () => {
-        this.setState({editedCollectionName: ''})
-    }
-
-    removeSongFromCollection = async (songId) => {
-        await this.props.removeSongFromCollection(this.props.selectedCollection, songId, !!this.props.user.listened.songs[songId]);
-    };
-    
-    render() {
-        const songList = [];
-        if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-            for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-                songList.push(song);
-            };
-            songList.sort((a,b) => a.BPM-b.BPM)
-            let idx = 0;
-            for (const song of songList) {
-                songList[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={this.props.editMode} removeSongFromCollection={this.removeSongFromCollection} listenedBool={!!this.props.user.listened.songs[song.id]} songIsPlaying={this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.songs && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx] && this.props.musicInfo.activeSession.songs[this.props.musicInfo.activeSession.playIdx].id === song.id} />
-                idx++;
+            if (e.key === "Escape") {
+                setExited(true);
+                setEditedCollectionName(props.musicInfo.collections[props.selectedCollection].collectionName)
+                props.editModeDone();
+                return;
             };
         };
 
-        // return loading screen while loading songs for selected collection
-        if (!this.props.musicInfo.collections[this.props.selectedCollection].songs) {
-            return (
+        window.addEventListener('keydown', handleEscape)
+        return () => window.removeEventListener('keydown', handleEscape);
+    }, [props.editMode])
+
+    const handleChange = (evt) => {
+        evt.target.name === 'collectionName' ? setCollectionName(evt.target.value) : setEditedCollectionName(evt.target.value);
+    };
+
+    const clearNameOnFocus = () => {
+        setEditedCollectionName('')
+    };
+
+    const removeSongFromCollection = async (songId) => {
+        await props.removeSongFromCollection(props.selectedCollection, songId, !!props.user.listened.songs[songId]);
+    };
+
+    const collectionSongs = [];
+    if (props.musicInfo.collections[props.selectedCollection].songs) {
+        for (const [id, song] of props.musicInfo.collections[props.selectedCollection].songs) {
+            collectionSongs.push(song);
+        };
+        collectionSongs.sort((a, b) => a.BPM - b.BPM)
+        let idx = 0;
+        for (const song of collectionSongs) {
+            collectionSongs[idx] = <CollectionSingleSong key={idx} songId={song.id} songName={song.songName} artistName={song.artistName} albumName={song.albumName} BPM={song.BPM} duration={song.duration} artURL={song.artURL} editMode={props.editMode} removeSongFromCollection={removeSongFromCollection} listenedBool={!!props.user.listened.songs[song.id]} songIsPlaying={props.musicInfo.activeSession && props.musicInfo.activeSession.songs && props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx] && props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx].id === song.id} />
+            idx++;
+        };
+    };
+
+    const loader = <div className='bars2'></div>
+    return (
+        <div>
             <div className='screenTitle'>
-                
-            </div>
-            )
-        } else if (!songList.length) {
-            return (
                 <div>
-                    <Modal 
-                        isOpen={true} 
-                        onRequestClose={() => this.props.selectCollectionAndChangeScreen(null, 'Collections')}
+                    {props.editMode ? <Input className='browseSongsInput'
+                        sx={{
+                            fontFamily: 'inherit',
+                            fontSize: 30,
+                            color: 'white',
+                            ':not($focused)': { borderBottomColor: 'white' },
+                            ':before': { borderBottomColor: 'rgb(160, 160, 160)' },
+                            ':after': { borderBottomColor: 'white' },
+                        }} inputProps={{spellCheck: false, style: {textAlign: 'center'}}} name='editedCollectionName' onFocus={clearNameOnFocus} value={editedCollectionName} onChange={handleChange} variant="outlined" /> : collectionName}
+                </div>
+                <div>
+                    <Metronome id='metronomeMain' onClick={() => props.changeScreen('Tempo')} />
+                </div>
+            </div>
+            <div>
+                {props.musicInfo.collections[props.selectedCollection].songs && props.musicInfo.collections[props.selectedCollection].songs.size ?
+                <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Title</th>
+                            {isBrowser ? <th>Album</th> : null}
+                            <th>BPM</th>
+                            <th id='durationIconContainer'><AccessTimeIcon id='durationIcon' /></th>
+                        </tr>
+                        {collectionSongs}
+                    </tbody>
+                    </table> : loading ? loader : 
+                    <Modal
+                        isOpen={true}
+                        onRequestClose={() => props.selectCollectionAndChangeScreen(null, 'Collections')}
                         style={
                             {
                                 content: {
@@ -129,59 +146,17 @@ class CollectionSongs extends React.Component {
                         <div>
                             <div className='modalText modalTextPadding'>No songs in this collection yet!</div>
                             <div className='modalButton'>
-                                {this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? <StyledButton title='Add songs' func={() => this.props.changeScreen('BrowseSongs')} /> : null}
+                                {props.musicInfo.collections[props.selectedCollection].collectionOwner === props.user.id ? <StyledButton title='Add songs' func={() => props.changeScreen('BrowseSongs')} /> : null}
                             </div>
                             <div className='modalButton'>
-                                <StyledButton title='Go back' func={() => this.props.selectCollectionAndChangeScreen(null, 'Collections')} />
+                                <StyledButton title='Go back' func={() => props.selectCollectionAndChangeScreen(null, 'Collections')} />
                             </div>
                         </div>
-                    </Modal>
-                    <div className='screenTitle'>
-                        <div>
-                            {this.props.musicInfo.collections[this.props.selectedCollection].collectionName}
-                        </div>
-                        <div>
-                            <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
-                        </div>
-                    </div>
-                </div>      
-            )
-        } else return (
-            <div>
-                <div className='screenTitle'>
-                    <div>
-                        {this.props.editMode ? <Input className='browseSongsInput' 
-                                        sx={{
-                                            fontFamily: 'inherit',
-                                            fontSize: 30,
-                                            color: 'white',
-                                            ':not($focused)': { borderBottomColor: 'white' },
-                                            ':before': { borderBottomColor: 'rgb(160, 160, 160)' },
-                                            ':after': { borderBottomColor: 'white' },
-                                            }} inputProps={{ spellCheck: false, style: { textAlign: 'center' }}} name='editedCollectionName' onFocus={this.clearNameOnFocus} value={this.state.editedCollectionName} onChange={this.handleChange} variant="outlined" /> : this.state.collectionName}
-                    </div>
-                    <div>
-                        <Metronome id='metronomeMain' onClick={() => this.props.changeScreen('Tempo')} />
-                    </div>
-                </div>
-                <div>
-                    <table className={`collectionSongsTable ${isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile'}`}>
-                        <tbody>
-                            <tr>
-                                <th></th>
-                                <th>Title</th>
-                                {isBrowser ? <th>Album</th> : null}
-                                <th>BPM</th>
-                                <th id='durationIconContainer'><AccessTimeIcon id='durationIcon' /></th>
-                            </tr>
-                            {songList}
-                        </tbody>
-                    </table>
-                </div>
+                    </Modal>}
             </div>
-        )
-    }
-}
+        </div>
+    );
+};
 
 const mapStateToProps = (state) => {
     return {
@@ -189,10 +164,10 @@ const mapStateToProps = (state) => {
         musicInfo: state.musicReducer,
         screenStr: state.screenReducer.screenStr,
         selectedCollection: state.screenReducer.selectedCollection,
-        playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null,
+        playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
     };
 };
-  
+
 const mapDispatchToProps = (dispatch) => ({
     fetchActiveCollectionSongs: (collectionId) => dispatch(fetchActiveCollectionSongs(collectionId)),
     changeScreen: (screen) => dispatch(changeScreenThunk(screen)),

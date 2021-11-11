@@ -438,6 +438,21 @@ svg:hover {
     80% {background-size:9px 100%,9px 100%,9px 80% }
 }
 
+#barsMain {
+  /* width: 80.510px;
+  height: 65.84px; */
+  width: 74.39px;
+  height: 60.1px;
+  position: relative;
+  top: 46vh;
+}
+
+#mainLoadWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 .screenTitle {
   font-size: 2em;
   text-align: center;

@@ -32,7 +32,6 @@ import Input from '@mui/material/Input';
 import * as EmailValidator from 'email-validator'
 import PasswordValidator from '../../functions/server/lib/validatePw'
 import PlayArrow from '@mui/icons-material/PlayArrow';
-import NewCollectionSongs from './NewCollectionSongs'
 
 let tempActiveCollectionSession = null;
 Modal.setAppElement('#root')
@@ -291,7 +290,7 @@ class App extends React.Component {
             selectedScreen = <PlayerScreen />
             changeTempo = <Metronome id='metronomeNavButton' onClick={() => this.props.changeScreen('Tempo')} />
         } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = <BrowseSongs play={this.play} pause={this.pause} />    
-        else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <NewCollectionSongs editMode={this.state.editCollection} editModeDone={() => this.setState({editCollection: false})} />
+        else if (this.props.screenStr === 'CollectionSongs') selectedScreen = <CollectionSongs editMode={this.state.editCollection} editModeDone={() => this.setState({editCollection: false})} />
         let shareCollection;
         if (this.props.screenStr === 'CollectionSongs') shareCollection = <ShareIcon className='navButton' onClick={() => this.setState({shareCollectionModal: true})} />
         

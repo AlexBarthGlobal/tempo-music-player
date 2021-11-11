@@ -55,7 +55,6 @@ class Collections extends React.Component {
     }
 
     render() {
-        console.log('COLLECTIONS', this.props)
         const isActive = (collectionId) => {
             return (this.props.musicInfo.activeSession && this.props.musicInfo.activeSession.collectionId === collectionId)
         };

@@ -61,7 +61,6 @@ const VolumeControls = (props) => {
 
     const toggleMute = () => {
         if (!muted) { //mute it here
-            console.log('toggling mute')
             sessionStorage.setItem('preMutedVolume', volume);
             setPreMutedVolume(volume);
             props.setVolume(0)

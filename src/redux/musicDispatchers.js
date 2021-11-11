@@ -294,7 +294,6 @@ export const addSongToCollectionThunk = (collectionId, songId) => {
     return async dispatch => {
         try {
             const addedSong = await axios.post('/api/addSongToCollection', {collectionId, songId});
-            console.log('songData', addedSong);
             dispatch(addSongToCollection({addedSong: addedSong.data, collectionId}));
         } catch(err) {
             console.log(err)

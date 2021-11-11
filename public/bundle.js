@@ -17829,7 +17829,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PlayerScreen__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PlayerScreen */ "./src/components/PlayerScreen.js");
 /* harmony import */ var _BrowseSongs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./BrowseSongs */ "./src/components/BrowseSongs.js");
 /* harmony import */ var _CollectionSongs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CollectionSongs */ "./src/components/CollectionSongs.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
 /* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
 /* harmony import */ var _redux_userDispatchers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../redux/userDispatchers */ "./src/redux/userDispatchers.js");
@@ -17841,21 +17841,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_playerDispatchers__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../redux/playerDispatchers */ "./src/redux/playerDispatchers.js");
 /* harmony import */ var react_burger_menu__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-burger-menu */ "./node_modules/react-burger-menu/lib/BurgerMenu.js");
 /* harmony import */ var react_burger_menu__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(react_burger_menu__WEBPACK_IMPORTED_MODULE_16__);
-/* harmony import */ var _mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @mui/icons-material/Home */ "./node_modules/@mui/icons-material/Home.js");
-/* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
-/* harmony import */ var _mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/icons-material/Check */ "./node_modules/@mui/icons-material/Check.js");
-/* harmony import */ var _mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/icons-material/RestartAlt */ "./node_modules/@mui/icons-material/RestartAlt.js");
-/* harmony import */ var _mui_icons_material_PlaylistAdd__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/icons-material/PlaylistAdd */ "./node_modules/@mui/icons-material/PlaylistAdd.js");
-/* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
-/* harmony import */ var _mui_icons_material_LibraryMusicSharp__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @mui/icons-material/LibraryMusicSharp */ "./node_modules/@mui/icons-material/LibraryMusicSharp.js");
+/* harmony import */ var _mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @mui/icons-material/Home */ "./node_modules/@mui/icons-material/Home.js");
+/* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
+/* harmony import */ var _mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @mui/icons-material/Check */ "./node_modules/@mui/icons-material/Check.js");
+/* harmony import */ var _mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @mui/icons-material/RestartAlt */ "./node_modules/@mui/icons-material/RestartAlt.js");
+/* harmony import */ var _mui_icons_material_PlaylistAdd__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @mui/icons-material/PlaylistAdd */ "./node_modules/@mui/icons-material/PlaylistAdd.js");
+/* harmony import */ var _mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @mui/icons-material/Add */ "./node_modules/@mui/icons-material/Add.js");
+/* harmony import */ var _mui_icons_material_LibraryMusicSharp__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @mui/icons-material/LibraryMusicSharp */ "./node_modules/@mui/icons-material/LibraryMusicSharp.js");
 /* harmony import */ var _icons_metronome_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../icons/metronome.svg */ "./src/icons/metronome.svg");
-/* harmony import */ var _mui_icons_material_Share__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @mui/icons-material/Share */ "./node_modules/@mui/icons-material/Share.js");
+/* harmony import */ var _mui_icons_material_Share__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @mui/icons-material/Share */ "./node_modules/@mui/icons-material/Share.js");
 /* harmony import */ var _SpringScrollbars__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./SpringScrollbars */ "./src/components/SpringScrollbars.js");
 /* harmony import */ var _StyledButton__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./StyledButton */ "./src/components/StyledButton.js");
-/* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
+/* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
 /* harmony import */ var email_validator__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! email-validator */ "./node_modules/email-validator/index.js");
 /* harmony import */ var _functions_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../functions/server/lib/validatePw */ "./functions/server/lib/validatePw.js");
-/* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
+/* harmony import */ var _mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @mui/icons-material/PlayArrow */ "./node_modules/@mui/icons-material/PlayArrow.js");
+/* harmony import */ var _NewCollectionSongs__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./NewCollectionSongs */ "./src/components/NewCollectionSongs.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -18053,6 +18054,7 @@ function _defineProperty(obj, key, value) {
 
 
  // import ClearIcon from '@mui/icons-material/Clear';
+
 
 
 
@@ -18552,7 +18554,7 @@ var App = /*#__PURE__*/function (_React$Component) {
           height: "".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_13__.isBrowser && this.props.musicInfo.activeSession ? 'calc(100vh - 90px)' : '100%')
         }
       };
-      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_22__.Redirect, {
+      if (!this.props.user.id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_23__.Redirect, {
         to: "/login"
       });
 
@@ -18560,47 +18562,47 @@ var App = /*#__PURE__*/function (_React$Component) {
         location.href = "/auth/logout";
       };
 
-      var homeLogout = this.props.screenStr === 'Collections' ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_23__.default, {
+      var homeLogout = this.props.screenStr === 'Collections' ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Home__WEBPACK_IMPORTED_MODULE_24__.default, {
         className: "navButton toTheLeft",
         onClick: function onClick() {
           return _this2.props.changeScreen('Collections');
         }
       });
-      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_24__.default, {
+      var createOrAddToCollection = this.props.screenStr === 'Collections' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Add__WEBPACK_IMPORTED_MODULE_25__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
             addCollectionModal: true
           });
         }
-      }) : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlaylistAdd__WEBPACK_IMPORTED_MODULE_25__.default, {
+      }) : this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id && (this.props.screenStr === 'Tempo' || this.props.screenStr === 'CollectionSongs') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlaylistAdd__WEBPACK_IMPORTED_MODULE_26__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.props.changeScreen('BrowseSongs');
         }
       }) : null;
-      var editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_26__.default, {
+      var editSongs = this.props.screenStr === 'CollectionSongs' && this.props.musicInfo.collections[this.props.selectedCollection].collectionOwner === this.props.user.id ? this.state.editCollection ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_27__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
             editCollection: false
           });
         }
-      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_27__.default, {
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_28__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
             editCollection: true
           });
         }
-      }) : this.props.screenStr === 'Collections' ? this.state.editCollections ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_26__.default, {
+      }) : this.props.screenStr === 'Collections' ? this.state.editCollections ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Check__WEBPACK_IMPORTED_MODULE_27__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
             editCollections: false
           });
         }
-      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_27__.default, {
+      }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_28__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
@@ -18608,11 +18610,11 @@ var App = /*#__PURE__*/function (_React$Component) {
           });
         }
       }) : null;
-      var clearListened = this.props.screenStr !== 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_28__.default, {
+      var clearListened = this.props.screenStr !== 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_29__.default, {
         className: "navButton",
         onClick: this.resetInfo
       }) : null;
-      var navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_LibraryMusicSharp__WEBPACK_IMPORTED_MODULE_29__.default, {
+      var navToCollectionSongs = this.props.screenStr === 'PlayerScreen' || this.props.screenStr === 'Tempo' || this.props.screenStr === 'BrowseSongs' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_LibraryMusicSharp__WEBPACK_IMPORTED_MODULE_30__.default, {
         className: "navButton toTheLeft",
         onClick: function onClick() {
           return _this2.props.changeScreen('CollectionSongs');
@@ -18638,7 +18640,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       } else if (this.props.screenStr === 'BrowseSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowseSongs__WEBPACK_IMPORTED_MODULE_6__.default, {
         play: this.play,
         pause: this.pause
-      });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSongs__WEBPACK_IMPORTED_MODULE_7__.default, {
+      });else if (this.props.screenStr === 'CollectionSongs') selectedScreen = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_NewCollectionSongs__WEBPACK_IMPORTED_MODULE_22__.default, {
         editMode: this.state.editCollection,
         editModeDone: function editModeDone() {
           return _this2.setState({
@@ -18647,7 +18649,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         }
       });
       var shareCollection;
-      if (this.props.screenStr === 'CollectionSongs') shareCollection = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Share__WEBPACK_IMPORTED_MODULE_30__.default, {
+      if (this.props.screenStr === 'CollectionSongs') shareCollection = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_Share__WEBPACK_IMPORTED_MODULE_31__.default, {
         className: "navButton",
         onClick: function onClick() {
           return _this2.setState({
@@ -18719,7 +18721,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         className: "modalText"
       }, "Name your collection:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_31__.default, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_32__.default, {
         className: "browseSongsInput",
         sx: {
           fontSize: 16,
@@ -18743,7 +18745,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         variant: "outlined"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "modalText"
-      }, "Art URL:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_31__.default, (_React$createElement = {
+      }, "Art URL:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_32__.default, (_React$createElement = {
         className: "browseSongsInput",
         sx: {
           fontSize: 16,
@@ -18866,7 +18868,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         className: "modalText"
       }, "Enter recipient's E-mail:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleShare
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_31__.default, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_32__.default, {
         className: "browseSongsInput",
         sx: {
           fontSize: 16,
@@ -18930,7 +18932,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         onSubmit: this.handleRegister
       }, this.props.signUpStatusMessage !== 'Signed up successfully.' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "modalText"
-      }, "E-mail"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_31__.default, {
+      }, "E-mail"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_32__.default, {
         className: "browseSongsInput",
         sx: {
           fontSize: 16,
@@ -18954,7 +18956,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         variant: "outlined"
       })) : null, this.props.signUpStatusMessage !== 'Signed up successfully.' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "modalText"
-      }, "Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_31__.default, {
+      }, "Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_32__.default, {
         className: "browseSongsInput",
         sx: {
           fontSize: 16,
@@ -19034,7 +19036,7 @@ var App = /*#__PURE__*/function (_React$Component) {
         className: "modalText modalWelcomeDone"
       }, "Welcome to Tempo Music Player"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "modalWelcomePadding"
-      }, "Tempo keeps track of the songs you've played to ensure that you don't hear the same song twice across your collections."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_28__.default, {
+      }, "Tempo keeps track of the songs you've played to ensure that you don't hear the same song twice across your collections."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_RestartAlt__WEBPACK_IMPORTED_MODULE_29__.default, {
         className: "modalWelcomeIcon",
         sx: {
           fontSize: 24
@@ -19044,7 +19046,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_17__.default, {
         className: "modalWelcomeIcon",
         id: "metronomeWelcomeModal"
-      }), " Navigates you to the metronome screen, where you can select a BPM then press ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_32__.default, {
+      }), " Navigates you to the metronome screen, where you can select a BPM then press ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_PlayArrow__WEBPACK_IMPORTED_MODULE_33__.default, {
         className: "modalWelcomePlayIcon",
         sx: {
           fontSize: 24
@@ -24163,6 +24165,443 @@ var MetronomeSound = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
+/***/ "./src/components/NewCollectionSongs.js":
+/*!**********************************************!*\
+  !*** ./src/components/NewCollectionSongs.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/musicDispatchers */ "./src/redux/musicDispatchers.js");
+/* harmony import */ var _redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../redux/screenDispatchers */ "./src/redux/screenDispatchers.js");
+/* harmony import */ var _CollectionSingleSong__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CollectionSingleSong */ "./src/components/CollectionSingleSong.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../icons/metronome.svg */ "./src/icons/metronome.svg");
+/* harmony import */ var _mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/icons-material/AccessTime */ "./node_modules/@mui/icons-material/AccessTime.js");
+/* harmony import */ var react_device_detect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-device-detect */ "./node_modules/react-device-detect/dist/lib.js");
+/* harmony import */ var _StyledButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./StyledButton */ "./src/components/StyledButton.js");
+/* harmony import */ var _mui_material_Input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/Input */ "./node_modules/@mui/material/Input/Input.js");
+function _createForOfIteratorHelper(o, allowArrayLike) {
+  var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
+
+  if (!it) {
+    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+      if (it) o = it;
+      var i = 0;
+
+      var F = function F() {};
+
+      return {
+        s: F,
+        n: function n() {
+          if (i >= o.length) return {
+            done: true
+          };
+          return {
+            done: false,
+            value: o[i++]
+          };
+        },
+        e: function e(_e2) {
+          throw _e2;
+        },
+        f: F
+      };
+    }
+
+    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  var normalCompletion = true,
+      didErr = false,
+      err;
+  return {
+    s: function s() {
+      it = it.call(o);
+    },
+    n: function n() {
+      var step = it.next();
+      normalCompletion = step.done;
+      return step;
+    },
+    e: function e(_e3) {
+      didErr = true;
+      err = _e3;
+    },
+    f: function f() {
+      try {
+        if (!normalCompletion && it["return"] != null) it["return"]();
+      } finally {
+        if (didErr) throw err;
+      }
+    }
+  };
+}
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var NewCollectionSongs = function NewCollectionSongs(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState2 = _slicedToArray(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.musicInfo.collections[props.selectedCollection].collectionName),
+      _useState4 = _slicedToArray(_useState3, 2),
+      collectionName = _useState4[0],
+      setCollectionName = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.musicInfo.collections[props.selectedCollection].collectionName),
+      _useState6 = _slicedToArray(_useState5, 2),
+      editedCollectioName = _useState6[0],
+      setEditedCollectionName = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      exited = _useState8[0],
+      setExited = _useState8[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            window.scrollTo(0, 0);
+            _context.next = 3;
+            return props.fetchActiveCollectionSongs(props.selectedCollection);
+
+          case 3:
+            setLoading(false);
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  })), []);
+
+  var removeSongFromCollection = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(songId) {
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return props.removeSongFromCollection(props.selectedCollection, songId, !!props.user.listened.songs[songId]);
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function removeSongFromCollection(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var collectionSongs = [];
+
+  if (props.musicInfo.collections[props.selectedCollection].songs) {
+    var _iterator = _createForOfIteratorHelper(props.musicInfo.collections[props.selectedCollection].songs),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _step$value = _slicedToArray(_step.value, 2),
+            id = _step$value[0],
+            song = _step$value[1];
+
+        collectionSongs.push(song);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    ;
+    collectionSongs.sort(function (a, b) {
+      return a.BPM - b.BPM;
+    });
+    var idx = 0;
+
+    var _iterator2 = _createForOfIteratorHelper(collectionSongs),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var _song = _step2.value;
+        collectionSongs[idx] = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CollectionSingleSong__WEBPACK_IMPORTED_MODULE_4__.default, {
+          key: idx,
+          songId: _song.id,
+          songName: _song.songName,
+          artistName: _song.artistName,
+          albumName: _song.albumName,
+          BPM: _song.BPM,
+          duration: _song.duration,
+          artURL: _song.artURL,
+          editMode: props.editMode,
+          removeSongFromCollection: removeSongFromCollection,
+          listenedBool: !!props.user.listened.songs[_song.id],
+          songIsPlaying: props.musicInfo.activeSession && props.musicInfo.activeSession.songs && props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx] && props.musicInfo.activeSession.songs[props.musicInfo.activeSession.playIdx].id === _song.id
+        });
+        idx++;
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+
+    ;
+  }
+
+  ;
+  var loader = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "bars2"
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "screenTitle"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, props.editMode ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Input__WEBPACK_IMPORTED_MODULE_9__.default, {
+    className: "browseSongsInput",
+    sx: {
+      fontFamily: 'inherit',
+      fontSize: 30,
+      color: 'white',
+      ':not($focused)': {
+        borderBottomColor: 'white'
+      },
+      ':before': {
+        borderBottomColor: 'rgb(160, 160, 160)'
+      },
+      ':after': {
+        borderBottomColor: 'white'
+      }
+    },
+    inputProps: {
+      spellCheck: false,
+      style: {
+        textAlign: 'center'
+      }
+    },
+    name: "editedCollectionName"
+    /*onFocus={this.clearNameOnFocus} value={this.state.editedCollectionName} onChange={this.handleChange} variant="outlined"*/
+
+  }) :
+  /*this.state.collectionName*/
+  'Collection Name'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_metronome_svg__WEBPACK_IMPORTED_MODULE_6__.default, {
+    id: "metronomeMain",
+    onClick: function onClick() {
+      return props.changeScreen('Tempo');
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, props.musicInfo.collections[props.selectedCollection].songs && props.musicInfo.collections[props.selectedCollection].songs.size ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
+    className: "collectionSongsTable ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_7__.isBrowser ? 'collectionSongsTableDesktop clearFooterPaddingDesktopSongs' : 'clearFooterPaddingMobile')
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Title"), react_device_detect__WEBPACK_IMPORTED_MODULE_7__.isBrowser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Album") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "BPM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
+    id: "durationIconContainer"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_icons_material_AccessTime__WEBPACK_IMPORTED_MODULE_10__.default, {
+    id: "durationIcon"
+  }))), collectionSongs)) : loading ? loader : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_modal__WEBPACK_IMPORTED_MODULE_5___default()), {
+    isOpen: true,
+    onRequestClose: function onRequestClose() {
+      return props.selectCollectionAndChangeScreen(null, 'Collections');
+    },
+    style: {
+      content: {
+        borderRadius: '8px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        height: '118px',
+        position: 'absolute',
+        width: '50vw',
+        minWidth: '244px',
+        maxWidth: '518px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        top: '28%',
+        border: '1px solid #00000096',
+        paddingBottom: '30px',
+        backgroundColor: "rgb(52 52 52 ".concat(react_device_detect__WEBPACK_IMPORTED_MODULE_7__.isBrowser ? '/ 82%' : '', ")"),
+        backdropFilter: 'blur(5px)'
+      },
+      overlay: {
+        backgroundColor: '#36363614',
+        zIndex: 2
+      }
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "modalText modalTextPadding"
+  }, "No songs in this collection yet!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "modalButton"
+  }, props.musicInfo.collections[props.selectedCollection].collectionOwner === props.user.id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_8__.default, {
+    title: "Add songs",
+    func: function func() {
+      return props.changeScreen('BrowseSongs');
+    }
+  }) : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "modalButton"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_StyledButton__WEBPACK_IMPORTED_MODULE_8__.default, {
+    title: "Go back",
+    func: function func() {
+      return props.selectCollectionAndChangeScreen(null, 'Collections');
+    }
+  }))))));
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    user: state.userReducer.user,
+    musicInfo: state.musicReducer,
+    screenStr: state.screenReducer.screenStr,
+    selectedCollection: state.screenReducer.selectedCollection,
+    playIdx: state.musicReducer.activeSession ? state.musicReducer.activeSession.playIdx : null
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchActiveCollectionSongs: function fetchActiveCollectionSongs(collectionId) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.fetchActiveCollectionSongs)(collectionId));
+    },
+    changeScreen: function changeScreen(screen) {
+      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_3__.changeScreenThunk)(screen));
+    },
+    selectCollectionAndChangeScreen: function selectCollectionAndChangeScreen(collectionId, screen) {
+      return dispatch((0,_redux_screenDispatchers__WEBPACK_IMPORTED_MODULE_3__.selectCollectionAndChangeScreenThunk)(collectionId, screen));
+    },
+    removeSongFromCollection: function removeSongFromCollection(collectionId, songId, listenedBool) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.removeSongFromCollectionThunk)(collectionId, songId, listenedBool));
+    },
+    updateCollectionName: function updateCollectionName(newCollectionName, collectionId) {
+      return dispatch((0,_redux_musicDispatchers__WEBPACK_IMPORTED_MODULE_2__.updateCollectionNameThunk)(newCollectionName, collectionId));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(NewCollectionSongs));
+
+/***/ }),
+
 /***/ "./src/components/PlayerComponent.js":
 /*!*******************************************!*\
   !*** ./src/components/PlayerComponent.js ***!
@@ -27040,27 +27479,28 @@ var addSongToCollectionThunk = function addSongToCollectionThunk(collectionId, s
 
             case 3:
               addedSong = _context11.sent;
+              console.log('songData', addedSong);
               dispatch(addSongToCollection({
                 addedSong: addedSong.data,
                 collectionId: collectionId
               }));
-              _context11.next = 10;
+              _context11.next = 11;
               break;
 
-            case 7:
-              _context11.prev = 7;
+            case 8:
+              _context11.prev = 8;
               _context11.t0 = _context11["catch"](0);
               console.log(_context11.t0);
 
-            case 10:
+            case 11:
               ;
 
-            case 11:
+            case 12:
             case "end":
               return _context11.stop();
           }
         }
-      }, _callee11, null, [[0, 7]]);
+      }, _callee11, null, [[0, 8]]);
     }));
 
     return function (_x11) {

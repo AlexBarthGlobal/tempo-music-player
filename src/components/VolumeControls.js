@@ -47,7 +47,6 @@ const VolumeControls = (props) => {
     }, [mouseDown])
 
     useEffect(() => {
-        console.log('Loaded collection volume')
         props.setVolume(volume)
         sessionStorage.setItem('volume', volume)
         if (volume === 0) setMuted(true)
@@ -62,7 +61,6 @@ const VolumeControls = (props) => {
 
     const toggleMute = () => {
         if (!muted) { //mute it here
-            console.log('MUTING NOW')
             sessionStorage.setItem('preMutedVolume', volume);
             setPreMutedVolume(volume);
             props.setVolume(0)

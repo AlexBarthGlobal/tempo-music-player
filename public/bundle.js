@@ -25444,7 +25444,6 @@ var VolumeControls = function VolumeControls(props) {
     };
   }, [mouseDown]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    console.log('Loaded collection volume');
     props.setVolume(volume);
     sessionStorage.setItem('volume', volume);
     if (volume === 0) setMuted(true);else if (volume > 0 && muted) setMuted(false);
@@ -25461,7 +25460,6 @@ var VolumeControls = function VolumeControls(props) {
   var toggleMute = function toggleMute() {
     if (!muted) {
       //mute it here
-      console.log('MUTING NOW');
       sessionStorage.setItem('preMutedVolume', volume);
       setPreMutedVolume(volume);
       props.setVolume(0);

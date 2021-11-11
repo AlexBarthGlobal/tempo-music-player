@@ -19023,8 +19023,6 @@ var Collections = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log('COLLECTIONS', this.props);
-
       var isActive = function isActive(collectionId) {
         return _this2.props.musicInfo.activeSession && _this2.props.musicInfo.activeSession.collectionId === collectionId;
       };
@@ -23203,7 +23201,6 @@ var VolumeControls = function VolumeControls(props) {
   var toggleMute = function toggleMute() {
     if (!muted) {
       //mute it here
-      console.log('toggling mute');
       sessionStorage.setItem('preMutedVolume', volume);
       setPreMutedVolume(volume);
       props.setVolume(0);
@@ -24497,28 +24494,27 @@ var addSongToCollectionThunk = function addSongToCollectionThunk(collectionId, s
 
             case 3:
               addedSong = _context11.sent;
-              console.log('songData', addedSong);
               dispatch(addSongToCollection({
                 addedSong: addedSong.data,
                 collectionId: collectionId
               }));
-              _context11.next = 11;
+              _context11.next = 10;
               break;
 
-            case 8:
-              _context11.prev = 8;
+            case 7:
+              _context11.prev = 7;
               _context11.t0 = _context11["catch"](0);
               console.log(_context11.t0);
 
-            case 11:
+            case 10:
               ;
 
-            case 12:
+            case 11:
             case "end":
               return _context11.stop();
           }
         }
-      }, _callee11, null, [[0, 8]]);
+      }, _callee11, null, [[0, 7]]);
     }));
 
     return function (_x11) {

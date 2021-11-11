@@ -17726,7 +17726,7 @@ var BrowseSongs = function BrowseSongs(props) {
       counter = _useState14[0],
       setCounter = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
       _useState16 = _slicedToArray(_useState15, 2),
       loading = _useState16[0],
       setLoading = _useState16[1];

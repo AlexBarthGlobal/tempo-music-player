@@ -18,7 +18,7 @@ const BrowseSongs = (props) => {
     const [disabledBPM, setDisabledBPM] = useState(false)
     const [prevBPM, setPrevBPM] = useState(140)
     const [counter, setCounter] = useState(0)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         window.scrollTo(0, 0);

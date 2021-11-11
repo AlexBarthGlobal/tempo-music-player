@@ -72,6 +72,7 @@ class CollectionSongs extends React.Component {
     };
     
     render() {
+        console.log('COLLECTION SONGS', this.props)
         const songList = [];
         if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
             for (const [id, song] of this.props.musicInfo.collections[this.props.selectedCollection].songs) {

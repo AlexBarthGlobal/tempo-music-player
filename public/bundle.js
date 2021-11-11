@@ -21047,6 +21047,7 @@ var CollectionSongs = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
+      console.log('COLLECTION SONGS', this.props);
       var songList = [];
 
       if (this.props.musicInfo.collections[this.props.selectedCollection].songs) {
@@ -21566,6 +21567,8 @@ var Collections = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var _this2 = this;
+
+      console.log('COLLECTIONS', this.props);
 
       var isActive = function isActive(collectionId) {
         return _this2.props.musicInfo.activeSession && _this2.props.musicInfo.activeSession.collectionId === collectionId;

@@ -22,7 +22,6 @@ const VolumeControls = (props) => {
     };
 
     useEffect(() => {
-        console.log('Loaded Mainplayer volume')
         let timer;
         if (!preVisible) timer = setTimeout(() => setCounter(counter + 1), 1000);
         if (!preVisible && counter >= 1) {
@@ -48,7 +47,7 @@ const VolumeControls = (props) => {
     }, [mouseDown])
 
     useEffect(() => {
-        props.setVolume(volume/100)
+        props.setVolume(volume)
         sessionStorage.setItem('volume', volume)
         if (volume === 0) setMuted(true)
         else if (volume > 0 && muted) setMuted(false)
@@ -68,7 +67,7 @@ const VolumeControls = (props) => {
             props.setVolume(0)
             setVolume(0)
         } else { //unmute it here
-            props.setVolume(preMutedVolume/100);
+            props.setVolume(preMutedVolume);
             setVolume(preMutedVolume);
             setMuted(false)
         }

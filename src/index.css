@@ -453,7 +453,7 @@ svg:hover {
 }
 
 .browseSongsAlert {
-  font-size: 1.3em;
+  font-size: 1.22em;
   text-align: center;
   padding-left: 30px;
   padding-right: 30px;
@@ -762,6 +762,8 @@ ul {
 }
 
 .footerTextContainer {
+  margin-top: auto;
+  margin-bottom: auto;
   width: 40vw;
   min-width: 40px;
   text-overflow: ellipsis;

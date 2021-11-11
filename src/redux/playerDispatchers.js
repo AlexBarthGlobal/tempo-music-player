@@ -34,7 +34,8 @@ export const setVolumeThunk = (volume) => {
 };
 
 const initialState = {
-    playing: false
+    playing: false,
+    volume: 100
 };
 
 export default function playerReducer (state = initialState, action) {

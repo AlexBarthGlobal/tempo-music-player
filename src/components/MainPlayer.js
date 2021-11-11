@@ -23,6 +23,7 @@ class MainPlayer extends React.Component {
     };
 
     componentDidMount = async () => {
+        this.rap.volume = this.props.volume/100;
         if (this.props.musicInfo.activeSession) this.setState({
             currSrc: this.props.musicInfo.activeSession.songs[this.props.playIdx].songURL,
             duration: this.props.musicInfo.activeSession.songs[this.props.playIdx].duration

@@ -33,7 +33,8 @@ class Login extends React.Component {
 
             try {
                 await axios.post('/auth/login', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
-                // window.location.reload()
+                window.location.reload()
+                return;
             } catch (err) {
                 this.setState({error: 'Wrong email/password combination.'})
             }
@@ -60,7 +61,7 @@ class Login extends React.Component {
     async enterAsGuest() {  // GUEST ENTER
         try {
             await axios.post('/auth/enterAsGuest')
-            // window.location.reload()
+            window.location.reload()
         } catch (err) {
             console.log(err)
         };

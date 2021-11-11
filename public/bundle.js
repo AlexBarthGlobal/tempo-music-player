@@ -22672,7 +22672,7 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 evt.preventDefault();
 
                 if (!(this.state.screen === 'login')) {
-                  _context.next = 16;
+                  _context.next = 18;
                   break;
                 }
 
@@ -22696,23 +22696,23 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 9:
-                _context.next = 14;
-                break;
+                window.location.reload();
+                return _context.abrupt("return");
 
-              case 11:
-                _context.prev = 11;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context["catch"](6);
                 this.setState({
                   error: 'Wrong email/password combination.'
                 });
 
-              case 14:
-                _context.next = 34;
+              case 16:
+                _context.next = 36;
                 break;
 
-              case 16:
+              case 18:
                 if (!(!email_validator__WEBPACK_IMPORTED_MODULE_3__.validate(this.state.uname) || this.state.uname.includes('@tempomusicplayer.io'))) {
-                  _context.next = 19;
+                  _context.next = 21;
                   break;
                 }
 
@@ -22721,11 +22721,11 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
                 return _context.abrupt("return");
 
-              case 19:
+              case 21:
                 ;
 
                 if (_functions_server_lib_validatePw__WEBPACK_IMPORTED_MODULE_4__.default.validate(this.state.pw)) {
-                  _context.next = 23;
+                  _context.next = 25;
                   break;
                 }
 
@@ -22734,39 +22734,39 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
                 return _context.abrupt("return");
 
-              case 23:
+              case 25:
                 ;
-                _context.prev = 24;
-                _context.next = 27;
+                _context.prev = 26;
+                _context.next = 29;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/register', {
                   uname: this.state.uname.toLowerCase(),
                   pw: this.state.pw
                 });
 
-              case 27:
+              case 29:
                 window.location.reload();
-                _context.next = 33;
+                _context.next = 35;
                 break;
 
-              case 30:
-                _context.prev = 30;
-                _context.t1 = _context["catch"](24);
+              case 32:
+                _context.prev = 32;
+                _context.t1 = _context["catch"](26);
                 this.setState({
                   error: 'Email already exists.'
                 });
 
-              case 33:
-                ;
-
-              case 34:
-                ;
-
               case 35:
+                ;
+
+              case 36:
+                ;
+
+              case 37:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[6, 11], [24, 30]]);
+        }, _callee, this, [[6, 13], [26, 32]]);
       }));
 
       function handleSubmit(_x) {
@@ -22788,23 +22788,24 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/enterAsGuest');
 
               case 3:
-                _context2.next = 8;
+                window.location.reload();
+                _context2.next = 9;
                 break;
 
-              case 5:
-                _context2.prev = 5;
+              case 6:
+                _context2.prev = 6;
                 _context2.t0 = _context2["catch"](0);
                 console.log(_context2.t0);
 
-              case 8:
+              case 9:
                 ;
 
-              case 9:
+              case 10:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 5]]);
+        }, _callee2, null, [[0, 6]]);
       }));
 
       function enterAsGuest() {
@@ -23175,7 +23176,7 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
     })));
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps) {
-      if (_this.props.volume || _this.props.volume === 0) _this.rap.volume = _this.props.volume;
+      if (_this.props.volume || _this.props.volume === 0) _this.rap.volume = _this.props.volume / 100;
 
       if (_this.rap.readyState !== 4) {
         // Allows song to be seekable before first playing on mobile devices.
@@ -25364,7 +25365,7 @@ function _arrayWithHoles(arr) {
 
 
 var VolumeControls = function VolumeControls(props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100)),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(sessionStorage.getItem('volume') !== null ? Number(sessionStorage.getItem('volume')) : 100),
       _useState2 = _slicedToArray(_useState, 2),
       volume = _useState2[0],
       setVolume = _useState2[1];
@@ -25374,7 +25375,7 @@ var VolumeControls = function VolumeControls(props) {
       mouseDown = _useState4[0],
       setMouseDown = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100)),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume')) >= 0 ? Number(sessionStorage.getItem('preMutedVolume')) : 100),
       _useState6 = _slicedToArray(_useState5, 2),
       preMutedVolume = _useState6[0],
       setPreMutedVolume = _useState6[1];
@@ -25442,7 +25443,8 @@ var VolumeControls = function VolumeControls(props) {
     };
   }, [mouseDown]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    props.setVolume(volume / 100);
+    console.log('Loaded collection volume');
+    props.setVolume(volume);
     sessionStorage.setItem('volume', volume);
     if (volume === 0) setMuted(true);else if (volume > 0 && muted) setMuted(false);
   }, [volume]);
@@ -25458,13 +25460,14 @@ var VolumeControls = function VolumeControls(props) {
   var toggleMute = function toggleMute() {
     if (!muted) {
       //mute it here
+      console.log('MUTING NOW');
       sessionStorage.setItem('preMutedVolume', volume);
       setPreMutedVolume(volume);
       props.setVolume(0);
       setVolume(0);
     } else {
       //unmute it here
-      props.setVolume(preMutedVolume / 100);
+      props.setVolume(preMutedVolume);
       setVolume(preMutedVolume);
       setMuted(false);
     }
@@ -25489,8 +25492,8 @@ var VolumeControls = function VolumeControls(props) {
     value: volume,
     onChange: onChange,
     valueLabelDisplay: "auto",
-    orientation: "vertical",
-    step: 1,
+    orientation: "vertical" //   step={1}
+    ,
     onKeyDown: preventHorizontalKeyboardNavigation,
     onMouseDown: function onMouseDown() {
       setPreVisible(true);
@@ -25647,7 +25650,7 @@ function _arrayWithHoles(arr) {
 
 
 var VolumeControls = function VolumeControls(props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100)),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(sessionStorage.getItem('volume') !== null ? Number(sessionStorage.getItem('volume')) : 100),
       _useState2 = _slicedToArray(_useState, 2),
       volume = _useState2[0],
       setVolume = _useState2[1];
@@ -25657,7 +25660,7 @@ var VolumeControls = function VolumeControls(props) {
       mouseDown = _useState4[0],
       setMouseDown = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100)),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(Number(sessionStorage.getItem('preMutedVolume')) >= 0 ? Number(sessionStorage.getItem('preMutedVolume')) : 100),
       _useState6 = _slicedToArray(_useState5, 2),
       preMutedVolume = _useState6[0],
       setPreMutedVolume = _useState6[1];
@@ -25692,6 +25695,7 @@ var VolumeControls = function VolumeControls(props) {
 
   ;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    console.log('Loaded Mainplayer volume');
     var timer;
     if (!preVisible) timer = setTimeout(function () {
       return setCounter(counter + 1);
@@ -25741,6 +25745,7 @@ var VolumeControls = function VolumeControls(props) {
   var toggleMute = function toggleMute() {
     if (!muted) {
       //mute it here
+      console.log('toggling mute');
       sessionStorage.setItem('preMutedVolume', volume);
       setPreMutedVolume(volume);
       props.setVolume(0);
@@ -25772,8 +25777,8 @@ var VolumeControls = function VolumeControls(props) {
     value: volume,
     onChange: onChange,
     valueLabelDisplay: "auto",
-    orientation: "vertical",
-    step: 1,
+    orientation: "vertical" //   step={1}
+    ,
     onKeyDown: preventHorizontalKeyboardNavigation,
     onMouseDown: function onMouseDown() {
       setPreVisible(true);

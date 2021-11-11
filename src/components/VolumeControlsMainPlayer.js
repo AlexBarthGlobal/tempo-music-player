@@ -7,9 +7,9 @@ import { Slider } from '@mui/material';
 import {setVolumeThunk} from '../redux/playerDispatchers'
 
 const VolumeControls = (props) => {
-    const [volume, setVolume] = useState(Number(sessionStorage.getItem('volume') || Number(sessionStorage.getItem('volume')) == 0 || 100))
+    const [volume, setVolume] = useState(sessionStorage.getItem('volume') !== null ? Number(sessionStorage.getItem('volume')) : 100)
     const [mouseDown, setMouseDown] = useState(false)
-    const [preMutedVolume, setPreMutedVolume] = useState(Number(sessionStorage.getItem('preMutedVolume') || Number(sessionStorage.getItem('preMutedVolume')) == 0 || 100))
+    const [preMutedVolume, setPreMutedVolume] = useState(Number(sessionStorage.getItem('preMutedVolume')) >= 0 ? Number(sessionStorage.getItem('preMutedVolume')) : 100)
     const [muted, setMuted] = useState(false)
     const [preVisible, setPreVisible] = useState(true)
     const [visible, setVisible] = useState(false)
@@ -22,6 +22,7 @@ const VolumeControls = (props) => {
     };
 
     useEffect(() => {
+        console.log('Loaded Mainplayer volume')
         let timer;
         if (!preVisible) timer = setTimeout(() => setCounter(counter + 1), 1000);
         if (!preVisible && counter >= 1) {
@@ -61,6 +62,7 @@ const VolumeControls = (props) => {
 
     const toggleMute = () => {
         if (!muted) { //mute it here
+            console.log('toggling mute')
             sessionStorage.setItem('preMutedVolume', volume);
             setPreMutedVolume(volume);
             props.setVolume(0)
@@ -83,7 +85,7 @@ const VolumeControls = (props) => {
                   onChange={onChange}
                   valueLabelDisplay='auto'
                   orientation='vertical'
-                  step={1}
+                //   step={1}
                   onKeyDown={preventHorizontalKeyboardNavigation}
                   onMouseDown={() => {
                       setPreVisible(true)

@@ -69,7 +69,6 @@ export const fetchUser = () => {
           };
       };
       response.data.listened.songs = listenedSongs;
-      
       dispatch(gotMe(response.data))
     } catch (error) {
       console.log(error)

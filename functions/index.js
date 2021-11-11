@@ -62,7 +62,7 @@ app.use(express.static(path.join(__dirname, './functions'), {
 
 app.use('/login', (req, res) => {
   if (req.isAuthenticated()) res.redirect('/')
-  res.sendFile(path.join(__dirname, './index.html'))
+  else res.sendFile(path.join(__dirname, './index.html'))
 })
 
 app.use('/api', isAuthLogin, api);

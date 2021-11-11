@@ -81,7 +81,7 @@ class Login extends React.Component {
     render() {
         const { uname, pw } = this.state;
         return (
-            <div>
+            <div id='loginOutermostWrapper'>
             
             <div id='loginScreenWrapper'>
                 <h1 id='mainTitle'>Tempo Music Player</h1>

@@ -47,6 +47,7 @@
   <li>Express API routes for db calls with Sequelize (allows making PSQL queries in Javascript)</li>
   <li>Amazon S3 for file hosting</li>
   <li>Firebase for static file hosting and Firebase cloud functions for running Express routes</li>
+  <li>Passport for user authentication and authorization</li>
   <li>Several MUI components, such as sliders, buttons and icons</li>
 </ul>
   

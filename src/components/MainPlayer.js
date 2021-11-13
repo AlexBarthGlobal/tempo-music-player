@@ -107,7 +107,6 @@ class MainPlayer extends React.Component {
     };
 
     render () {
-        console.log('INFO HERE', this.props.musicInfo)
         const audio = <audio src={this.state.currSrc} preload='auto' autoPlay={this.props.playing ? true : false} onEnded={() => {
             this.props.pause();
             this.props.nextTrack();}} loop={this.state.loop} ref={(element) => {this.rap = element}}/>

@@ -20773,7 +20773,6 @@ var MainPlayer = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log('INFO HERE', this.props.musicInfo);
       var audio = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", {
         src: this.state.currSrc,
         preload: "auto",

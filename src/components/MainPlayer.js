@@ -94,8 +94,9 @@ class MainPlayer extends React.Component {
     };
 
     prevTrack = async () => {
+        this.rap.pause();
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx-1]) {
-           await this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
+           this.props.decrementPlayIdx(this.props.musicInfo.activeSession.id);
         } else {
             this.rap.currentTime = 0;
             this.setState({
@@ -106,7 +107,10 @@ class MainPlayer extends React.Component {
     };
 
     render () {
-        const audio = <audio src={this.state.currSrc} preload='auto' autoPlay={this.props.playing ? true : false} onEnded={this.props.nextTrack} loop={this.state.loop} ref={(element) => {this.rap = element}}/>
+        console.log('INFO HERE', this.props.musicInfo)
+        const audio = <audio src={this.state.currSrc} preload='auto' autoPlay={this.props.playing ? true : false} onEnded={() => {
+            this.props.pause();
+            this.props.nextTrack();}} loop={this.state.loop} ref={(element) => {this.rap = element}}/>
 
         const player = this.props.screenStr === 'PlayerScreen' ? 
             <PlayerComponent play={this.props.play} pause={this.props.pause} playing={this.props.playing} prevTrack={this.prevTrack} nextTrack={this.props.nextTrack} currTime={this.rap ? this.state.currentTime : null} duration={this.rap ? this.state.duration : null} seekTime={this.seekTime} toggleLoop={this.toggleLoop} isLooping={this.state.loop} /> : 

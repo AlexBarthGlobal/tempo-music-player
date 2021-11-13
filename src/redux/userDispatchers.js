@@ -81,6 +81,7 @@ export const fetchUser = () => {
 export const addToListenedAndSessionThunk = (song, collectionSessionId) => {
   return async dispatch => {
       try {
+        console.log(song, collectionSessionId)
           const songId = song.id
           await axios.post('/api/addSongToListenedAndSession', {data: {songId, collectionSessionId}})
           dispatch(dispatchAddSongToListened(song));
@@ -114,13 +115,9 @@ export const clearListenedThunk = (listenedId) => {
 };
 
 export const setMetronomeSoundOptionThunk = (boolean) => {
-  return async dispatch => {
-    try {
-      await axios.put('/api/setMetronomeSoundOption', {data:{boolean}})
+  return dispatch => {
+      axios.put('/api/setMetronomeSoundOption', {data:{boolean}})
       dispatch(setMetronomeSoundOption(boolean))
-    } catch (err) {
-      console.log(err)
-    };
   };
 };
 

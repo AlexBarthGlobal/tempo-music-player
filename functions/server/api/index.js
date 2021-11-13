@@ -634,7 +634,7 @@ router.put('/incrementSongPlayed', async (req, res, next) => {
 
 router.post('/addTempoRequest', async (req, res, next) => {
     try {
-        const newTempoRequest = await TempoRequest.create({
+        await TempoRequest.create({
             userId: req.session.passport.user,
             BPM: req.body.selectedBPM,
             collectionId: req.body.collectionId

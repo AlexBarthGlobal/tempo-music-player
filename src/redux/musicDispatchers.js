@@ -260,15 +260,15 @@ export const enqueueSongThunk = () => {
 };
 
 export const incrementPlayIdxThunk = (sessionId) => {
-    return async dispatch => {
-        await axios.put('/api/incrementPlayIdx', {data: sessionId})
+    return dispatch => {
+        axios.put('/api/incrementPlayIdx', {data: sessionId})
         dispatch(incrementPlayIdx())
     }
 }
 
 export const decrementPlayIdxThunk = (sessionId) => {
-    return async dispatch => {
-        await axios.put('/api/decrementPlayIdx', {data: sessionId})
+    return dispatch => {
+        axios.put('/api/decrementPlayIdx', {data: sessionId})
         dispatch(decrementPlayIdx())
     }
 }
@@ -346,12 +346,8 @@ export const removeCollectionThunk = (collectionId, isActiveBool) => {
 };
 
 export const incrementSongPlayedThunk = (songId) => {
-    return async dispatch => {
-        try {
-            await axios.put('/api/incrementSongPlayed', {data: songId});
-        } catch(err) {
-            console.log(err)
-        };
+    return dispatch => {
+        axios.put('/api/incrementSongPlayed', {data: songId});
     };
 };
 

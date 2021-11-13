@@ -153,6 +153,7 @@ class App extends React.Component {
     }
 
     nextTrack = async () => {
+        // this.props.pause();
         if (this.props.musicInfo.activeSession.songs[this.props.playIdx]) {
             if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+2]) this.props.enqueueSong();
             if (!this.props.musicInfo.activeSession.songs[this.props.playIdx+1]) {
@@ -167,10 +168,12 @@ class App extends React.Component {
                 };
             };
             if (this.props.musicInfo.activeSession.songs[this.props.playIdx+1]) {
-                await this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
+                this.props.pause();
+                this.props.incrementPlayIdx(this.props.musicInfo.activeSession.id);
                 this.props.play();
             };
         };
+        // this.props.play();
     };
 
     changeTempoFromModal() {

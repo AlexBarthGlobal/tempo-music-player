@@ -81,7 +81,6 @@ export const fetchUser = () => {
 export const addToListenedAndSessionThunk = (song, collectionSessionId) => {
   return async dispatch => {
       try {
-        console.log(song, collectionSessionId)
           const songId = song.id
           await axios.post('/api/addSongToListenedAndSession', {data: {songId, collectionSessionId}})
           dispatch(dispatchAddSongToListened(song));

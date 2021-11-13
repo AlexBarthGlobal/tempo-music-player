@@ -25575,9 +25575,8 @@ var addToListenedAndSessionThunk = function addToListenedAndSessionThunk(song, c
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              console.log(song, collectionSessionId);
               songId = song.id;
-              _context2.next = 5;
+              _context2.next = 4;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/addSongToListenedAndSession', {
                 data: {
                   songId: songId,
@@ -25585,25 +25584,25 @@ var addToListenedAndSessionThunk = function addToListenedAndSessionThunk(song, c
                 }
               });
 
-            case 5:
+            case 4:
               dispatch(dispatchAddSongToListened(song));
-              _context2.next = 11;
+              _context2.next = 10;
               break;
 
-            case 8:
-              _context2.prev = 8;
+            case 7:
+              _context2.prev = 7;
               _context2.t0 = _context2["catch"](0);
               console.log(_context2.t0);
 
-            case 11:
+            case 10:
               ;
 
-            case 12:
+            case 11:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 8]]);
+      }, _callee2, null, [[0, 7]]);
     }));
 
     return function (_x2) {

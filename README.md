@@ -40,7 +40,7 @@
 <p>Now I have a system which allows me to play songs in a shuffled order, by BPM, and also keeps track of the play history. When songs are played, I add it to a collectionSession db model, which pertains to the session involving the collection, and of the user of who the session belongs to. Now when I choose another collection and play music from there, then come back to the original collection, all I have to do is query the songs from my collectionSession by creation date descending order, and that will give me the play history with my most recently played song at the end of the array, allowing me to resume playback exactly where I left off. I also keep track of a playIdx variable locally and in the db to remember my spot in the playQueue.</p>
 
 <h3>Back-end (specifically DB schema)</h3>
-<p>Models will be capitalized for clarity</p>
+<p>Models will be capitalized for clarity.</p>
 <p>Regarding the db schema, first, there are a bunch of Users. These Users have Collections. The Collections have CollectionSessions, which represent active listening sessions that Users may have that they can resume at any time. These CollectionSessions contain SessionSongs, which are the record of songs having been listened to within each session. CollectionSessions allow 2 or more users to have the same Collection, and listen to it at the same time independent of one another. Users also have Listened(s), which contain ListenedSongs, which is the record of a User having listened to a song (to retrieve their Listened to compare new songs while changing BPMs). Lastly, Collections have many Songs. There are several more associations involving these models but these are the core relationships.</p>
 
 <h2>Technologies and frameworks used</h2>

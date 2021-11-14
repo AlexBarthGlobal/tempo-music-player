@@ -20,6 +20,7 @@
 /functions/secrets.js
 /functions/server/config/config.json
 /functions/server/config/passport.js
+/functions/seed5.js
 
 npm-debug.log*
 notes

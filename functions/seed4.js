@@ -32,16 +32,16 @@ const seed = async () => {
 
         // await turnUp.addSong(mobTies);
 
-        await Song.update(
-            {
-                songURL: 'https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer/154+mob+ties/mob-ties+by+wxlf+Artlist.mp3',
-            },
-            {
-                where: {
-                    id: 1
-                }
-            }
-        )
+        // await Song.update(
+        //     {
+        //         songURL: 'https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer/154+mob+ties/mob-ties+by+wxlf+Artlist.mp3',
+        //     },
+        //     {
+        //         where: {
+        //             id: 1
+        //         }
+        //     }
+        // )
 
         // /////
 
@@ -207,16 +207,16 @@ const seed = async () => {
 
         // await turnUp.addSong(designer);
 
-        await Song.update(
-            {
-                songURL: 'https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer/Designer+152/designer+by+vic-sage+Artlist.mp3',
-            },
-            {
-                where: {
-                    id: 11
-                }
-            }
-        )
+        // await Song.update(
+        //     {
+        //         songURL: 'https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer/Designer+152/designer+by+vic-sage+Artlist.mp3',
+        //     },
+        //     {
+        //         where: {
+        //             id: 11
+        //         }
+        //     }
+        // )
 
         // /////
 

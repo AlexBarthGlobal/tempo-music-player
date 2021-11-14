@@ -38,7 +38,10 @@ export default class ManageBPMSliderAndTap extends React.Component {
                     <BPMTap setLocalBPM={this.setLocalBPM} resetTapPadTrigger={this.state.resetTapPadTrigger} />
                 </div>
                 <div>
-                    <PlayArrow sx={{fontSize: 70}} className='tempoPlayArrow' onClick={() => this.props.handleSubmit(this.state.localBPM)} />
+                    {this.props.isLoading ? <div className='bars2 tempoBars'></div> : <PlayArrow sx={{fontSize: 70}} className='tempoPlayArrow' onClick={() => {
+                        this.props.setLoadingTrue();
+                        this.props.handleSubmit(this.state.localBPM)
+                    }} />}
                 </div>  
             </div>
         )

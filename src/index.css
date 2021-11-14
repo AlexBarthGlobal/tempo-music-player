@@ -222,6 +222,10 @@ svg:hover {
   transition: all 0.10s ease-in;
 }
 
+.tempoBars {
+  margin-top: 26px;
+}
+
 .burgerCross {
   color: white;
 }

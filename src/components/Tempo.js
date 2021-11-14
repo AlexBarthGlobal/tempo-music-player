@@ -13,7 +13,8 @@ class Tempo extends React.Component {
     constructor (props) {
         super()
         this.state = {
-            noMoreMusic: false
+            noMoreMusic: false,
+            loading: false
         };
 
     this.handleChange = this.handleChange.bind(this)
@@ -40,7 +41,7 @@ class Tempo extends React.Component {
             };
             this.props.play();
         } else {
-            this.setState({noMoreMusic: true})
+            this.setState({noMoreMusic: true, loading: false})
         }
     };
 
@@ -99,7 +100,7 @@ class Tempo extends React.Component {
                 <div>
                     <div className='screenTitle confirmBPMTitle'>Confirm BPM:</div>
                     <div className='centerThis'>
-                        <ManageBPMSliderAndTap BPM={this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : 140} metronomeSound={this.props.user.metronomeSound} playing={this.props.playing} handleSubmit={this.handleSubmit} setMetronomeSoundOption={this.props.setMetronomeSoundOption}/>
+                        <ManageBPMSliderAndTap BPM={this.props.musicInfo.collections[this.props.selectedCollection] && this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions.length ? this.props.musicInfo.collections[this.props.selectedCollection].collectionSessions[0].currBPM : 140} metronomeSound={this.props.user.metronomeSound} playing={this.props.playing} handleSubmit={this.handleSubmit} setMetronomeSoundOption={this.props.setMetronomeSoundOption} isLoading={this.state.loading} setLoadingTrue={() => this.setState({loading: true})}/>
                     </div>
                 </div>
             </div>

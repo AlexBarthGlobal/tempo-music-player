@@ -23,6 +23,7 @@
   <li>Amazon S3 for file hosting</li>
   <li>Firebase for static file hosting and Firebase cloud functions for running Express routes</li>
   <li>Passport for user authentication and authorization</li>
+  <li>HTML Audio</li>
   <li>Several MUI components, such as sliders, buttons and icons</li>
   <li>Modals for rendering useful messages and prompts</li>
 </ul>

@@ -66,4 +66,4 @@
 <p>Feel free to reach out to me at Alex@Alexbarthglobal.com if you have any suggestions or contributions you would like to make.</p>
 
 <h2>Music Licensing</h2>
-<p>The license for all music on Tempo has been obtained from https://artlist.io/
+<p>The license for all music on Tempo has been obtained from https://artlist.io/.

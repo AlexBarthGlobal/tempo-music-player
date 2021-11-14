@@ -57,4 +57,4 @@
 <p>Regarding the db schema, first, there are a bunch of Users. These Users have Collections. The Collections have CollectionSessions, which represent active listening sessions that Users may have that they can resume at any time. These CollectionSessions contain SessionSongs, which are the record of Songs having been listened to within each session. CollectionSessions allow 2 or more Users to have the same Collection, and listen to it at the same time independent of one another. Users also have Listened(s), which contain ListenedSongs, which is the record of a User having listened to a Song (to retrieve their Listened to compare new Song(s) while changing BPMs). Lastly, Collections have many Songs. There are several more associations involving these models but these are the core relationships.</p>
 
 <h2>Contributions</h2>
-<p>Feel free to reach out to me at alex@alexbarthglobal.com if you have any suggestions or contributions you would like to make.</p>
+<p>Feel free to reach out to me at Alex@Alexbarthglobal.com if you have any suggestions or contributions you would like to make.</p>

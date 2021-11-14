@@ -13,6 +13,19 @@
   <li>Ability to create and share your collections with other users</li>
 </ul>
 
+<h2>Technologies and frameworks used</h2>
+<ul>
+  <li>Javascript</li>
+  <li>React lifecycle and hook components both used for dynamically loading data into pages</li>
+  <li>Local data managed by Redux</li>
+  <li>PostgreSQL relational database on Heroku</li>
+  <li>Express API routes for db calls with Sequelize (allows making PSQL queries in Javascript)</li>
+  <li>Amazon S3 for file hosting</li>
+  <li>Firebase for static file hosting and Firebase cloud functions for running Express routes</li>
+  <li>Passport for user authentication and authorization</li>
+  <li>Several MUI components, such as sliders, buttons and icons</li>
+</ul>
+
 <h2>Feature explanations</h2>
 
 <p>Playback is always in shuffle mode, and songs are selected only near the current BPM. For example, if you choose a BPM of 120, you will only hear music within the range of 118-123 BPM (2 BPM slower, 3 BPM faster). If there is no more music at 120, Tempo will search for songs slightly faster, and will increment by 1, moving the search range up to 124. Tempo will only do this up to 3 BPM faster, ensuring that you don't hear two songs consecutively in completely different BPM ranges. Tempo speeds up based on the <b>BPM that it's playing at</b>, as opposed to being based on the song that it's playing. For example, Tempo may be playing at 132 BPM and be playing a song that is 135 BPM (because that is within the range), but Tempo will not suddenly play a song that is at 139 (which would be within the range of 136 if 135 were incremented by 1). 139 is significantly faster than 132. However, Tempo may gradually increase to 133 BPM in order to reach a song at 136 BPM, then from there, increment by 1 to 134 to reach a song at 137, and eventually reach a song at 139 BPM in this manner.</p>
@@ -43,17 +56,5 @@
 <p>Models will be capitalized for clarity.</p>
 <p>Regarding the db schema, first, there are a bunch of Users. These Users have Collections. The Collections have CollectionSessions, which represent active listening sessions that Users may have that they can resume at any time. These CollectionSessions contain SessionSongs, which are the record of Songs having been listened to within each session. CollectionSessions allow 2 or more Users to have the same Collection, and listen to it at the same time independent of one another. Users also have Listened(s), which contain ListenedSongs, which is the record of a User having listened to a Song (to retrieve their Listened to compare new Song(s) while changing BPMs). Lastly, Collections have many Songs. There are several more associations involving these models but these are the core relationships.</p>
 
-<h2>Technologies and frameworks used</h2>
-<ul>
-  <li>Javascript</li>
-  <li>React lifecycle and hook components both used for dynamically loading data into pages</li>
-  <li>Local data managed by Redux</li>
-  <li>PostgreSQL relational database on Heroku</li>
-  <li>Express API routes for db calls with Sequelize (allows making PSQL queries in Javascript)</li>
-  <li>Amazon S3 for file hosting</li>
-  <li>Firebase for static file hosting and Firebase cloud functions for running Express routes</li>
-  <li>Passport for user authentication and authorization</li>
-  <li>Several MUI components, such as sliders, buttons and icons</li>
-</ul>
-  
-  
+<h2>Contributions</h2>
+Feel free to email me at Alex@Alexbarthglobal.com if you have any suggestions or contributions you would like to make.

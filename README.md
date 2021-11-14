@@ -5,7 +5,7 @@
 
 <h2>Key features</h2>
 <ul>
-  <li>Plays music based on a BPM that you've selected</li>
+  <li>Plays music based on a BPM that has been selected</li>
   <li>Always in shuffle mode</li>
   <li>Fully responsive and has specific designs for both desktop and mobile devices</li>
   <li>Keeps track of your play queue so you can resume playback across several devices</li>

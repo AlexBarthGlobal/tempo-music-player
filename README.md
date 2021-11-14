@@ -60,7 +60,7 @@
 <p>In retrospect utilization of web sockets could possibly be ideal for this app, but as of now are not being used</p>
 
 <h3>Additional</h3>
-<p1>Tempo is without a manifest.json because background audio playing is currently not supported on iOS devices from a webapp. However, as a normal website, background audio playing is supported.</p1>
+<p1>Tempo is without a manifest.json because background audio playing is currently not supported on iOS devices from a webapp. However, as a normal website, background audio playing is supported (with website in background & device being locked).</p1>
 
 <h2>Contributions</h2>
 <p>Feel free to reach out to me at Alex@Alexbarthglobal.com if you have any suggestions or contributions you would like to make.</p>

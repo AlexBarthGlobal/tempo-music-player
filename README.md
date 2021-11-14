@@ -24,6 +24,7 @@
   <li>Firebase for static file hosting and Firebase cloud functions for running Express routes</li>
   <li>Passport for user authentication and authorization</li>
   <li>Several MUI components, such as sliders, buttons and icons</li>
+  <li>Modals for rendering useful messages and prompts</li>
 </ul>
 
 <h2>Feature explanations</h2>

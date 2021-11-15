@@ -9,7 +9,7 @@
   <li>Plays music based on a BPM that has been selected</li>
   <li>Always in shuffle mode</li>
   <li>Fully responsive and has specific designs for both desktop and mobile devices</li>
-  <li>Keeps track of play queue so playback can be resumed across several devices</li>
+  <li>Keeps track of play queue in DB so playback can be resumed across several devices</li>
   <li>Prevents playing the same song twice within a listening session</li>
   <li>Ability for users to create and share collections with each other</li>
 </ul>

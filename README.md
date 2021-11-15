@@ -1,5 +1,5 @@
 <h1>Tempo Music Player</h1>
-<h4>Live: https://tempo-music-player.web.app/</h4>
+<h4>Live: https://tempo-music-player.web.app</h4>
 
 <p><b>Tempo</b> is a web-based music player where users can create collections of music (akin to playlists) and listen to them according to a BPM that they have selected.</p>
 <img src="https://frado-music-player-bucket.s3.us-east-2.amazonaws.com/TempoMusicPlayer/tempoMusicPlayer.jpg">

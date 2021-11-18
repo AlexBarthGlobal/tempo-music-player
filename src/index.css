@@ -747,6 +747,9 @@ ul {
 #footerControlsBPM {
   cursor: pointer;
   transition: all 0.20s ease-out;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-bottom: 2.2px;
 }
 
 #footerControlsBPM:hover {
@@ -856,7 +859,11 @@ ul {
 }
 
 .playTimeEndTime {
-  padding-top: 2px;
+  /* padding-top: 2px; */
+  min-width: 32px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-bottom: 6px;
 }
 
 .collectionSongImg {

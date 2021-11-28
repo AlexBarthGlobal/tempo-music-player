@@ -21,6 +21,7 @@
 /functions/server/config/config.json
 /functions/server/config/passport.js
 /functions/seed5.js
+/functions/seedEdit.js
 
 npm-debug.log*
 notes

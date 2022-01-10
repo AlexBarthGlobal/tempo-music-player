@@ -31,12 +31,17 @@ class Login extends React.Component {
                 return;
             };
 
+            if (!this.state.pw.length) {
+                this.setState({error: 'Please enter a password.'})
+                return;
+            }
+
             try {
                 await axios.post('/auth/login', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
                 window.location.reload()
                 return;
             } catch (err) {
-                this.setState({error: 'Wrong email/password combination.'})
+                this.setState({error: 'Invalid email/password combination.'})
             }
         } else {    // SIGN UP
             if (!EmailValidator.validate(this.state.uname) || this.state.uname.includes('@tempomusicplayer.io')) {
@@ -84,9 +89,8 @@ class Login extends React.Component {
             <div id='loginOutermostWrapper'>
             
             <div id='loginScreenWrapper'>
-                <h1 id='mainTitle'>Tempo Music Player</h1>
             <div className='loginScreen'>
-                <h1>{this.state.screen === 'login' ? 'Login' : 'Sign Up'}</h1>
+                    <h1 id='mainTitle'>Tempo Music Player</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <Input className='browseSongsInput' 
@@ -94,8 +98,9 @@ class Login extends React.Component {
                                             fontSize: 16,
                                             color: 'white',
                                             ':not($focused)': { borderBottomColor: 'white' },
-                                            ':before': { borderBottomColor: 'grey' },
-                                            ':after': { borderBottomColor: 'white' },
+                                            ':$focused': {borderBottomColor: 'orange'},
+                                            ':before': { borderBottomColor: 'rgb(255 255 255 / 50%)'},
+                                            ':after': { borderBottomColor: 'white' }, 
                                             }} inputProps={{ spellCheck: false }} type='text' name='uname' placeholder='E-mail' onChange={this.handleChange} value={uname} />
                     </div>
                     <div>
@@ -104,7 +109,7 @@ class Login extends React.Component {
                                             fontSize: 16,
                                             color: 'white',
                                             ':not($focused)': { borderBottomColor: 'white' },
-                                            ':before': { borderBottomColor: 'grey' },
+                                            ':before': { borderBottomColor: 'rgb(255 255 255 / 50%)' },
                                             ':after': { borderBottomColor: 'white' },
                                             }} inputProps={{ spellCheck: false }} type={this.state.viewPw ? 'text' : 'password'} name='pw' placeholder='Password' onChange={this.handleChange} value={pw} />
                     </div>

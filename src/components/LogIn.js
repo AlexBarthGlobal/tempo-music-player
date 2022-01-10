@@ -91,10 +91,11 @@ class Login extends React.Component {
             <div id='loginScreenWrapper'>
             <div className='loginScreen'>
                     <h1 id='mainTitle'>Tempo Music Player</h1>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} id='loginForm'>
                     <div>
                         <Input className='browseSongsInput' 
                                         sx={{
+                                            width: '100%',
                                             fontSize: 16,
                                             color: 'white',
                                             ':not($focused)': { borderBottomColor: 'white' },
@@ -106,6 +107,7 @@ class Login extends React.Component {
                     <div>
                         <Input className='browseSongsInput' 
                                         sx={{
+                                            width: '100%',
                                             fontSize: 16,
                                             color: 'white',
                                             ':not($focused)': { borderBottomColor: 'white' },
@@ -113,18 +115,16 @@ class Login extends React.Component {
                                             ':after': { borderBottomColor: 'white' },
                                             }} inputProps={{ spellCheck: false }} type={this.state.viewPw ? 'text' : 'password'} name='pw' placeholder='Password' onChange={this.handleChange} value={pw} />
                     </div>
-                    <div className='modalErrorPadding'>{this.state.error}</div>
+                    <div className='loginErrorPadding'>{this.state.error}</div>
                     <div className='buttonsOnLogin'>
-                        <StyledButton type="submit" title='Submit' value="Submit"/>
-                        <div className='buttonSeparator'></div>
-                        <StyledButton func={this.viewPw} title={this.state.viewPw ? 'Hide password' : 'View password'} />
+                            <StyledButton type="submit" width='100%' title={this.state.screen === 'login' ? 'Log in' : 'Sign up'} value="Submit"/>
                     </div>
                 </form>
-                <div className='spaceBelow'>
-                    <StyledButton title={this.state.screen === 'login' ? 'Sign up instead' : 'Login instead'} func={this.state.screen === 'login' ? () => this.setState({screen: 'signup', error: null}) : () => this.setState({screen: 'login', error: null})} />
-                </div>
-                <div id='bottomLoginButton'>
-                    <StyledButton func={this.enterAsGuest} title='Enter as Guest' />
+                <div id='loginBelowButtons'>
+                    <StyledButton func={this.enterAsGuest} width='100%' title='Enter as Guest' />
+                    <div id='loginAltButtons'>
+                        <span onClick={this.viewPw} className='loginAltButton'>{this.state.viewPw ? 'Hide Password' : 'View Password'}</span><span className='loginAltButton' onClick={this.state.screen === 'login' ? () => this.setState({ screen: 'signup', error: null }) : () => this.setState({ screen: 'login', error: null })}>{this.state.screen === 'login' ? 'Sign up' : 'Log in'}</span>
+                    </div>
                 </div>
             </div>
             </div>

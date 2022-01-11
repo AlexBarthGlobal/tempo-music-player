@@ -102,7 +102,7 @@ a {
   text-align: center;
   /* border: 1px solid #7575756b; */
   border: 1px solid #cac8c878;
-  border-radius: 6.3%;
+  border-radius: 20px;
   width: max(258px, min(400px, 50vw));
   -webkit-box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44); 
   box-shadow: 0px 0px 90px 17px rgba(255,255,255,0.44);

@@ -17,7 +17,7 @@
 <h2>Technologies and frameworks used</h2>
 <ul>
   <li>Javascript</li>
-  <li>React lifecycle and hook components both used for dynamically loading data into pages</li>
+  <li>React lifecycle and hook components both used for asynchronously loading data into pages</li>
   <li>Local data managed by Redux</li>
   <li>PostgreSQL relational database on Heroku</li>
   <li>Express API routes for db calls with Sequelize (allows making PostgresSQL queries in Javascript)</li>

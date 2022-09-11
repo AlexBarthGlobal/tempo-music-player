@@ -23138,7 +23138,9 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 });
 
               case 12:
-                window.location.reload();
+                setTimeout(function () {
+                  window.location.reload();
+                }, 1000);
                 return _context.abrupt("return");
 
               case 16:
@@ -23230,7 +23232,9 @@ var Login = /*#__PURE__*/function (_React$Component) {
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/enterAsGuest');
 
               case 3:
-                window.location.reload();
+                setTimeout(function () {
+                  window.location.reload();
+                }, 1000);
                 _context2.next = 9;
                 break;
 

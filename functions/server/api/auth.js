@@ -244,14 +244,14 @@ router.put('/clearInitialLogin', async (req, res, next) => {
 
 router.get('/logout', isAuthLogin, async (req, res, next) => {
   try {
-    await User.update({
-      recentLogout: new Date()
-    },
-    {
-      where: {
-        id: req.session.passport.user
-      }
-    });
+    // await User.update({
+    //   recentLogout: new Date()
+    // },
+    // {
+    //   where: {
+    //     id: req.session.passport.user
+    //   }
+    // });
 
     req.logout();
     res.redirect('/login')

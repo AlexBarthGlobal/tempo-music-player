@@ -13,7 +13,9 @@ class Login extends React.Component {
             uname: '',
             pw: '',
             error: null,
-            viewPw: false
+            viewPw: false,
+            loading: false,
+            loadingTarget: null
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -36,6 +38,8 @@ class Login extends React.Component {
                 return;
             }
 
+            this.setState({loading: true, loadingTarget: 'loginOrSignup'})
+
             try {
                 await axios.post('/auth/login', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
                 setTimeout(() => {
@@ -44,7 +48,7 @@ class Login extends React.Component {
                 
                 return;
             } catch (err) {
-                this.setState({error: 'Invalid email/password combination.'})
+                this.setState({error: 'Invalid email/password combination.', loading: false, loadingTarget: null});
             }
         } else {    // SIGN UP
             if (!EmailValidator.validate(this.state.uname) || this.state.uname.includes('@tempomusicplayer.io')) {
@@ -57,22 +61,30 @@ class Login extends React.Component {
                 return;
             };
 
+            this.setState({loading: true, loadingTarget: 'loginOrSignup'})
+
             try {
                 await axios.post('/auth/register', {uname: this.state.uname.toLowerCase(), pw: this.state.pw});
-                window.location.reload()
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000)
             } catch(err) {
-                this.setState({error: 'Email already exists.'})
+                this.setState({error: 'Email already exists.', loading: false, loadingTarget: null})
             };
         };
     };
 
     async enterAsGuest() {  // GUEST ENTER
+
+        this.setState({loading: true, loadingTarget: 'enterAsGuest'})
+
         try {
             await axios.post('/auth/enterAsGuest')
             setTimeout(() => {
                 window.location.reload()
             }, 1000)
         } catch (err) {
+            this.setState({loading: false, loadingTarget: null})
             console.log(err)
         };
     };
@@ -122,11 +134,11 @@ class Login extends React.Component {
                     </div>
                     <div className='loginErrorPadding'>{this.state.error}</div>
                     <div className='buttonsOnLogin'>
-                            <StyledButton type="submit" width='100%' title={this.state.screen === 'login' ? 'Log in' : 'Sign up'} value="Submit"/>
+                            <StyledButton height='37px' disabled={this.state.loading} type="submit" width='100%' title={this.state.loadingTarget === 'loginOrSignup' ? <div className='loginLoader'></div> : this.state.screen === 'login' ? 'Log in' : 'Sign up'} value="Submit"/>
                     </div>
                 </form>
                 <div id='loginBelowButtons'>
-                    <StyledButton func={this.enterAsGuest} width='100%' title='Enter as Guest' />
+                    <StyledButton height='37px' disabled={this.state.loading} func={this.enterAsGuest} width='100%' title={this.state.loadingTarget === 'enterAsGuest' ? <div className='loginLoader'></div> : 'Enter as Guest'} />
                     <div id='loginAltButtons'>
                         <span onClick={this.viewPw} className='loginAltButton'>{this.state.viewPw ? 'Hide Password' : 'View Password'}</span><span className='loginAltButton' onClick={this.state.screen === 'login' ? () => this.setState({ screen: 'signup', error: null }) : () => this.setState({ screen: 'login', error: null })}>{this.state.screen === 'login' ? 'Sign up' : 'Log in'}</span>
                     </div>

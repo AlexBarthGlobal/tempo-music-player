@@ -54,7 +54,8 @@ class App extends React.Component {
           registerPw: '',
           registerMessage: '',
           menuOpen: false,
-          initialLoginModal: false
+          initialLoginModal: false,
+          loading: false
         }; 
     
         this.nextTrack = this.nextTrack.bind(this);
@@ -118,12 +119,14 @@ class App extends React.Component {
         if (this.state.recipientEmail === this.props.user.email.toLowerCase()) {
             this.setState({shareConfirmation: `You can't share this with yourself!`});
         } else {
+            this.setState({loading: true});
             try {
                 await axios.post('/api/shareCollection', {collectionId: this.props.selectedCollection, recipientEmail: this.state.recipientEmail.toLowerCase()})
                 this.setState({shareConfirmation: 'Shared successfully.'})
             } catch (err) {
                 this.setState({shareConfirmation: `Recipient doesn't exist!`})
             };
+            this.setState({loading: false});
         };
         
         this.setState({recipientEmail: ''});
@@ -140,8 +143,10 @@ class App extends React.Component {
             return;
         };
         
+        this.setState({loading: true});
         axios.put('/api/incrementModalSignups')
         await this.props.upgradeToUser(this.state.registerUsername.toLowerCase(), this.state.registerPw);
+        this.setState({loading: false});
     };
 
     resetInfo = async () => {
@@ -467,7 +472,7 @@ class App extends React.Component {
                                     {this.state.shareConfirmation}
                                 </div>
                                 <div>
-                                    <StyledButton title='Share' type='submit' />
+                                    <StyledButton disabled={this.state.loading} title='Share' type='submit' />
                                 </div>
                             </form>
                         </div>
@@ -530,7 +535,7 @@ class App extends React.Component {
                                 </div> : null}
                                 <div className='modalText modalErrorPadding'>{this.props.signUpStatusMessage === 'Signed up successfully.' || this.props.signUpStatusMessage === "Email already exists." ? this.props.signUpStatusMessage : this.state.registerMessage}</div>
                                 {this.props.signUpStatusMessage !== 'Signed up successfully.' ? <div>
-                                    <StyledButton type='submit' title='Sign Up' /*disabled={this.state.collectionName.length > 30}*//>
+                                    <StyledButton disabled={this.state.loading} type='submit' title='Sign Up' /*disabled={this.state.collectionName.length > 30}*//>
                                 </div> : null}
                             </form>
                         </div>

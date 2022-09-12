@@ -104,7 +104,9 @@ router.post('/shareCollection', async (req, res, next) => {
             }
         });
 
-        if (!recipient) res.sendStatus(403)
+        if (!recipient) {
+            return res.sendStatus(403)
+        }
 
         const checkIfAlreadyHasCollection = await UserCollection.findOne({
             where: {
@@ -117,10 +119,9 @@ router.post('/shareCollection', async (req, res, next) => {
         if (!checkIfAlreadyHasCollection) {
             const collectionToShare = await Collection.findByPk(req.body.collectionId)
             await recipient.addCollection(collectionToShare)
-            res.status('201').send('Shared successfully.')
-        } else {
-            res.status('201').send('Recipient already has the collection.')
         };
+
+        return res.status('201').send('Shared successfully.')
     } catch (err) {
         next(err)
     }
